@@ -1,20 +1,20 @@
 package dungeonmania;
 
-import dungeonmania.exportStrategyFiles.initialiseArrow;
 import dungeonmania.util.FileLoader;
 import com.google.gson.*;
 import java.util.Map;
 import java.util.List;
 import dungeonmania.util.Position;
-import dungeonmania.Dungeon;
 import java.util.Map;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 
 
 
+	
 
 public class jsonExporter {
-
 
     public Map<String, Entity> makeDungeonMap(String path) {
 
@@ -25,23 +25,31 @@ public class jsonExporter {
 
         try {
             // Json String
-            jsonString = FileLoader.loadResourceFile(path);
+            jsonString = FileLoader.loadResourceFile("/dungeons/advanced.json");
 
             // Convert JSON String to Java map
             Map<String, Object> map = new Gson().fromJson(jsonString, Map.class);
+            System.out.println("Hello");
 
-            List<Map<String, String>> entities = (List<Map<String, String>>)map.get("entities");
+            Map<String, Object> goalConditions = (Map<String, Object>)map.get("goal-condition");
 
-            Map<String, String> goalConditions = (Map<String, String>)map.get("goal-condition");
-            
-            String delimiter = goalConditions.get("goal");
-            
-            String subgoals = (String)goalConditions.get("subgoals");
-            Map<String, Object> subgoalsRev = new Gson().fromJson(subgoals, Map.class);
-            
-            String conditions = delimiter.valueOf("goal");
+            String delimiter = (String) goalConditions.get("goal");
+            System.out.println(delimiter);
 
-    
+            List<Map<String, String>> check = (List<Map<String, String>>) goalConditions.get("subgoals");
+
+            for (int i = 0; i < check.size(); i++) {
+				// CHANGE LATER
+                System.out.println(check.get(i).get("goal"));
+            }
+
+			List<Map<String, String>> entities = (List<Map<String, String>>)map.get("entities");
+		
+        
+		// return null;
+	
+	
+
 
             for (int i = 0; i < entities.size(); i++) {
 
@@ -66,99 +74,109 @@ public class jsonExporter {
                      * Potential Strategy Pattern.
                      */
                     case "wall":
-                        Wall newEntity = new Wall();
-                        break;
+						Wall wall = new Wall(position);
+						result.put(String.valueOf(i), wall);
+						break;
 
-                        // TODO ASK ADAM
-                        /**
-                         * 
-                         * Call Constructor
-                         * Add into result
-                         */
-
-                    case "exit":
-                        initialiseExit(position, result);
-                        break;
+            		case "exit":
+						Exit exit = new Exit(position);
+						result.put(String.valueOf(i), exit);
+						break;
                     
                     case "boulder":
-                        initialiseBoulder(position, result);
-                        break;
+						Boulder boulder = new Boulder(position);
+						result.put(String.valueOf(i), boulder);
+						break;
 
                     case "switch":
-                        initialiseSwitch(position, result);
-                        break;
+						// cant have switch variable name
+						Switch switch_ = new Switch(position);
+						result.put(String.valueOf(i), switch_);
+						break;
 
                     case "door":
-                        initialiseDoor(position, result);
-                        break;
+						Door door = new Door(position);
+						result.put(String.valueOf(i), door);
+						break;
 
                     case "portal":
-                        String colour = currentEntity.get("colour");
-                        initialisePortal(position, colour, result);
-                        break;
+						Portal portal = new Portal(position);
+						result.put(String.valueOf(i), portal);
+						break;
 
                     case "zombie_toast_spawner":
-                        initialiseZombieToastSpawner(position, result);
-                        break;
+						ZombieToastSpawner spawner = new ZombieToastSpawner(position);
+						result.put(String.valueOf(i), spawner);
+						break;
 
                     case "spider":
-                        initialiseSpider(position, result);
-                        break;
+						Spider spider = new Spider(position);
+						result.put(String.valueOf(i), spider);
+						break;
 
                     case "zombie_toast":
-                        initialiseZombieToast(position, result);
-                        break;
+						ZombieToast zombie = new ZombieToast(position);
+						result.put(String.valueOf(i), zombie);
+						break;
 
                     case "mercenary":
-                        initialiseMercenary(position, result);
-                        break;
+						Mercenary merc = new Mercenary(position);
+						result.put(String.valueOf(i), merc);
+						break;
 
                     case "treasure":
-                        initialiseTreasure(position, result);
-                        break;
+						Treasure treasure = new Treasure(position);
+						result.put(String.valueOf(i), treasure);
+						break;
 
                     case "key":
-                        initialiseKey(position, result);
-                        break;
+						Key key = new Key(position);
+						result.put(String.valueOf(i), key);
+						break;
 
                     case "health_potion":
-                        initialiseHealthPotion(position, result;
-                        break;
+						HealthPotion health = new HealthPotion(position);
+						result.put(String.valueOf(i), health);
+						break;
 
                     case "invincibility_potion":
-                        initialiseInvicibilityPotion(position, result);
-                        break;
+						InvincibilityPotion inv = new InvincibilityPotion(position);
+						result.put(String.valueOf(i), inv);
+						break;
 
                     case "invisibility_potion":
-                        initialiseInvisibilityPotion(position, result);
-                        break;
+						InvisibilityPotion inv = new InvisibilityPotion(position);
+						result.put(String.valueOf(i), inv);
+						break;
 
                     case "wood":
-                        initialiseWood(position, result);
-                        break;
+						Wood wood = new Wood(position);
+						result.put(String.valueOf(i), wood);
+						break;
 
                     case "arrow":
-                        initialiseArrow(position), result;
-                        break;
+						Arrow arrow = new Arrow(position);
+						result.put(String.valueOf(i), arrow);
+						break;
 
                     case "bomb":
-                        initialiseBomb(position, result);
-                        break;
+						Bomb bomb = new Bomb(position);
+						result.put(String.valueOf(i), bomb);
+						break;
 
                     case "sword":
-                        initialiseSword(position, result);
-                        break;
+						Sword sword = new Sword(position);
+						result.put(String.valueOf(i), sword);
+						break;
 
                 }
-                public void exportStrategy(position, yCoord);
             }
 
-        }
-        catch (Exception IOException){
+        } catch (Exception IOException) {
 
-        }
+		}
 
-        return map;
+        return result;
     }
 
 }
