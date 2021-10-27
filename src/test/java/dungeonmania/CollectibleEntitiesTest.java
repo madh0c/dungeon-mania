@@ -19,17 +19,21 @@ public class CollectibleEntitiesTest {
         DungeonManiaController controller = new DungeonManiaController();
 
         // create a new game and move the player right
-        controller.newGame("testCollectibles", "peaceful");
+        controller.newGame("testCollectibles", "peaceful");        
         controller.tick("", Direction.RIGHT);
 
-        assertEquals(new ItemResponse("1", "treasure"), controller.getItemInfo("1"));
+        // grab the info of dungeon
+        DungeonResponse dungeonInfo = controller.getDungeonInfo();
+        assertEquals(Arrays.asList(new ItemResponse("1", "treasure")), dungeonInfo.getInventory());
 
         // move player right again
         controller.tick("", Direction.RIGHT);
 
+        // update dungeon response
+        dungeonInfo = controller.getDungeonInfo();
+
         // both objects should be in the inventory
-        assertEquals(new ItemResponse("1", "treasure"), controller.getItemInfo("1"));
-        assertEquals(new ItemResponse("2", "wood"), controller.getItemInfo("2"));
+        assertEquals(Arrays.asList(new ItemResponse("1", "treasure"), new ItemResponse("2", "wood")), dungeonInfo.getInventory());
         
     }
 }
