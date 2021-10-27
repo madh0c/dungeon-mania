@@ -202,6 +202,12 @@ public class MovingEntityTest {
 		Position prevPos1 = controller.getEntity("1").getPosition();
 		Position currPos1 = controller.getEntity("1").getPosition();
 		assertTrue(prevPos1.equals(currPos1));
+
+		Position prevPos2 = controller.getEntity("2").getPosition();
+		Position currPos2 = controller.getEntity("2").getPosition();
+		assertTrue(prevPos2.equals(currPos2));
+
+
 		controller.tick("", Direction.NONE);
 
 		// 1st tick
@@ -209,33 +215,145 @@ public class MovingEntityTest {
 		currPos1 = controller.getEntity("1").getPosition();
 		assertTrue(currPos1.equals(prevPos1.translateBy(Direction.DOWN)));
 		prevPos1 = prevPos1.translateBy(Direction.DOWN);
-		controller.tick("", Direction.NONE);
 
+		// Move spider2 up first
+		currPos2 = controller.getEntity("2").getPosition();
+		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.UP)));
+		prevPos2 = prevPos2.translateBy(Direction.UP);
+
+		controller.tick("", Direction.NONE);
 
 		// 2nd tick
 		// Move spider1 left
+		currPos1 = controller.getEntity("1").getPosition();
+		assertTrue(currPos1.equals(prevPos1.translateBy(Direction.LEFT)));
+		prevPos1 = prevPos1.translateBy(Direction.LEFT);
+
+		// Move spider2 right
+		currPos2 = controller.getEntity("2").getPosition();
+		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.RIGHT)));
+		prevPos2 = prevPos2.translateBy(Direction.RIGHT);
+
+
+		controller.tick("", Direction.NONE);
+
 
 		// 3rd tick
 		// Move spider1 up
+		currPos1 = controller.getEntity("1").getPosition();
+		assertTrue(currPos1.equals(prevPos1.translateBy(Direction.UP)));
+		prevPos1 = prevPos1.translateBy(Direction.UP);
+
+		// Move spider2 down
+		currPos2 = controller.getEntity("2").getPosition();
+		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.DOWN)));
+		prevPos2 = prevPos2.translateBy(Direction.DOWN);
+
+		controller.tick("", Direction.NONE);
 
 		// 4th tick
 		// Move spider1 up
+		currPos1 = controller.getEntity("1").getPosition();
+		assertTrue(currPos1.equals(prevPos1.translateBy(Direction.UP)));
+		prevPos1 = prevPos1.translateBy(Direction.UP);
+
+		// Move spider2 down
+		currPos2 = controller.getEntity("2").getPosition();
+		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.DOWN)));
+		prevPos2 = prevPos2.translateBy(Direction.DOWN);
+
+		controller.tick("", Direction.NONE);
+
 
 		// 5th tick
 		// Don't move spider1
+		currPos1 = controller.getEntity("1").getPosition();
+		assertTrue(currPos1.equals(prevPos1.translateBy(Direction.NONE)));
+		prevPos1 = prevPos1.translateBy(Direction.NONE);
+
+		// Move spider2 left
+		currPos2 = controller.getEntity("2").getPosition();
+		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.LEFT)));
+		prevPos2 = prevPos2.translateBy(Direction.LEFT);
+
+		controller.tick("", Direction.NONE);
 
 		// 6th tick
 		// Move spider1 down
+		currPos1 = controller.getEntity("1").getPosition();
+		assertTrue(currPos1.equals(prevPos1.translateBy(Direction.DOWN)));
+		prevPos1 = prevPos1.translateBy(Direction.DOWN);
+
+		// Don't move spider2
+		currPos2 = controller.getEntity("2").getPosition();
+		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.NONE)));
+		prevPos2 = prevPos2.translateBy(Direction.NONE);
+
+		controller.tick("", Direction.NONE);
 
 		// 7th tick
 		// Move spider1 down
+		currPos1 = controller.getEntity("1").getPosition();
+		assertTrue(currPos1.equals(prevPos1.translateBy(Direction.DOWN)));
+		prevPos1 = prevPos1.translateBy(Direction.DOWN);
+
+		// Move spider2 right
+		currPos2 = controller.getEntity("2").getPosition();
+		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.RIGHT)));
+		prevPos2 = prevPos2.translateBy(Direction.RIGHT);
+
+		controller.tick("", Direction.NONE);
 
 		// 8th tick
 		// Move spider1 right
+		currPos1 = controller.getEntity("1").getPosition();
+		assertTrue(currPos1.equals(prevPos1.translateBy(Direction.RIGHT)));
+		prevPos1 = prevPos1.translateBy(Direction.RIGHT);
+
+		// Move spider2 up
+		currPos2 = controller.getEntity("2").getPosition();
+		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.UP)));
+		prevPos2 = prevPos2.translateBy(Direction.UP);
+
+		controller.tick("", Direction.NONE);
 
 		// 9th tick
 		// Move spider1 right
+		currPos1 = controller.getEntity("1").getPosition();
+		assertTrue(currPos1.equals(prevPos1.translateBy(Direction.RIGHT)));
+		prevPos1 = prevPos1.translateBy(Direction.RIGHT);
 
+		// Move spider up
+		currPos2 = controller.getEntity("2").getPosition();
+		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.UP)));
+		prevPos2 = prevPos2.translateBy(Direction.UP);
 
+		controller.tick("", Direction.NONE);
+
+		// 10th tick
+		// Move spider1 up
+		currPos1 = controller.getEntity("1").getPosition();
+		assertTrue(currPos1.equals(prevPos1.translateBy(Direction.UP)));
+		prevPos1 = prevPos1.translateBy(Direction.UP);
+
+		// Move spider left
+		currPos2 = controller.getEntity("2").getPosition();
+		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.LEFT)));
+		prevPos2 = prevPos2.translateBy(Direction.LEFT);
+
+		controller.tick("", Direction.NONE);
+
+		// 11th tick
+		// Move spider1 up
+		currPos1 = controller.getEntity("1").getPosition();
+		assertTrue(currPos1.equals(prevPos1.translateBy(Direction.UP)));
+		prevPos1 = prevPos1.translateBy(Direction.UP);
+
+		// Don't move spider2
+		currPos2 = controller.getEntity("2").getPosition();
+		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.NONE)));
+		prevPos2 = prevPos2.translateBy(Direction.NONE);
+
+		controller.tick("", Direction.NONE);
 	}
 }
