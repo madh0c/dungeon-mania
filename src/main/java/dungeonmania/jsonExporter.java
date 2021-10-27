@@ -57,13 +57,16 @@ public class jsonExporter {
 
                 Position position = new Position(xCoord, yCoord);
 
+				// entityType == "sword"
+				// IntialiseEntity(entityType);
+
                 switch (entityType) {
                     
                     /**
                      * Potential Strategy Pattern.
                      */
                     case "wall":
-                        initialiseWall(position, result);
+                        Wall newEntity = new Wall();
                         break;
 
                         // TODO ASK ADAM
