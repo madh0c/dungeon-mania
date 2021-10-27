@@ -1,0 +1,11 @@
+{
+    "entities": [
+        {
+            "x": 10,
+            "y": 10,
+            "type": "zombie_toast"
+        }
+    ],
+    "width": 20,
+    "height": 20
+}

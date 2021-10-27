@@ -1,0 +1,57 @@
+{
+    "entities": [
+        {
+            "x": 1,
+            "y": 1,
+            "type": "zombie_toast"
+        },
+        {
+            "x": 4,
+            "y": 1,
+            "type": "zombie_toast"
+        },
+        {
+            "x": 0,
+            "y": 1,
+            "type": "wall"
+        },
+        {
+            "x": 1,
+            "y": 0,
+            "type": "wall"
+        },
+        {
+            "x": 2,
+            "y": 1,
+            "type": "wall"
+        },
+        {
+            "x": 1,
+            "y": 2,
+            "type": "wall"
+        },
+        {
+            "x": 4,
+            "y": 2,
+            "type": "switch"
+        },
+        {
+            "x": 3,
+            "y": 1,
+            "type": "portal",
+			"colour": "BLUE"
+        },
+        {
+            "x": 4,
+            "y": 0,
+            "type": "boulder"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "type": "exit"
+        }
+    ],
+    "width": 6,
+    "height": 3
+}
