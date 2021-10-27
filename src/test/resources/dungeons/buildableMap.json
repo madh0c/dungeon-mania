@@ -1,0 +1,60 @@
+{
+    "width": 5,
+    "height": 5,
+    "entities": [
+        {
+            "x": 0,
+            "y": 0,
+            "type": "player"
+        },
+        {
+            "x": 1,
+            "y": 0,
+            "type": "arrow"
+        },
+        {
+            "x": 1,
+            "y": 1,
+            "type": "wood"
+        },
+        {
+            "x": 2,
+            "y": 0,
+            "type": "arrow"
+        },
+        {
+            "x": 3,
+            "y": 0,
+            "type": "arrow"
+        },
+        {
+            "x": 4,
+            "y": 0,
+            "type": "wood"
+        }, 
+        {
+            "x": 0,
+            "y": 1,
+            "type": "treasure"
+        }, 
+        {
+            "x": 0,
+            "y": 2, 
+            "type": "wood"
+        },
+        {
+            "x": 0,
+            "y": 3,
+            "type": "wood"
+        },
+        {
+            "x": 0,
+            "y": 4,
+            "type": "key",
+            "id": 1
+        }
+    ]
+
+
+
+}
