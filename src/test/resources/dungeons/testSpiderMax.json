@@ -1,0 +1,31 @@
+{
+    "entities": [
+        {
+            "x": 1,
+            "y": 1,
+            "type": "spider"
+        },
+        {
+            "x": 1,
+            "y": 2,
+            "type": "spider"
+        },
+        {
+            "x": 1,
+            "y": 3,
+            "type": "spider"
+        },
+        {
+            "x": 1,
+            "y": 4,
+            "type": "spider"
+        },
+		{
+			"x": 1,
+			"y": 5,
+			"type": "spider"
+		}
+    ],
+    "width": 4,
+    "height": 6
+}

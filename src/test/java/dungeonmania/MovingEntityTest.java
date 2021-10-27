@@ -49,7 +49,7 @@ public class MovingEntityTest {
         // assertTrue(DungeonManiaController.dungeons().size() > 0);
         // assertTrue(DungeonManiaController.dungeons().contains("maze"));
 		DungeonManiaController controller = new DungeonManiaController();
-		controller.newGame("spiderMovement", "standard");
+		controller.newGame("testSpiderMovement", "standard");
 
 		// Original position of spider
 		Position prevPos = controller.getEntity("1").getPosition();
@@ -123,7 +123,7 @@ public class MovingEntityTest {
 	@Test
 	public void testSpiderObstructions() {
 		DungeonManiaController controller = new DungeonManiaController();
-		controller.newGame("spiderObstruction", "standard");
+		controller.newGame("testSpiderObstruction", "standard");
 
 		// Original position of spider
 		Position prevPos = controller.getEntity("1").getPosition();
@@ -196,7 +196,7 @@ public class MovingEntityTest {
 	@Test
 	public void testSpiderBoulders() {
 		DungeonManiaController controller = new DungeonManiaController();
-		controller.newGame("spiderObstruction", "standard");
+		controller.newGame("testSpiderBoulder", "standard");
 
 		// Original position of spider
 		Position prevPos1 = controller.getEntity("1").getPosition();
