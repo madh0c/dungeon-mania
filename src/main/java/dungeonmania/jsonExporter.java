@@ -1,5 +1,28 @@
 package dungeonmania;
 
+import dungeonmania.allEntities.Armour;
+import dungeonmania.allEntities.Arrow;
+import dungeonmania.allEntities.Bomb;
+import dungeonmania.allEntities.Boulder;
+import dungeonmania.allEntities.Bow;
+import dungeonmania.allEntities.Door;
+import dungeonmania.allEntities.Exit;
+import dungeonmania.allEntities.HealthPotion;
+import dungeonmania.allEntities.InvincibilityPotion;
+import dungeonmania.allEntities.InvisibilityPotion;
+import dungeonmania.allEntities.Key;
+import dungeonmania.allEntities.Mercenary;
+import dungeonmania.allEntities.OneRing;
+import dungeonmania.allEntities.Portal;
+import dungeonmania.allEntities.Shield;
+import dungeonmania.allEntities.Spider;
+import dungeonmania.allEntities.Switch;
+import dungeonmania.allEntities.Sword;
+import dungeonmania.allEntities.Treasure;
+import dungeonmania.allEntities.Wall;
+import dungeonmania.allEntities.Wood;
+import dungeonmania.allEntities.ZombieToast;
+import dungeonmania.allEntities.ZombieToastSpawner;
 import dungeonmania.util.FileLoader;
 import com.google.gson.*;
 import java.util.Map;
@@ -100,7 +123,8 @@ public class jsonExporter {
 						break;
 
                     case "portal":
-						Portal portal = new Portal(position);
+						String colour = currentEntity.get("colour");
+						Portal portal = new Portal(position, colour);
 						result.put(String.valueOf(i), portal);
 						break;
 
@@ -140,13 +164,13 @@ public class jsonExporter {
 						break;
 
                     case "invincibility_potion":
-						InvincibilityPotion inv = new InvincibilityPotion(position);
-						result.put(String.valueOf(i), inv);
+						InvincibilityPotion invic = new InvincibilityPotion(position);
+						result.put(String.valueOf(i), invic);
 						break;
 
                     case "invisibility_potion":
-						InvisibilityPotion inv = new InvisibilityPotion(position);
-						result.put(String.valueOf(i), inv);
+						InvisibilityPotion invis = new InvisibilityPotion(position);
+						result.put(String.valueOf(i), invis);
 						break;
 
                     case "wood":
