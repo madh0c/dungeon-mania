@@ -1,12 +1,12 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.Entity;
+import dungeonmania.CollectibleEntity;
 import dungeonmania.util.Position;
 
 
-public class Sword extends Entity {
+public class Sword extends CollectibleEntity {
 
-    int durability;
+    private int durability;
 
     public Sword(Position position) {
         super(position, "sword");

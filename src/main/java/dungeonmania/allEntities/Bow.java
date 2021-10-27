@@ -1,10 +1,10 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.Entity;
+import dungeonmania.CollectibleEntity;
 import dungeonmania.util.Position;
 
 
-public class Bow extends Entity {
+public class Bow extends CollectibleEntity {
 
     public Bow(Position position) {
         super(position, "bow");

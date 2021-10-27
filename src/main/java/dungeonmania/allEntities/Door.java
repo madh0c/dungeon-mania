@@ -6,11 +6,15 @@ import dungeonmania.util.Position;
 
 public class Door extends Entity {
 
-    boolean isOpen;
+    private boolean isOpen;
 
     public Door(Position position) {
         super(position, "door");
         this.isOpen = false;
+    }
+
+    public boolean isOpen() {
+        return this.isOpen;
     }
 
 }

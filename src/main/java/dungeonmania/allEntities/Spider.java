@@ -1,10 +1,10 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.Entity;
+import dungeonmania.MovableEntity;
 import dungeonmania.util.Position;
 
 
-public class Spider extends Entity {
+public class Spider extends MovableEntity {
 
     public Spider(Position position) {
         super(position, "spider");

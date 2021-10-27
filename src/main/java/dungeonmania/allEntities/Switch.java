@@ -6,7 +6,7 @@ import dungeonmania.util.Position;
 
 public class Switch extends Entity {
 
-    boolean isActivated;
+    private boolean isActivated;
 
     public Switch(Position position) {
         super(position, "switch");

@@ -1,10 +1,10 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.Entity;
+import dungeonmania.CollectibleEntity;
 import dungeonmania.util.Position;
 
 
-public class Wood extends Entity {
+public class Wood extends CollectibleEntity {
 
     public Wood(Position position) {
         super(position, "wood");

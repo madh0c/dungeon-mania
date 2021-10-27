@@ -1,16 +1,20 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.Entity;
+import dungeonmania.MovableEntity;
 import dungeonmania.util.Position;
 
 
-public class Mercenary extends Entity {
+public class Mercenary extends MovableEntity {
 
-	boolean isAlly;
+	private boolean isAlly;
 
     public Mercenary(Position position) {
         super(position, "mercenary");
 		this.isAlly = false;
     }
+
+	public boolean getIsAlly() {
+		return this.isAlly;
+	}
 
 }

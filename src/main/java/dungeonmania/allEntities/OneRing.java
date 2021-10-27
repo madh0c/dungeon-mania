@@ -1,10 +1,10 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.Entity;
+import dungeonmania.CollectibleEntity;
 import dungeonmania.util.Position;
 
 
-public class OneRing extends Entity {
+public class OneRing extends CollectibleEntity {
 
     public OneRing(Position position) {
         super(position, "one_ring");
