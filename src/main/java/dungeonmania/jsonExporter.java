@@ -1,34 +1,13 @@
 package dungeonmania;
 
-import dungeonmania.allEntities.Armour;
-import dungeonmania.allEntities.Arrow;
-import dungeonmania.allEntities.Bomb;
-import dungeonmania.allEntities.Boulder;
-import dungeonmania.allEntities.Bow;
-import dungeonmania.allEntities.Door;
-import dungeonmania.allEntities.Exit;
-import dungeonmania.allEntities.HealthPotion;
-import dungeonmania.allEntities.InvincibilityPotion;
-import dungeonmania.allEntities.InvisibilityPotion;
-import dungeonmania.allEntities.Key;
-import dungeonmania.allEntities.Mercenary;
-import dungeonmania.allEntities.OneRing;
-import dungeonmania.allEntities.Portal;
-import dungeonmania.allEntities.Shield;
-import dungeonmania.allEntities.Spider;
-import dungeonmania.allEntities.Switch;
-import dungeonmania.allEntities.Sword;
-import dungeonmania.allEntities.Treasure;
-import dungeonmania.allEntities.Wall;
-import dungeonmania.allEntities.Wood;
-import dungeonmania.allEntities.ZombieToast;
-import dungeonmania.allEntities.ZombieToastSpawner;
+import dungeonmania.allEntities.*;
 import dungeonmania.util.FileLoader;
 import com.google.gson.*;
 import java.util.Map;
 import java.util.List;
 import dungeonmania.util.Position;
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -39,7 +18,7 @@ import java.util.HashMap;
 
 public class jsonExporter {
 
-    public Map<String, Entity> makeDungeonMap(String path) {
+    public static Map<String, Entity> makeDungeonMap(String path) {
 
         String jsonString;
         Map<String, Entity> result = new HashMap<String, Entity>();
@@ -48,7 +27,7 @@ public class jsonExporter {
 
         try {
             // Json String
-            jsonString = FileLoader.loadResourceFile("/dungeons/advanced.json");
+            jsonString = FileLoader.loadResourceFile("/dungeons/" + path + ".json");
 
             // Convert JSON String to Java map
             Map<String, Object> map = new Gson().fromJson(jsonString, Map.class);
@@ -61,17 +40,16 @@ public class jsonExporter {
 
             List<Map<String, String>> check = (List<Map<String, String>>) goalConditions.get("subgoals");
 
+			// CHANGE LATER
+			List<String> goals = new ArrayList<>();
+
             for (int i = 0; i < check.size(); i++) {
-				// CHANGE LATER
-                System.out.println(check.get(i).get("goal"));
+				goals.add(check.get(i).get("goal"));
             }
 
 			List<Map<String, String>> entities = (List<Map<String, String>>)map.get("entities");
 		
-        
-		// return null;
-	
-	
+    
 
 
             for (int i = 0; i < entities.size(); i++) {

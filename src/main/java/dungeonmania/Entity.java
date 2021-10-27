@@ -11,4 +11,12 @@ public abstract class Entity {
         this.position = position;
         this.type = type;
     }
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public String getType() {
+		return type;
+	}
 }

@@ -14,8 +14,6 @@ import java.util.HashMap;
 
 
 public class testJsonExp {
-
-
     public static void main(String[] args) {
 
         String jsonString;

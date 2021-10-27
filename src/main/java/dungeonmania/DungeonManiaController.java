@@ -34,11 +34,6 @@ public class DungeonManiaController {
 
     }
 
-    
-
-
-
-    
 
     public String getSkin() {
         return "default";
@@ -67,8 +62,8 @@ public class DungeonManiaController {
 
     public DungeonResponse newGame(String dungeonName, String gameMode) throws IllegalArgumentException {
 
-        Dungeon newDungeon = new Dungeon(makeDungeonMap("/dungeons/" + dungeonName ".json"), gameMode, );
-
+        Dungeon newDungeon = new Dungeon(jsonExporter.makeDungeonMap(dungeonName), gameMode, "");
+		
         return null;
     }
     
@@ -81,11 +76,12 @@ public class DungeonManiaController {
     }
 
     public List<String> allGames() {
-        ArrayList<String> gameList = new ArrayList<String>();
-        for (game : games) {
-            gameList.add(game.getId);
-        }
-        return new ArrayList<>();
+        // ArrayList<String> gameList = new ArrayList<String>();
+        // for (game : games) {
+        //     gameList.add(game.getId);
+        // }
+        // return new ArrayList<>();
+		return null;
     }
 
     public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
