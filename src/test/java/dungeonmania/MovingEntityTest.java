@@ -2,6 +2,7 @@ package dungeonmania;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -371,7 +372,8 @@ public class MovingEntityTest {
 		// Check if zombie spawns in after 20 ticks
 		for (int i = 0; i < 20; i++) {
 			// Make sure nothing spawns during this time
-			assertThrows(InvalidActionException.class, () -> controller.getEntity("1"));
+			// assertThrows(InvalidActionException.class, () -> controller.getEntity("1"));
+			assertFalse(controller.entityExists("zombie_toast"));
 			controller.tick("", Direction.NONE);
 		}
 
@@ -424,8 +426,26 @@ public class MovingEntityTest {
 		}
 	}
 
-
 	// MERCENARY TESTS
+
+	// Check mercenary spawns in the entry location after 10 ticks
+	@test
+	public void testMercenarySpawn() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testMercenarySpawn", "standard"));
+
+		// Get player out of the way so mercenary can spawn
+		controller.tick("", Direction.RIGHT);
+
+		// For all 10 ticks, the mercenary will not be spawned in yet
+		for (int i = 0; i < 10; i++) {
+			// assertThrows(InvalidActionException.class, () -> controller.getEntity("1"));
+			assertFalse(controller.entityExists("mercenary"));
+			controller.tick("", Direction.NONE);
+		}
+
+
+	}
 
 
 }
