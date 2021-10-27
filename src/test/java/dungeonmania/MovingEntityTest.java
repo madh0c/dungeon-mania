@@ -399,7 +399,28 @@ public class MovingEntityTest {
 			
 			assertTrue(zombiePos1.equals(currPos1));
 			assertTrue(zombiePos2.equals(currPos2));
-			tick("", Direciton.NONE);
+			controller.tick("", Direction.NONE);
+		}
+	}
+
+	// Test that zombie movement works / is random
+	// Not testing randomness, but testing the the zombie moves to a cardinally
+	// adjacent tile
+	@Test
+	public void testZombieMovement() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testZombieMovement", "standard"));
+
+		Position currPos = controller.getEntity("0").getPosition();
+		Position prevPos;
+
+		// For all 10 ticks, all movements will be cardinally adjacent
+		for (int i = 0; i < 10; i++) {
+			controller.tick("", Direction.NONE);
+
+			prevPos = currPos;
+			currPos = controller.getEntity("0").getPosition();
+			assertTrue(Position.isAdjacent(prevPos, currPos));
 		}
 	}
 
