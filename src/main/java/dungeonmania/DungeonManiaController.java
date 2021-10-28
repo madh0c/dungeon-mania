@@ -80,10 +80,11 @@ public class DungeonManiaController {
 			new ArrayList<ItemResponse>(), 
 			newDungeon.getBuildables(),             
 			"" //jsonExporter.getGoals()
-			);
+		);
 
 		lastUsedDungeonId++;
 
+		currentDungeon = newDungeon;
 		games.add(newDungeon);
 		return result;
 	}

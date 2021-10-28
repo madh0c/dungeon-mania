@@ -22,9 +22,7 @@ public class BasicTest {
 
 		Map<String, Entity> ent = jsonExporter.makeDungeonMap("portals");
 		Dungeon dungeon = new Dungeon(0, "portals.json", ent, "Standard", "");
-		assertTrue(dungeon.equals(controller.getDungeon(0)));
-
-        
+		assertTrue(dungeon.equals(controller.getDungeon(0)));        
         
     }
 }
