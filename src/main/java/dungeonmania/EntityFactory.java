@@ -5,7 +5,6 @@ import dungeonmania.util.*;
 
 public class EntityFactory {
 	public Entity createEntity(String type, Position position) {
-		// Hey can we get our lab marked in Dragonfruit?
 		if (type.equals("wall"))
 			return new Wall(position);
 		else if (type.equals("exit"))
