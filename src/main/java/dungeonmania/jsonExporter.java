@@ -71,7 +71,7 @@ public class jsonExporter {
 					Portal portal = new Portal(position, colour);
 					result.put(String.valueOf(i), portal);
 				} else {
-					InitialiseEntity init = new InitialiseEntity();
+					EntityFactory init = new EntityFactory();
 
 					Entity newEntity = init.createEntity(entityType, position);
 

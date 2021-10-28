@@ -3,7 +3,7 @@ package dungeonmania;
 import dungeonmania.allEntities.*;
 import dungeonmania.util.*;
 
-public class InitialiseEntity {
+public class EntityFactory {
 	public Entity createEntity(String type, Position position) {
 		// Hey can we get our lab marked in Dragonfruit?
 		if (type.equals("wall"))
