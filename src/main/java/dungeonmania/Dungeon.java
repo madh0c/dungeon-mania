@@ -1,6 +1,8 @@
 package dungeonmania;
 
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 import dungeonmania.util.*;
 
@@ -8,12 +10,18 @@ import java.util.HashMap;
 
 public class Dungeon {
 
+	private int id;
+	private String name;
+	private List<Entity> inventory;
     private Map<String, Entity> entities;
     private String gameMode;
     private String goals;
 
 
-    public Dungeon(Map<String, Entity> entities, String gameMode, String goals) {
+    public Dungeon(int id, String name, Map<String, Entity> entities, String gameMode, String goals) {
+		this.id = id;
+		this.name = name;	
+		this.inventory = new ArrayList<>();	
         this.entities = entities;
         this.gameMode = gameMode;
         this.goals = goals;
@@ -28,6 +36,18 @@ public class Dungeon {
         this.entities.put(String.valueOf(currentSize), newEntity);
     }
 
+	public int getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public List<Entity> getInventory() {
+		return inventory;
+	}
+
     public String getGameMode() {
         return gameMode;
     }
@@ -35,6 +55,10 @@ public class Dungeon {
     public String getGoals() {
         return goals;
     }
+
+	public Map<String, Entity> getAllEntities() {
+		return entities;
+	}
 
 	public Entity getEntity(String id) {
 		return entities.get(id);
@@ -63,5 +87,42 @@ public class Dungeon {
 			}
 		}
 		return false;
+	}
+
+	public List<String> getBuildables() {
+		List<String> result = new ArrayList<String>();
+
+		int wood = 0;
+		int arrow = 0;
+		int treasure = 0;
+		int key = 0;
+
+		for (Entity item : inventory) {
+			if (item.getType() == "wood") {
+				wood++;
+			}
+
+			if (item.getType() == "arrow") {
+				arrow++;
+			}
+
+			if (item.getType() == "treasure") {
+				treasure++;
+			}
+
+			if (item.getType() == "key") {
+				key++;
+			}
+		}
+
+		if (wood >= 1 && arrow >= 3) {
+			result.add("bow");
+		}
+
+		if (wood >= 2 && (treasure >= 1 || key >= 1)) {
+			result.add("shield");
+		}
+
+		return result;
 	}
 }

@@ -19,4 +19,24 @@ public abstract class Entity {
 	public String getType() {
 		return type;
 	}
+
+    public boolean isInteractable() {
+        return (
+            type == "player"
+            || type == "boulder"
+            || type == "switch"
+            || type == "door"
+            || type == "treasure"
+            || type == "wood"
+            || type == "key"
+            || type == "bomb"
+            || type == "health_potion"
+            || type == "invisibility_potion"
+            || type == "invincibility_potion"
+            || type == "shield"
+            || type == "sword"
+            || type == "armour"
+            || type == "one_ring"            
+        );
+    }
 }

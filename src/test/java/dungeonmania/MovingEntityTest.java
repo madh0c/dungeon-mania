@@ -20,7 +20,7 @@ public class MovingEntityTest {
 	@Test
 	public void testSpiderSpawn() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testSpiderSpawn", "standard"));
+		assertDoesNotThrow(() -> controller.newGame("testSpiderSpawn", "Standard"));
 
 		// Check if spider 1 exists
 		Position spiderPos1 = controller.getEntity("0").getPosition();

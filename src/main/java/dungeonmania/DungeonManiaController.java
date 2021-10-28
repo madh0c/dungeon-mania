@@ -2,16 +2,16 @@ package dungeonmania;
 
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.DungeonResponse;
+import dungeonmania.response.models.EntityResponse;
+import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 import dungeonmania.Entity;
 import dungeonmania.Dungeon;
 import dungeonmania.jsonExporter;
 
-
-
-
 import java.io.IOException;
+import java.lang.ModuleLayer.Controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +27,7 @@ public class DungeonManiaController {
      * ArrayList games: each game is stored as a map of existing entities, with their unique id as the key (stored as an int).
      */
     private List<Dungeon> games =  new ArrayList<>();
+    private int lastUsedDungeonId = 0;
 
     private Dungeon currentDungeon;
 
@@ -61,12 +62,58 @@ public class DungeonManiaController {
     }
 
     public DungeonResponse newGame(String dungeonName, String gameMode) throws IllegalArgumentException {
+        Map<String, Entity> currentMap = jsonExporter.makeDungeonMap(dungeonName);
+        Dungeon newDungeon = new Dungeon(lastUsedDungeonId, dungeonName, currentMap, gameMode, "");
+        
+        List<EntityResponse> entities = new ArrayList<EntityResponse>();
+        for (Map.Entry<String, Entity> entry : currentMap.entrySet()) {
+            Entity currentEntity = entry.getValue();
+            EntityResponse er = new EntityResponse(entry.getKey(), currentEntity.getType(), currentEntity.getPosition(), currentEntity.isInteractable());
+            entities.add(er);
+        }
 
-        Dungeon newDungeon = new Dungeon(jsonExporter.makeDungeonMap(dungeonName), gameMode, "");
-		
-        return null;
+        
+        DungeonResponse result = new DungeonResponse(
+            String.valueOf(newDungeon.getId()), 
+            newDungeon.getName(), 
+            entities, 
+            new ArrayList<ItemResponse>(), 
+            newDungeon.getBuildables(),             
+            "" //jsonExporter.getGoals()
+        );
+        
+        lastUsedDungeonId++;
+
+        return result;
     }
     
+
+    // helper
+    public DungeonResponse getDungeonInfo(int dungeonId) {
+        Dungeon target = null;
+        for (Dungeon dungeon : games) {
+            if (dungeon.getId() == dungeonId) {
+                target = dungeon;
+            }
+        }
+
+        List<EntityResponse> entities = new ArrayList<EntityResponse>();
+        for (Map.Entry<String, Entity> entry : target.getAllEntities().entrySet()) {
+            Entity currentEntity = entry.getValue();
+            EntityResponse er = new EntityResponse(entry.getKey(), currentEntity.getType(), currentEntity.getPosition(), currentEntity.isInteractable());
+            entities.add(er);
+        }
+
+        return new DungeonResponse(
+            String.valueOf(target.getId()), 
+            target.getName(), 
+            entities, 
+            new ArrayList<ItemResponse>(), 
+            target.getBuildables(),             
+            "" //jsonExporter.getGoals()
+        );
+    }
+
     public DungeonResponse saveGame(String name) throws IllegalArgumentException {
         return null;
     }
