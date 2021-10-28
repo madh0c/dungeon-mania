@@ -41,6 +41,8 @@ public class EntityFactory {
 			return new Bomb(position);
 		else if (type.equals("sword"))
 			return new Sword(position);
+		else if (type.equals("player"))
+			return new Player(position);
 
 		return null;
 	}

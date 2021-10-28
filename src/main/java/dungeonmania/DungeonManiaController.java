@@ -112,16 +112,19 @@ public class DungeonManiaController {
 
         List<ItemResponse> inventory = new ArrayList<ItemResponse>();
 
-        return new Dungeon;
-        // return new DungeonResponse(
-        //     String.valueOf(target.getId()), 
-        //     target.getName(), 
-        //     entities, 
-        //     inventory, 
-        //     target.getBuildables(),             
-        //     "" //jsonExporter.getGoals()
-        // );
+        return new DungeonResponse(
+            String.valueOf(target.getId()), 
+            target.getName(), 
+            entities, 
+            inventory, 
+            target.getBuildables(),             
+            "" //jsonExporter.getGoals()
+        );
     }
+
+	public Dungeon getDungeon(int dungeonId) {
+		return games.get(dungeonId);
+	}
 
     public DungeonResponse saveGame(String name) throws IllegalArgumentException {
         return null;

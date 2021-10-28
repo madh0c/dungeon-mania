@@ -15,7 +15,11 @@ import java.util.HashMap;
 public class jsonExporter {
     String goals;
 
-
+	//	result (Map<String, Entity>):
+	// ("0", Player),
+	// ("1", Portal),
+	// ("2", Portal)
+	//
     public static Map<String, Entity> makeDungeonMap(String path) {
 
         String jsonString;
