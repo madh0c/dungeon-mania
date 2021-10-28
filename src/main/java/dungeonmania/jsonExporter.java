@@ -66,112 +66,17 @@ public class jsonExporter {
 
                 Position position = new Position(xCoord, yCoord);
 
-				// entityType == "sword"
-				// IntialiseEntity(entityType);
+				if (entityType.equals("portal")) {
+					String colour = currentEntity.get("colour");
+					Portal portal = new Portal(position, colour);
+					result.put(String.valueOf(i), portal);
+				} else {
+					InitialiseEntity init = new InitialiseEntity();
 
-                switch (entityType) {
-                    
-                    /**
-                     * Potential Strategy Pattern.
-                     */
-                    case "wall":
-						Wall wall = new Wall(position);
-						result.put(String.valueOf(i), wall);
-						break;
+					Entity newEntity = init.createEntity(entityType, position);
 
-            		case "exit":
-						Exit exit = new Exit(position);
-						result.put(String.valueOf(i), exit);
-						break;
-                    
-                    case "boulder":
-						Boulder boulder = new Boulder(position);
-						result.put(String.valueOf(i), boulder);
-						break;
-
-                    case "switch":
-						// cant have switch variable name
-						Switch switch_ = new Switch(position);
-						result.put(String.valueOf(i), switch_);
-						break;
-
-                    case "door":
-						Door door = new Door(position);
-						result.put(String.valueOf(i), door);
-						break;
-
-                    case "portal":
-						String colour = currentEntity.get("colour");
-						Portal portal = new Portal(position, colour);
-						result.put(String.valueOf(i), portal);
-						break;
-
-                    case "zombie_toast_spawner":
-						ZombieToastSpawner spawner = new ZombieToastSpawner(position);
-						result.put(String.valueOf(i), spawner);
-						break;
-
-                    case "spider":
-						Spider spider = new Spider(position);
-						result.put(String.valueOf(i), spider);
-						break;
-
-                    case "zombie_toast":
-						ZombieToast zombie = new ZombieToast(position);
-						result.put(String.valueOf(i), zombie);
-						break;
-
-                    case "mercenary":
-						Mercenary merc = new Mercenary(position);
-						result.put(String.valueOf(i), merc);
-						break;
-
-                    case "treasure":
-						Treasure treasure = new Treasure(position);
-						result.put(String.valueOf(i), treasure);
-						break;
-
-                    case "key":
-						Key key = new Key(position);
-						result.put(String.valueOf(i), key);
-						break;
-
-                    case "health_potion":
-						HealthPotion health = new HealthPotion(position);
-						result.put(String.valueOf(i), health);
-						break;
-
-                    case "invincibility_potion":
-						InvincibilityPotion invic = new InvincibilityPotion(position);
-						result.put(String.valueOf(i), invic);
-						break;
-
-                    case "invisibility_potion":
-						InvisibilityPotion invis = new InvisibilityPotion(position);
-						result.put(String.valueOf(i), invis);
-						break;
-
-                    case "wood":
-						Wood wood = new Wood(position);
-						result.put(String.valueOf(i), wood);
-						break;
-
-                    case "arrow":
-						Arrow arrow = new Arrow(position);
-						result.put(String.valueOf(i), arrow);
-						break;
-
-                    case "bomb":
-						Bomb bomb = new Bomb(position);
-						result.put(String.valueOf(i), bomb);
-						break;
-
-                    case "sword":
-						Sword sword = new Sword(position);
-						result.put(String.valueOf(i), sword);
-						break;
-
-                }
+					result.put(String.valueOf(i), newEntity);
+				}
             }
 
         } catch (Exception IOException) {

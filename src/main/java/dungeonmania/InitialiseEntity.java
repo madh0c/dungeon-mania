@@ -5,95 +5,43 @@ import dungeonmania.util.*;
 
 public class InitialiseEntity {
 	public Entity createEntity(String type, Position position) {
-		switch (type) {
-			case "wall":
-				return new Wall(position);
-			case "exit":
-				return new Exit(position); 
-			case "boulder":
-				return new Boulder(position); 
-			case "switch":
-				return new Switch(position); 
-
-			case "door":
-				Door door = new Door(position);
-				result.put(String.valueOf(i), door);
-				break;
-
-			case "portal":
-				String colour = currentEntity.get("colour");
-				Portal portal = new Portal(position, colour);
-				result.put(String.valueOf(i), portal);
-				break;
-
-			case "zombie_toast_spawner":
-				ZombieToastSpawner spawner = new ZombieToastSpawner(position);
-				result.put(String.valueOf(i), spawner);
-				break;
-
-			case "spider":
-				Spider spider = new Spider(position);
-				result.put(String.valueOf(i), spider);
-				break;
-
-			case "zombie_toast":
-				ZombieToast zombie = new ZombieToast(position);
-				result.put(String.valueOf(i), zombie);
-				break;
-
-			case "mercenary":
-				Mercenary merc = new Mercenary(position);
-				result.put(String.valueOf(i), merc);
-				break;
-
-			case "treasure":
-				Treasure treasure = new Treasure(position);
-				result.put(String.valueOf(i), treasure);
-				break;
-
-			case "key":
-				Key key = new Key(position);
-				result.put(String.valueOf(i), key);
-				break;
-
-			case "health_potion":
-				HealthPotion health = new HealthPotion(position);
-				result.put(String.valueOf(i), health);
-				break;
-
-			case "invincibility_potion":
-				InvincibilityPotion invic = new InvincibilityPotion(position);
-				result.put(String.valueOf(i), invic);
-				break;
-
-			case "invisibility_potion":
-				InvisibilityPotion invis = new InvisibilityPotion(position);
-				result.put(String.valueOf(i), invis);
-				break;
-
-			case "wood":
-				Wood wood = new Wood(position);
-				result.put(String.valueOf(i), wood);
-				break;
-
-			case "arrow":
-				Arrow arrow = new Arrow(position);
-				result.put(String.valueOf(i), arrow);
-				break;
-
-			case "bomb":
-				Bomb bomb = new Bomb(position);
-				result.put(String.valueOf(i), bomb);
-				break;
-
-			case "sword":
-				Sword sword = new Sword(position);
-				result.put(String.valueOf(i), sword);
-				break;
-
-		}
-
-		
+		// Hey can we get our lab marked in Dragonfruit?
+		if (type.equals("wall"))
+			return new Wall(position);
+		else if (type.equals("exit"))
+			return new Exit(position);
+		else if (type.equals("boulder"))
+			return new Boulder(position);	
+		else if (type.equals("switch"))
+			return new Switch(position);
+		else if (type.equals("Door"))
+			return new Door(position);
+		else if (type.equals("zombie_toast_spawner"))
+			return new ZombieToastSpawner(position);
+		else if (type.equals("spider"))
+			return new Spider(position);
+		else if (type.equals("zombie_toast"))
+			return new ZombieToast(position);
+		else if (type.equals("mercenary"))
+			return new Mercenary(position);
+		else if (type.equals("treasure"))
+			return new Treasure(position);
+		else if (type.equals("key"))
+			return new Key(position);
+		else if (type.equals("health_potion"))
+			return new HealthPotion(position);
+		else if (type.equals("invincibility_potion"))
+			return new InvincibilityPotion(position);
+		else if (type.equals("invisibility_potion"))
+			return new InvisibilityPotion(position);
+		else if (type.equals("wood"))
+			return new Wood(position);
+		else if (type.equals("arrow"))
+			return new Arrow(position);
+		else if (type.equals("bomb"))
+			return new Bomb(position);
+		else if (type.equals("sword"))
+			return new Sword(position);
 
 		return null;
 	}
