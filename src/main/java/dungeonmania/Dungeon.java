@@ -125,4 +125,65 @@ public class Dungeon {
 
 		return result;
 	}
+
+	public boolean equals(Object obj) {
+		if (this == null || obj == null) {
+			return false;
+		}
+
+		if (this == obj) {
+			return true;
+		} 
+
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+
+		Dungeon other = (Dungeon) obj;
+
+		if (id != other.getId()) {
+			return false;
+		}
+		
+		if (name == null) {
+			if (other.getName() != null) {
+				return false;
+			}
+		} else if (!name.equals(other.getName())) {
+			return false;
+		}
+
+		if (inventory == null) {
+			if (other.getInventory() != null) {
+				return false;
+			}
+		} else if (!inventory.equals(other.getInventory())) {
+			return false;
+		}
+
+		if (entities == null) {
+			if (other.getAllEntities() != null) {
+				return false;
+			}
+		} else if (!entities.equals(other.getAllEntities())) {
+			return false;
+		}
+
+		if (gameMode == null) {
+			if (other.getGameMode() != null) {
+				return false;
+			}
+		} else if (!gameMode.equals(other.getGameMode())) {
+			return false;
+		}
+
+		if (goals == null) {
+			if (other.getGoals() != null) {
+				return false;
+			}
+		} else if (!goals.equals(other.getGoals())) {
+			return false;
+		}
+		return true;
+	}
 }
