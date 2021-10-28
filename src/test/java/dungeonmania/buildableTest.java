@@ -6,10 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.DungeonResponse;
+import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
+import dungeonmania.util.Position;
 
-public class buildableTest {
+public class BuildableTest {
     //Not enough materials to build bow.
     @Test
     public void testInvalidBuildBow () {
@@ -105,13 +107,13 @@ public class buildableTest {
         controller.tick("", Direction.RIGHT);
         assertDoesNotThrow(() -> controller.build("bow"));
         assertEquals(new ItemResponse("1", "bow"), controller.getItemInfo("1"));
-        //Attack smth
-
-
+        //Both mercenary and player should be on same square
+		assertEquals(25, controller.getEntityInfo("1").getAttackDamage());
+		controller.tick("", Direction.RIGHT);
+		//They start fighting
+			
     }
     
-
-
     //Test shield blocking
     public void testShieldBlock() {
         DungeonManiaController controller = new DungeonManiaController();
@@ -122,7 +124,10 @@ public class buildableTest {
         assertDoesNotThrow(() -> controller.build("shield"));
         assertEquals(new ItemResponse("1", "shield"), controller.getItemInfo("1"));
         //Block smth
+		controller.tick("", Direction.DOWN);
+		controller.tick("", Direction.DOWN);
+		//Both mercenary and player should be on same square
+		
 
-        
     }
 }
