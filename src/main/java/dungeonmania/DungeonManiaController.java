@@ -84,6 +84,8 @@ public class DungeonManiaController {
         
         lastUsedDungeonId++;
 
+        games.add(newDungeon);
+
         return result;
     }
     

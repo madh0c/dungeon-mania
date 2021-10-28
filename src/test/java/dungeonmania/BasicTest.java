@@ -16,5 +16,12 @@ public class BasicTest {
         DungeonManiaController controller = new DungeonManiaController();
         assertDoesNotThrow(() -> controller.newGame("portals.json", "Standard"));
         assertEquals(new DungeonResponse("0", "portals.json", null, null, null, null), controller.getDungeonInfo(0));
+        /**
+         * TODO: instead of using controller.getDungeonInfo(), 
+         * should get the dungeon instance itself (Dungeon dungeon = controller.getDungeon()), then do dungeon.getName
+         * dungeon.getAllEntities(), and make sure each field is correct
+         */
+        
+        
     }
 }
