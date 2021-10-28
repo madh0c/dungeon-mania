@@ -47,7 +47,11 @@ public class jsonExporter {
                 String yString = currentEntity.get("y");
                 int yCoord = Integer.parseInt(yString);
 
-                Position position = new Position(xCoord, yCoord);
+				int zCoord = 0;
+                if (entityType.equals("switch")) {
+                    zCoord = -1;
+                }
+                Position position = new Position(xCoord, yCoord, zCoord);
 
 				if (entityType.equals("portal")) {
 					String colour = currentEntity.get("colour");
