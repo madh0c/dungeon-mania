@@ -88,7 +88,6 @@ public class DungeonManiaController {
         return result;
     }
     
-
     // helper
     public DungeonResponse getDungeonInfo(int dungeonId) {
         Dungeon target = null;
@@ -104,11 +103,6 @@ public class DungeonManiaController {
             EntityResponse er = new EntityResponse(entry.getKey(), currentEntity.getType(), currentEntity.getPosition(), currentEntity.isInteractable());
             entities.add(er);
         }
-        
-        // System.out.println(String.valueOf(target.getId()));
-        // System.out.println(target.getName());
-        // System.out.println(entities);
-        // System.out.println(target.getBuildables());
 
         List<ItemResponse> inventory = new ArrayList<ItemResponse>();
 
