@@ -85,7 +85,6 @@ public class DungeonManiaController {
         lastUsedDungeonId++;
 
         games.add(newDungeon);
-
         return result;
     }
     
@@ -105,12 +104,19 @@ public class DungeonManiaController {
             EntityResponse er = new EntityResponse(entry.getKey(), currentEntity.getType(), currentEntity.getPosition(), currentEntity.isInteractable());
             entities.add(er);
         }
+        
+        // System.out.println(String.valueOf(target.getId()));
+        // System.out.println(target.getName());
+        // System.out.println(entities);
+        // System.out.println(target.getBuildables());
+
+        List<ItemResponse> inventory = new ArrayList<ItemResponse>();
 
         return new DungeonResponse(
             String.valueOf(target.getId()), 
             target.getName(), 
             entities, 
-            new ArrayList<ItemResponse>(), 
+            inventory, 
             target.getBuildables(),             
             "" //jsonExporter.getGoals()
         );

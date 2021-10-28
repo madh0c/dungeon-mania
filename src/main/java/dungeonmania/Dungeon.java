@@ -98,19 +98,19 @@ public class Dungeon {
 		int key = 0;
 
 		for (Entity item : inventory) {
-			if (item.getType() == "wood") {
+			if (item.getType().equals("wood")) {
 				wood++;
 			}
 
-			if (item.getType() == "arrow") {
+			if (item.getType().equals("arrow")) {
 				arrow++;
 			}
 
-			if (item.getType() == "treasure") {
+			if (item.getType().equals("treasure")) {
 				treasure++;
 			}
 
-			if (item.getType() == "key") {
+			if (item.getType().equals("key")) {
 				key++;
 			}
 		}

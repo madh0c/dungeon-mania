@@ -68,7 +68,7 @@ public class jsonExporter {
 
             for (int i = 0; i < subgoals.size(); i++) {
 				goals.add(subgoals.get(i).get("goal"));
-            }
+            } 
 
 
         } catch (Exception IOException) {
