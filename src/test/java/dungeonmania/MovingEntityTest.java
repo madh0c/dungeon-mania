@@ -443,9 +443,20 @@ public class MovingEntityTest {
 			assertFalse(controller.entityExists("mercenary"));
 			controller.tick("", Direction.NONE);
 		}
-
-
 	}
 
+	// Check mercenary moves through portal correctly
+
+	// Check mercenary gets obstructed by
+	// Four walls
+
+
+	// Open space
+
+
+	// Open space, player moves around, merc follows
+
+	// Check mercenary moves straight line towards player before obstruction
+	// After blocked, move player down, make sure merc follows
 
 }
