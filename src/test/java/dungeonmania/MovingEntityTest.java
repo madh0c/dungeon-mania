@@ -463,9 +463,9 @@ public class MovingEntityTest {
 	// Check mercenary gets obstructed by
 	// Four walls
 	@Test
-	public void testFourWalls() {
+	public void testMercenaryFourWalls() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testFourWalls", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryFourWalls", "Standard"));
 
 		// for five ticks, no movement
 		Position position = controller.getDungeon(0).getEntity("0").getPosition();
