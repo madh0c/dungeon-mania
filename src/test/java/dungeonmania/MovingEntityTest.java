@@ -511,7 +511,27 @@ public class MovingEntityTest {
 	public void testMercenaryMovementMoving() {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testMercenaryMovement", "Standard"));
-		// TODO
+		
+		Position mercenary = controller.getDungeon(0).getEntity("1").getPosition();
+
+		// Move player down one
+		controller.tick("", Direction.DOWN);
+
+		// player shouldve moved down, same with merc
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.DOWN)));
+		mercenary = mercenary.translateBy(Direction.DOWN);
+
+		// Move player right, merc should've moved left
+		controller.tick("", Direction.RIGHT);
+
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.LEFT)));
+		mercenary = mercenary.translateBy(Direction.LEFT);
+
+		// Move player down
+		controller.tick("", Direction.DOWN);
+
+		// merc moved down
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.DOWN)));
 
 	}
 
