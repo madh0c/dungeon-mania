@@ -538,7 +538,7 @@ public class MovingEntityTest {
 	// Check mercenary moves straight line towards player before obstruction
 	// After blocked, move player down, make sure merc follows
 	@Test
-	public void testBlocked() {
+	public void testMercenaryBlocked() {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testMercenaryBlocked.json", "Standard"));
 
@@ -558,5 +558,46 @@ public class MovingEntityTest {
 		// Check if player moves down, mercenary moves down 1 too
 		controller.tick("", Direction.DOWN);
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.DOWN)));
+	}
+
+	// Test bribe with 1 gold
+	@Test
+	public void testMercenaryBribe() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryBribe.json", "Standard"));
+	
+		// Pick up gold to right of player
+		controller.tick("", Direction.RIGHT);
+
+		// interact with mercenary
+		controller.interact("1");
+		// check mercenary is an ally
+
+		assertTrue(controller.getDungeon(0).getEntity("1").isAlly());
+
+		// wait for merc to move into player
+		controller.tick("", Direction.NONE);
+
+		// Now merc is on player, check he moves around with player
+		controller.tick("", Direction.DOWN);
+		Position player = controller.getDungeon(0).getEntity("0").getPosition();
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", player));
+
+		controller.tick("", Direction.RIGHT);
+		player = controller.getDungeon(0).getEntity("0").getPosition();
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", player));
+	}
+
+
+	// Test cannot bribe merc, not enough
+	@Test
+	public void testMercenaryCantBribe() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryMovement.json", "Standard"));
+	
+		controller.tick("", Direction.RIGHT);
+		controller.tick("", Direction.RIGHT);
+
+		assertThrows(InvalidActionException.class, () -> controller.interact("mercenary"));
 	}
 }
