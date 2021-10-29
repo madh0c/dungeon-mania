@@ -63,61 +63,7 @@ public class jsonExporter {
 				}
             }
 
-			// "goal-condition": {
-			// 	"goal": "AND",
-			// 	"subgoals": [
-			// 	  {
-			// 		"goal": "AND",
-			//		"subgoals" :[
-			// 		{
-			// 			"goal": "spider"
-			// 		},
-			// 		{
-			// 			"goal": "zombie"
-			// 		}
-			//		]
-			//		},
-			// 	  {
-			// 		"goal": "treasure"
-			// 	  }
-			// 	]
-			//   }
-
-
-			// "goal-condition": {
-			// 	"goal": "AND",
-			// 	"subgoals": [
-			// 	  {
-			// 		"goal": "enemies"
-			// 	  },
-			// 	  {
-			// 		"goal": "treasure"
-			// 	  }
-			// 	]
-			//   }
-			// subgoals is a List<Map<String, Object>>
-
-			//                Map<String, Object> currentEntity = entities.get(i);
-
-			// String entityType = (String)currentEntity.get("type");                
-
-			// Double xDouble = (Double)currentEntity.get("x");
-			// Double yDouble = (Double)currentEntity.get("y");
-            // TODO: Extract Goals
-
             Map<String, Object> goalConditions = (Map<String, Object>)map.get("goal-condition");
-
-            // String delimiter = (String) goalConditions.get("goal");
-
-            // List<Map<String, String>> subgoals = (List<Map<String, String>>) goalConditions.get("subgoals");            
-            
-            // for (int i = 0; i < subgoals.size(); i++) {
-            //     if (i == 0) {
-            //         goals = subgoals.get(i).get("goal");
-            //     } else {
-            //         goals = goals + delimiter + subgoals.get(i).get("goal");
-            //     }			
-            // }
 
 			GoalGoal goal = new GoalGoal(goalConditions.get("goal"));
 			String delim = goal.evaluate();
