@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.Entity;
 
 import java.util.Arrays;
 import java.util.List;
 
+import dungeonmania.allEntities.Player;
 import dungeonmania.response.models.DungeonResponse;
 import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ItemResponse;
@@ -27,14 +27,14 @@ public class CollectibleEntitiesTest {
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
-        DungeonResponse dungeonInfo = controller.getDungeonInfo();
+        DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         assertEquals(Arrays.asList(new ItemResponse("1", "treasure")), dungeonInfo.getInventory());
 
         // move player right again to pickup wood
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // update dungeon response
-        dungeonInfo = controller.getDungeonInfo();
+        dungeonInfo = controller.getDungeonInfo(0);
 
         // both objects should be in the inventory
         assertEquals(Arrays.asList(new ItemResponse("1", "treasure"), new ItemResponse("2", "wood")), dungeonInfo.getInventory());
@@ -43,7 +43,7 @@ public class CollectibleEntitiesTest {
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // update dungeon response
-        dungeonInfo = controller.getDungeonInfo();
+        dungeonInfo = controller.getDungeonInfo(0);
 
         // both objects should be in the inventory
         assertEquals(Arrays.asList(new ItemResponse("1", "treasure"), new ItemResponse("2", "wood"), new ItemResponse("3", "arrow")), dungeonInfo.getInventory());
@@ -59,14 +59,14 @@ public class CollectibleEntitiesTest {
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
-        DungeonResponse dungeonInfo = controller.getDungeonInfo();
+        DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         assertEquals(Arrays.asList(new ItemResponse("1", "key")), dungeonInfo.getInventory());
 
         // move player right again, should encounter another key
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // update dungeon response
-        dungeonInfo = controller.getDungeonInfo();
+        dungeonInfo = controller.getDungeonInfo(0);
 
         // only first key should be in inventory
         assertEquals(Arrays.asList(new ItemResponse("1", "key")), dungeonInfo.getInventory());
@@ -75,10 +75,10 @@ public class CollectibleEntitiesTest {
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // update dungeon response
-        dungeonInfo = controller.getDungeonInfo();
+        dungeonInfo = controller.getDungeonInfo(0);
 
         // get actual dungeon and check the player can move onto the door
-        assertEquals(controller.getDungeon().getPlayerPostion(), new Position(3, 0));       
+        assertEquals(controller.getDungeon(0).getPlayerPosition(), new Position(3, 0));       
 
     }
 
@@ -91,21 +91,21 @@ public class CollectibleEntitiesTest {
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
-        DungeonResponse dungeonInfo = controller.getDungeonInfo();
+        DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         assertEquals(Arrays.asList(new ItemResponse("1", "health_potion")), dungeonInfo.getInventory());
 
-        controller.getDungeon().getPlayer().setHealth(1);
-        assertEquals(1, controller.getDungeon().getPlayer().getHealth());
+        controller.getDungeon(0).getPlayer().setHealth(1);
+        assertEquals(1, controller.getDungeon(0).getPlayer().getHealth());
 
         // move player right again and use health potion, should pickup invis pot
         assertDoesNotThrow(() ->controller.tick("health_potion", Direction.RIGHT));
 
-        Player player = controller.getDungeon().getPlayer();
+        Player player = controller.getDungeon(0).getPlayer();
         // health should be full
         assertEquals(100, player.getHealth());
 
         // update dungeon response
-        dungeonInfo = controller.getDungeonInfo();
+        dungeonInfo = controller.getDungeonInfo(0);
 
         // only invis pot should be in inventory, as health pot got used
         assertEquals(Arrays.asList(new ItemResponse("2", "invisibility_potion")), dungeonInfo.getInventory());
@@ -115,7 +115,7 @@ public class CollectibleEntitiesTest {
         assertTrue(!player.isVisible());
 
         // update dungeon response
-        dungeonInfo = controller.getDungeonInfo();
+        dungeonInfo = controller.getDungeonInfo(0);
 
         assertEquals(Arrays.asList(new ItemResponse("3", "invincibility_potion")), dungeonInfo.getInventory());
 
@@ -135,7 +135,7 @@ public class CollectibleEntitiesTest {
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
-        DungeonResponse dungeonInfo = controller.getDungeonInfo();
+        DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         assertEquals(Arrays.asList(new ItemResponse("1", "bomb")), dungeonInfo.getInventory());
 
         // move to right (pushing the boulder onto the switch)
@@ -145,7 +145,7 @@ public class CollectibleEntitiesTest {
         assertDoesNotThrow(() ->controller.tick("bomb", Direction.NONE));
 
         // update info
-        dungeonInfo = controller.getDungeonInfo();
+        dungeonInfo = controller.getDungeonInfo(0);
 
         // player should be the only entity left
         assertEquals(1, dungeonInfo.getEntities().size());
@@ -160,21 +160,21 @@ public class CollectibleEntitiesTest {
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
-        DungeonResponse dungeonInfo = controller.getDungeonInfo();
+        DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         assertEquals(Arrays.asList(new ItemResponse("1", "sword")), dungeonInfo.getInventory());
 
         // move to right and pickup shield
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
-        dungeonInfo = controller.getDungeonInfo();
+        dungeonInfo = controller.getDungeonInfo(0);
         assertEquals(Arrays.asList(new ItemResponse("1", "sword"), new ItemResponse("2", "shield")), dungeonInfo.getInventory());
 
         // move to right and fight the mercenary
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // TODO: find what the health should be (50 IS WRONG)
-        Player player = controller.getDungeon().getPlayer();
+        Player player = controller.getDungeon(0).getPlayer();
         assertEquals(50, player.getHealth());
     }
 
