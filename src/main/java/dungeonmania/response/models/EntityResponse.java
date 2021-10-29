@@ -31,47 +31,46 @@ public final class EntityResponse {
         return position;
     }
 
-	@Override
-	public boolean equals (Object obj) {
-		if (this == null || obj == null) {
-			return false;
-		}
+    @Override
+    public boolean equals (Object obj) {
+        if (this == null || obj == null) {
+            return false;
+        }
 
-		if (this == obj) {
-			return true;
-		} 
+        if (this == obj) {
+            return true;
+        } 
 
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		EntityResponse other = (EntityResponse) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (type == null) {
-			if (other.type != null) {
-				return false;
-			}
-		} else if (!type.equals(other.type)) {
-			return false;
-		}
-		
-		if (position == null) {
-			if (other.position != null) {
-				return false;
-			}
-		} else if (!position.equals(other.position)) {
-			return false;
-		}
-		if (isInteractable != other.isInteractable){
-			return false;
-		}
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        EntityResponse other = (EntityResponse) obj;
+        if (id == null) {
+            if (other.id != null) {
+                return false;
+            }
+        } else if (!id.equals(other.id)) {
+            return false;
+        }
+        if (type == null) {
+            if (other.type != null) {
+                return false;
+            }
+        } else if (!type.equals(other.type)) {
+            return false;
+        }
 
-		return true;
-	}
+        if (position == null) {
+            if (other.position != null) {
+                return false;
+            }
+        } else if (!position.equals(other.position)) {
+            return false;
+        }
+        if (isInteractable != other.isInteractable){
+            return false;
+        }
 
+        return true;
+    }
 }

@@ -16,6 +16,7 @@ public class Dungeon {
     private Map<String, Entity> entities;
     private String gameMode;
     private String goals;
+	private int historicalEntCount;
 
 
     public Dungeon(int id, String name, Map<String, Entity> entities, String gameMode, String goals) {
@@ -25,6 +26,7 @@ public class Dungeon {
         this.entities = entities;
         this.gameMode = gameMode;
         this.goals = goals;
+		this.historicalEntCount = entities.size();
     }
 
     public Map<String, Entity> getEntities() {
@@ -32,7 +34,8 @@ public class Dungeon {
     }
 
     public void addEntity(Entity newEntity) {
-        this.entities.put(String.valueOf(entities.size()), newEntity);
+        this.entities.put((String.valueOf(historicalEntCount)), newEntity);
+		historicalEntCount++;
     }
 
 	public int getId() {
@@ -54,10 +57,6 @@ public class Dungeon {
     public String getGoals() {
         return goals;
     }
-
-	public Map<String, Entity> getAllEntities() {
-		return entities;
-	}
 
 	public Entity getEntity(String id) {
 		return entities.get(id);
@@ -161,10 +160,10 @@ public class Dungeon {
 		}
 
 		if (entities == null) {
-			if (other.getAllEntities() != null) {
+			if (other.getEntities() != null) {
 				return false;
 			}
-		} else if (!entities.equals(other.getAllEntities())) {
+		} else if (!entities.equals(other.getEntities())) {
 			return false;
 		}
 

@@ -1,5 +1,6 @@
 package dungeonmania;
 
+import dungeonmania.allEntities.*;
 import dungeonmania.util.FileLoader;
 import com.google.gson.*;
 import java.util.Map;
@@ -9,43 +10,50 @@ import java.util.Map;
 import java.util.Arrays;
 import java.util.HashMap;
 
-
-
-
-
 public class testJsonExp {
     public static void main(String[] args) {
 
         String jsonString;
-
+        Map<String, Entity> result = new HashMap<String, Entity>();
 
         try {
             // Json String
-            jsonString = FileLoader.loadResourceFile("/dungeons/advanced.json");
+            jsonString = FileLoader.loadResourceFile("/dungeons/portals.json");
+
 
             // Convert JSON String to Java map
             Map<String, Object> map = new Gson().fromJson(jsonString, Map.class);
-            System.out.println("Hello");
+            List<Map<String, Object>> entities = (List<Map<String, Object>>)map.get("entities");             
 
-            Map<String, String> goalConditions = (Map<String, String>)map.get("goal-condition");
 
-            String delimiter = goalConditions.get("goal");
-            System.out.println(delimiter);
+            for (int i = 0; i < entities.size(); i++) {
 
-            System.out.println((goalConditions.containsKey("subgoals")));
-            //System.out.println((goalConditions.get("subgoals")));
-            System.out.println(goalConditions.values());
-            //System.out.println(goalConditions.values().getClass());
-            List<Map<String, String>> check = (List<Map<String, String>>)Arrays.asList(goalConditions.values().toArray()).get(1);
-            for (int i = 0; i < check.size(); i++) {
-                System.out.println(check.get(i).get("goal"));
+                Map<String, Object> currentEntity = entities.get(i);
+
+                String entityType = (String)currentEntity.get("type");                
+
+                Double xDouble = (Double)currentEntity.get("x");
+                Double yDouble = (Double)currentEntity.get("y");
+                int xCoord = xDouble.intValue();
+                int yCoord = yDouble.intValue();
+
+				int zCoord = 0;
+                if (entityType.equals("switch")) {
+                    zCoord = -1;
+                }
+                Position position = new Position(xCoord, yCoord, zCoord);
+                
+				if (entityType.equals("portal")) {
+					String colour = (String)currentEntity.get("colour");
+					Portal portal = new Portal(position, colour);
+                    
+					result.put(String.valueOf(i), portal);
+				} else {
+					Entity newEntity = EntityFactory.createEntity(entityType, position);
+					result.put(String.valueOf(i), newEntity);
+				}
             }
-
-
-            // System.out.println(goalConditions.get("subgoals").getClass().getSimpleName());
-
-            // System.out.println(subgoals);
-            // Map<String, Object> subgoalsRev = new Gson().fromJson(subgoals, Map.class);
+            
 
         }
         catch (Exception IOException){
