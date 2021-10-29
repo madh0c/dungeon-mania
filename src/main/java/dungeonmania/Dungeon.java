@@ -56,10 +56,6 @@ public class Dungeon {
         return goals;
     }
 
-	public Map<String, Entity> getAllEntities() {
-		return entities;
-	}
-
 	public Entity getEntity(String id) {
 		return entities.get(id);
 	}
@@ -162,10 +158,10 @@ public class Dungeon {
 		}
 
 		if (entities == null) {
-			if (other.getAllEntities() != null) {
+			if (other.getEntities() != null) {
 				return false;
 			}
-		} else if (!entities.equals(other.getAllEntities())) {
+		} else if (!entities.equals(other.getEntities())) {
 			return false;
 		}
 

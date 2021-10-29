@@ -99,13 +99,22 @@ public class DungeonManiaController {
 		}
 
 		List<EntityResponse> entities = new ArrayList<EntityResponse>();
-		for (Map.Entry<String, Entity> entry : target.getAllEntities().entrySet()) {
+		for (Map.Entry<String, Entity> entry : target.getEntities().entrySet()) {
 			Entity currentEntity = entry.getValue();
 			EntityResponse er = new EntityResponse(entry.getKey(), currentEntity.getType(), currentEntity.getPosition(), currentEntity.isInteractable());
 			entities.add(er);
 		}
 
 		List<ItemResponse> inventory = new ArrayList<ItemResponse>();
+
+		/*
+		System.out.println(
+			String.valueOf(target.getId())
+			+ target.getName()
+			+ entities
+			+ inventory
+			+ target.getBuildables()
+		); */
 
 		return new DungeonResponse(
 			String.valueOf(target.getId()), 

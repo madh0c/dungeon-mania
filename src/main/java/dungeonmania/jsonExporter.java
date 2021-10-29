@@ -27,46 +27,43 @@ public class jsonExporter {
 
         try {
             // Json String
-            jsonString = FileLoader.loadResourceFile("/dungeons/" + path + ".json");
+            jsonString = FileLoader.loadResourceFile("/dungeons/" + path);
 
             // Convert JSON String to Java map
             Map<String, Object> map = new Gson().fromJson(jsonString, Map.class);
 
 
-			List<Map<String, String>> entities = (List<Map<String, String>>)map.get("entities"); 
+			List<Map<String, Object>> entities = (List<Map<String, Object>>)map.get("entities"); 
 
             for (int i = 0; i < entities.size(); i++) {
 
-                Map<String,String> currentEntity = entities.get(i);
+                Map<String, Object> currentEntity = entities.get(i);
 
-                String entityType = currentEntity.get("type");
+                String entityType = (String)currentEntity.get("type");                
 
-                String xString = currentEntity.get("x");
-                int xCoord = Integer.parseInt(xString);
-
-                String yString = currentEntity.get("y");
-                int yCoord = Integer.parseInt(yString);
+                Double xDouble = (Double)currentEntity.get("x");
+                Double yDouble = (Double)currentEntity.get("y");
+                int xCoord = xDouble.intValue();
+                int yCoord = yDouble.intValue();
 
 				int zCoord = 0;
                 if (entityType.equals("switch")) {
                     zCoord = -1;
                 }
                 Position position = new Position(xCoord, yCoord, zCoord);
-
+                
 				if (entityType.equals("portal")) {
-					String colour = currentEntity.get("colour");
+					String colour = (String)currentEntity.get("colour");
 					Portal portal = new Portal(position, colour);
+                    
 					result.put(String.valueOf(i), portal);
 				} else {
-					EntityFactory init = new EntityFactory();
-
-					Entity newEntity = init.createEntity(entityType, position);
-
+					Entity newEntity = EntityFactory.createEntity(entityType, position);
 					result.put(String.valueOf(i), newEntity);
 				}
             }
 
-            // CHANGE LATER
+            // TODO: CHANGE LATER
             Map<String, Object> goalConditions = (Map<String, Object>)map.get("goal-condition");
 
             String delimiter = (String) goalConditions.get("goal");
