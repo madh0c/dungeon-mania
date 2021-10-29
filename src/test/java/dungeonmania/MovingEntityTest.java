@@ -429,7 +429,7 @@ public class MovingEntityTest {
 	// MERCENARY TESTS
 
 	// Check mercenary spawns in the entry location after 10 ticks
-	@test
+	@Test
 	public void testMercenarySpawn() {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testMercenarySpawn", "standard"));
