@@ -1,9 +1,14 @@
 package dungeonmania;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
+
+import dungeonmania.allEntities.Player;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.DungeonResponse;
 import dungeonmania.response.models.EntityResponse;
@@ -48,6 +53,7 @@ public class BuildableTest {
     public void testBuildBow() {
         DungeonManiaController controller = new DungeonManiaController();
         controller.newGame("buildableMap", "peaceful");
+		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         //collects one arrow
         controller.tick("", Direction.RIGHT);
         //collects wood
@@ -58,39 +64,39 @@ public class BuildableTest {
         assertThrows(InvalidActionException.class, () -> controller.build("bow"));
         //Has 3 arrows now and bow.
         controller.tick("", Direction.RIGHT);
-        assertEquals(Arrays.asList(new ItemResponse("1", "arrow"), new ItemResponse("2", "wood"), new ItemResponse("3", "arrow"), (new ItemResponse("4", "arrow")), dungeonInfo.getInventory()));
+        assertEquals(Arrays.asList(new ItemResponse("1", "arrow"), new ItemResponse("2", "wood"), new ItemResponse("3", "arrow"), (new ItemResponse("4", "arrow"))), dungeonInfo.getInventory());
         assertDoesNotThrow(() -> controller.build("bow"));
-        assertEquals(new ItemResponse("1", "bow"), controller.getItemInfo("1"));
+        assertEquals(Arrays.asList(new ItemResponse("1", "bow")), dungeonInfo.getInventory());
     }
     //Build a shield with treasure.
     @Test
     public void testBuildShieldTreasure() {
         DungeonManiaController controller = new DungeonManiaController();
         controller.newGame("buildableMap", "peaceful");
+		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         controller.tick("", Direction.DOWN);
         controller.tick("", Direction.DOWN);
         controller.tick("", Direction.DOWN);
         controller.tick("", Direction.DOWN);
         assertDoesNotThrow(() -> controller.build("shield"));
-        assertEquals(new ItemResponse("1", "key"), controller.getItemInfo("1"));
-        assertEquals(new ItemResponse("2", "shield"), controller.getItemInfo("2"));
+        assertEquals(Arrays.asList(new ItemResponse("1", "key"), new ItemResponse("2", "shield")), dungeonInfo.getInventory());
     }
     //Builds a shield with key.
     @Test
     public void testBuildShieldKey() {
         DungeonManiaController controller = new DungeonManiaController();
         controller.newGame("buildableMap", "peaceful");
+		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         controller.tick("", Direction.RIGHT);
-        assertEquals(new ItemResponse("1", "arrow"), controller.getItemInfo("1"));
+        assertEquals(Arrays.asList(new ItemResponse("1", "arrow")), dungeonInfo.getInventory());
         controller.tick("", Direction.DOWN);
         controller.tick("", Direction.DOWN);
         controller.tick("", Direction.LEFT);
-        assertEquals(new ItemResponse("2", "wood"), controller.getItemInfo("2"));
         controller.tick("", Direction.DOWN);
         controller.tick("", Direction.DOWN);
-        assertEquals(new ItemResponse("4", "key"), controller.getItemInfo("4"));
+        assertEquals(Arrays.asList(new ItemResponse("1", "arrow"), new ItemResponse("2", "wood"), new ItemResponse("3", "wood"), new ItemResponse("4", "key")), dungeonInfo.getInventory());
         assertDoesNotThrow(() -> controller.build("shield"));
-        assertEquals(new ItemResponse("2", "shield"), controller.getItemInfo("2"));
+        assertEquals(Arrays.asList(new ItemResponse("1", "arrow"), new ItemResponse("2", "shield")), dungeonInfo.getInventory());
     }
 
     //Test bow damage
@@ -98,16 +104,19 @@ public class BuildableTest {
     public void testBowDamange() {
         DungeonManiaController controller = new DungeonManiaController();
         controller.newGame("buildableMap", "peaceful");
+		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         controller.tick("", Direction.RIGHT);
         controller.tick("", Direction.RIGHT);
         controller.tick("", Direction.RIGHT);
         controller.tick("", Direction.RIGHT);
         assertDoesNotThrow(() -> controller.build("bow"));
-        assertEquals(new ItemResponse("1", "bow"), controller.getItemInfo("1"));
-        //Both mercenary and player should be on same square
-		assertEquals(25, controller.getEntityInfo("1").getAttackDamage());
+		assertEquals(Arrays.asList(new ItemResponse("1", "bow")), dungeonInfo.getInventory());        
+		Player player = controller.getDungeon(0).getPlayer();
+		assertEquals(25, player.getAttackDamage());
+		//Both mercenary and player should be on same square
 		controller.tick("", Direction.RIGHT);
-		//They start fighting
+		
+		// TODO: Simulate a fight between player and mercenary 
 			
     }
     
@@ -115,16 +124,18 @@ public class BuildableTest {
     public void testShieldBlock() {
         DungeonManiaController controller = new DungeonManiaController();
         controller.newGame("buildableMap", "peaceful");
+		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         controller.tick("", Direction.DOWN);
         controller.tick("", Direction.DOWN);
         controller.tick("", Direction.DOWN);
         assertDoesNotThrow(() -> controller.build("shield"));
-        assertEquals(new ItemResponse("1", "shield"), controller.getItemInfo("1"));
+		assertEquals(Arrays.asList(new ItemResponse("1", "shield")), dungeonInfo.getInventory());        
         //Block smth
 		controller.tick("", Direction.DOWN);
 		controller.tick("", Direction.DOWN);
 		//Both mercenary and player should be on same square
 		
+		// TODO: Simulate a fight between player and mercenary 
 
     }
 }

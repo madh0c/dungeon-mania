@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
+import dungeonmania.allEntities.Player;
 import dungeonmania.util.*;
 
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class Dungeon {
     private String gameMode;
     private String goals;
 	private int historicalEntCount;
+	private Player player;
 
 
     public Dungeon(int id, String name, Map<String, Entity> entities, String gameMode, String goals) {
@@ -183,5 +185,9 @@ public class Dungeon {
 			return false;
 		}
 		return true;
+	}
+
+	public Player getPlayer() {
+		return player;
 	}
 }
