@@ -7,8 +7,8 @@ public abstract class CollectableEntity extends Entity {
 
 	private int counter = 0;
 
-    public CollectableEntity(String id, Position position, String type) {
-        super(id, position, type);
+    public CollectableEntity(Position position, String type) {
+        super(position, type);
 		this.counter = counter;
     }
 

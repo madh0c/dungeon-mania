@@ -6,9 +6,8 @@ public abstract class Entity {
     
     Position position;
     String type;
-	String id;
 
-    public Entity(String id, Position position, String type) {
+    public Entity(Position position, String type) {
         this.position = position;
         this.type = type;
     }
@@ -19,10 +18,6 @@ public abstract class Entity {
 
 	public String getType() {
 		return type;
-	}
-
-	public String getId() {
-		return id;
 	}
 
     public boolean isInteractable() {

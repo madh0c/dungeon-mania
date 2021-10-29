@@ -32,7 +32,7 @@ public class Dungeon {
     }
 
     public void addEntity(Entity newEntity) {
-        this.entities.put(newEntity.getId(), newEntity);
+        this.entities.put(String.valueOf(entities.size()), newEntity);
     }
 
 	public int getId() {

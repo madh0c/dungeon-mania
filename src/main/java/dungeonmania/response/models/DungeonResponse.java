@@ -9,7 +9,7 @@ public final class DungeonResponse {
     private final List<EntityResponse> entities;
     private final List<ItemResponse> inventory;
     private final List<String> buildables;
-    private final String goals;
+    private final String goals;	
     private final List<AnimationQueue> animations;
 
     public DungeonResponse(String dungeonId, String dungeonName, List<EntityResponse> entities,
@@ -56,4 +56,6 @@ public final class DungeonResponse {
     public final List<EntityResponse> getEntities() {
         return entities;
     }
+
+	
 }

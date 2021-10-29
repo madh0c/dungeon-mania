@@ -16,4 +16,5 @@ public final class ItemResponse {
     public final String getId() {
         return id;
     }
+
 }
