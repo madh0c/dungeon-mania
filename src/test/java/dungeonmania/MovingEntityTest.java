@@ -520,7 +520,7 @@ public class MovingEntityTest {
 	@Test
 	public void testBlocked() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testBlocked", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryBlocked", "Standard"));
 
 		Position mercenary = controller.getDungeon(0).getEntity("1").getPosition();
 
