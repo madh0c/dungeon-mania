@@ -60,10 +60,13 @@ public final class EntityResponse {
             return false;
         }
 
-        if (position != other.position) {
+        if (position == null) {
+            if (other.position != null) {
+                return false;
+            }
+        } else if (!position.equals(other.position)) {
             return false;
         }
-
         if (isInteractable != other.isInteractable){
             return false;
         }
