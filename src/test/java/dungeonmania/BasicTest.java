@@ -51,23 +51,22 @@ public class BasicTest {
         assertEquals(new ArrayList<String>(), dungeonInfo.getBuildables());
         //assertEquals("enemies AND treasure", dungeonInfo.getGoals());      
         
-        
-        // ideally the below should work after TODO:
-        // DungeonResponse expected = new DungeonResponse(
-        //     "0", 
-        //     "portals.json", 
-        //     Arrays.asList(
-        //         new EntityResponse("0", "player", new Position(0, 0), true),
-        //         new EntityResponse("1", "portal", new Position(1, 0), false),
-        //         new EntityResponse("2", "portal", new Position(4, 0), false)
-        //     ), 
-        //     new ArrayList<ItemResponse>(),
-        //     new ArrayList<String>(), 
-        //     ""
-        // );
+        List<EntityResponse> entityListCheck = new ArrayList<EntityResponse>();
 
-        // assertEquals(expected, controller.getDungeonInfo(0));
+        entityListCheck.add(new EntityResponse("0", "player", new Position(0, 0), true));
+        entityListCheck.add(new EntityResponse("1", "portal", new Position(1, 0), false));
+        entityListCheck.add(new EntityResponse("2", "portal", new Position(4, 0), false));
         
+        DungeonResponse expected = new DungeonResponse (
+            "0", 
+            "portals.json", 
+            entityListCheck, 
+            new ArrayList<ItemResponse>(),
+            new ArrayList<String>(), 
+            ""
+        );
+
+        assertEquals(expected, controller.getDungeonInfo(0));
         
     }
 }
