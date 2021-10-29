@@ -23,7 +23,7 @@ public class CollectibleEntitiesTest {
         DungeonManiaController controller = new DungeonManiaController();
 
         // create a new game and move the player right to pickup treasure
-        assertDoesNotThrow(() -> controller.newGame("testCollectibles1", "Peaceful"));        
+        assertDoesNotThrow(() -> controller.newGame("testCollectibles1.json", "Peaceful"));        
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
@@ -55,7 +55,7 @@ public class CollectibleEntitiesTest {
         DungeonManiaController controller = new DungeonManiaController();
 
         // create a new game and move the player right
-        assertDoesNotThrow(() -> controller.newGame("testCollectiblesKey", "Peaceful"));        
+        assertDoesNotThrow(() -> controller.newGame("testCollectiblesKey.json", "Peaceful"));        
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
@@ -87,7 +87,7 @@ public class CollectibleEntitiesTest {
         DungeonManiaController controller = new DungeonManiaController();
 
         // create a new game and move the player right
-        assertDoesNotThrow(() -> controller.newGame("testCollectiblesPotions", "Standard"));        
+        assertDoesNotThrow(() -> controller.newGame("testCollectiblesPotions.json", "Standard"));        
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
@@ -131,7 +131,7 @@ public class CollectibleEntitiesTest {
         DungeonManiaController controller = new DungeonManiaController();
 
         // create a new game and move the player right
-        assertDoesNotThrow(() -> controller.newGame("testCollectiblesBomb", "Peaceful"));        
+        assertDoesNotThrow(() -> controller.newGame("testCollectiblesBomb.json", "Peaceful"));        
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
@@ -156,7 +156,7 @@ public class CollectibleEntitiesTest {
         DungeonManiaController controller = new DungeonManiaController();
 
         // create a new game and move the player right to pickup sword
-        assertDoesNotThrow(() -> controller.newGame("testCollectiblesSword", "Standard"));        
+        assertDoesNotThrow(() -> controller.newGame("testCollectiblesSword.json", "Standard"));        
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
