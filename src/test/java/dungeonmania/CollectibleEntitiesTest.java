@@ -24,14 +24,14 @@ public class CollectibleEntitiesTest {
 
         // create a new game and move the player right to pickup treasure
         assertDoesNotThrow(() -> controller.newGame("testCollectibles1", "Peaceful"));        
-        assertDoesNotThrow(() ->controller.tick("", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
         DungeonResponse dungeonInfo = controller.getDungeonInfo();
         assertEquals(Arrays.asList(new ItemResponse("1", "treasure")), dungeonInfo.getInventory());
 
         // move player right again to pickup wood
-        assertDoesNotThrow(() ->controller.tick("", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // update dungeon response
         dungeonInfo = controller.getDungeonInfo();
@@ -40,7 +40,7 @@ public class CollectibleEntitiesTest {
         assertEquals(Arrays.asList(new ItemResponse("1", "treasure"), new ItemResponse("2", "wood")), dungeonInfo.getInventory());
 
         // move player right again to pickup arrow
-        assertDoesNotThrow(() ->controller.tick("", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // update dungeon response
         dungeonInfo = controller.getDungeonInfo();
@@ -56,14 +56,14 @@ public class CollectibleEntitiesTest {
 
         // create a new game and move the player right
         assertDoesNotThrow(() -> controller.newGame("testCollectiblesKey", "Peaceful"));        
-        assertDoesNotThrow(() ->controller.tick("", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
         DungeonResponse dungeonInfo = controller.getDungeonInfo();
         assertEquals(Arrays.asList(new ItemResponse("1", "key")), dungeonInfo.getInventory());
 
         // move player right again, should encounter another key
-        assertDoesNotThrow(() ->controller.tick("", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // update dungeon response
         dungeonInfo = controller.getDungeonInfo();
@@ -72,7 +72,7 @@ public class CollectibleEntitiesTest {
         assertEquals(Arrays.asList(new ItemResponse("1", "key")), dungeonInfo.getInventory());
 
         // move player right again, should encounter door
-        assertDoesNotThrow(() ->controller.tick("", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // update dungeon response
         dungeonInfo = controller.getDungeonInfo();
@@ -88,7 +88,7 @@ public class CollectibleEntitiesTest {
 
         // create a new game and move the player right
         assertDoesNotThrow(() -> controller.newGame("testCollectiblesPotions", "Standard"));        
-        assertDoesNotThrow(() ->controller.tick("", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
         DungeonResponse dungeonInfo = controller.getDungeonInfo();
@@ -98,7 +98,7 @@ public class CollectibleEntitiesTest {
         assertEquals(1, controller.getDungeon().getPlayer().getHealth());
 
         // move player right again and use health potion, should pickup invis pot
-        assertDoesNotThrow(() ->controller.tick("health_potion", Dir)ection.RIGHT);
+        assertDoesNotThrow(() ->controller.tick("health_potion", Direction.RIGHT));
 
         Player player = controller.getDungeon().getPlayer();
         // health should be full
@@ -111,7 +111,7 @@ public class CollectibleEntitiesTest {
         assertEquals(Arrays.asList(new ItemResponse("2", "invisibility_potion")), dungeonInfo.getInventory());
 
         // move player right again, should pickup invicible pot
-        assertDoesNotThrow(() ->controller.tick("invisibility_potion)", Direction.RIGHT);
+        assertDoesNotThrow(() ->controller.tick("invisibility_potion)", Direction.RIGHT));
         assertTrue(!player.isVisible());
 
         // update dungeon response
@@ -132,14 +132,14 @@ public class CollectibleEntitiesTest {
 
         // create a new game and move the player right
         assertDoesNotThrow(() -> controller.newGame("testCollectiblesBomb", "Peaceful"));        
-        assertDoesNotThrow(() ->controller.tick("", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
         DungeonResponse dungeonInfo = controller.getDungeonInfo();
         assertEquals(Arrays.asList(new ItemResponse("1", "bomb")), dungeonInfo.getInventory());
 
         // move to right (pushing the boulder onto the switch)
-        assertDoesNotThrow(() ->controller.tick("", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // use the bomb
         assertDoesNotThrow(() ->controller.tick("bomb", Direction.NONE));
@@ -157,21 +157,21 @@ public class CollectibleEntitiesTest {
 
         // create a new game and move the player right to pickup sword
         assertDoesNotThrow(() -> controller.newGame("testCollectiblesSword", "Standard"));        
-        assertDoesNotThrow(() ->controller.tick("", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
         DungeonResponse dungeonInfo = controller.getDungeonInfo();
         assertEquals(Arrays.asList(new ItemResponse("1", "sword")), dungeonInfo.getInventory());
 
         // move to right and pickup shield
-        assertDoesNotThrow(() ->controller.tick("", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // grab the info of dungeon
         dungeonInfo = controller.getDungeonInfo();
         assertEquals(Arrays.asList(new ItemResponse("1", "sword"), new ItemResponse("2", "shield")), dungeonInfo.getInventory());
 
         // move to right and fight the mercenary
-        assertDoesNotThrow(() ->controller.tick("", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // TODO: find what the health should be (50 IS WRONG)
         Player player = controller.getDungeon().getPlayer();
