@@ -21,7 +21,7 @@ public class BuildableTest {
     @Test
     public void testInvalidBuildBow () {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("buildableMap", "peaceful");
+        controller.newGame("buildableMap.json", "peaceful");
         //Has 0 arrows.
         assertThrows(InvalidActionException.class, () -> controller.build("bow"));
         //collects one arrow.
@@ -36,7 +36,7 @@ public class BuildableTest {
     @Test
     public void testInvalidBuildShield() {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("buildableMap", "peaceful");
+        controller.newGame("buildableMap.json", "peaceful");
         //collects treasure
         controller.tick("", Direction.DOWN);
         assertThrows(InvalidActionException.class, () -> controller.build("shield"));
@@ -52,7 +52,7 @@ public class BuildableTest {
     @Test
     public void testBuildBow() {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("buildableMap", "peaceful");
+        controller.newGame("buildableMap.json", "peaceful");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         //collects one arrow
         controller.tick("", Direction.RIGHT);
@@ -72,7 +72,7 @@ public class BuildableTest {
     @Test
     public void testBuildShieldTreasure() {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("buildableMap", "peaceful");
+        controller.newGame("buildableMap.json", "peaceful");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         controller.tick("", Direction.DOWN);
         controller.tick("", Direction.DOWN);
@@ -85,7 +85,7 @@ public class BuildableTest {
     @Test
     public void testBuildShieldKey() {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("buildableMap", "peaceful");
+        controller.newGame("buildableMap.json", "peaceful");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         controller.tick("", Direction.RIGHT);
         assertEquals(Arrays.asList(new ItemResponse("1", "arrow")), dungeonInfo.getInventory());
@@ -103,7 +103,7 @@ public class BuildableTest {
     @Test
     public void testBowDamange() {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("buildableMap", "peaceful");
+        controller.newGame("buildableMap.json", "peaceful");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         controller.tick("", Direction.RIGHT);
         controller.tick("", Direction.RIGHT);
@@ -112,18 +112,17 @@ public class BuildableTest {
         assertDoesNotThrow(() -> controller.build("bow"));
 		assertEquals(Arrays.asList(new ItemResponse("1", "bow")), dungeonInfo.getInventory());        
 		Player player = controller.getDungeon(0).getPlayer();
-		assertEquals(25, player.getAttackDamage());
+		assertEquals(25, player.getAttack());
 		//Both mercenary and player should be on same square
 		controller.tick("", Direction.RIGHT);
-		
-		// TODO: Simulate a fight between player and mercenary 
-			
+		//Simulate a fight between player and mercenary 
+		assertEquals(85, player.getHealth());	
     }
     
     //Test shield blocking
     public void testShieldBlock() {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("buildableMap", "peaceful");
+        controller.newGame("buildableMap.json", "peaceful");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         controller.tick("", Direction.DOWN);
         controller.tick("", Direction.DOWN);
@@ -134,8 +133,9 @@ public class BuildableTest {
 		controller.tick("", Direction.DOWN);
 		controller.tick("", Direction.DOWN);
 		//Both mercenary and player should be on same square
-		
-		// TODO: Simulate a fight between player and mercenary 
+		Player player = controller.getDungeon(0).getPlayer();
+		// Simulate a fight between player and mercenary 
+		assertEquals(89, player.getHealth());
 		
     }
 }
