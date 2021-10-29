@@ -13,7 +13,7 @@ public class EntityFactory {
 			return new Boulder(position);	
 		else if (type.equals("switch"))
 			return new Switch(position);
-		else if (type.equals("Door"))
+		else if (type.equals("door"))
 			return new Door(position);
 		else if (type.equals("zombie_toast_spawner"))
 			return new ZombieToastSpawner(position);
