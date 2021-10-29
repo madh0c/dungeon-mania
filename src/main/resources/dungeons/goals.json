@@ -39,7 +39,16 @@
 							"goal": "exit"
 						}, 
 						{
-							"goal": "switches"
+							"goal": "OR",
+							"subgoals": [
+								{
+									"goal": "bomb"
+								},
+								{
+									"goal": "boulder"
+								}
+
+							]
 						}
 					]
 						
