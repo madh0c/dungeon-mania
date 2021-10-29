@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
+import dungeonmania.allEntities.Player;
 import dungeonmania.util.*;
 
 import java.util.HashMap;
@@ -85,6 +86,32 @@ public class Dungeon {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * @return player's curr position in the dungeon
+	 */
+	public Position getPlayerPosition() {
+		for (Map.Entry<String, Entity> entry : entities.entrySet()) {
+			Entity currentEntity = entry.getValue();
+			if (currentEntity instanceof Player) {
+				return currentEntity.getPosition();
+			}		
+		}
+		return null;
+	}
+
+	/**
+	 * @return the player entity of a dungeon
+	 */
+	public Player getPlayer() {
+		for (Map.Entry<String, Entity> entry : entities.entrySet()) {
+			Entity currentEntity = entry.getValue();
+			if (currentEntity instanceof Player) {
+				return (Player)currentEntity;
+			}		
+		}
+		return null;
 	}
 
 	public List<String> getBuildables() {
