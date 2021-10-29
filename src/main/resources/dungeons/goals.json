@@ -33,7 +33,16 @@
 					"goal": "treasure"
 				},
 				{
-					"goal": "exit"
+					"goal": "AND",
+					"subgoals": [
+						{
+							"goal": "exit"
+						}, 
+						{
+							"goal": "switches"
+						}
+					]
+						
 				}
 			]
           }

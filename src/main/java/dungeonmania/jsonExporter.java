@@ -27,8 +27,6 @@ public class jsonExporter {
 
         try {
             // Json String
-			System.out.println(path);
-
             jsonString = FileLoader.loadResourceFile("/dungeons/" + path);
 
             // Convert JSON String to Java map
@@ -143,7 +141,6 @@ public class jsonExporter {
 
 	public static void main(String[] args) {
 		makeDungeon(0, "goals.json", "standard");
-
 	}
 
 
