@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.List;
 import dungeonmania.util.Position;
 import java.util.Map;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -62,28 +63,31 @@ public class jsonExporter {
 				}
             }
 
-            // TODO: Extract Goals
             Map<String, Object> goalConditions = (Map<String, Object>)map.get("goal-condition");
 
-            String delimiter = (String) goalConditions.get("goal");
+			GoalGoal goal = new GoalGoal(goalConditions.get("goal"));
+			String delim = goal.evaluate();
 
-            List<Map<String, String>> subgoals = (List<Map<String, String>>) goalConditions.get("subgoals");            
-            
-            for (int i = 0; i < subgoals.size(); i++) {
-                if (i == 0) {
-                    goals = subgoals.get(i).get("goal");
-                } else {
-                    goals = goals + delimiter + subgoals.get(i).get("goal");
-                }			
-            }
+			List<Map<String, Object>> sgoal = (List<Map<String, Object>>)goalConditions.get("subgoals");
+			Map<String, Object> sgoal1 = sgoal.get(0);
+			Map<String, Object> sgoal2 = sgoal.get(1);
+
+			GoalSub subgoal1 = new GoalSub(sgoal1);
+			GoalSub subgoal2 = new GoalSub(sgoal2);
+			String subGoal1 = subgoal1.evaluate();
+			String subGoal2 = subgoal2.evaluate();
+			System.out.println(subGoal1 + " " + delim + " " + subGoal2);
 
         } catch (Exception IOException) {
+			System.out.println("error");
 
 		}
-
         return new Dungeon(id, path, dungeonMap, gameMode, goals);
     }
 
+	public static void main(String[] args) {
+		makeDungeon(0, "goals.json", "standard");
+	}
 
 
 }
