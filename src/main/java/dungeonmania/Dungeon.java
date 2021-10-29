@@ -13,11 +13,12 @@ public class Dungeon {
 
 	private int id;
 	private String name;
-	private List<Entity> inventory;
+	private List<CollectableEntity> inventory;
     private Map<String, Entity> entities;
     private String gameMode;
     private String goals;
 	private int historicalEntCount;
+	private Player player;
 
 
     public Dungeon(int id, String name, Map<String, Entity> entities, String gameMode, String goals) {
@@ -47,7 +48,7 @@ public class Dungeon {
 		return name;
 	}
 
-	public List<Entity> getInventory() {
+	public List<CollectableEntity> getInventory() {
 		return inventory;
 	}
 
@@ -211,4 +212,5 @@ public class Dungeon {
 		}
 		return true;
 	}
+
 }

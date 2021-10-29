@@ -1,10 +1,10 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.CollectibleEntity;
+import dungeonmania.CollectableEntity;
 import dungeonmania.util.Position;
 
 
-public class Sword extends CollectibleEntity {
+public class Sword extends CollectableEntity {
 
     private int durability;
 
