@@ -10,80 +10,80 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
-
-
-
-	
+import java.util.HashMap;	
 
 public class jsonExporter {
-
-    public static Map<String, Entity> makeDungeonMap(String path) {
+	//	dungeonMap (Map<String, Entity>):
+	// ("0", Player),
+	// ("1", Portal),
+	// ("2", Portal)
+	//
+    public static Dungeon makeDungeon(int id, String path, String gameMode) {
 
         String jsonString;
-        Map<String, Entity> result = new HashMap<String, Entity>();
-
-
+        Map<String, Entity> dungeonMap = new HashMap<String, Entity>();
+        String goals = "";
 
         try {
             // Json String
-            jsonString = FileLoader.loadResourceFile("/dungeons/" + path + ".json");
+            jsonString = FileLoader.loadResourceFile("/dungeons/" + path);
 
             // Convert JSON String to Java map
             Map<String, Object> map = new Gson().fromJson(jsonString, Map.class);
-            System.out.println("Hello");
 
-            Map<String, Object> goalConditions = (Map<String, Object>)map.get("goal-condition");
 
-            String delimiter = (String) goalConditions.get("goal");
-            System.out.println(delimiter);
-
-            List<Map<String, String>> check = (List<Map<String, String>>) goalConditions.get("subgoals");
-
-			// CHANGE LATER
-			List<String> goals = new ArrayList<>();
-
-            for (int i = 0; i < check.size(); i++) {
-				goals.add(check.get(i).get("goal"));
-            }
-
-			List<Map<String, String>> entities = (List<Map<String, String>>)map.get("entities");
-		
-    
-
+			List<Map<String, Object>> entities = (List<Map<String, Object>>)map.get("entities"); 
 
             for (int i = 0; i < entities.size(); i++) {
 
-                Map<String,String> currentEntity = entities.get(i);
+                Map<String, Object> currentEntity = entities.get(i);
 
-                String entityType = currentEntity.get("type");
+                String entityType = (String)currentEntity.get("type");                
 
-                String xString = currentEntity.get("x");
-                int xCoord = Integer.parseInt(xString);
+                Double xDouble = (Double)currentEntity.get("x");
+                Double yDouble = (Double)currentEntity.get("y");
+                int xCoord = xDouble.intValue();
+                int yCoord = yDouble.intValue();
 
-                String yString = currentEntity.get("y");
-                int yCoord = Integer.parseInt(yString);
-
-                Position position = new Position(xCoord, yCoord);
-
+				int zCoord = 0;
+                if (entityType.equals("switch")) {
+                    zCoord = -1;
+                }
+                Position position = new Position(xCoord, yCoord, zCoord);
+                
 				if (entityType.equals("portal")) {
-					String colour = currentEntity.get("colour");
+					String colour = (String)currentEntity.get("colour");
 					Portal portal = new Portal(position, colour);
-					result.put(String.valueOf(i), portal);
+                    
+					dungeonMap.put(String.valueOf(i), portal);
 				} else {
-					EntityFactory init = new EntityFactory();
-
-					Entity newEntity = init.createEntity(entityType, position);
-
-					result.put(String.valueOf(i), newEntity);
+					Entity newEntity = EntityFactory.createEntity(entityType, position);
+					dungeonMap.put(String.valueOf(i), newEntity);
 				}
+            }
+
+            // TODO: Extract Goals
+            Map<String, Object> goalConditions = (Map<String, Object>)map.get("goal-condition");
+
+            String delimiter = (String) goalConditions.get("goal");
+
+            List<Map<String, String>> subgoals = (List<Map<String, String>>) goalConditions.get("subgoals");            
+            
+            for (int i = 0; i < subgoals.size(); i++) {
+                if (i == 0) {
+                    goals = subgoals.get(i).get("goal");
+                } else {
+                    goals = goals + delimiter + subgoals.get(i).get("goal");
+                }			
             }
 
         } catch (Exception IOException) {
 
 		}
 
-        return result;
+        return new Dungeon(id, path, dungeonMap, gameMode, goals);
     }
+
+
 
 }
