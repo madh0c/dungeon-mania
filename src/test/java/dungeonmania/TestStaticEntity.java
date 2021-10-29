@@ -28,6 +28,9 @@ import java.util.Map;
 public class TestStaticEntity {
     
 	// TODO WALL TESTS
+    /**
+     * A player will try to move into a wall but will be stopped.
+     */
 	@Test
     public void testWallBlocksPlayerMovement() {
         DungeonManiaController controller = new DungeonManiaController();
@@ -38,6 +41,7 @@ public class TestStaticEntity {
 		// Move player into the wall
 		controller.tick(null, Direction.RIGHT);
 
+        // Assert the player doesnt move
         assertEquals(startList, controller.getDungeon().generateListEntityResponse());
     }
 
@@ -50,7 +54,6 @@ public class TestStaticEntity {
     public void testWallBlocksMercenaryMovement() {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testWallBlocksMercenaryMovement.json", "Standard"));
-		
 
         // Assert correct spawn positions
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -182,7 +185,7 @@ public class TestStaticEntity {
 		// Assert the spider coincides with wall
         List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
 
-        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
         EntityResponse expectedWallInfo = new EntityResponse("1", "wall", new Position(5,1), false);
         EntityResponse expectedSpiderInfo = new EntityResponse("2", "spider", new Position(5,1), false);
 
@@ -204,6 +207,16 @@ public class TestStaticEntity {
         DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testPlayerOnExitCompletesGame.json", "Standard"));
 
+        // Assert the spawn positions of all entities.
+        List<EntityResponse> expectedStartList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse startExitInfo = new EntityResponse("1", "exit", new Position(1,0), true);
+
+        expectedStartList.add(startPlayerInfo);
+        expectedStartList.add(startExitInfo);
+        assertEquals(expectedStartList, controller.getDungeon().generateListEntityResponse());
+
         // Move player onto the exit
 		controller.tick(null, Direction.RIGHT);
 
@@ -222,6 +235,20 @@ public class TestStaticEntity {
         DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testPlayerOnExitSubgoalNotSatisfiedI.json", "Standard"));
         
+        // Assert the spawn positions of all entities.
+        List<EntityResponse> expectedStartList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse startExitInfo = new EntityResponse("1", "exit", new Position(1,0), true);
+        EntityResponse startMercenaryInfo = new EntityResponse("2", "mercenary", new Position(8,0), true);
+
+        expectedStartList.add(startPlayerInfo);
+        expectedStartList.add(startExitInfo);
+        expectedStartList.add(startMercenaryInfo);
+
+        assertEquals(expectedStartList, controller.getDungeon().generateListEntityResponse());
+
+
         // Move player onto the exit
 		controller.tick(null, Direction.RIGHT);
 
@@ -240,6 +267,19 @@ public class TestStaticEntity {
         // Example from the specification
         DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testPlayerOnExitSubgoalNotSatisfiedII.json", "Standard"));
+
+        // Assert the spawn positions of all entities.
+        List<EntityResponse> expectedStartList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse startExitInfo = new EntityResponse("1", "exit", new Position(1,0), true);
+        EntityResponse startTreasureInfo = new EntityResponse("2", "treasure", new Position(8,0), true);
+
+        expectedStartList.add(startPlayerInfo);
+        expectedStartList.add(startExitInfo);
+        expectedStartList.add(startTreasureInfo);
+
+        assertEquals(expectedStartList, controller.getDungeon().generateListEntityResponse());
 
         // Move player onto the exit
 		controller.tick(null, Direction.RIGHT);
@@ -806,21 +846,89 @@ public class TestStaticEntity {
 	 */
 	@Test
     public void testTeleportPlayerStandard() {
-        // Task 2
-        // Example from the specification
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testTeleportPlayerStandardDungeon", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testTeleportPlayerStandard.json", "Standard"));
+
+         // Assert correct spawn positions
+         List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+         EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), true);
+         EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(4,0), true);
+ 
+         startList.add(startPlayerInfo);
+         startList.add(startPortal1Info);
+         startList.add(startPortal2Info);
+
+        assertEquals(startList, controller.getDungeon().generateListEntityResponse());
+
+
+        // Tick player.
+		controller.tick(null, Direction.RIGHT);
+
+
+		// Assert the spider coincides with door
+        List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
+
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(5,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), true);
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(4,0), true);
+
+        expectedList.add(expectedPlayerInfo);
+        expectedList.add(expectedPortal1Info);
+        expectedList.add(expectedPortal2Info);
+
+        assertEquals(expectedList, controller.getDungeon().generateListEntityResponse());
     }
 
     /**
-	 * The player will fail to teleport into a wall.
+	 * The player will fail to teleport into a wall but the world will tick
 	 */
 	@Test
     public void testTeleportPlayerIntoWall() {
-        // Task 2
-        // Example from the specification
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testTeleportPlayerIntoWallDungeon", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testTeleportPlayerIntoWall.json", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), true);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(4,0), true);
+        EntityResponse startWallInfo = new EntityResponse("3", "wall", new Position(5,0), true);
+        EntityResponse startSpiderInfo = new EntityResponse("4", "spider", new Position(2,0), true);
+
+
+        startList.add(startPlayerInfo);
+        startList.add(startPortal1Info);
+        startList.add(startPortal2Info);
+        startList.add(startWallInfo);
+        startList.add(startSpiderInfo);
+        
+
+       assertEquals(startList, controller.getDungeon().generateListEntityResponse());
+
+		// Try to move player into the portal
+		controller.tick(null, Direction.RIGHT);
+
+        // Assert he doesnt move but spider ticks
+        // Assert correct spawn positions
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse endPortal1Info = new EntityResponse("1", "portal", new Position(1,0), true);
+        EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(4,0), true);
+        EntityResponse endWallInfo = new EntityResponse("3", "wall", new Position(5,0), true);
+        EntityResponse endSpiderInfo = new EntityResponse("4", "spider", new Position(2,1), true);
+
+
+        endList.add(startPlayerInfo);
+        endList.add(startPortal1Info);
+        endList.add(startPortal2Info);
+        endList.add(startWallInfo);
+        endList.add(endSpiderInfo);
+        
+       assertEquals(endList, controller.getDungeon().generateListEntityResponse());
     }
 
     
@@ -840,10 +948,45 @@ public class TestStaticEntity {
 	 */
 	@Test
     public void testPushBoulderIntoPortal() {
-        // Task 2
-        // Example from the specification
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testPushBoulderIntoPortalDungeon", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testPushBoulderIntoPortal.json", "Standard"));
+
+         // Assert correct spawn positions
+         List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+         EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(2,0), true);
+         EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(5,0), true);
+         EntityResponse startBoulderInfo = new EntityResponse("3", "boulder", new Position(1,0), true);
+ 
+ 
+         startList.add(startPlayerInfo);
+         startList.add(startPortal1Info);
+         startList.add(startPortal2Info);
+         startList.add(startBoulderInfo);
+         
+ 
+        assertEquals(startList, controller.getDungeon().generateListEntityResponse());
+ 
+         // Try to move player into the portal
+         controller.tick(null, Direction.RIGHT);
+ 
+         // Assert he doesnt move but spider ticks
+         // Assert correct spawn positions
+         List<EntityResponse> endList = new ArrayList<EntityResponse>();
+ 
+         EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
+         EntityResponse endPortal1Info = new EntityResponse("1", "portal", new Position(2,0), true);
+         EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(5,0), true);
+         EntityResponse endBoulderInfo = new EntityResponse("3", "boulder", new Position(6,0), true);
+ 
+ 
+         endList.add(startPlayerInfo);
+         endList.add(startPortal1Info);
+         endList.add(startPortal2Info);
+         endList.add(endBoulderInfo);
+         
+        assertEquals(endList, controller.getDungeon().generateListEntityResponse());
     }
 
     /**
@@ -851,10 +994,44 @@ public class TestStaticEntity {
 	 */
 	@Test
     public void testTeleportMercenaryStandard() {
-        // Task 2
-        // Example from the specification
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testTeleportMercenaryStandardDungeon", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testTeleportMercenaryStandard.json", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(2,0), true);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(5,0), true);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), true);
+
+
+        startList.add(startPlayerInfo);
+        startList.add(startPortal1Info);
+        startList.add(startPortal2Info);
+        startList.add(startMercenaryInfo);
+        
+
+       assertEquals(startList, controller.getDungeon().generateListEntityResponse());
+
+        // Make mercenary follow player into a portal
+        controller.tick(null, Direction.LEFT);
+
+        // Assert the mercenary maintains momentum through the portal
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(9,0), true);
+        EntityResponse endPortal1Info = new EntityResponse("1", "portal", new Position(2,0), true);
+        EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(5,0), true);
+        EntityResponse endMercenaryInfo = new EntityResponse("3", "mercenary", new Position(6,0), true);
+
+
+        endList.add(startPlayerInfo);
+        endList.add(startPortal1Info);
+        endList.add(startPortal2Info);
+        endList.add(endMercenaryInfo);
+        
+       assertEquals(endList, controller.getDungeon().generateListEntityResponse());
     }
 
     /**
@@ -862,10 +1039,48 @@ public class TestStaticEntity {
 	 */
 	@Test
     public void testTeleportMercenaryIntoWall() {
-        // Task 2
-        // Example from the specification
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testTeleportMercenaryIntoWallDungeon", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testTeleportMercenaryIntoWall.json", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(2,0), true);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(5,0), true);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), true);
+        EntityResponse startWallInfo = new EntityResponse("4", "wall", new Position(6,0), false);
+
+        startList.add(startPlayerInfo);
+        startList.add(startPortal1Info);
+        startList.add(startPortal2Info);
+        startList.add(startMercenaryInfo);
+        startList.add(startWallInfo);
+
+        
+
+       assertEquals(startList, controller.getDungeon().generateListEntityResponse());
+
+        // Make mercenary follow player into a portal
+        controller.tick(null, Direction.LEFT);
+
+        // Assert the mercenary does not go through the portal
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(9,0), true);
+        EntityResponse endPortal1Info = new EntityResponse("1", "portal", new Position(2,0), true);
+        EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(5,0), true);
+        EntityResponse endMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), true);
+        EntityResponse endWallInfo = new EntityResponse("4", "wall", new Position(6,0), false);
+
+        endList.add(startPlayerInfo);
+        endList.add(startPortal1Info);
+        endList.add(startPortal2Info);
+        endList.add(endMercenaryInfo);
+        endList.add(endWallInfo);
+
+        
+       assertEquals(endList, controller.getDungeon().generateListEntityResponse());
     }
 
     /**
@@ -884,10 +1099,42 @@ public class TestStaticEntity {
 	 */    
 	@Test
     public void testSpiderDoesntTeleport() {
-        // Task 2
-        // Example from the specification
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testSpiderDoesntTeleportDungeon", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testSpiderDoesntTeleport.json", "Standard"));
+
+        // Assert the spawn positions of all entities.
+        List<EntityResponse> expectedStartList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(5,0), true);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(9,0), true);
+        EntityResponse startSpiderInfo = new EntityResponse("3", "spider", new Position(5,-1), true);
+
+        expectedStartList.add(startPlayerInfo);
+        expectedStartList.add(startPortal1Info);
+        expectedStartList.add(startPortal2Info);
+        expectedStartList.add(startSpiderInfo);
+
+        assertEquals(expectedStartList, controller.getDungeon().generateListEntityResponse());
+
+
+        // Tick player.
+		controller.tick(null, Direction.RIGHT);
+
+		// Assert the spider coincides with door
+        List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
+
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "door", new Position(5,0), true);
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "spider", new Position(9,0), true);
+        EntityResponse expectedSpiderInfo = new EntityResponse("2", "spider", new Position(5,0), true);
+        
+        expectedList.add(expectedPlayerInfo);
+        expectedList.add(expectedPortal1Info);
+        expectedList.add(expectedPortal2Info);
+        expectedList.add(expectedSpiderInfo);
+
+        assertEquals(expectedList, controller.getDungeon().generateListEntityResponse());
     }
 
     /**
@@ -895,10 +1142,8 @@ public class TestStaticEntity {
 	 */
 	@Test
     public void testTeleportZombieToastStandard() {
-        // Task 2
-        // Example from the specification
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testTeleportZombieToastStandardDungeon", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testTeleportZombieToastStandard.json", "Standard"));
 	}
 
     /**
@@ -906,10 +1151,8 @@ public class TestStaticEntity {
 	 */
 	@Test
     public void testTeleportZombieToastIntoWall() {
-        // Task 2
-        // Example from the specification
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testTeleportZombieToastIntoWallDungeon", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testTeleportZombieToastIntoWall.json", "Standard"));
 	}
 
     /**
@@ -929,9 +1172,7 @@ public class TestStaticEntity {
 	 */
 	@Test
     public void testDestroyZombieToastSpawner() {
-        // Task 2
-        // Example from the specification
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testDestroyZombieToastSpawnerDungeon", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testDestroyZombieToastSpawner.json", "Standard"));
     }
 }
