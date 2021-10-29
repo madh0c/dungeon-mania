@@ -58,10 +58,7 @@ public class BuildableTest {
         assertThrows(InvalidActionException.class, () -> controller.build("bow"));
         //Has 3 arrows now and bow.
         controller.tick("", Direction.RIGHT);
-        assertEquals(new ItemResponse("1", "arrow"), controller.getInventory().getItemInfo());
-        assertEquals(new ItemResponse("2", "wood"), controller.getItemInfo("2"));
-        assertEquals(new ItemResponse("3", "arrow"), controller.getItemInfo("3"));
-        assertEquals(new ItemResponse("4", "arrow"), controller.getItemInfo("4"));
+        assertEquals(Arrays.asList(new ItemResponse("1", "arrow"), new ItemResponse("2", "wood"), new ItemResponse("3", "arrow"), (new ItemResponse("4", "arrow")), dungeonInfo.getInventory()));
         assertDoesNotThrow(() -> controller.build("bow"));
         assertEquals(new ItemResponse("1", "bow"), controller.getItemInfo("1"));
     }
