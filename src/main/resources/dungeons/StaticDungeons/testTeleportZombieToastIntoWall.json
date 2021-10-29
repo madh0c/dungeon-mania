@@ -25,9 +25,21 @@
             "y": 2,
             "type": "wall"
         },
+        {
+            "x": 1,
+            "y": 0,
+            "type": "portal",
+            "colour": "BLUE"
+        },
+        {
+            "x": 4,
+            "y": 0,
+            "type": "portal",
+            "colour": "BLUE"
+        },
 		{
-            "x": 2,
-            "y": 1,
+            "x": 1,
+            "y": 2,
             "type": "wall"
         }
     ]

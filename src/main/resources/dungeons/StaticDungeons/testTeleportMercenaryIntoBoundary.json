@@ -1,26 +1,28 @@
 {
     "entities": [
         {
-            "x": 0,
+            "x": 5,
             "y": 0,
             "type": "player"
         },
         {
-            "x": 5,
-            "y": 1,
-            "type": "portal",
-            "colour": "BLUE"
-        },
-        {
-            "x": 9,
-            "y": 1,
-            "type": "portal",
-            "colour": "BLUE"
-        },
-        {
-            "x": 5,
+            "x": 1,
             "y": 0,
-            "type": "spider"
+            "type": "portal",
+            "colour": "BLUE"
+        },
+        {
+            "x": 8,
+            "y": 0,
+            "type": "portal",
+            "colour": "BLUE"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "type": "mercenary"
         }
-    ]
+    ],
+    "width": 10,
+    "height": 10
 }
