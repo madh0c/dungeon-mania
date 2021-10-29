@@ -546,7 +546,7 @@ public class TestStaticEntity {
 
         Map<String, Entity> startEntities = controller.getDungeon(0).getEntities();
 
-        Switch startSwitch = (Switch)startEntities.get("2").getValue();
+        Switch startSwitch = (Switch)startEntities.get("2");
         
         boolean startSwitchStatus = startSwitch.getStatus();
 
@@ -570,7 +570,7 @@ public class TestStaticEntity {
 
         Map<String, Entity> endEntities = controller.getDungeon(0).getEntities();
 
-        Switch endSwitch = (Switch)endEntities.get("2").getValue();
+        Switch endSwitch = (Switch)endEntities.get("2");
         
         boolean endSwitchStatus = endSwitch.getStatus();
 
@@ -600,7 +600,7 @@ public class TestStaticEntity {
 
         Map<String, Entity> startEntities = controller.getDungeon(0).getEntities();
 
-        Switch startSwitch = (Switch)startEntities.get("2").getValue();
+        Switch startSwitch = (Switch)startEntities.get("2");
         
         boolean startSwitchStatus = startSwitch.getStatus();
 
@@ -624,7 +624,7 @@ public class TestStaticEntity {
 
         Map<String, Entity> midEntities = controller.getDungeon(0).getEntities();
 
-        Switch midSwitch = (Switch)midEntities.get("2").getValue();
+        Switch midSwitch = (Switch)midEntities.get("2");
         
         boolean midSwitchStatus = midSwitch.getStatus();
 
@@ -648,7 +648,7 @@ public class TestStaticEntity {
 
         Map<String, Entity> endEntities = controller.getDungeon(0).getEntities();
 
-        Switch endSwitch = (Switch)endEntities.get("2").getValue();
+        Switch endSwitch = (Switch)endEntities.get("2");
         
         boolean endSwitchStatus = endSwitch.getStatus();
 
