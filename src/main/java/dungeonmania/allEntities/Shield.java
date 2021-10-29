@@ -1,10 +1,10 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.CollectableEntity;
+import dungeonmania.CollectibleEntity;
 import dungeonmania.util.Position;
 
 
-public class Shield extends CollectableEntity {
+public class Shield extends CollectibleEntity {
 
     public Shield(Position position) {
         super(position, "shield");

@@ -1,10 +1,10 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.CollectableEntity;
+import dungeonmania.CollectibleEntity;
 import dungeonmania.util.Position;
 
 
-public class Treasure extends CollectableEntity {
+public class Treasure extends CollectibleEntity {
 
     public Treasure(Position position) {
         super(position, "treasure");

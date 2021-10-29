@@ -1,10 +1,10 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.CollectableEntity;
+import dungeonmania.CollectibleEntity;
 import dungeonmania.util.Position;
 
 
-public class HealthPotion extends CollectableEntity {
+public class HealthPotion extends CollectibleEntity {
 
     public HealthPotion(Position position) {
         super(position, "health_potion");

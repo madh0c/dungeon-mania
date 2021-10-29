@@ -1,11 +1,11 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.CollectableEntity;
+import dungeonmania.CollectibleEntity;
 
 import dungeonmania.util.Position;
 
 
-public class Arrow extends CollectableEntity {
+public class Arrow extends CollectibleEntity {
 
     public Arrow(Position position) {
         super(position, "arrow");
