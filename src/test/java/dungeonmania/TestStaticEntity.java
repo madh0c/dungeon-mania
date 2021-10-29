@@ -1,6 +1,5 @@
 package dungeonmania;
 
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -65,7 +64,7 @@ public class TestStaticEntity {
         startList.add(startWallInfo);
         startList.add(startMercenaryInfo);
 
-        assertEquals(startMercenaryInfo, controller.getDungeon().generateListEntityResponse());
+        assertEquals(startList, controller.getDungeon().generateListEntityResponse());
 
 		// Move player away from the mercenary.
 		controller.tick(null, Direction.RIGHT);
@@ -318,11 +317,11 @@ public class TestStaticEntity {
         // Assert the player has killed the mercenary
         List<EntityResponse> expectedEndList = new ArrayList<EntityResponse>();
 
-        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
         EntityResponse endExitInfo = new EntityResponse("2", "exit", new Position(3,0), false);
 
-        expectedEndList.add(startPlayerInfo);
-        expectedEndList.add(startExitInfo);
+        expectedEndList.add(endPlayerInfo);
+        expectedEndList.add(endExitInfo);
 
         assertEquals(expectedEndList, controller.getDungeon().generateListEntityResponse());
 
@@ -378,6 +377,7 @@ public class TestStaticEntity {
         // Assert the treasure is in the inventory
         List<ItemResponse> expectedInventory = new ArrayList<ItemResponse>();
         ItemResponse treasureInfo = new ItemResponse("1", "treasure");
+        expectedInventory.add(treasureInfo);
 
         assertEquals(expectedInventory, controller.getDungeon().getInventory);
 
@@ -790,7 +790,6 @@ public class TestStaticEntity {
         // Make the player claim the key
 		controller.tick(null, Direction.RIGHT);
 
-        
         // Assert the treasure is off the map
         List<EntityResponse> midList = new ArrayList<EntityResponse>();
 
@@ -805,6 +804,8 @@ public class TestStaticEntity {
         // Assert the key is in the inventory
         List<ItemResponse> expectedInventory1 = new ArrayList<ItemResponse>();
         ItemResponse keyInfo = new ItemResponse("1", "key");
+        expectedInventory1.add(keyInfo);
+        
 
         assertEquals(expectedInventory1, controller.getDungeon().getInventory);
 
@@ -813,7 +814,6 @@ public class TestStaticEntity {
 
         // Assert the key is out of the inventory
         List<ItemResponse> expectedInventory2 = new ArrayList<ItemResponse>();
-
         assertEquals(expectedInventory2, controller.getDungeon().getInventory);
 
         // Assert the player is on the door
@@ -907,10 +907,10 @@ public class TestStaticEntity {
         EntityResponse endWallInfo = new EntityResponse("3", "wall", new Position(5,0), false);
         EntityResponse endSpiderInfo = new EntityResponse("4", "spider", new Position(2,1), false);
 
-        endList.add(startPlayerInfo);
-        endList.add(startPortal1Info);
-        endList.add(startPortal2Info);
-        endList.add(startWallInfo);
+        endList.add(endPlayerInfo);
+        endList.add(endPortal1Info);
+        endList.add(endPortal2Info);
+        endList.add(endWallInfo);
         endList.add(endSpiderInfo);
         
        assertEquals(endList, controller.getDungeon().generateListEntityResponse());
@@ -1051,9 +1051,9 @@ public class TestStaticEntity {
         EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(5,0), false);
         EntityResponse endMercenaryInfo = new EntityResponse("3", "mercenary", new Position(6,0), false);
 
-        endList.add(startPlayerInfo);
-        endList.add(startPortal1Info);
-        endList.add(startPortal2Info);
+        endList.add(endPlayerInfo);
+        endList.add(endPortal1Info);
+        endList.add(endPortal2Info);
         endList.add(endMercenaryInfo);
         
         assertEquals(endList, controller.getDungeon().generateListEntityResponse());
@@ -1096,9 +1096,9 @@ public class TestStaticEntity {
         EntityResponse endMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), false);
         EntityResponse endWallInfo = new EntityResponse("4", "wall", new Position(6,0), false);
 
-        endList.add(startPlayerInfo);
-        endList.add(startPortal1Info);
-        endList.add(startPortal2Info);
+        endList.add(endPlayerInfo);
+        endList.add(endPortal1Info);
+        endList.add(endPortal2Info);
         endList.add(endMercenaryInfo);
         endList.add(endWallInfo);
         
@@ -1338,5 +1338,58 @@ public class TestStaticEntity {
     public void testDestroyZombieToastSpawner() {
         DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testDestroyZombieToastSpawner.json", "Standard"));
+
+
+        // Assert that a player is spawned with a treasure and an exit
+        List<EntityResponse> expectedStartList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse startSwordInfo = new EntityResponse("1", "sword", new Position(1,0), true);
+        EntityResponse startSpawnerInfo = new EntityResponse("2", "zombie_toast_spawner", new Position(3,0), false);
+
+        expectedStartList.add(startPlayerInfo);
+        expectedStartList.add(startSwordInfo);
+        expectedStartList.add(startSpawnerInfo);
+
+        assertEquals(expectedStartList, controller.getDungeon().generateListEntityResponse());
+
+        // Make the player claim the key
+		controller.tick(null, Direction.RIGHT);
+
+        // Assert the sword is off the map
+        List<EntityResponse> midList = new ArrayList<EntityResponse>();
+
+        EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse midSpawnerInfo = new EntityResponse("2", "zombie_toast_spawner", new Position(3,0), false);
+
+        midList.add(midPlayerInfo);
+        midList.add(midSpawnerInfo);
+
+        assertEquals(midList, controller.getDungeon().generateListEntityResponse());
+
+        // Assert the sword is in the inventory
+        List<ItemResponse> expectedInventory1 = new ArrayList<ItemResponse>();
+        ItemResponse swordInfo = new ItemResponse("1", "sword");
+        expectedInventory1.add(swordInfo);
+
+        assertEquals(expectedInventory1, controller.getDungeon().getInventory);
+
+        // Make player step on the spawner
+        controller.tick(null, Direction.RIGHT);
+        controller.tick(null, Direction.RIGHT);
+
+        // Assert the sword is still in the inventory
+        List<ItemResponse> expectedInventory2 = new ArrayList<ItemResponse>();
+        ItemResponse swordInfo2 = new ItemResponse("1", "sword");
+        expectedInventory2.add(swordInfo2);
+
+        assertEquals(expectedInventory2, controller.getDungeon().getInventory);
+
+        // Assert the player destroys the spawner
+        List<EntityResponse> expectedEndList = new ArrayList<EntityResponse>();
+        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
+        expectedEndList.add(endPlayerInfo);
+
+        assertEquals(expectedEndList, controller.getDungeon().generateListEntityResponse());
     }
 }
