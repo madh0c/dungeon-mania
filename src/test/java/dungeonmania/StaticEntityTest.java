@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class TestStaticEntity {
+public class StaticEntityTest {
     
 	// WALL TESTS
     /**
@@ -379,7 +379,7 @@ public class TestStaticEntity {
         ItemResponse treasureInfo = new ItemResponse("1", "treasure");
         expectedInventory.add(treasureInfo);
 
-        assertEquals(expectedInventory, controller.getDungeon(0).generateListInventoryResponse());
+        assertEquals(expectedInventory, controller.getDungeon(0).generateListItemResponse());
 
 
         // Make player step on the exit
@@ -825,14 +825,14 @@ public class TestStaticEntity {
         expectedInventory1.add(keyInfo);
         
 
-        assertEquals(expectedInventory1, controller.getDungeon(0).generateListInventoryResponse());
+        assertEquals(expectedInventory1, controller.getDungeon(0).generateListItemResponse());
 
         // Make player step on the door
         controller.tick(null, Direction.RIGHT);
 
         // Assert the key is out of the inventory
         List<ItemResponse> expectedInventory2 = new ArrayList<ItemResponse>();
-        assertEquals(expectedInventory2, controller.getDungeon(0).generateListInventoryResponse());
+        assertEquals(expectedInventory2, controller.getDungeon(0).generateListItemResponse());
 
         // Assert the player is on the door
         List<EntityResponse> expectedEndList = new ArrayList<EntityResponse>();
@@ -1390,7 +1390,7 @@ public class TestStaticEntity {
         ItemResponse swordInfo = new ItemResponse("1", "sword");
         expectedInventory1.add(swordInfo);
 
-        assertEquals(expectedInventory1, controller.getDungeon(0).generateListInventoryResponse());
+        assertEquals(expectedInventory1, controller.getDungeon(0).generateListItemResponse());
 
         // Make player step on the spawner
         controller.tick(null, Direction.RIGHT);
@@ -1401,7 +1401,7 @@ public class TestStaticEntity {
         ItemResponse swordInfo2 = new ItemResponse("1", "sword");
         expectedInventory2.add(swordInfo2);
 
-        assertEquals(expectedInventory2, controller.getDungeon(0).generateListInventoryResponse());
+        assertEquals(expectedInventory2, controller.getDungeon(0).generateListItemResponse());
 
         // Assert the player destroys the spawner
         List<EntityResponse> expectedEndList = new ArrayList<EntityResponse>();
