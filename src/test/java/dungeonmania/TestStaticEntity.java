@@ -12,6 +12,7 @@ import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 import dungeonmania.Entity;
 
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -22,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 
-@TestInstance(value = Lifecycle.PER_CLASS)
 public class TestStaticEntity {
     
 	// WALL TESTS
