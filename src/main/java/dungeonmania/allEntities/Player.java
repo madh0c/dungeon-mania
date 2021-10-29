@@ -6,7 +6,6 @@ import dungeonmania.util.Position;
 
 public class Player extends Entity {
     int health;
-	int attack;
     boolean visible;
 
     public Player(Position position) {
@@ -20,13 +19,6 @@ public class Player extends Entity {
     public int getHealth() {
         return health;
     }
-	public int getAttack() {
-		return attack;
-	}
-
-	public void setAttack(int newAttack) {
-		this.attack = newAttack;
-	}
 
     public boolean isVisible() {
         return visible;

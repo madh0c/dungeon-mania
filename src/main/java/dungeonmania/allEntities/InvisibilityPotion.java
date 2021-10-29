@@ -1,10 +1,10 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.CollectableEntity;
+import dungeonmania.CollectibleEntity;
 import dungeonmania.util.Position;
 
 
-public class InvisibilityPotion extends CollectableEntity {
+public class InvisibilityPotion extends CollectibleEntity {
 
     public InvisibilityPotion(Position position) {
         super(position, "invisibility_potion");

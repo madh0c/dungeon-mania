@@ -1,9 +1,9 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.CollectableEntity;
+import dungeonmania.CollectibleEntity;
 import dungeonmania.util.Position;
 
-public class Armour extends CollectableEntity {
+public class Armour extends CollectibleEntity {
     
     private int durability;
     
