@@ -13,17 +13,16 @@ import java.util.Collection;
 import java.util.HashMap;	
 
 public class jsonExporter {
-    String goals;
-
-	//	result (Map<String, Entity>):
+	//	dungeonMap (Map<String, Entity>):
 	// ("0", Player),
 	// ("1", Portal),
 	// ("2", Portal)
 	//
-    public static Map<String, Entity> makeDungeonMap(String path) {
+    public static Dungeon makeDungeon(int id, String path, String gameMode) {
 
         String jsonString;
-        Map<String, Entity> result = new HashMap<String, Entity>();
+        Map<String, Entity> dungeonMap = new HashMap<String, Entity>();
+        String goals = "";
 
         try {
             // Json String
@@ -56,31 +55,35 @@ public class jsonExporter {
 					String colour = (String)currentEntity.get("colour");
 					Portal portal = new Portal(position, colour);
                     
-					result.put(String.valueOf(i), portal);
+					dungeonMap.put(String.valueOf(i), portal);
 				} else {
 					Entity newEntity = EntityFactory.createEntity(entityType, position);
-					result.put(String.valueOf(i), newEntity);
+					dungeonMap.put(String.valueOf(i), newEntity);
 				}
             }
 
-            // TODO: CHANGE LATER
+            // TODO: Extract Goals
             Map<String, Object> goalConditions = (Map<String, Object>)map.get("goal-condition");
 
             String delimiter = (String) goalConditions.get("goal");
 
-            List<Map<String, String>> subgoals = (List<Map<String, String>>) goalConditions.get("subgoals");		
-			List<String> goals = new ArrayList<>();
-
+            List<Map<String, String>> subgoals = (List<Map<String, String>>) goalConditions.get("subgoals");            
+            
             for (int i = 0; i < subgoals.size(); i++) {
-				goals.add(subgoals.get(i).get("goal"));
-            } 
-
+                if (i == 0) {
+                    goals = subgoals.get(i).get("goal");
+                } else {
+                    goals = goals + delimiter + subgoals.get(i).get("goal");
+                }			
+            }
 
         } catch (Exception IOException) {
 
 		}
 
-        return result;
+        return new Dungeon(id, path, dungeonMap, gameMode, goals);
     }
+
+
 
 }

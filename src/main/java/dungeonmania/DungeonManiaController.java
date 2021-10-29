@@ -63,11 +63,10 @@ public class DungeonManiaController {
 	}
 
 	public DungeonResponse newGame(String dungeonName, String gameMode) throws IllegalArgumentException {
-		Map<String, Entity> currentMap = jsonExporter.makeDungeonMap(dungeonName);
-		Dungeon newDungeon = new Dungeon(lastUsedDungeonId, dungeonName, currentMap, gameMode, "");
+		Dungeon newDungeon = jsonExporter.makeDungeon(lastUsedDungeonId, dungeonName, gameMode);
 				
 		List<EntityResponse> entities = new ArrayList<EntityResponse>();
-		for (Map.Entry<String, Entity> entry : currentMap.entrySet()) {
+		for (Map.Entry<String, Entity> entry : newDungeon.getEntities().entrySet()) {
 			Entity currentEntity = entry.getValue();
 			EntityResponse er = new EntityResponse(entry.getKey(), currentEntity.getType(), currentEntity.getPosition(), currentEntity.isInteractable());
 			entities.add(er);
@@ -79,7 +78,7 @@ public class DungeonManiaController {
 			entities, 
 			new ArrayList<ItemResponse>(), 
 			newDungeon.getBuildables(),             
-			"" //jsonExporter.getGoals()
+			newDungeon.getGoals() //jsonExporter.getGoals()
 		);
 
 		lastUsedDungeonId++;
