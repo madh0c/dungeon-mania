@@ -136,6 +136,6 @@ public class BuildableTest {
 		//Both mercenary and player should be on same square
 		
 		// TODO: Simulate a fight between player and mercenary 
-
+		
     }
 }
