@@ -78,7 +78,7 @@ public class DungeonManiaController {
 			entities, 
 			new ArrayList<ItemResponse>(), 
 			newDungeon.getBuildables(),             
-			newDungeon.getGoals() //jsonExporter.getGoals()
+			"" // newDungeon.getGoals() 
 		);
 
 		lastUsedDungeonId++;
