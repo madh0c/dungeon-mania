@@ -13,7 +13,6 @@ import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 import dungeonmania.Entity;
 
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -27,7 +26,7 @@ import java.util.Map;
 @TestInstance(value = Lifecycle.PER_CLASS)
 public class TestStaticEntity {
     
-	// TODO WALL TESTS
+	// WALL TESTS
     /**
      * A player will try to move into a wall but will be stopped.
      */
@@ -60,7 +59,7 @@ public class TestStaticEntity {
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(2,0), true);
         EntityResponse startWallInfo = new EntityResponse("1", "wall", new Position(1,0), false);
-        EntityResponse startMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+        EntityResponse startMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), false);
 
         startList.add(startPlayerInfo);
         startList.add(startWallInfo);
@@ -76,7 +75,7 @@ public class TestStaticEntity {
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
         EntityResponse expectedWallInfo = new EntityResponse("1", "wall", new Position(1,0), false);
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), false);
 
         expectedList.add(expectedPlayerInfo);
         expectedList.add(expectedWallInfo);
@@ -84,7 +83,6 @@ public class TestStaticEntity {
 
         assertEquals(expectedList, controller.getDungeon().generateListEntityResponse());
     }
-
 
 	/**
 	 * A zombie toast spawner is created with four walls cardinally adjacent to it. The player will tick 22 times and 
@@ -101,7 +99,7 @@ public class TestStaticEntity {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(6,0), true);
-        EntityResponse startSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(0,0), true);
+        EntityResponse startSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(0,0), false);
         EntityResponse startWall1Info = new EntityResponse("2", "wall", new Position(-1,0), false);
         EntityResponse startWall2Info = new EntityResponse("3", "wall", new Position(0,-1), false);
         EntityResponse startWall3Info = new EntityResponse("4", "wall", new Position(0,1), false);
@@ -116,13 +114,14 @@ public class TestStaticEntity {
 
         assertEquals(startList, controller.getDungeon().generateListEntityResponse());
 
-
 		// Tick player back and forth 22 times
 		for (int i = 0; i < 11; i++) {
 			controller.tick(null, Direction.RIGHT);
 			controller.tick(null, Direction.LEFT);
 		}
 
+        // There should be no change from the start after 22 ticks as the player should be at its starting position and 
+        // a zombie toast should not spawn.
         assertEquals(startList, controller.getDungeon().generateListEntityResponse());
     }
 
@@ -135,20 +134,19 @@ public class TestStaticEntity {
         DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testWallBlocksBoulderMovement.json", "standard"));
         
-         // Assert correct spawn positions
-         List<EntityResponse> startList = new ArrayList<EntityResponse>();
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
-         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-         EntityResponse startBoulderInfo = new EntityResponse("1", "boulder", new Position(1,0), false);
-         EntityResponse startWallInfo = new EntityResponse("2", "wall", new Position(2,0), true);
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse startBoulderInfo = new EntityResponse("1", "boulder", new Position(1,0), true);
+        EntityResponse startWallInfo = new EntityResponse("2", "wall", new Position(2,0), false);
  
-         startList.add(startPlayerInfo);
-         startList.add(startBoulderInfo);
-         startList.add(startWallInfo);
+        startList.add(startPlayerInfo);
+        startList.add(startBoulderInfo);
+        startList.add(startWallInfo);
  
-         assertEquals(startList, controller.getDungeon().generateListEntityResponse());
+        assertEquals(startList, controller.getDungeon().generateListEntityResponse());
          
-
         // Make player try to push the boulder into the wall.
 		controller.tick(null, Direction.RIGHT);
 
@@ -177,10 +175,8 @@ public class TestStaticEntity {
 
         assertEquals(expectedStartList, controller.getDungeon().generateListEntityResponse());
 
-
         // Tick player.
 		controller.tick(null, Direction.RIGHT);
-
 
 		// Assert the spider coincides with wall
         List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
@@ -198,7 +194,8 @@ public class TestStaticEntity {
 
 
 
-	// TODO EXIT TESTS
+
+    // EXIT TESTS
 	/**
 	 * The player will spawn on a map with just itself and the exit. Once the player steps onto the exit, the game should be over
 	 */
@@ -211,7 +208,7 @@ public class TestStaticEntity {
         List<EntityResponse> expectedStartList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startExitInfo = new EntityResponse("1", "exit", new Position(1,0), true);
+        EntityResponse startExitInfo = new EntityResponse("1", "exit", new Position(1,0), false);
 
         expectedStartList.add(startPlayerInfo);
         expectedStartList.add(startExitInfo);
@@ -221,10 +218,10 @@ public class TestStaticEntity {
 		controller.tick(null, Direction.RIGHT);
 
 		// Assert the goals are satisfied and the game is over
-        assertEquals(true, controller.getDungeon().getGoals());
+        String currentGoals = controller.getDungeon().getGoals;
+        assertEquals(true, currentGoals.isEmpty());
         // assertEquals(controller.getDungeon().isComplete, true)
     }
-
 
     /**
 	 * The player will spawn on a map with itself, a mercenary and the exit. The player steps onto the exit without killing 
@@ -239,8 +236,8 @@ public class TestStaticEntity {
         List<EntityResponse> expectedStartList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startExitInfo = new EntityResponse("1", "exit", new Position(1,0), true);
-        EntityResponse startMercenaryInfo = new EntityResponse("2", "mercenary", new Position(8,0), true);
+        EntityResponse startExitInfo = new EntityResponse("1", "exit", new Position(1,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("2", "mercenary", new Position(8,0), false);
 
         expectedStartList.add(startPlayerInfo);
         expectedStartList.add(startExitInfo);
@@ -248,12 +245,12 @@ public class TestStaticEntity {
 
         assertEquals(expectedStartList, controller.getDungeon().generateListEntityResponse());
 
-
         // Move player onto the exit
 		controller.tick(null, Direction.RIGHT);
 
         // Assert the goals are not satisfied and the game is not over
-        assertEquals(false, controller.getDungeon().getGoals());
+        String currentGoals = controller.getDungeon().getGoals;
+        assertEquals(false, currentGoals.isEmpty());
         // assertEquals(controller.getDungeon().isComplete, false)
     }
 
@@ -272,7 +269,7 @@ public class TestStaticEntity {
         List<EntityResponse> expectedStartList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startExitInfo = new EntityResponse("1", "exit", new Position(1,0), true);
+        EntityResponse startExitInfo = new EntityResponse("1", "exit", new Position(1,0), false);
         EntityResponse startTreasureInfo = new EntityResponse("2", "treasure", new Position(8,0), true);
 
         expectedStartList.add(startPlayerInfo);
@@ -285,7 +282,8 @@ public class TestStaticEntity {
 		controller.tick(null, Direction.RIGHT);
 
         // Assert the goals are not satisfied and the game is not over
-        assertEquals(false, controller.getDungeon().getGoals);
+        String currentGoals = controller.getDungeon().getGoals;
+        assertEquals(false, currentGoals.isEmpty());
         // assertEquals(false, controller.getDungeon().isComplete)
     }
 
@@ -305,7 +303,7 @@ public class TestStaticEntity {
         List<EntityResponse> expectedStartList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startMercenaryInfo = new EntityResponse("1", "mercenary", new Position(1,0), true);
+        EntityResponse startMercenaryInfo = new EntityResponse("1", "mercenary", new Position(1,0), false);
         EntityResponse startExitInfo = new EntityResponse("2", "exit", new Position(3,0), false);
 
         expectedStartList.add(startPlayerInfo);
@@ -314,10 +312,8 @@ public class TestStaticEntity {
 
         assertEquals(expectedStartList, controller.getDungeon().generateListEntityResponse());
 
-
         // Make the player kill the mercenary
 		controller.tick(null, Direction.RIGHT);
-
 
         // Assert the player has killed the mercenary
         List<EntityResponse> expectedEndList = new ArrayList<EntityResponse>();
@@ -330,13 +326,13 @@ public class TestStaticEntity {
 
         assertEquals(expectedEndList, controller.getDungeon().generateListEntityResponse());
 
-
         // Make player step on the exit
         controller.tick(null, Direction.RIGHT);
         controller.tick(null, Direction.RIGHT);
 
-        // Assert the goals are satisfied and the game is  over
-        assertEquals(true, controller.getDungeon().getGoals);
+        // Assert the goals are satisfied and the game is over
+        String currentGoals = controller.getDungeon().getGoals;
+        assertEquals(true, currentGoals.isEmpty());
         // assertEquals(true, controller.getDungeon().isComplete)
     }
 
@@ -390,14 +386,16 @@ public class TestStaticEntity {
         controller.tick(null, Direction.RIGHT);
         controller.tick(null, Direction.RIGHT);
 
-        // Assert the goals are satisfied and the game is  over
-        assertEquals(true, controller.getDungeon().getGoals);
+        // Assert the goals are satisfied and the game is over
+        String currentGoals = controller.getDungeon().getGoals;
+        assertEquals(true, currentGoals.isEmpty());
         // assertEquals(true, controller.getDungeon().isComplete)
     }
 
 
 
-	// TODO BOULDER TESTS
+
+	// BOULDER TESTS
     /**
 	 * The player will spawn on a map with itself, and a boulder. The player pushes the boulder and the positions of both 
      * the player and the boulder should change.
@@ -465,7 +463,7 @@ public class TestStaticEntity {
         List<EntityResponse> expectedStartList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startBoulderInfo = new EntityResponse("1", "boulder", new Position(5,1), false);
+        EntityResponse startBoulderInfo = new EntityResponse("1", "boulder", new Position(5,1), true);
         EntityResponse startSpiderInfo = new EntityResponse("2", "spider", new Position(5,0), false);
 
         expectedStartList.add(startPlayerInfo);
@@ -474,16 +472,14 @@ public class TestStaticEntity {
 
         assertEquals(expectedStartList, controller.getDungeon().generateListEntityResponse());
 
-
         // Tick player.
 		controller.tick(null, Direction.RIGHT);
-
 
 		// Assert the spider doesnt coincides with the voulder
         List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
-        EntityResponse expectedBoulderInfo = new EntityResponse("1", "door", new Position(5,1), false);
+        EntityResponse expectedBoulderInfo = new EntityResponse("1", "door", new Position(5,1), true);
         EntityResponse expectedSpiderInfo = new EntityResponse("2", "spider", new Position(5,0), false);
 
         expectedList.add(expectedPlayerInfo);
@@ -493,7 +489,6 @@ public class TestStaticEntity {
         assertEquals(expectedList, controller.getDungeon().generateListEntityResponse());
     }
 
-    
     /**
 	 * The player will spawn on a map with itself, and a boulder between itself and a boundary. The player pushes the 
      * boulder into the boundary and there should be no change in position for all entities.
@@ -505,7 +500,9 @@ public class TestStaticEntity {
     // }  
 
 
-	// TODO SWITCH TESTS
+
+
+	// SWITCH TESTS
     /**
 	 * The player will push a boulder onto a switch and activate it.
 	 */
@@ -515,7 +512,6 @@ public class TestStaticEntity {
         // Example from the specification
         DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testSwitchTriggerUntrigger.json", "Standard"));
-
 
         // Assert the spawn positions of all entities.
         List<EntityResponse> expectedStartList = new ArrayList<EntityResponse>();
@@ -616,7 +612,6 @@ public class TestStaticEntity {
 
         assertEquals(true, midSwitchStatus);
 
-
         // Make the player move the boulder away from the switch
 		controller.tick(null, Direction.RIGHT);
 
@@ -654,7 +649,7 @@ public class TestStaticEntity {
         List<EntityResponse> expectedStartList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startSwitchInfo = new EntityResponse("1", "switch", new Position(5,1, -1), false);
+        EntityResponse startSwitchInfo = new EntityResponse("1", "switch", new Position(5,1, -1), true);
         EntityResponse startSpiderInfo = new EntityResponse("2", "spider", new Position(5,0), false);
 
         expectedStartList.add(startPlayerInfo);
@@ -662,7 +657,6 @@ public class TestStaticEntity {
         expectedStartList.add(startSpiderInfo);
 
         assertEquals(expectedStartList, controller.getDungeon().generateListEntityResponse());
-
 
         // Tick player.
 		controller.tick(null, Direction.RIGHT);
@@ -672,7 +666,7 @@ public class TestStaticEntity {
         List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse expectedSwitchInfo = new EntityResponse("1", "door", new Position(5,1, -1), false);
+        EntityResponse expectedSwitchInfo = new EntityResponse("1", "door", new Position(5,1, -1), true);
         EntityResponse expectedSpiderInfo = new EntityResponse("2", "spider", new Position(5,1), false);
 
         expectedList.add(expectedPlayerInfo);
@@ -684,7 +678,8 @@ public class TestStaticEntity {
 
 
 
-	// TODO DOOR TESTS
+
+	// DOOR TESTS
     /**
 	 * The player will get stopped by a door if it doesnt possess a key.
 	 */
@@ -700,11 +695,10 @@ public class TestStaticEntity {
         List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(1,0), false);
+        EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(1,0), true);
 
         expectedList.add(expectedPlayerInfo);
         expectedList.add(expectedDoorInfo);
-
 
         assertEquals(expectedList, controller.getDungeon().generateListEntityResponse());
     }
@@ -724,7 +718,7 @@ public class TestStaticEntity {
         List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(2,0), true);
-        EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(1,0), false);
+        EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(1,0), true);
         EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), false);
 
         expectedList.add(expectedPlayerInfo);
@@ -746,7 +740,7 @@ public class TestStaticEntity {
         List<EntityResponse> expectedStartList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startDoorInfo = new EntityResponse("1", "door", new Position(5,1), false);
+        EntityResponse startDoorInfo = new EntityResponse("1", "door", new Position(5,1), true);
         EntityResponse startSpiderInfo = new EntityResponse("2", "spider", new Position(5,0), false);
 
         expectedStartList.add(startPlayerInfo);
@@ -755,16 +749,14 @@ public class TestStaticEntity {
 
         assertEquals(expectedStartList, controller.getDungeon().generateListEntityResponse());
 
-
         // Tick player.
 		controller.tick(null, Direction.RIGHT);
-
 
 		// Assert the spider coincides with door
         List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(5,1), false);
+        EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(5,1), true);
         EntityResponse expectedSpiderInfo = new EntityResponse("2", "spider", new Position(5,1), false);
 
         expectedList.add(expectedPlayerInfo);
@@ -795,7 +787,6 @@ public class TestStaticEntity {
 
         assertEquals(expectedStartList, controller.getDungeon().generateListEntityResponse());
 
-
         // Make the player claim the key
 		controller.tick(null, Direction.RIGHT);
 
@@ -816,7 +807,6 @@ public class TestStaticEntity {
         ItemResponse keyInfo = new ItemResponse("1", "key");
 
         assertEquals(expectedInventory1, controller.getDungeon().getInventory);
-
 
         // Make player step on the door
         controller.tick(null, Direction.RIGHT);
@@ -840,7 +830,8 @@ public class TestStaticEntity {
 
 
 
-	// TODO TELEPORT TESTS
+    
+	// TELEPORT TESTS
     /**
 	 * The player will successfully teleport and maintain momentum.
 	 */
@@ -853,8 +844,8 @@ public class TestStaticEntity {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), true);
-        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(4,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(4,0), false);
  
         startList.add(startPlayerInfo);
         startList.add(startPortal1Info);
@@ -862,17 +853,15 @@ public class TestStaticEntity {
 
         assertEquals(startList, controller.getDungeon().generateListEntityResponse());
 
-
         // Tick player.
 		controller.tick(null, Direction.RIGHT);
-
 
 		// Assert the spider coincides with door
         List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(5,0), true);
-        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), true);
-        EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(4,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(4,0), false);
 
         expectedList.add(expectedPlayerInfo);
         expectedList.add(expectedPortal1Info);
@@ -893,34 +882,30 @@ public class TestStaticEntity {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), true);
-        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(4,0), true);
-        EntityResponse startWallInfo = new EntityResponse("3", "wall", new Position(5,0), true);
-        EntityResponse startSpiderInfo = new EntityResponse("4", "spider", new Position(2,0), true);
-
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(4,0), false);
+        EntityResponse startWallInfo = new EntityResponse("3", "wall", new Position(5,0), false);
+        EntityResponse startSpiderInfo = new EntityResponse("4", "spider", new Position(2,0), false);
 
         startList.add(startPlayerInfo);
         startList.add(startPortal1Info);
         startList.add(startPortal2Info);
         startList.add(startWallInfo);
         startList.add(startSpiderInfo);
-        
 
-       assertEquals(startList, controller.getDungeon().generateListEntityResponse());
+        assertEquals(startList, controller.getDungeon().generateListEntityResponse());
 
 		// Try to move player into the portal
 		controller.tick(null, Direction.RIGHT);
 
-        // Assert he doesnt move but spider ticks
-        // Assert correct spawn positions
+        // Assert player doesnt move but spider ticks
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse endPortal1Info = new EntityResponse("1", "portal", new Position(1,0), true);
-        EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(4,0), true);
-        EntityResponse endWallInfo = new EntityResponse("3", "wall", new Position(5,0), true);
-        EntityResponse endSpiderInfo = new EntityResponse("4", "spider", new Position(2,1), true);
-
+        EntityResponse endPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(4,0), false);
+        EntityResponse endWallInfo = new EntityResponse("3", "wall", new Position(5,0), false);
+        EntityResponse endSpiderInfo = new EntityResponse("4", "spider", new Position(2,1), false);
 
         endList.add(startPlayerInfo);
         endList.add(startPortal1Info);
@@ -955,31 +940,27 @@ public class TestStaticEntity {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(2,0), true);
-        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(5,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(2,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(5,0), false);
         EntityResponse startBoulderInfo = new EntityResponse("3", "boulder", new Position(1,0), true);
- 
  
         startList.add(startPlayerInfo);
         startList.add(startPortal1Info);
         startList.add(startPortal2Info);
         startList.add(startBoulderInfo);
-         
  
         assertEquals(startList, controller.getDungeon().generateListEntityResponse());
  
         // Try to move player into the portal
         controller.tick(null, Direction.RIGHT);
  
-        // Assert he doesnt move but spider ticks
-        // Assert correct spawn positions
+        // Assert boulder teleports
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
  
         EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
-        EntityResponse endPortal1Info = new EntityResponse("1", "portal", new Position(2,0), true);
-        EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(5,0), true);
+        EntityResponse endPortal1Info = new EntityResponse("1", "portal", new Position(2,0), false);
+        EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(5,0), false);
         EntityResponse endBoulderInfo = new EntityResponse("3", "boulder", new Position(6,0), true);
- 
  
         endList.add(startPlayerInfo);
         endList.add(startPortal1Info);
@@ -1001,16 +982,14 @@ public class TestStaticEntity {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
-        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(2,0), true);
-        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(5,0), true);
-        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), true);
-
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(2,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(5,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), false);
 
         startList.add(startPlayerInfo);
         startList.add(startPortal1Info);
         startList.add(startPortal2Info);
         startList.add(startMercenaryInfo);
-        
 
         assertEquals(startList, controller.getDungeon().generateListEntityResponse());
 
@@ -1021,10 +1000,9 @@ public class TestStaticEntity {
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(9,0), true);
-        EntityResponse endPortal1Info = new EntityResponse("1", "portal", new Position(2,0), true);
-        EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(5,0), true);
-        EntityResponse endMercenaryInfo = new EntityResponse("3", "mercenary", new Position(6,0), true);
-
+        EntityResponse endPortal1Info = new EntityResponse("1", "portal", new Position(2,0), false);
+        EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(5,0), false);
+        EntityResponse endMercenaryInfo = new EntityResponse("3", "mercenary", new Position(6,0), false);
 
         endList.add(startPlayerInfo);
         endList.add(startPortal1Info);
@@ -1046,9 +1024,9 @@ public class TestStaticEntity {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
-        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(2,0), true);
-        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(5,0), true);
-        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(2,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(5,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), false);
         EntityResponse startWallInfo = new EntityResponse("4", "wall", new Position(6,0), false);
 
         startList.add(startPlayerInfo);
@@ -1056,7 +1034,6 @@ public class TestStaticEntity {
         startList.add(startPortal2Info);
         startList.add(startMercenaryInfo);
         startList.add(startWallInfo);
-
 
         assertEquals(startList, controller.getDungeon().generateListEntityResponse());
 
@@ -1067,9 +1044,9 @@ public class TestStaticEntity {
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(9,0), true);
-        EntityResponse endPortal1Info = new EntityResponse("1", "portal", new Position(2,0), true);
-        EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(5,0), true);
-        EntityResponse endMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), true);
+        EntityResponse endPortal1Info = new EntityResponse("1", "portal", new Position(2,0), false);
+        EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(5,0), false);
+        EntityResponse endMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), false);
         EntityResponse endWallInfo = new EntityResponse("4", "wall", new Position(6,0), false);
 
         endList.add(startPlayerInfo);
@@ -1077,7 +1054,6 @@ public class TestStaticEntity {
         endList.add(startPortal2Info);
         endList.add(endMercenaryInfo);
         endList.add(endWallInfo);
-
         
         assertEquals(endList, controller.getDungeon().generateListEntityResponse());
     }
@@ -1105,9 +1081,9 @@ public class TestStaticEntity {
         List<EntityResponse> expectedStartList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(5,0), true);
-        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(9,0), true);
-        EntityResponse startSpiderInfo = new EntityResponse("3", "spider", new Position(5,-1), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(5,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(9,0), false);
+        EntityResponse startSpiderInfo = new EntityResponse("3", "spider", new Position(5,-1), false);
 
         expectedStartList.add(startPlayerInfo);
         expectedStartList.add(startPortal1Info);
@@ -1124,9 +1100,9 @@ public class TestStaticEntity {
         List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
-        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(5,0), true);
-        EntityResponse expectedPortal2Info = new EntityResponse("2", "spider", new Position(9,0), true);
-        EntityResponse expectedSpiderInfo = new EntityResponse("2", "spider", new Position(5,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(5,0), false);
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "spider", new Position(9,0), false);
+        EntityResponse expectedSpiderInfo = new EntityResponse("2", "spider", new Position(5,0), false);
         
         expectedList.add(expectedPlayerInfo);
         expectedList.add(expectedPortal1Info);
