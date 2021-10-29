@@ -3,8 +3,8 @@ package dungeonmania;
 import dungeonmania.allEntities.*;
 import dungeonmania.util.*;
 
-public static class EntityFactory {
-	public Entity createEntity(String type, Position position) {
+public class EntityFactory {
+	public static Entity createEntity(String type, Position position) {
 		if (type.contains("wall"))
 			return new Wall(position);
 		else if (type.contains("exit"))
