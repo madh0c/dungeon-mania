@@ -1,21 +1,18 @@
 package dungeonmania;
 
 import org.junit.jupiter.api.Test;
-import dungeonmania.*;
 import dungeonmania.allEntities.*;
 import dungeonmania.response.models.DungeonResponse;
 import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
-import dungeonmania.Entity;
 
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -195,7 +192,7 @@ public class StaticEntityTest {
         endList.add(endSpiderInfo);
 
         DungeonResponse dREnd = controller.getDungeonInfo(0);
-        assertEquals(startList, dREnd.getEntities());
+        assertEquals(endList, dREnd.getEntities());
     }
 
 
@@ -973,9 +970,9 @@ public class StaticEntityTest {
 	 * The player will fail to teleport into the boundary.
 	 */
 	@Test
-    public void testTeleportPlayerIntoBoundary() {
+    public void testCantTeleportPlayerIntoBoundary() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testTeleportPlayerIntoBoundary.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testCantTeleportPlayerIntoBoundary.json", "Standard"));
 
 		// Assert correct spawn positions
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
