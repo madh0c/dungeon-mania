@@ -10,6 +10,7 @@ public abstract class Entity {
     
     Position position;
     String type;
+	String id;
 
     public Entity(Position position, String type) {
         this.position = position;
@@ -22,6 +23,14 @@ public abstract class Entity {
 
 	public String getType() {
 		return type;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
     public boolean isInteractable() {
@@ -44,17 +53,55 @@ public abstract class Entity {
         );
     }
 
+
 	public boolean collide(Entity entity) {
-		if (entity instanceof Boulder) {
-			return false;
-		} else if (entity instanceof Wall) {
-			return false;
-		} else if (entity instanceof ZombieToastSpawner) {
-			return false;
-		} else if (entity instanceof Door) {
-			return false;
+		// If empty space
+		if (entity == null) {
+			return true;
 		}
-		return true;
+		return false;
 	}
 
+
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+
+		if (this == obj) {
+			return true;
+		}
+
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+
+		Entity other = (Entity) obj;
+
+		if (id == null) {
+			if (other.getId() != null) {
+				return false;
+			}
+		} else if (!id.equals(other.getId())) {
+			return false;
+		} 
+
+		if (position == null) {
+			if (other.getPosition() != null) {
+				return false;
+			}
+		} else if (!position.equals(other.getPosition())) {
+			return false;
+		}
+
+		if (type == null) {
+			if (other.getType() != null) {
+				return false;
+			}
+		} else if (!type.equals(other.getType())) {
+			return false;
+		}
+
+		return true;
+	}
 }

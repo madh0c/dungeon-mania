@@ -1,13 +1,22 @@
 package dungeonmania.allEntities;
 
+import java.util.Map;
+
+import javax.xml.stream.events.EndElement;
+
+import dungeonmania.CollectibleEntity;
+import dungeonmania.Dungeon;
 import dungeonmania.Entity;
+import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 
 public class Player extends Entity {
-    int health;
-	int attack;
-    boolean visible;
+    private int health;
+	private int attack;
+    private boolean visible;
+	private Direction currentDir;
+	private boolean haveKey;
 
     public Player(Position position) {
         super(position, "player");
@@ -33,5 +42,60 @@ public class Player extends Entity {
         return visible;
     }
 
-    
+	public void setCurrentDir(Direction currentDir) {
+		this.currentDir = currentDir;
+	}
+
+	public boolean collide(Entity entity, Dungeon dungeon) {
+		// If empty space
+		if (entity == null) {
+			return true;
+		}
+		
+		if (entity instanceof Wall) {
+			return false;
+		} else if (entity instanceof ZombieToastSpawner) {
+			return false;
+		} else if (entity instanceof Door) {
+			return haveKey;
+		} else if (entity instanceof Boulder) {
+			Boulder boulder = (Boulder) entity;
+
+			Position newPos = boulder.getPosition().translateBy(currentDir);
+			return boulder.collide(dungeon.getEntity(newPos));		
+		} else if (entity instanceof Portal) {
+			Portal portal1 = (Portal) entity;
+			for (Map.Entry<String, Entity> entry : dungeon.getEntities().entrySet()) {
+				Entity currentEntity = entry.getValue();
+				// Check if same entity
+				if (!currentEntity.getId().equals(portal1.getId())) {
+					Portal portal2 = (Portal) currentEntity;
+					if (portal1.getColour().equals(portal2.getColour())) {
+						// Find position of p2
+						// Move in direciton of currDir
+						Entity nextTo = dungeon.getEntity(portal2.getPosition().translateBy(currentDir));
+						return collide(nextTo, dungeon);
+					}
+				}
+	
+			}
+			return false;
+		}
+
+		if (entity instanceof CollectibleEntity) {
+			// Remove entity
+			dungeon.removeEntity(entity);
+
+			// Add to player inv
+			dungeon.addItemToInventory((CollectibleEntity)entity);
+
+			return true;
+		}
+
+		// Have to add MovableEntity
+		
+		return true;
+	}
+
+
 }
