@@ -9,6 +9,8 @@ import dungeonmania.util.FileLoader;
 import dungeonmania.Entity;
 import dungeonmania.Dungeon;
 import dungeonmania.jsonExporter;
+import dungeonmania.allEntities.*;
+import dungeonmania.Move;
 
 import java.io.IOException;
 import java.lang.ModuleLayer.Controller;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.HashMap;
 
 
@@ -147,7 +150,47 @@ public class DungeonManiaController {
 	}
 
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
-		return null;
+		Move moveStrategy = new StandardMove();
+
+		// Move player
+		moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);
+
+		// Move everything else
+		for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
+			Entity currentEntity = entry.getValue();
+			if (currentEntity instanceof Spider) {
+				moveStrategy = new SpiderMove();
+				moveStrategy.move(currentEntity, currentDungeon);
+			} else if (currentEntity instanceof Mercenary) {
+				moveStrategy = new MercenaryMove();
+				moveStrategy.move(currentEntity, currentDungeon);
+			} else if (currentEntity instanceof Boulder) {
+				moveStrategy = new StandardMove();
+				moveStrategy.move(currentEntity, currentDungeon, movementDirection);
+			} else if (currentEntity instanceof ZombieToast) {
+				moveStrategy = new StandardMove();
+				Random random = new Random();
+				int dir = random.nextInt(3);
+				Direction currDir = Direction.NONE;
+				switch (dir) {
+					case 0:
+						currDir = Direction.UP;
+						break;
+					case 1:
+						currDir = Direction.DOWN;
+						break;
+					case 2:
+						currDir = Direction.LEFT;
+						break;
+					case 3:
+						currDir = Direction.RIGHT;
+						break;
+				}
+				moveStrategy.move(currentEntity, currentDungeon, currDir);
+			}
+		}
+		
+		return getDungeonInfo(currentDungeon.getId());
 	}
 
 	public DungeonResponse interact(String entityId) throws IllegalArgumentException, InvalidActionException {
