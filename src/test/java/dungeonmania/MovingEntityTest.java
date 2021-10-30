@@ -471,7 +471,7 @@ public class MovingEntityTest {
 		Position position = controller.getDungeon(0).getEntity("0").getPosition();
 
 		for (int i = 0; i < 5; i++) {
-			assertEquals(controller.getDungeon(0).entityExists("mercenary", position));
+			assertTrue(controller.getDungeon(0).entityExists("mercenary", position));
 		}
 	}
 

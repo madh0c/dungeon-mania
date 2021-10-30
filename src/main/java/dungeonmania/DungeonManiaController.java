@@ -78,7 +78,7 @@ public class DungeonManiaController {
 			entities, 
 			new ArrayList<ItemResponse>(), 
 			newDungeon.getBuildables(),             
-			"" // newDungeon.getGoals() 
+			newDungeon.getGoals() 
 		);
 
 		lastUsedDungeonId++;
@@ -121,7 +121,7 @@ public class DungeonManiaController {
 			entities, 
 			inventory, 
 			target.getBuildables(),             
-			"" //jsonExporter.getGoals()
+			target.getGoals()
 		);
 	}
 

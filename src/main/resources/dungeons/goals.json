@@ -6,15 +6,15 @@
             "type": "player"
         },
         {
-            "x": 1,
-            "y": 0,
-            "type": "portal",
+            "x": 2,
+            "y": 1,
+            "type": "boulder",
             "colour": "BLUE"
         },
         {
-            "x": 4,
-            "y": 0,
-            "type": "portal",
+            "x": 3,
+            "y": 4,
+            "type": "bomb",
             "colour": "BLUE"
         }
     ],
