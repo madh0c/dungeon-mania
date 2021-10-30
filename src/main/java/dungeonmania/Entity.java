@@ -33,6 +33,10 @@ public abstract class Entity {
 		this.id = id;
 	}
 
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
     public boolean isInteractable() {
         return (
             type == "player"
