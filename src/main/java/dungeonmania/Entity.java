@@ -1,4 +1,8 @@
 package dungeonmania;
+import dungeonmania.allEntities.Boulder;
+import dungeonmania.allEntities.Door;
+import dungeonmania.allEntities.Wall;
+import dungeonmania.allEntities.ZombieToastSpawner;
 import dungeonmania.util.Position;
 
 
@@ -39,4 +43,18 @@ public abstract class Entity {
             || type == "one_ring"            
         );
     }
+
+	public boolean collide(Entity entity) {
+		if (entity instanceof Boulder) {
+			return false;
+		} else if (entity instanceof Wall) {
+			return false;
+		} else if (entity instanceof ZombieToastSpawner) {
+			return false;
+		} else if (entity instanceof Door) {
+			return false;
+		}
+		return true;
+	}
+
 }

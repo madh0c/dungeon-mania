@@ -76,7 +76,7 @@ public class jsonExporter {
 			GoalSub subgoal2 = new GoalSub(sgoal2);
 			String subGoal1 = subgoal1.evaluate();
 			String subGoal2 = subgoal2.evaluate();
-			System.out.println(subGoal1 + " " + delim + " " + subGoal2);
+			goals = subGoal1 + " " + delim + " " + subGoal2;
 
         } catch (Exception IOException) {
 			System.out.println("error");
@@ -85,9 +85,10 @@ public class jsonExporter {
         return new Dungeon(id, path, dungeonMap, gameMode, goals);
     }
 
+	/*
 	public static void main(String[] args) {
 		makeDungeon(0, "goals.json", "standard");
 	}
-
+	*/
 
 }

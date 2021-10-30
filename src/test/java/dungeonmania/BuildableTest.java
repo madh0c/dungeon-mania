@@ -17,11 +17,22 @@ import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 public class BuildableTest {
-    //Not enough materials to build bow.
+    @Test 
+	public void testInvalidBuildMethod () {
+		DungeonManiaController controller = new DungeonManiaController();
+        controller.newGame("testBuildableMap.json", "peaceful");
+		controller.tick("", Direction.RIGHT);
+		controller.tick("", Direction.RIGHT);
+        controller.tick("", Direction.RIGHT);
+        controller.tick("", Direction.RIGHT);
+		assertThrows(IllegalArgumentException.class, () -> controller.build("scythe"));
+	}
+	
+	//Not enough materials to build bow.
     @Test
     public void testInvalidBuildBow () {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("buildableMap.json", "peaceful");
+        controller.newGame("testBuildableMap.json", "peaceful");
         //Has 0 arrows.
         assertThrows(InvalidActionException.class, () -> controller.build("bow"));
         //collects one arrow.
@@ -36,7 +47,7 @@ public class BuildableTest {
     @Test
     public void testInvalidBuildShield() {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("buildableMap.json", "peaceful");
+        controller.newGame("testBuildableMap.json", "peaceful");
         //collects treasure
         controller.tick("", Direction.DOWN);
         assertThrows(InvalidActionException.class, () -> controller.build("shield"));
@@ -52,7 +63,7 @@ public class BuildableTest {
     @Test
     public void testBuildBow() {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("buildableMap.json", "peaceful");
+        controller.newGame("testBuildableMap.json", "peaceful");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         //collects one arrow
         controller.tick("", Direction.RIGHT);
@@ -72,7 +83,7 @@ public class BuildableTest {
     @Test
     public void testBuildShieldTreasure() {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("buildableMap.json", "peaceful");
+        controller.newGame("testBuildableMap.json", "peaceful");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         controller.tick("", Direction.DOWN);
         controller.tick("", Direction.DOWN);
@@ -85,7 +96,7 @@ public class BuildableTest {
     @Test
     public void testBuildShieldKey() {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("buildableMap.json", "peaceful");
+        controller.newGame("testBuildableMap.json", "peaceful");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         controller.tick("", Direction.RIGHT);
         assertEquals(Arrays.asList(new ItemResponse("1", "arrow")), dungeonInfo.getInventory());
@@ -103,7 +114,7 @@ public class BuildableTest {
     @Test
     public void testBowDamange() {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("buildableMap.json", "peaceful");
+        controller.newGame("testBuildableMap.json", "peaceful");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         controller.tick("", Direction.RIGHT);
         controller.tick("", Direction.RIGHT);
@@ -122,7 +133,7 @@ public class BuildableTest {
     //Test shield blocking
     public void testShieldBlock() {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("buildableMap.json", "peaceful");
+        controller.newGame("testBuildableMap.json", "peaceful");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         controller.tick("", Direction.DOWN);
         controller.tick("", Direction.DOWN);
