@@ -479,7 +479,7 @@ public class StaticEntityTest {
         List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
-        EntityResponse expectedBoulderInfo = new EntityResponse("1", "door", new Position(5,1), true);
+        EntityResponse expectedBoulderInfo = new EntityResponse("1", "boulder", new Position(5,1), true);
         EntityResponse expectedSpiderInfo = new EntityResponse("2", "spider", new Position(5,0), false);
 
         expectedList.add(expectedPlayerInfo);
@@ -680,11 +680,11 @@ public class StaticEntityTest {
 		controller.tick(null, Direction.RIGHT);
 
 
-		// Assert the spider coincides with door
+		// Assert the spider coincides with switch
         List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse expectedSwitchInfo = new EntityResponse("1", "door", new Position(5,1, -1), true);
+        EntityResponse expectedSwitchInfo = new EntityResponse("1", "switch", new Position(5,1, -1), true);
         EntityResponse expectedSpiderInfo = new EntityResponse("2", "spider", new Position(5,1), false);
 
         expectedList.add(expectedPlayerInfo);
@@ -735,7 +735,7 @@ public class StaticEntityTest {
 		// Assert the mercenary has not moved from spawn
         List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
 
-        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(2,0), true);
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
         EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(1,0), true);
         EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), false);
 
@@ -773,7 +773,7 @@ public class StaticEntityTest {
 		// Assert the spider coincides with door
         List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
 
-        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
         EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(5,1), true);
         EntityResponse expectedSpiderInfo = new EntityResponse("2", "spider", new Position(5,1), false);
 
@@ -844,6 +844,11 @@ public class StaticEntityTest {
         expectedEndList.add(endDoorInfo);
 
         assertEquals(expectedEndList, controller.getDungeon(0).generateListEntityResponse());
+
+        // Assert the door is also open
+        Map<String, Entity> endEntities = controller.getDungeon(0).getEntities();
+        Door door = (Door)endEntities.get("2");
+        assertEquals(true, door.isOpen());
     }
 
 
@@ -1191,7 +1196,7 @@ public class StaticEntityTest {
         // Tick player.
 		controller.tick(null, Direction.RIGHT);
 
-		// Assert the spider coincides with door
+		// Assert the spider coincides with portal
         List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
