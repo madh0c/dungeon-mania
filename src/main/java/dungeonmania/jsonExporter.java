@@ -59,6 +59,7 @@ public class jsonExporter {
 					dungeonMap.put(String.valueOf(i), portal);
 				} else {
 					Entity newEntity = EntityFactory.createEntity(entityType, position);
+					newEntity.setId(String.valueOf(i));
 					dungeonMap.put(String.valueOf(i), newEntity);
 				}
             }

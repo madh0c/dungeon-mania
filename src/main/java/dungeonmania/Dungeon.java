@@ -63,6 +63,32 @@ public class Dungeon {
 		return entities.get(id);
 	}
 
+	public Entity getEntity(Position position) {
+		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
+			Entity currentEntity = entry.getValue();
+			if (currentEntity.getPosition().equals(position)) {
+				return currentEntity;
+			}
+
+		}
+
+		return null;
+	}
+
+	public void removeEntity(Entity entity) {
+		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
+			Entity currentEntity = entry.getValue();
+			if (currentEntity.equals(entity)) {
+				entities.remove(currentEntity.getId());
+				break;
+			}
+		}
+	}
+
+	public void addItemToInventory(CollectibleEntity entity) {
+		inventory.add(entity);
+	}
+
 	// Check if type exists regardless of position
 	public boolean entityExists(String type) {
 		return entities.keySet().contains(type);
