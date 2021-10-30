@@ -109,15 +109,10 @@ public class DungeonManiaController {
 
 		List<ItemResponse> inventory = new ArrayList<ItemResponse>();
 
-		/*
-		System.out.println(
-			String.valueOf(target.getId())
-			+ target.getName()
-			+ entities
-			+ inventory
-			+ target.getBuildables()
-		); */
-
+		for (CollectibleEntity collectibleEntity : target.getInventory()) {
+			inventory.add(new ItemResponse(collectibleEntity.getId(), collectibleEntity.getType()));
+		}
+		
 		return new DungeonResponse(
 			String.valueOf(target.getId()), 
 			target.getName(), 
