@@ -699,12 +699,17 @@ public class StaticEntityTest {
 
 	// DOOR TESTS
     /**
-	 * The player will get stopped by a door if it doesnt possess a key.
+	 * The player will get stopped by a door if it doesnt possess a key. Also checks that doors are created locked.
 	 */
 	@Test
     public void testPlayerCantMoveThroughDoor() {
         DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testPlayerCantMoveThroughDoor.json", "Standard"));
+
+        // Assert the door is spawned closed
+        Map<String, Entity> startEntities = controller.getDungeon(0).getEntities();
+        Door door = (Door)startEntities.get("1");
+        assertEquals(false, door.isOpen());
 
         // Move player into the door
 		controller.tick(null, Direction.RIGHT);
@@ -728,6 +733,11 @@ public class StaticEntityTest {
     public void testMercenaryCantMoveThroughDoor() {
         DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("/StaticDungeons/testMercenaryCantMoveThroughDoor.json", "Standard"));
+
+        // Assert the door is spawned closed
+        Map<String, Entity> startEntities = controller.getDungeon(0).getEntities();
+        Door door = (Door)startEntities.get("1");
+        assertEquals(false, door.isOpen());
 
         // Move player away from the mercenary.
 		controller.tick(null, Direction.RIGHT);
@@ -808,7 +818,7 @@ public class StaticEntityTest {
         // Make the player claim the key
 		controller.tick(null, Direction.RIGHT);
 
-        // Assert the treasure is off the map
+        // Assert the key is off the map
         List<EntityResponse> midList = new ArrayList<EntityResponse>();
 
         EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
