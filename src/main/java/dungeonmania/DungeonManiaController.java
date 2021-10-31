@@ -123,6 +123,24 @@ public class DungeonManiaController {
 		);
 	}
 
+	public void checkValidNewGame(String dungeonName, String gameMode) throws IllegalArgumentException {
+		boolean gameExists = false;
+		for (String dungeon : dungeons()) {
+			String dungeonWJson = dungeon + ".json";
+			if (dungeonWJson.equals(dungeonName)) {
+				gameExists = true;
+			}
+		}
+		
+		if (gameExists == false) {
+			throw new IllegalArgumentException("Invalid Dungeon Map Passed; Requested Dungeon Does Not Exist");
+		}
+
+		if (!this.getGameModes().contains(gameMode)) {
+			throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard");
+		}
+	}
+
 	public Dungeon getDungeon(int dungeonId) {
 		return games.get(dungeonId);
 	}
@@ -193,6 +211,35 @@ public class DungeonManiaController {
 		currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
 		
 		return getDungeonInfo(currentDungeon.getId());
+	}
+
+	public void checkValidTick(String itemUsed) throws IllegalArgumentException, InvalidActionException {
+		List<String> permittedItems = new ArrayList<String>();
+		permittedItems.add("bomb");
+		permittedItems.add("health_potion");
+		permittedItems.add("invincibility_potion");
+		permittedItems.add("invisibility_potion");
+
+		if (!permittedItems.contains(itemUsed) && !(itemUsed == null)) {
+			throw new IllegalArgumentException("Cannot Use Requested Item; Ensure Item Is Either a Bomb, Health Potion, " +
+			"Invincibility Potion, Invisibility Potion or null");
+		}
+
+		boolean itemInInventory = false;
+		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
+		for (CollectibleEntity item : currentInventory) {
+			if (!(itemUsed == null) && item.getType().equals(itemUsed)) {
+				itemInInventory = true;
+			}
+		}
+
+		if (itemUsed == null) {
+			itemInInventory = true;
+		}
+
+		if (!itemInInventory) {
+			throw new InvalidActionException("Cannot Use Requested Item; Item Does Not Exist In Inventory");
+		}
 	}
 
 	public DungeonResponse interact(String entityId) throws IllegalArgumentException, InvalidActionException {
