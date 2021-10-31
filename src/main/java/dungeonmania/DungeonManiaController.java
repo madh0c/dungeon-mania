@@ -6,7 +6,6 @@ import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
-import dungeonmania.util.Position;
 import dungeonmania.Entity;
 import dungeonmania.Dungeon;
 import dungeonmania.jsonExporter;
@@ -67,9 +66,6 @@ public class DungeonManiaController {
 	}
 
 	public DungeonResponse newGame(String dungeonName, String gameMode) throws IllegalArgumentException {
-
-		checkValidNewGame(dungeonName, gameMode);
-
 		Dungeon newDungeon = jsonExporter.makeDungeon(lastUsedDungeonId, dungeonName, gameMode);
 				
 		List<EntityResponse> entities = new ArrayList<EntityResponse>();
@@ -77,21 +73,6 @@ public class DungeonManiaController {
 			Entity currentEntity = entry.getValue();
 			EntityResponse er = new EntityResponse(entry.getKey(), currentEntity.getType(), currentEntity.getPosition(), currentEntity.isInteractable());
 			entities.add(er);
-		}
-
-		// Check if switch is coincided with boulder
-		for (Map.Entry<String, Entity> entry : newDungeon.getEntities().entrySet()) {
-			Entity currentEntity = entry.getValue();
-			if (currentEntity instanceof Switch) {
-				Position pos = currentEntity.getPosition();
-				Position newPos = new Position(pos.getX(), pos.getY(), 0);
-				Boulder boulder = (Boulder) newDungeon.getEntity("boulder", newPos);
-				if (boulder != null) {
-					Switch sw = (Switch) currentEntity;
-					sw.setStatus(true);
-				}
-				
-			}
 		}
 
 		DungeonResponse result = new DungeonResponse(
@@ -142,23 +123,6 @@ public class DungeonManiaController {
 		);
 	}
 
-	public void checkValidNewGame(String dungeonName, String gameMode) throws IllegalArgumentException {
-		boolean gameExists = false;
-		for (String dungeon : dungeons()) {
-			if (dungeon.equals(dungeonName)) {
-				gameExists = true;
-			}
-		}
-		
-		if (gameExists == false) {
-			throw new IllegalArgumentException("Invalid Dungeon Map Passed; Requested Dungeon Does Not Exist");
-		}
-
-		if (!this.getGameModes().contains(gameMode)) {
-			throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard");
-		}
-	}
-
 	public Dungeon getDungeon(int dungeonId) {
 		return games.get(dungeonId);
 	}
@@ -168,37 +132,20 @@ public class DungeonManiaController {
     }
 
 	public DungeonResponse loadGame(String name) throws IllegalArgumentException {
-		checkValidLoadGame(name);
 		return null;
 	}
 
-	public void checkValidLoadGame(String name) throws IllegalArgumentException {
-		boolean gameExists = false;
-		int dungeonIdAsInt = Integer.parseInt(name);
-
-		for (Dungeon game : games) {
-			if (game.getId() == dungeonIdAsInt) {
-				gameExists = true;
-			}
-		}
-		
-		if (gameExists == false) {
-			throw new IllegalArgumentException("Invalid Dungeon Name Passed; Requested Dungeon Cannot Be Loaded As It Does Not Exist");
-		}
-	}
-
 	public List<String> allGames() {
-		ArrayList<String> gameList = new ArrayList<String>();
-		for (Dungeon game : games) {
-			String gameIdAsString = Integer.toString(game.getId());
-		    gameList.add(gameIdAsString);
-		}
-		return gameList;
+		// ArrayList<String> gameList = new ArrayList<String>();
+		// for (game : games) {
+		//     gameList.add(game.getId);
+		// }
+		// return new ArrayList<>();
+		return null;
 	}
 
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
-		checkValidTick(itemUsed);
-		Move moveStrategy = new StandardMove();
+		Move moveStrategy = new PlayerMove();
 
 		// Move player
 		moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);
@@ -214,24 +161,7 @@ public class DungeonManiaController {
 				moveStrategy.move(currentEntity, currentDungeon);
 			} else if (currentEntity instanceof Boulder) {
 				moveStrategy = new StandardMove();
-				// Get position of switch, layer -1
-				Position prevPos = currentEntity.getPosition();
-				Position prevPosSwitch = new Position(prevPos.getX(), prevPos.getY(), -1);
 				moveStrategy.move(currentEntity, currentDungeon, movementDirection);
-				Position currPos = currentEntity.getPosition();
-				Position currPosSwitch = new Position(prevPos.getX(), prevPos.getY(), -1);
-
-				// Check if switch is being activated
-				if (currentDungeon.entityExists("switch", currPosSwitch)) {
-					Switch sw = (Switch) currentDungeon.getEntity("switch", currPosSwitch);
-					sw.setStatus(true);
-				}
-				// Check if switch is being deactivated
-				if (currentDungeon.entityExists("switch", prevPosSwitch)) {
-					Switch sw = (Switch) currentDungeon.getEntity("switch", prevPosSwitch);
-					sw.setStatus(false);
-				}
-
 			} else if (currentEntity instanceof ZombieToast) {
 				moveStrategy = new StandardMove();
 				Random random = new Random();
@@ -254,101 +184,25 @@ public class DungeonManiaController {
 				moveStrategy.move(currentEntity, currentDungeon, currDir);
 			}
 		}
+
+		// Use item
+		currentDungeon.useItem(itemUsed);
+		
+		// make sure invincibility wears off
+		int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
+		currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
 		
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
-	public void checkValidTick(String itemUsed) throws IllegalArgumentException, InvalidActionException {
-		List<String> permittedItems = new ArrayList<String>();
-		permittedItems.add("bomb");
-		permittedItems.add("health_potion");
-		permittedItems.add("invincibility_potion");
-		permittedItems.add("invisibility_potion");
-		permittedItems.add(null);
-
-		if (!permittedItems.contains(itemUsed)) {
-			throw new IllegalArgumentException("Cannot Use Requested Item; Ensure Item Is Either a Bomb, Health Potion, " +
-			"Invincibility Potion, Invisibility Potion or null");
-		}
-
-		boolean itemInInventory = false;
-		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
-		for (CollectibleEntity item : currentInventory) {
-			if (item.getType().equals(itemUsed)) {
-				itemInInventory = true;
-			}
-		}
-
-		if (!itemInInventory) {
-			throw new InvalidActionException("Cannot Use Requested Item; Item Does Not Exist In Inventory");
-		}
-	}
-
 	public DungeonResponse interact(String entityId) throws IllegalArgumentException, InvalidActionException {
-		checkValidInteract(entityId);
 		return null;
 	}
 
-	public void checkValidInteract(String entityId) throws IllegalArgumentException, InvalidActionException{
-		if (currentDungeon.getEntity(entityId).equals(null)) {
-			throw new IllegalArgumentException("Cannot Interact With Requested Entity; Entity Does Not Exist In The Map");
-		}
-
-		Entity interactEntity = currentDungeon.getEntity(entityId);
-
-		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
-
-		boolean hasGold = false;
-		boolean hasWeapon = false;
-
-		for (CollectibleEntity item : currentInventory) {
-			if (item.getType().equals("treasure")) {
-				hasGold = true;
-			} else if (item.getType().equals("sword") || item.getType().equals("bow")) {
-				hasWeapon = true;
-			}
-		}
-
-		Position playerPosition = currentDungeon.getPlayerPosition();
-		Position entityPosition = currentDungeon.getEntity(entityId).getPosition();
-
-
-		if (interactEntity.getType().equals("mercenary")) {
-			if (!Position.inBribingRange(playerPosition, entityPosition)) {
-				throw new InvalidActionException("Player Out Of Bribing Range Of Mercenary");
-			} else if (!hasGold) {
-				throw new InvalidActionException("Player Does Not Have Sufficient Gold To Mercenary");
-			}
-		}
-
-		if (interactEntity.getType().equals("zombie_toast_spawner")) {
-			if (!Position.isCardinallyAdjacent(playerPosition, entityPosition)) {
-				throw new InvalidActionException("Player Out Of Range To Destroy Zombie Toast Spawner");
-			} else if (!hasWeapon) {
-				throw new InvalidActionException("Player Does Not Have A Weapon To Destroy Spawner");
-			}
-		}
-	}
-
-	
 	public DungeonResponse build(String buildable) throws IllegalArgumentException, InvalidActionException {
-		checkValidBuild(buildable);
 		return null;
 	}
 
-	public void checkValidBuild(String buildable) throws IllegalArgumentException, InvalidActionException{
-		List<String> permittedBuild = new ArrayList<String>();
-		permittedBuild.add("bow");
-		permittedBuild.add("shield");
 
-		if (!permittedBuild.contains(buildable)) {
-			throw new IllegalArgumentException("Cannot Build The Desired Item; Only Bows and Shields Can Be Built");
-		}
 
-		List<String> currentBuildable = currentDungeon.getBuildables();
-		if (!currentBuildable.contains(buildable)) {
-			throw new InvalidActionException("Cannot Build The Desired Item; Not Enough Items To Complete The Recipe");
-		}
-		
-	}
 }

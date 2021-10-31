@@ -14,9 +14,10 @@ import dungeonmania.util.Position;
 public class Player extends Entity {
     private int health;
 	private int attack;
-    private boolean visible;
+    private boolean visible = true;
 	private Direction currentDir;
 	private boolean haveKey;
+	private int invincibleTickDuration = 0;
 
     public Player(Position position) {
         super(position, "player");
@@ -42,6 +43,18 @@ public class Player extends Entity {
         return visible;
     }
 
+	public void setVisibility(boolean canBeSeen) {
+		visible = canBeSeen;
+	} 
+
+	public int getInvincibleTickDuration() {
+		return invincibleTickDuration; 
+	}
+
+	public void setInvincibleTickDuration(int durationInTicks) {
+		invincibleTickDuration = (durationInTicks >= 0) ? durationInTicks : 0;
+	}
+	
 	public void setCurrentDir(Direction currentDir) {
 		this.currentDir = currentDir;
 	}
@@ -83,6 +96,15 @@ public class Player extends Entity {
 		}
 
 		if (entity instanceof CollectibleEntity) {
+			// can't have 2 keys in inv
+			if (entity instanceof Key) {
+				for (CollectibleEntity item : dungeon.getInventory()) {
+					if (item.getType().equals("key")) {
+						return true;
+					}
+				}				
+			}
+
 			// Remove entity
 			dungeon.removeEntity(entity);
 
