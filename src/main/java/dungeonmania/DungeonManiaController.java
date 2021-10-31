@@ -184,6 +184,13 @@ public class DungeonManiaController {
 				moveStrategy.move(currentEntity, currentDungeon, currDir);
 			}
 		}
+
+		// Use item
+		currentDungeon.useItem(itemUsed);
+		
+		// make sure invincibility wears off
+		int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
+		currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
 		
 		return getDungeonInfo(currentDungeon.getId());
 	}
@@ -195,4 +202,7 @@ public class DungeonManiaController {
 	public DungeonResponse build(String buildable) throws IllegalArgumentException, InvalidActionException {
 		return null;
 	}
+
+
+
 }
