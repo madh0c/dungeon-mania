@@ -146,11 +146,15 @@ public class DungeonManiaController {
 		boolean gameExists = false;
 		for (String dungeon : dungeons()) {
 			if (dungeon.equals(dungeonName)) {
+				System.out.println(dungeon);
 				gameExists = true;
+				break;
 			}
 		}
 		
 		if (gameExists == false) {
+			System.out.println("here");
+
 			throw new IllegalArgumentException("Invalid Dungeon Map Passed; Requested Dungeon Does Not Exist");
 		}
 
