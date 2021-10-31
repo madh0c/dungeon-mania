@@ -389,9 +389,7 @@ public class DungeonManiaController {
 					currentInventory.remove(i);
 					i = -1;
 				}
-				System.out.println(found.getId());
 			}
-			System.out.println(currentInventory);
 		}
 
 		return null;

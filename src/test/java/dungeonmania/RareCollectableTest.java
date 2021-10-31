@@ -15,25 +15,26 @@ public class RareCollectableTest {
     @Test
     public void testRareAppearing() {
 		DungeonManiaController controller = new DungeonManiaController();
-		controller.newGame("testDroppingRing.json", "peaceful");
+		controller.newGame("testDroppingRing.json", "Peaceful");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
-		controller.tick("", Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
 		//Player and mercenary now in the same square
 		//TODO: change it so that there is a chance of this appearing
-		
-		assertEquals(Arrays.asList(new ItemResponse("1", "one_ring")), dungeonInfo.getInventory());
+		dungeonInfo = controller.getDungeonInfo(0);
+		assertEquals(Arrays.asList(new ItemResponse("3", "one_ring")), dungeonInfo.getInventory());
 
     }
 
 	@Test
 	public void testRevive() {
 		DungeonManiaController controller = new DungeonManiaController();
-		controller.newGame("testRarecollectableMap.json", "peaceful");
+		controller.newGame("testRareCollectableMap.json", "Peaceful");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
-		controller.tick("", Direction.DOWN);
-		assertEquals(Arrays.asList(new ItemResponse("1", "one_ring")), dungeonInfo.getInventory());
+		controller.tick(null, Direction.RIGHT);
+		dungeonInfo = controller.getDungeonInfo(0);
+		assertEquals(Arrays.asList(new ItemResponse("7", "one_ring")), dungeonInfo.getInventory());
 		for (int i = 0; i < 81; i++) {
-			controller.tick("", Direction.LEFT);
+			controller.tick(null, Direction.LEFT);
 		}
 		Player player = controller.getDungeon(0).getPlayer();
 		assertEquals(100, player.getHealth());
@@ -43,28 +44,28 @@ public class RareCollectableTest {
 	@Test
 	public void testRandomRing() {
 		DungeonManiaController controller = new DungeonManiaController();
-		controller.newGame("testRandomRing.json", "peaceful");
+		controller.newGame("testRandomRing.json", "Peaceful");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
 		for (int i = 0; i < 21; i++) {
-			controller.tick("", Direction.LEFT);
+			controller.tick(null, Direction.LEFT);
 		}
-		assertEquals(Arrays.asList(new ItemResponse("1", "one_ring")), dungeonInfo.getInventory());
+		assertEquals(Arrays.asList(new ItemResponse("12", "one_ring")), dungeonInfo.getInventory());
 		for (int i = 0; i < 20; i++) {
-			controller.tick("", Direction.LEFT);
+			controller.tick(null, Direction.LEFT);
 			//Ring should not spawn
 			//TODO: check that ring does not spawn
 		}
 		for (int i = 0; i < 20; i++) {
-			controller.tick("", Direction.LEFT);
+			controller.tick(null, Direction.LEFT);
 			//TODO: check that ring does not spawn
 
 		}
 		for (int i = 0; i < 20; i++) {
-			controller.tick("", Direction.LEFT);
+			controller.tick(null, Direction.LEFT);
 			//TODO: check that ring does not spawn
 		}
 		for (int i = 0; i < 20; i++) {
-			controller.tick("", Direction.LEFT);
+			controller.tick(null, Direction.LEFT);
 		}
 		assertEquals(Arrays.asList(new ItemResponse("1", "one_ring")), dungeonInfo.getInventory());
 		
