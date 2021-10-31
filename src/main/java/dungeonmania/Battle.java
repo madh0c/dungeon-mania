@@ -3,6 +3,7 @@ package dungeonmania;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.ServletContextAttributeListener;
 import javax.xml.stream.events.EndElement;
@@ -96,6 +97,13 @@ public class Battle {
 			} 
 
 			if (enemy.getHealth() <= 0) {
+				if (enemy instanceof Mercenary || enemy instanceof ZombieToast) {
+					Random rand = new Random();
+					if (rand.nextInt(20) % 20 == 1) {
+						Armour armour = new Armour(enemy.getPosition());
+						dungeon.addEntity(armour);
+					}
+				}
 				dungeon.removeEntity(entity);
 				break;
 			}
