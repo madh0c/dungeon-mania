@@ -226,7 +226,7 @@ public class Player extends Entity {
 				if (enemyHp <= 0) {
 					dungeon.removeEntity(entity);
 				}
-			}
+			}*/
 			//One Ring Spawning
 			OneRing ring = new OneRing(getPosition(), 0);
 			if (ring.doesSpawn()) {
