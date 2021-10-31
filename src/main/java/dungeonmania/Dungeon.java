@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
+import dungeonmania.allEntities.BombItem;
+import dungeonmania.allEntities.BombStatic;
 import dungeonmania.allEntities.HealthPotion;
 import dungeonmania.allEntities.InvincibilityPotion;
 import dungeonmania.allEntities.InvisibilityPotion;
@@ -43,10 +45,6 @@ public class Dungeon {
 				itemUsed = collectible;
 			}
 		}
-
-		if (itemString != null &&  itemUsed == null) {
-			throw new InvalidActionException("This item is not currently in your inventory");
-		}
 		
 		if (itemUsed instanceof HealthPotion) {
 			getPlayer().setHealth(100);
@@ -64,7 +62,39 @@ public class Dungeon {
 			inventory.remove(itemUsed);
 			return true;
 		}
+
+		if (itemUsed instanceof BombItem) {
+			
+			BombStatic bomb = new BombStatic(getPlayerPosition());
+
+			int id = getHistoricalEntCount();
+            bomb.setId(String.valueOf(id));
+			entities.put(String.valueOf(id), bomb);
+			setHistoricalEntCount(id++);
+
+			inventory.remove(itemUsed);
+			return true;
+		}	
 		return false;
+	}
+
+	public List<String> toBeDetonated(Position centre) {
+
+		List<String> result = new ArrayList<String>();
+		for (Position adjacentPos : centre.getAdjacentPositions()) {
+			for (Entity cellEnt : getEntitiesOnCell(adjacentPos)) {
+				if (cellEnt != null && !(cellEnt instanceof Player)) {
+					result.add(cellEnt.getId());
+				}
+			}	
+		}
+		
+		for (Entity cellEnt : getEntitiesOnCell(centre)) {
+			if (cellEnt != null && !(cellEnt instanceof Player)) {
+				result.add(cellEnt.getId());
+			}
+		}
+		return result;
 	}
 	
     public Map<String, Entity> getEntities() {
@@ -111,7 +141,10 @@ public class Dungeon {
 	public Entity getEntity(Position position) {
 		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
 			Entity currentEntity = entry.getValue();
-			if (currentEntity.getPosition().equals(position)) {
+			if (
+				currentEntity.getPosition().equals(position)
+				&& currentEntity.getPosition().getLayer() == position.getLayer()			
+			) {
 				return currentEntity;
 			}
 		}
@@ -128,6 +161,20 @@ public class Dungeon {
 		}
 
 		return null;
+	}
+ 
+	public List<Entity> getEntitiesOnCell(Position cell) {
+		List<Entity> result = new ArrayList<>();
+		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
+			Entity currentEntity = entry.getValue();
+			if (
+				currentEntity.getPosition().getX() == cell.getX()
+				&& currentEntity.getPosition().getY() == cell.getY()
+			) {
+				result.add(currentEntity);
+			}
+		}
+		return result;
 	}
 
 	public int getTickNumber() {
@@ -251,6 +298,14 @@ public class Dungeon {
 		}
 
 		return result;
+	}
+
+	public int getHistoricalEntCount() {
+		return this.historicalEntCount;
+	}
+
+	public void setHistoricalEntCount(int historicalEntCount) {
+		this.historicalEntCount = historicalEntCount;
 	}
 
 	public boolean equals(Object obj) {

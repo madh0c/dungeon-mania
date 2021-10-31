@@ -143,6 +143,15 @@ public final class Position {
         return adjacentPositions;
     }
 
+    public List<Position> getCardinallyAdjPositions() {
+        List<Position> adjacentPositions = new ArrayList<>();
+        adjacentPositions.add(new Position(x, y-1));
+        adjacentPositions.add(new Position(x+1, y));
+        adjacentPositions.add(new Position(x, y+1));
+        adjacentPositions.add(new Position(x-1, y));
+        return adjacentPositions;
+    }
+
 	// Check if same x and y coordinate
 	public boolean coincides(Position pos) {
 		return (getX() == pos.getX()) && (getY() == pos.getY());

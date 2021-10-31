@@ -15,6 +15,7 @@ import dungeonmania.Move;
 
 import java.io.IOException;
 import java.lang.ModuleLayer.Controller;
+import java.rmi.ConnectIOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -226,11 +227,15 @@ public class DungeonManiaController {
 		Move moveStrategy = new PlayerMove();
 		// Move player
 		if (currentDungeon.getPlayer() != null) {
+			currentDungeon.getPlayer().setCurrentDir(movementDirection);
 			// make sure invincibility wears off
 			int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
 			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
 			moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);			
 		}
+
+		Switch switchFlick = null;
+		boolean switchOn = false;
 		// Move everything else
 		for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
 			Entity currentEntity = entry.getValue();
@@ -241,6 +246,9 @@ public class DungeonManiaController {
 				moveStrategy = new MercenaryMove();
 				moveStrategy.move(currentEntity, currentDungeon);
 			} else if (currentEntity instanceof Boulder) {
+				if (!currentEntity.getPosition().equals(currentDungeon.getPlayerPosition())) {
+					continue;
+				}
 				moveStrategy = new StandardMove();
 				// Get position of switch, layer -1
 				Position prevPos = currentEntity.getPosition();
@@ -248,17 +256,17 @@ public class DungeonManiaController {
 				moveStrategy.move(currentEntity, currentDungeon, movementDirection);
 
 				Position currPos = currentEntity.getPosition();
-				Position currPosSwitch = new Position(prevPos.getX(), prevPos.getY(), -1);
+				Position currPosSwitch = new Position(currPos.getX(), currPos.getY(), -1);
 
 				// Check if switch is being activated
 				if (currentDungeon.entityExists("switch", currPosSwitch)) {
-					Switch sw = (Switch) currentDungeon.getEntity("switch", currPosSwitch);
-					sw.setStatus(true);
+					switchFlick = (Switch) currentDungeon.getEntity("switch", currPosSwitch);
+					switchOn = true;
 				}
 				// Check if switch is being deactivated
 				if (currentDungeon.entityExists("switch", prevPosSwitch)) {
-					Switch sw = (Switch) currentDungeon.getEntity("switch", prevPosSwitch);
-					sw.setStatus(false);
+					switchFlick = (Switch) currentDungeon.getEntity("switch", prevPosSwitch);
+					switchOn = false;
 				}
 
 			} else if (currentEntity instanceof ZombieToast) {
@@ -284,11 +292,30 @@ public class DungeonManiaController {
 			}
 		}
 
+		if (switchFlick != null) {
+			switchFlick.setStatus(switchOn);
+		}
+		
 		// Use item
 		currentDungeon.useItem(itemUsed);
 		
+		// find all entities that should be blown up	
+		List<String> idsToBeRemoved = new ArrayList<String>();		
+		for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
+			Entity currentEntity = entry.getValue();
+			if (currentEntity instanceof BombStatic) {
+				for (Position cardinal : currentEntity.getPosition().getCardinallyAdjPositions()) {
+					Switch sw = (Switch)currentDungeon.getEntity("switch", cardinal);
+					if (sw != null) {
+						if (sw.getStatus()) {
+							idsToBeRemoved.addAll(currentDungeon.toBeDetonated(currentEntity.getPosition()));							
+						}
+					}
+				}
+			}
+		}
 
-		
+		currentDungeon.getEntities().keySet().removeAll(idsToBeRemoved);
 		return getDungeonInfo(currentDungeon.getId());
 	}
 

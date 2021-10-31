@@ -14,13 +14,22 @@ public class PlayerMove implements Move {
 	public void move(Entity entity, Dungeon dungeon, Direction direction) {
         Player player = (Player) entity;
 		Position newPos = entity.getPosition().translateBy(direction);
-		Entity newEnt = dungeon.getEntity(newPos);
-		if (!player.collide(newEnt, dungeon)) {
-			return;
+
+		// Entity newEnt = dungeon.getEntity(newPos);
+		// if (!player.collide(newEnt, dungeon)) {
+		// 	return;
+		// }
+		boolean collideable = true;
+		for (Entity ent : dungeon.getEntitiesOnCell(newPos)) {
+			if (!player.collide(ent, dungeon)) {
+				collideable = false;
+			}
 		}
 
-		// Move code
-		player.setPosition(newPos);
+		if (collideable) {
+			// Move code
+			player.setPosition(newPos);
+		}		
 		
 	}
 
