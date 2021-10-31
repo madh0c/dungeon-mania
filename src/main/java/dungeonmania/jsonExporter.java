@@ -103,7 +103,6 @@ public class jsonExporter {
 				andGoal.add(subGoal);
 			}
 			return andGoal;
-
 		} else if (current.equals("OR")) {
 			GoalOr orGoal = new GoalOr(current);
 			JSONArray subGoals = goal.getJSONArray("subgoals");
