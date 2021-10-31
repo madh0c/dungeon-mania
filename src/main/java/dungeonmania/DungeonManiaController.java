@@ -200,6 +200,7 @@ public class DungeonManiaController {
 
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
+		currentDungeon.tickOne();
 		Move moveStrategy = new PlayerMove();
 		// Move player
 		if (currentDungeon.getPlayer() != null) {
