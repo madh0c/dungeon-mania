@@ -83,7 +83,13 @@ public class Player extends Entity {
 		} else if (entity instanceof ZombieToastSpawner) {
 			return false;
 		} else if (entity instanceof Door) {
-			return haveKey;
+			if (haveKey) {
+				haveKey = false;
+				return true;
+			} else {
+				return false;
+			}
+			
 		} else if (entity instanceof Boulder) {
 			Boulder boulder = (Boulder) entity;
 
@@ -115,11 +121,10 @@ public class Player extends Entity {
 		if (entity instanceof CollectibleEntity) {
 			// can't have 2 keys in inv
 			if (entity instanceof Key) {
-				for (CollectibleEntity item : dungeon.getInventory()) {
-					if (item.getType().equals("key")) {
-						return true;
-					}
-				}				
+				if (haveKey) {
+					return true;
+				}			
+				haveKey = true;
 			} else if (entity instanceof OneRing) {
 				for (CollectibleEntity item : dungeon.getInventory()) {
 					if (item.getType().equals("one_ring")) {
