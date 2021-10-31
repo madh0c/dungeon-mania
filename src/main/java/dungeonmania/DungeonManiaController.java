@@ -145,7 +145,8 @@ public class DungeonManiaController {
 	public void checkValidNewGame(String dungeonName, String gameMode) throws IllegalArgumentException {
 		boolean gameExists = false;
 		for (String dungeon : dungeons()) {
-			if (dungeon.equals(dungeonName)) {
+			String dungeonWJson = dungeon + ".json";
+			if (dungeonWJson.equals(dungeonName)) {
 				gameExists = true;
 			}
 		}
@@ -264,9 +265,8 @@ public class DungeonManiaController {
 		permittedItems.add("health_potion");
 		permittedItems.add("invincibility_potion");
 		permittedItems.add("invisibility_potion");
-		permittedItems.add(null);
 
-		if (!permittedItems.contains(itemUsed)) {
+		if (!permittedItems.contains(itemUsed) && !(itemUsed == null)) {
 			throw new IllegalArgumentException("Cannot Use Requested Item; Ensure Item Is Either a Bomb, Health Potion, " +
 			"Invincibility Potion, Invisibility Potion or null");
 		}
@@ -274,9 +274,13 @@ public class DungeonManiaController {
 		boolean itemInInventory = false;
 		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
 		for (CollectibleEntity item : currentInventory) {
-			if (item.getType().equals(itemUsed)) {
+			if (!(itemUsed == null) && item.getType().equals(itemUsed)) {
 				itemInInventory = true;
 			}
+		}
+
+		if (itemUsed == null) {
+			itemInInventory = true;
 		}
 
 		if (!itemInInventory) {
