@@ -203,6 +203,10 @@ public class DungeonManiaController {
 
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
+
+		// Use item
+		currentDungeon.useItem(itemUsed);
+		
 		// First tick of game, some actions to do
 		if (currentDungeon.getTickNumber() == 0) {
 			// If player exists
@@ -221,7 +225,6 @@ public class DungeonManiaController {
 			}
 
 		}
-
 		
 		currentDungeon.tickOne();
 		Move moveStrategy = new PlayerMove();
@@ -294,10 +297,8 @@ public class DungeonManiaController {
 
 		if (switchFlick != null) {
 			switchFlick.setStatus(switchOn);
-		}
+		}		
 		
-		// Use item
-		currentDungeon.useItem(itemUsed);
 		
 		// find all entities that should be blown up	
 		List<String> idsToBeRemoved = new ArrayList<String>();		
