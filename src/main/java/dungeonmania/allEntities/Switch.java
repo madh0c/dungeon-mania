@@ -9,7 +9,7 @@ public class Switch extends Entity {
     private boolean isActivated;
 
     public Switch(Position position) {
-        super(position, "switch");
+        super(new Position(position.getX(), position.getY(), -1), "switch");
         this.isActivated = false;
     }
 
