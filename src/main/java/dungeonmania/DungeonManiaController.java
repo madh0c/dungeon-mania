@@ -273,7 +273,6 @@ public class DungeonManiaController {
 			switchFlick.setStatus(switchOn);
 		}
 		
-
 		// Use item
 		currentDungeon.useItem(itemUsed);
 		
@@ -292,9 +291,8 @@ public class DungeonManiaController {
 				}
 			}
 		}
-		
-		currentDungeon.getEntities().keySet().removeAll(idsToBeRemoved);	
-		
+
+		currentDungeon.getEntities().keySet().removeAll(idsToBeRemoved);
 		return getDungeonInfo(currentDungeon.getId());
 	}
 

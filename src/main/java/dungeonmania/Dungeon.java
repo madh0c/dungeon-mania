@@ -66,27 +66,36 @@ public class Dungeon {
 		}
 
 		if (itemUsed instanceof BombItem) {
+			
 			BombStatic bomb = new BombStatic(getPlayerPosition());
-			entities.put(itemUsed.getId(), bomb);
+
+			int id = getHistoricalEntCount();
+            bomb.setId(String.valueOf(id));
+			entities.put(String.valueOf(id), bomb);
+			setHistoricalEntCount(id++);
+
 			inventory.remove(itemUsed);
 			return true;
 		}	
-
 		return false;
 	}
 
 	public List<String> toBeDetonated(Position centre) {
+
 		List<String> result = new ArrayList<String>();
 		for (Position adjacentPos : centre.getAdjacentPositions()) {
-			// TODO: loop through entities on that cell, add them all to result
-
-			if (getEntity(adjacentPos) != null && !(getEntity(adjacentPos) instanceof Player)) {
-				String removedId = getEntity(adjacentPos).getId();
-				result.add(removedId);
-			}			
+			for (Entity cellEnt : getEntitiesOnCell(adjacentPos)) {
+				if (cellEnt != null && !(cellEnt instanceof Player)) {
+					result.add(cellEnt.getId());
+				}
+			}	
 		}
-		// remove bomb, TODO: loop through entities on that cell, add them all to result	
-		result.add(getEntity(centre).getId());	
+		
+		for (Entity cellEnt : getEntitiesOnCell(centre)) {
+			if (cellEnt != null && !(cellEnt instanceof Player)) {
+				result.add(cellEnt.getId());
+			}
+		}
 		return result;
 	}
 	
@@ -262,6 +271,14 @@ public class Dungeon {
 		}
 
 		return result;
+	}
+
+	public int getHistoricalEntCount() {
+		return this.historicalEntCount;
+	}
+
+	public void setHistoricalEntCount(int historicalEntCount) {
+		this.historicalEntCount = historicalEntCount;
 	}
 
 	public boolean equals(Object obj) {
