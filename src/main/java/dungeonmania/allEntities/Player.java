@@ -87,7 +87,18 @@ public class Player extends Entity {
 			return false;
 		} else if (entity instanceof Door) {
 			if (haveKey) {
+				CollectibleEntity removed = null;
+				for (CollectibleEntity item : dungeon.getInventory()) {
+					if (item instanceof Key) {
+						removed = item;
+						break;
+					}
+				}
+				dungeon.getInventory().remove(removed);
 				haveKey = false;
+
+				Door door = (Door) entity;
+				door.setOpen(true);
 				return true;
 			} else {
 				return false;
