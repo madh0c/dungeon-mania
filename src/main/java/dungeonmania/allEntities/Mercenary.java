@@ -20,6 +20,8 @@ public class Mercenary extends MovableEntity {
     public Mercenary(Position position) {
         super(position, "mercenary");
 		this.isAlly = false;
+		super.setHealth(30);
+		super.setBaseAttack(5);
     }
 
 	public boolean getIsAlly() {
@@ -69,6 +71,9 @@ public class Mercenary extends MovableEntity {
 				}
 	
 			}
+		if (entity instanceof CollectibleEntity) {
+			return true;
+		}
 			return false;
 		}
 

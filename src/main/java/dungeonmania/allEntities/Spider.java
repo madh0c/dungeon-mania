@@ -25,7 +25,8 @@ public class Spider extends MovableEntity {
     public Spider(Position position) {
         super(position, "spider");
 		range = new ArrayList<>();
-		
+		super.setHealth(10);
+		super.setBaseAttack(5);
 		currTile = 0;
 		range.add(position);
 		// range.add(position.translateBy(Direction.DOWN));

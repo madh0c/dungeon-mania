@@ -15,4 +15,8 @@ public class Armour extends CollectibleEntity {
     public int getDurability() {
         return durability;
     }
+
+    public void setDurability(int durability) {
+        this.durability = durability;
+    }
 }

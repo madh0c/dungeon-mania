@@ -177,17 +177,18 @@ public class CollectibleEntitiesTest {
 
         // move to right and fight the mercenary
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
-        // // check that durabilities went down
-        // Sword sword = (Sword) controller.getDungeon(0).getInventory().get(0);
-        // assertNotEquals(10, sword.getDurability()); 
+        // check that durabilities went down
+        Sword sword = (Sword) controller.getDungeon(0).getInventory().get(0);
+        assertNotEquals(10, sword.getDurability()); 
 
-        // Armour armour = (Armour) controller.getDungeon(0).getInventory().get(1);
-        // assertNotEquals(10, armour.getDurability()); 
+        Armour armour = (Armour) controller.getDungeon(0).getInventory().get(1);
+        assertNotEquals(10, armour.getDurability()); 
 
-        // // TODO: find what the health should be (100 IS WRONG)
-        // Player player = controller.getDungeon(0).getPlayer();
-        // assertEquals(100, player.getHealth());
+        // TODO: find what the health should be (100 IS WRONG)
+        Player player = controller.getDungeon(0).getPlayer();
+        assertEquals(94, player.getHealth());
     }
 
     @Test
