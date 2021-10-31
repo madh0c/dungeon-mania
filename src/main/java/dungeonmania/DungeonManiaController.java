@@ -348,6 +348,51 @@ public class DungeonManiaController {
 
 	public DungeonResponse build(String buildable) throws IllegalArgumentException, InvalidActionException {
 		checkValidBuild(buildable);
+		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
+		if (buildable.equals("bow")) {
+			CollectibleEntity bow = (CollectibleEntity) EntityFactory.createEntity("bow", currentDungeon.getPlayerPosition());
+			int id = getDungeon(currentDungeon.getId()).getHistoricalEntCount();
+			bow.setId(String.valueOf(id));
+			getDungeon(currentDungeon.getId()).setHistoricalEntCount(id++);
+			currentInventory.add(bow);
+			int counterArrow = 0;
+			int counterWood = 0;
+			for (int i = 0; i < currentInventory.size(); i++) {
+				CollectibleEntity found = currentInventory.get(i);
+				if (found.getType().equals("arrow") && counterArrow < 3) {
+					counterArrow++;
+					currentInventory.remove(i);
+					i = -1;
+				} else if (found.getType().equals("wood") && counterWood < 1) {
+					counterWood++;
+					currentInventory.remove(i);
+					i = -1;
+				}
+			}
+		} else if (buildable.equals("shield")) {
+			CollectibleEntity shield = (CollectibleEntity) EntityFactory.createEntity("shield", currentDungeon.getPlayerPosition());
+			int id = getDungeon(currentDungeon.getId()).getHistoricalEntCount();
+			shield.setId(String.valueOf(id));
+			getDungeon(currentDungeon.getId()).setHistoricalEntCount(id++);
+			currentInventory.add(shield);
+			int counterTreasure = 0;
+			int counterKey = 0;
+			int counterWood = 0;
+			for (int i = 0; i < currentInventory.size(); i++) {
+				CollectibleEntity found = currentInventory.get(i);
+				if (found.getType().equals("wood") && counterWood < 2) {
+					counterWood++;
+					currentInventory.remove(i);
+					i = -1;
+				} else if ((found.getType().equals("treasure") && counterTreasure < 1) || (found.getType().equals("key") && counterKey < 1)) {
+					counterTreasure++;
+					counterKey++;
+					currentInventory.remove(i);
+					i = -1;
+				}
+			}
+		}
+
 		return null;
 	}
 

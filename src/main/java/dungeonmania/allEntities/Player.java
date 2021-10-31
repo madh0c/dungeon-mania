@@ -103,6 +103,12 @@ public class Player extends Entity {
 						return true;
 					}
 				}				
+			} else if (entity instanceof OneRing) {
+				for (CollectibleEntity item : dungeon.getInventory()) {
+					if (item.getType().equals("one_ring")) {
+						return true;
+					}
+				}	
 			}
 
 			// Remove entity
