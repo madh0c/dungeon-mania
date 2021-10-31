@@ -22,6 +22,7 @@ public class Dungeon {
     private String gameMode;
     private String goals;
 	private int historicalEntCount;
+	private int tickNumber;
 
 
     public Dungeon(int id, String name, Map<String, Entity> entities, String gameMode, String goals) {
@@ -129,6 +130,14 @@ public class Dungeon {
 		}
 
 		return null;
+	}
+
+	public int getTickNumber() {
+		return tickNumber;
+	}
+
+	public void tickOne() {
+		tickNumber++;
 	}
 
 	public void removeEntity(Entity entity) {
