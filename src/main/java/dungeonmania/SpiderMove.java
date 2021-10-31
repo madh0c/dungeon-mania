@@ -64,7 +64,8 @@ public class SpiderMove implements Move {
 				if (spider.collide(dungeon.getEntity(pos5))) {
 					// Move to pos5
 					spider.setPosition(pos5);
-					spider.setCurrTile(1);
+					spider.setCurrTile(5);
+					spider.setClockwise(true);
 				} else {
 					spider.setClockwise(true);
 				}

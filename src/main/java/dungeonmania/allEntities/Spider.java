@@ -3,6 +3,8 @@ package dungeonmania.allEntities;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.ranges.Range;
+
 import dungeonmania.Entity;
 import dungeonmania.MovableEntity;
 import dungeonmania.util.Direction;
@@ -14,8 +16,8 @@ public class Spider extends MovableEntity {
 	private List<Position> range;
 	// Position of tile in relation to centre, dependent on currTile
 	//	8 1 2
-	//	7 0 3 
-	//	6 5 4
+	//	7 0 3 ^	UP
+	//	6 5 4 v DOWN
 	private int currTile;
 
 	private boolean clockwise;
@@ -26,6 +28,14 @@ public class Spider extends MovableEntity {
 		
 		currTile = 0;
 		range.add(position);
+		// range.add(position.translateBy(Direction.DOWN));
+		// range.add(position.translateBy(Direction.DOWN).translateBy(Direction.RIGHT));
+		// range.add(position.translateBy(Direction.RIGHT));
+		// range.add(position.translateBy(Direction.RIGHT).translateBy(Direction.UP));
+		// range.add(position.translateBy(Direction.UP));
+		// range.add(position.translateBy(Direction.UP).translateBy(Direction.LEFT));
+		// range.add(position.translateBy(Direction.LEFT));
+		// range.add(position.translateBy(Direction.LEFT).translateBy(Direction.DOWN));
 		range.add(position.translateBy(Direction.UP));
 		range.add(position.translateBy(Direction.UP).translateBy(Direction.RIGHT));
 		range.add(position.translateBy(Direction.RIGHT));
