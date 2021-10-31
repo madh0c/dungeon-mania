@@ -90,6 +90,9 @@ public class Player extends Entity {
 			Portal portal1 = (Portal) entity;
 			for (Map.Entry<String, Entity> entry : dungeon.getEntities().entrySet()) {
 				Entity currentEntity = entry.getValue();
+				if (!(currentEntity instanceof Portal)) {
+					continue;
+				}
 				// Check if same entity
 				if (!currentEntity.getId().equals(portal1.getId())) {
 					Portal portal2 = (Portal) currentEntity;

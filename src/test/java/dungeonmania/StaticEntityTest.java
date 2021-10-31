@@ -907,7 +907,7 @@ public class StaticEntityTest {
         // Tick player.
 		controller.tick(null, Direction.RIGHT);
 
-		// Assert the spider coincides with door
+		// Assert the player teleports appropriately
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(5,0), true);
