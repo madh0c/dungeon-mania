@@ -1,5 +1,6 @@
 package dungeonmania;
 
+import dungeonmania.allEntities.*;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
@@ -13,7 +14,6 @@ public class SpiderMove implements Move {
 
 	@Override
 	public void move(Entity entity, Dungeon dungeon) {
-<<<<<<< HEAD
 		Spider spider = (Spider) entity;
 
 		// Find predetermined position
@@ -93,10 +93,6 @@ public class SpiderMove implements Move {
 				}
 			}
 		}
-=======
-		// TODO Auto-generated method stub
-		
->>>>>>> master
 	}
 	
 }
