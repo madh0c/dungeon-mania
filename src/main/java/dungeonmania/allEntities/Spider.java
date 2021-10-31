@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.w3c.dom.ranges.Range;
 
+import dungeonmania.Battle;
+import dungeonmania.Dungeon;
 import dungeonmania.Entity;
 import dungeonmania.MovableEntity;
 import dungeonmania.util.Direction;
@@ -68,7 +70,7 @@ public class Spider extends MovableEntity {
 	}
 
 	@Override
-	public boolean collide(Entity entity) {
+	public boolean collide(Entity entity, Dungeon dungeon) {
 		// If empty space
 		if (entity == null) {
 			return true;
@@ -76,10 +78,35 @@ public class Spider extends MovableEntity {
 		
 		if (entity instanceof Boulder) {
 			return false;
-		} else if (entity instanceof MovableEntity) {
+		} else if (entity instanceof Player) {
+			Battle.battle(this, dungeon);
+		}
+		
+		else if (entity instanceof MovableEntity) {
 			return false;
 		}
 		
 		return true;
 	}
+
+	// @Override
+	// public boolean collide(Entity entity) {
+	// 	// If empty space
+	// 	if (entity == null) {
+	// 		return true;
+	// 	}
+		
+	// 	if (entity instanceof Boulder) {
+	// 		return false;
+	// 	} 
+	// 	// else if (entity instanceof Player) {
+	// 	// 	Battle.battle(this, dungeon);
+	// 	// }
+		
+	// 	else if (entity instanceof MovableEntity) {
+	// 		return false;
+	// 	}
+		
+	// 	return true;
+	// }
 }
