@@ -3,5 +3,9 @@ package dungeonmania;
 import java.util.Map;
 
 public interface GoalNode {
-	public abstract String evaluate();
+	
+	//public Boolean evaluate();
+	public String remainingString();
+	//public Boolean isCompleted;
 }
+

@@ -3,6 +3,10 @@ package dungeonmania;
 import dungeonmania.allEntities.*;
 import dungeonmania.util.FileLoader;
 import com.google.gson.*;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.Map;
 import java.util.List;
 import dungeonmania.util.Position;
@@ -65,19 +69,14 @@ public class jsonExporter {
             }
 
             Map<String, Object> goalConditions = (Map<String, Object>)map.get("goal-condition");
+			if (!goalConditions.get("goal").equals("AND") && !goalConditions.get("goal").equals("OR")) {
+				goals = (String)goalConditions.get("goal");
+			} 
+			JSONObject goalCon = new JSONObject(goalConditions);
+			goals = createGoals(goalCon).remainingString();
+			System.out.println(goals);
 
-			GoalGoal goal = new GoalGoal(goalConditions.get("goal"));
-			String delim = goal.evaluate();
-
-			List<Map<String, Object>> sgoal = (List<Map<String, Object>>)goalConditions.get("subgoals");
-			Map<String, Object> sgoal1 = sgoal.get(0);
-			Map<String, Object> sgoal2 = sgoal.get(1);
-
-			GoalSub subgoal1 = new GoalSub(sgoal1);
-			GoalSub subgoal2 = new GoalSub(sgoal2);
-			String subGoal1 = subgoal1.evaluate();
-			String subGoal2 = subgoal2.evaluate();
-			goals = subGoal1 + " " + delim + " " + subGoal2;
+		
 
         } catch (Exception IOException) {
 			System.out.println("error");
@@ -86,10 +85,41 @@ public class jsonExporter {
         return new Dungeon(id, path, dungeonMap, gameMode, goals);
     }
 
-	/*
+	public static GoalNode createGoals (JSONObject goal) {
+		String current = goal.getString("goal");
+		if (current.equals("enemies")) {
+			return new GoalEnemies(current);
+		} else if (current.equals("exit")) {
+			return new GoalExit(current);
+		} else if (current.equals("treasure")) {
+			return new GoalTreasure(current);
+		} else if (current.equals("boulder")) {
+			return new GoalBoulder(current);
+		} else if (current.equals("AND")) {
+			GoalAnd andGoal = new GoalAnd(current);
+			JSONArray subGoals = goal.getJSONArray("subgoals");
+			for (int i = 0; i < subGoals.length(); i++) {
+				GoalNode subGoal = createGoals(subGoals.getJSONObject(i));
+				andGoal.add(subGoal);
+			}
+			return andGoal;
+
+		} else if (current.equals("OR")) {
+			GoalOr orGoal = new GoalOr(current);
+			JSONArray subGoals = goal.getJSONArray("subgoals");
+			for (int i = 0; i < subGoals.length(); i++) {
+				GoalNode subGoal = createGoals(subGoals.getJSONObject(i));
+				orGoal.add(subGoal);
+			}
+			return orGoal;
+		} 
+		return null;
+	}
+
+	
 	public static void main(String[] args) {
 		makeDungeon(0, "goals.json", "standard");
 	}
-	*/
+	
 
 }
