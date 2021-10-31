@@ -206,5 +206,21 @@ public class CollectibleEntitiesTest {
         
     }
 
+    @Test
+    public void testPickupTwoItemsConcurrently() {
+        DungeonManiaController controller = new DungeonManiaController();
 
+        // create a new game and move the player right to pickup treasure AND wood
+        assertDoesNotThrow(() ->controller.newGame("testCollectiblesStack.json", "Peaceful"));        
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
+
+        // update dungeon response
+        DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+
+        // both objects should be in the inventory
+        assertEquals(Arrays.asList(new ItemResponse("1", "treasure"), new ItemResponse("2", "wood")), dungeonInfo.getInventory());
+
+
+
+    }
 }
