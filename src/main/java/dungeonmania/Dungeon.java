@@ -126,14 +126,6 @@ public class Dungeon {
         return goals;
     }
 
-	public int getHistoricalEntCount () {
-		return historicalEntCount;
-	}
-
-	public void setHistoricalEntCount(int historicalEntCount) {
-		this.historicalEntCount = historicalEntCount;
-	}
-
 	public Entity getEntity(String id) {
 		return entities.get(id);
 	}
