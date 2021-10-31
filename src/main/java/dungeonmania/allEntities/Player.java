@@ -23,7 +23,7 @@ public class Player extends Entity {
         super(position, "player");
 		this.health = 100;
 		this.visible = true;
-		invincibleTickDuration = 0;
+		this.invincibleTickDuration = 0;
     }
 
     public void setHealth(int newHealth) {
