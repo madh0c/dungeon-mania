@@ -148,10 +148,12 @@ public class DungeonManiaController {
 			String dungeonWJson = dungeon + ".json";
 			if (dungeonWJson.equals(dungeonName)) {
 				gameExists = true;
+				break;
 			}
 		}
 		
 		if (gameExists == false) {
+			// return;
 			throw new IllegalArgumentException("Invalid Dungeon Map Passed; Requested Dungeon Does Not Exist");
 		}
 
@@ -200,6 +202,26 @@ public class DungeonManiaController {
 
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
+		// First tick of game, some actions to do
+		if (currentDungeon.getTickNumber() == 0) {
+			// If player exists
+			if (currentDungeon.getPlayer() != null) {
+				currentDungeon.setSpawnpoint(currentDungeon.getPlayerPosition());
+			}
+		}
+
+		// Spawn in new entities after period of ticks
+		if (currentDungeon.getTickNumber() % 10 == 0 && currentDungeon.getTickNumber() > 0) {
+			// If there is a spawnpoint
+			if (currentDungeon.getSpawnpoint() != null) {
+				// Merc spawn every 10 ticks
+				Mercenary merc = new Mercenary(currentDungeon.getSpawnpoint());
+				currentDungeon.addEntity(merc);
+			}
+
+		}
+
+		
 		currentDungeon.tickOne();
 		Move moveStrategy = new PlayerMove();
 		// Move player
@@ -301,12 +323,20 @@ public class DungeonManiaController {
 
 	public DungeonResponse interact(String entityId) throws IllegalArgumentException, InvalidActionException {
 		checkValidInteract(entityId);
-		return null;
+		Entity ent = currentDungeon.getEntity(entityId);
+		// Attempt bribe if mercenary
+		if (ent instanceof Mercenary) {
+			Mercenary merc = (Mercenary) ent;
+			if (!merc.bribeable(currentDungeon)) {
+				throw new InvalidActionException("Cannot Bribe Mercenary; Not Enough Gold");
+			}
+		}
+		return getDungeonInfo(currentDungeon.getId());
 	}
 
 
 	public void checkValidInteract(String entityId) throws IllegalArgumentException, InvalidActionException{
-		if (currentDungeon.getEntity(entityId).equals(null)) {
+		if (currentDungeon.getEntity(entityId) == null) {
 			throw new IllegalArgumentException("Cannot Interact With Requested Entity; Entity Does Not Exist In The Map");
 		}
 

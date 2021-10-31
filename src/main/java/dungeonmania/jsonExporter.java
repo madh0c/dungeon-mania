@@ -51,15 +51,15 @@ public class jsonExporter {
                 int yCoord = yDouble.intValue();
 
 				int zCoord = 0;
-                if (entityType.equals("switch")) {
+                if (entityType.contains("switch")) {
                     zCoord = -1;
                 }
                 Position position = new Position(xCoord, yCoord, zCoord);
                 
-				if (entityType.equals("portal")) {
+				if (entityType.contains("portal")) {
 					String colour = (String)currentEntity.get("colour");
 					Portal portal = new Portal(position, colour);
-                    
+                    portal.setId(String.valueOf(i));
 					dungeonMap.put(String.valueOf(i), portal);
 				} else {
 					Entity newEntity = EntityFactory.createEntity(entityType, position);

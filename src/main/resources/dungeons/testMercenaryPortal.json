@@ -16,6 +16,11 @@
 			"y": 1,
 			"type": "portal",
 			"colour": "BLUE"
+		},
+		{
+			"x": 1,
+			"y": 2,
+			"type": "player"
 		}
     ],
     "width": 7,
