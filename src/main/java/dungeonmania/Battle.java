@@ -20,6 +20,7 @@ public class Battle {
 	public static void battle(Entity entity, Dungeon dungeon) {
 		MovableEntity enemy = (MovableEntity)entity;
 		while (enemy.getHealth() > 0 && dungeon.getPlayer().getHealth() > 0) {
+		// while (enemy != null && dungeon.getPlayer().getHealth() > 0) {
 			// if player invincible
 			if (dungeon.getPlayer().getInvincibleTickDuration() > 0) {
 				dungeon.removeEntity(entity);
@@ -90,11 +91,13 @@ public class Battle {
 						dungeon.getPlayer().setHealth(100);
 					}
 				}
-				dungeon.removeEntity(dungeon.getPlayer());					
+				dungeon.removeEntity(dungeon.getPlayer());	
+				break;				
 			} 
 
 			if (enemy.getHealth() <= 0) {
 				dungeon.removeEntity(entity);
+				break;
 			}
 		}
 	}

@@ -60,7 +60,7 @@ public class BattleTest {
 		assertDoesNotThrow(() -> controller.newGame("testPlayerDies.json", "Standard"));
 
 		// For 20 ticks, wait for zombie to spawn
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 21; i++) {
 			controller.tick(null, Direction.NONE);
 		}
 
@@ -69,13 +69,13 @@ public class BattleTest {
 		controller.tick(null, Direction.NONE);
 		assertEquals(50, controller.getDungeon(0).getPlayer().getHealth());
 
-		// Wait 19 ticks, til 41st tick
-		for (int i = 0; i < 19; i++) {
+		// Wait 19 ticks, til 40th tick
+		// Mercenary has battled him twice again, 30 health
+		for (int i = 0; i < 18; i++) {
 			controller.tick(null, Direction.NONE);
 		}
 
-		controller.tick(null, Direction.NONE);
-		assertEquals(15, controller.getDungeon(0).getPlayer().getHealth());
+		assertEquals(30, controller.getDungeon(0).getPlayer().getHealth());
 
 	}
 	
