@@ -38,7 +38,7 @@ public class EntityFactory {
 		else if (type.contains("arrow"))
 			return new Arrow(position);
 		else if (type.contains("bomb"))
-			return new Bomb(position);
+			return new BombItem(position);
 		else if (type.contains("sword"))
 			return new Sword(position);
 		else if (type.contains("player"))

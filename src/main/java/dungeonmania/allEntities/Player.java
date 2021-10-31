@@ -67,6 +67,8 @@ public class Player extends Entity {
 		
 		if (entity instanceof Wall) {
 			return false;
+		} else if (entity instanceof BombStatic) {
+			return false;
 		} else if (entity instanceof ZombieToastSpawner) {
 			return false;
 		} else if (entity instanceof Door) {
@@ -104,7 +106,6 @@ public class Player extends Entity {
 					}
 				}				
 			}
-
 			// Remove entity
 			dungeon.removeEntity(entity);
 

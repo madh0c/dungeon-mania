@@ -18,6 +18,8 @@ public abstract class MovableEntity extends Entity {
 		
 		if (entity instanceof Boulder) {
 			return false;
+		} else if (entity instanceof BombStatic) {
+			return false;
 		} else if (entity instanceof Wall) {
 			return false;
 		} else if (entity instanceof ZombieToastSpawner) {

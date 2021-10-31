@@ -31,6 +31,8 @@ public class Mercenary extends MovableEntity {
 		
 		if (entity instanceof Wall) {
 			return false;
+		} else if (entity instanceof BombStatic) {
+			return false;
 		} else if (entity instanceof ZombieToastSpawner) {
 			return false;
 		} else if (entity instanceof Door) {

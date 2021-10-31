@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
+import dungeonmania.allEntities.BombItem;
+import dungeonmania.allEntities.BombStatic;
 import dungeonmania.allEntities.HealthPotion;
 import dungeonmania.allEntities.InvincibilityPotion;
 import dungeonmania.allEntities.InvisibilityPotion;
@@ -63,9 +65,29 @@ public class Dungeon {
 			return true;
 		}
 
-		
+		if (itemUsed instanceof BombItem) {
+			BombStatic bomb = new BombStatic(getPlayerPosition());
+			entities.put(itemUsed.getId(), bomb);
+			inventory.remove(itemUsed);
+			return true;
+		}	
 
 		return false;
+	}
+
+	public List<String> toBeDetonated(Position centre) {
+		List<String> result = new ArrayList<String>();
+		for (Position adjacentPos : centre.getAdjacentPositions()) {
+			// TODO: loop through entities on that cell, add them all to result
+
+			if (getEntity(adjacentPos) != null && !(getEntity(adjacentPos) instanceof Player)) {
+				String removedId = getEntity(adjacentPos).getId();
+				result.add(removedId);
+			}			
+		}
+		// remove bomb, TODO: loop through entities on that cell, add them all to result	
+		result.add(getEntity(centre).getId());	
+		return result;
 	}
 	
     public Map<String, Entity> getEntities() {
@@ -104,7 +126,10 @@ public class Dungeon {
 	public Entity getEntity(Position position) {
 		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
 			Entity currentEntity = entry.getValue();
-			if (currentEntity.getPosition().equals(position)) {
+			if (
+				currentEntity.getPosition().equals(position)
+				&& currentEntity.getPosition().getLayer() == position.getLayer()			
+			) {
 				return currentEntity;
 			}
 		}
@@ -121,6 +146,20 @@ public class Dungeon {
 		}
 
 		return null;
+	}
+ 
+	public List<Entity> getEntitiesOnCell(Position cell) {
+		List<Entity> result = new ArrayList<>();
+		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
+			Entity currentEntity = entry.getValue();
+			if (
+				currentEntity.getPosition().getX() == cell.getX()
+				&& currentEntity.getPosition().getY() == cell.getY()
+			) {
+				result.add(currentEntity);
+			}
+		}
+		return result;
 	}
 
 	public void removeEntity(Entity entity) {
