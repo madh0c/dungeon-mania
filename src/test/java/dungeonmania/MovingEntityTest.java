@@ -57,7 +57,7 @@ public class MovingEntityTest {
 		Position prevPos = controller.getDungeon(0).getEntity("0").getPosition();
 		Position currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(prevPos.equals(currPos));
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Spider moves up 1
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
