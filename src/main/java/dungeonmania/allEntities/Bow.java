@@ -11,6 +11,7 @@ public class Bow extends CollectibleEntity {
    
     public Bow(Position position) {
         super(position, "bow");
+		this.durability = 5;
     }
 	public int getExtraDamage() {
         return extraDamage;

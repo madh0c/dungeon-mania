@@ -26,6 +26,7 @@ public class Player extends Entity {
 
     public Player(Position position) {
         super(position, "player");
+		this.attack = 2;
 		this.health = 100;
 		this.visible = true;
 		this.invincibleTickDuration = 0;
@@ -133,7 +134,7 @@ public class Player extends Entity {
 						return true;
 					}
 				}	
-			}
+			} 
 			// Remove entity
 			dungeon.removeEntity(entity);
 
@@ -226,11 +227,25 @@ public class Player extends Entity {
 					dungeon.removeEntity(entity);
 				}
 			}
-			*/
-			
+			//One Ring Spawning
+			OneRing ring = new OneRing(getPosition(), 0);
+			if (ring.doesSpawn()) {
+				int check = 0;
+				for (CollectibleEntity item : dungeon.getInventory()) {
+					if (item instanceof OneRing) {
+						check = 1;
+					}
+				}
+				if (check == 0) {
+					int id = dungeon.getHistoricalEntCount();
+					ring.setId(String.valueOf(id));
+					dungeon.setHistoricalEntCount(id++);
+					dungeon.addItemToInventory(ring);
+				}
+			}
 		}
-
 		
+
 		return true;
 	}
 
