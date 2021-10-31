@@ -154,6 +154,12 @@ public class DungeonManiaController {
 	}
 
 	public DungeonResponse saveGame(String name) throws IllegalArgumentException {
+		String dungeonIdInt = 
+		for (Dungeon dungeon : games) {
+			if (dungeon.getId() == name) {
+				target = dungeon;
+			}
+		}
 		return null;
     }
 

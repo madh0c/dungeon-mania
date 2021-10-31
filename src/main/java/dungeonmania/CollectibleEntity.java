@@ -2,9 +2,9 @@ package dungeonmania;
 
 import dungeonmania.util.Position;
 
-public abstract class CollectibleEntity extends Entity {
+public abstract class CollectableEntity extends Entity {
 
-    public CollectibleEntity(Position position, String type) {
+    public CollectableEntity(Position position, String type) {
         super(position, type);
     }
     
