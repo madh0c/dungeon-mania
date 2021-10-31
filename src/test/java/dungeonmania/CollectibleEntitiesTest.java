@@ -110,18 +110,18 @@ public class CollectibleEntitiesTest {
         // only invis pot should be in inventory, as health pot got used
         assertEquals(Arrays.asList(new ItemResponse("2", "invisibility_potion")), dungeonInfo.getInventory());
 
-        // move player right again and use invis pot, should also pickup invicible pot
-        assertDoesNotThrow(() ->controller.tick("invisibility_potion", Direction.RIGHT));
+        // move player right again, should pickup invicible pot
+        assertDoesNotThrow(() ->controller.tick("invisibility_potion)", Direction.RIGHT));
         assertTrue(!player.isVisible());
 
         // update dungeon response
         dungeonInfo = controller.getDungeonInfo(0);
+
         assertEquals(Arrays.asList(new ItemResponse("3", "invincibility_potion")), dungeonInfo.getInventory());
 
-        // merc should be adjacent to character right now
-        // use invicible pot and move right
-        assertDoesNotThrow(() ->controller.tick("invincibility_potion", Direction.RIGHT));
+        //merc should be adjacent to character right now
 
+        // use invicible pot and move right
         // health should be full as mercenary runs away / player is invincible
         assertEquals(100, player.getHealth());
     }
