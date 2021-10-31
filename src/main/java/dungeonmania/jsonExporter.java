@@ -103,7 +103,6 @@ public class jsonExporter {
 				andGoal.add(subGoal);
 			}
 			return andGoal;
-
 		} else if (current.equals("OR")) {
 			GoalOr orGoal = new GoalOr(current);
 			JSONArray subGoals = goal.getJSONArray("subgoals");
@@ -116,10 +115,10 @@ public class jsonExporter {
 		return null;
 	}
 
-	
+	/*
 	public static void main(String[] args) {
 		makeDungeon(0, "goals.json", "standard");
 	}
-	
+	*/
 
 }

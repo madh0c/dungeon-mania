@@ -63,9 +63,6 @@ public class Dungeon {
 			inventory.remove(itemUsed);
 			return true;
 		}
-
-		
-
 		return false;
 	}
 	
