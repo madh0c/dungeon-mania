@@ -8,7 +8,9 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import dungeonmania.allEntities.Bow;
 import dungeonmania.allEntities.Player;
+import dungeonmania.allEntities.Shield;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.DungeonResponse;
 import dungeonmania.response.models.EntityResponse;
@@ -129,11 +131,13 @@ public class BuildableTest {
 		dungeonInfo = controller.getDungeonInfo(0);
 		assertEquals(Arrays.asList(new ItemResponse("12", "bow")), dungeonInfo.getInventory());        
 		Player player = controller.getDungeon(0).getPlayer();
-		assertEquals(25, player.getAttack());
+		Bow bow = (Bow) controller.getDungeon(0).getInventory().get(0);
+		assertEquals(5, bow.getDurability()); 
 		//Both mercenary and player should be on same square
 		controller.tick(null, Direction.RIGHT);
+		dungeonInfo = controller.getDungeonInfo(0);
 		//Simulate a fight between player and mercenary 
-		//assertEquals(85, player.getHealth());	
+		assertEquals(85, player.getHealth());	
     }
     
     //Test shield blocking
@@ -151,10 +155,14 @@ public class BuildableTest {
         //Block smth
 		controller.tick(null, Direction.DOWN);
 		controller.tick(null, Direction.DOWN);
-		//Both mercenary and player should be on same square
 		Player player = controller.getDungeon(0).getPlayer();
+		Shield shield = (Shield) controller.getDungeon(0).getInventory().get(0);
+		assertEquals(5, shield.getDurability()); 
 		// Simulate a fight between player and mercenary 
-		assertEquals(89, player.getHealth());
-		
+		controller.tick(null, Direction.DOWN);
+		dungeonInfo = controller.getDungeonInfo(0);
+		assertEquals(97, player.getHealth());
+		assertEquals(4, shield.getDurability()); 
+
     }
 }

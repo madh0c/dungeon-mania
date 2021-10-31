@@ -25,6 +25,7 @@ public class Player extends Entity {
 
     public Player(Position position) {
         super(position, "player");
+		this.attack = 2;
 		this.health = 100;
 		this.visible = true;
 		this.invincibleTickDuration = 0;
@@ -131,7 +132,7 @@ public class Player extends Entity {
 						return true;
 					}
 				}	
-			}
+			} 
 			// Remove entity
 			dungeon.removeEntity(entity);
 
