@@ -1,19 +1,19 @@
 {
     "entities": [
         {
-            "x": 1,
+            "x": 0,
             "y": 0,
             "type": "player"
         },
         {
-            "x": 1,
+            "x": 5,
             "y": 0,
-            "type": "wall"
+            "type": "door"
         },
-		{
-            "x": 0,
-            "y": 0,
-            "type": "mercenary"
+        {
+            "x": 5,
+            "y": 1,
+            "type": "spider"
         }
     ]
 }
