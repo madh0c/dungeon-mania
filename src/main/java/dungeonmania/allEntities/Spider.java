@@ -28,14 +28,6 @@ public class Spider extends MovableEntity {
 		
 		currTile = 0;
 		range.add(position);
-		// range.add(position.translateBy(Direction.DOWN));
-		// range.add(position.translateBy(Direction.DOWN).translateBy(Direction.RIGHT));
-		// range.add(position.translateBy(Direction.RIGHT));
-		// range.add(position.translateBy(Direction.RIGHT).translateBy(Direction.UP));
-		// range.add(position.translateBy(Direction.UP));
-		// range.add(position.translateBy(Direction.UP).translateBy(Direction.LEFT));
-		// range.add(position.translateBy(Direction.LEFT));
-		// range.add(position.translateBy(Direction.LEFT).translateBy(Direction.DOWN));
 		range.add(position.translateBy(Direction.UP));
 		range.add(position.translateBy(Direction.UP).translateBy(Direction.RIGHT));
 		range.add(position.translateBy(Direction.RIGHT));
@@ -44,6 +36,7 @@ public class Spider extends MovableEntity {
 		range.add(position.translateBy(Direction.DOWN).translateBy(Direction.LEFT));
 		range.add(position.translateBy(Direction.LEFT));
 		range.add(position.translateBy(Direction.LEFT).translateBy(Direction.UP));
+
 
 		clockwise = true;
 
