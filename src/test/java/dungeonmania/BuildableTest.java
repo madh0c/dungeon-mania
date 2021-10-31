@@ -135,9 +135,9 @@ public class BuildableTest {
 		assertEquals(5, bow.getDurability()); 
 		//Both mercenary and player should be on same square
 		controller.tick(null, Direction.RIGHT);
-		dungeonInfo = controller.getDungeonInfo(0);
 		//Simulate a fight between player and mercenary 
 		assertEquals(85, player.getHealth());	
+		assertEquals(4, bow.getDurability()); 
     }
     
     //Test shield blocking
@@ -160,7 +160,6 @@ public class BuildableTest {
 		assertEquals(5, shield.getDurability()); 
 		// Simulate a fight between player and mercenary 
 		controller.tick(null, Direction.DOWN);
-		dungeonInfo = controller.getDungeonInfo(0);
 		assertEquals(97, player.getHealth());
 		assertEquals(4, shield.getDurability()); 
 
