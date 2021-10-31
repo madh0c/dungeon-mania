@@ -225,11 +225,12 @@ public class DungeonManiaController {
 			}
 		}
 
-		List<Entity> spawners = new ArrayList<Entity>();
+		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
 		for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
 			Entity currentEntity = entry.getValue();
 			if (currentEntity.getType().equals("zombie_toast_spawner")) {
-				spawners.add(currentEntity);
+				ZombieToastSpawner foundSpawner = (ZombieToastSpawner)currentEntity;
+				spawners.add(foundSpawner);
 			}
 		}
 
@@ -327,9 +328,8 @@ public class DungeonManiaController {
 
 		// Spawn in new zombietoast after 20 ticks
 		if (currentDungeon.getTickNumber() % 20 == 1 && currentDungeon.getTickNumber() > 1) {
-			for (Entity spawner : spawners) {
-				spawnZombie(spawner);
-				System.out.println("spawner: " + spawner);
+			for (ZombieToastSpawner spawner : spawners) {
+				spawner.spawnZombie(currentDungeon);
 			}
 		}
 
@@ -363,53 +363,6 @@ public class DungeonManiaController {
 		if (!itemInInventory) {
 			throw new InvalidActionException("Cannot Use Requested Item; Item Does Not Exist In Inventory");
 		}
-	}
-
-	public void spawnZombie(Entity spawner) {
-
-
-		Position spawnPosition = null;
-
-		// List<Position> spawnOrder = new ArrayList<Position>();
-		List<Position> spawnOrder = spawner.getPosition().getCardinallyAdjPositions();
-
-
-		// spawnOrder.add(spawner.getPosition().translateBy(Direction.UP));
-		// spawnOrder.add(spawner.getPosition().translateBy(Direction.RIGHT));
-		// spawnOrder.add(spawner.getPosition().translateBy(Direction.DOWN));
-		// spawnOrder.add(spawner.getPosition().translateBy(Direction.LEFT));
-		System.out.println(spawnOrder.size());
-
-		System.out.println(spawnOrder);
-		
-		for (Position spawnPoint : spawnOrder) {
-			List<Entity> conflictEntities = currentDungeon.getEntitiesOnCell(spawnPoint);
-			boolean canSpawn = true;
-			for (Entity conflictE : conflictEntities) {
-				System.out.println(conflictE);
-				System.out.println(spawnPoint);
-				if (conflictE.getType().equals("boulder") || conflictE.getType().equals("wall")) {
-					canSpawn = false;
-					System.out.println("Can't spawn at: " + spawnPoint);
-
-				}
-			}
-			if (canSpawn) {
-				System.out.println("Can spawn at: " + spawnPoint);
-
-				ZombieToast zombie = new ZombieToast(spawnPoint);
-				currentDungeon.addEntity(zombie);
-				// spawnPosition = spawnPoint;
-                break;
-			}
-		}
-
-		// if (spawnPosition != null) {
-		// 	// Zombie toast spawns every 20 ticks
-		// 	System.out.println("Spawn Position: " + spawnPosition);
-		// 	ZombieToast zombie = new ZombieToast(spawnPosition);
-		// 	currentDungeon.addEntity(zombie);
-		// }	
 	}
 				
 	
