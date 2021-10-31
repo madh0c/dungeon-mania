@@ -43,10 +43,6 @@ public class Dungeon {
 				itemUsed = collectible;
 			}
 		}
-
-		if (itemString != null &&  itemUsed == null) {
-			throw new InvalidActionException("This item is not currently in your inventory");
-		}
 		
 		if (itemUsed instanceof HealthPotion) {
 			getPlayer().setHealth(100);
