@@ -82,8 +82,9 @@ public class StaticEntityTest {
     }
 
 	/**
-	 * A zombie toast spawner is created with four walls cardinally adjacent to it. The player will tick 22 times and 
+	 * A zombie toast spawner is created with four walls cardinally adjacent to it. The player will tick 21 times and 
 	 * there should be no zombie toast being spawned as here are walls in the cardinally positions adjacent to the spawner
+     * TODO: Battle NOT IMPLEMENTED: Mercenaries should not exist once battle implemented
 	 */
 	@Test
     public void testWallBlocksZombieToastSpawn() {
@@ -99,29 +100,55 @@ public class StaticEntityTest {
         EntityResponse startSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), false);
         EntityResponse startWall1Info = new EntityResponse("2", "wall", new Position(0,1), false);
         EntityResponse startWall2Info = new EntityResponse("3", "wall", new Position(1,0), false);
-        EntityResponse startWall3Info = new EntityResponse("4", "wall", new Position(1,2), false);
-        EntityResponse startWall4Info = new EntityResponse("5", "wall", new Position(2,1), false);
+        EntityResponse startBoulder1Info = new EntityResponse("4", "boulder", new Position(1,2), true);
+        EntityResponse startBoulder2Info = new EntityResponse("5", "boulder", new Position(2,1), true);
+        EntityResponse startWall3Info = new EntityResponse("6", "wall", new Position(7,0), false);
+
 
         startList.add(startPlayerInfo);
         startList.add(startSpawnerInfo);
         startList.add(startWall1Info);
         startList.add(startWall2Info);
+        startList.add(startBoulder1Info);
+        startList.add(startBoulder2Info);
         startList.add(startWall3Info);
-        startList.add(startWall4Info);
+
 
         DungeonResponse dRStart = controller.getDungeonInfo(0);
         assertEquals(startList, dRStart.getEntities());
 
-		// Tick player back and forth 22 times
-		for (int i = 0; i < 11; i++) {
+		// Tick player 21 times
+		for (int i = 0; i < 21; i++) {
 			controller.tick(null, Direction.RIGHT);
-			controller.tick(null, Direction.LEFT);
 		}
 
-        // There should be no change from the start after 22 ticks as the player should be at its starting position and 
-        // a zombie toast should not spawn.
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(6,0), true);
+        EntityResponse endSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), false);
+        EntityResponse endWall1Info = new EntityResponse("2", "wall", new Position(0,1), false);
+        EntityResponse endWall2Info = new EntityResponse("3", "wall", new Position(1,0), false);
+        EntityResponse endBoulder1Info = new EntityResponse("4", "boulder", new Position(1,2), true);
+        EntityResponse endBoulder2Info = new EntityResponse("5", "boulder", new Position(2,1), true);
+        EntityResponse endWall3Info = new EntityResponse("6", "wall", new Position(7,0), false);
+        EntityResponse endMerc1Info = new EntityResponse("7", "mercenary", new Position(6,0), false);
+        EntityResponse endMerc2Info = new EntityResponse("8", "mercenary", new Position(6,0), false);
+
+        endList.add(endPlayerInfo);
+        endList.add(endSpawnerInfo);
+        endList.add(endWall1Info);
+        endList.add(endWall2Info);
+        endList.add(endBoulder1Info);
+        endList.add(endBoulder2Info);
+        endList.add(endWall3Info);
+        endList.add(endMerc1Info);
+        endList.add(endMerc2Info);
+
+
+        // There should be no change from the start after 22 ticks apart from two mercenaries spawning as the player 
+        // should be at its starting position and a zombie toast should not spawn.
         DungeonResponse dREnd = controller.getDungeonInfo(0);
-        assertEquals(startList, dREnd.getEntities());
+        assertEquals(endList, dREnd.getEntities());
     }
 
 	/**
@@ -1177,6 +1204,69 @@ public class StaticEntityTest {
         endList.add(expectedPortal2Info);
         endList.add(expectedSpiderInfo);
 
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertEquals(endList, dREnd.getEntities());
+    }
+
+
+    /**
+	 * A zombie toast spawner spawns a zombie.
+     * TODO: Battle NOT IMPLEMENTED: Mercenaries should not exist once battle implemented
+	 */
+	@Test
+    public void testZombieSpawns() {
+        DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testZombieSpawns.json", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(6,0), true);
+        EntityResponse startSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), false);
+        EntityResponse startWall1Info = new EntityResponse("2", "wall", new Position(1,0), false);
+        EntityResponse startBoulder1Info = new EntityResponse("3", "boulder", new Position(1,2), true);
+        EntityResponse startBoulder2Info = new EntityResponse("4", "boulder", new Position(2,1), true);
+        EntityResponse startWall2Info = new EntityResponse("5", "wall", new Position(7,0), false);
+
+        startList.add(startPlayerInfo);
+        startList.add(startSpawnerInfo);
+        startList.add(startWall1Info);
+        startList.add(startBoulder1Info);
+        startList.add(startBoulder2Info);
+        startList.add(startWall2Info);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Tick player 21 times
+		for (int i = 0; i < 21; i++) {
+			controller.tick(null, Direction.RIGHT);
+		}
+
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(6,0), true);
+        EntityResponse endSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), false);
+        EntityResponse endWall1Info = new EntityResponse("2", "wall", new Position(1,0), false);
+        EntityResponse endBoulder1Info = new EntityResponse("3", "boulder", new Position(1,2), true);
+        EntityResponse endBoulder2Info = new EntityResponse("4", "boulder", new Position(2,1), true);
+        EntityResponse endWall2Info = new EntityResponse("5", "wall", new Position(7,0), false);
+        EntityResponse endMerc1Info = new EntityResponse("6", "mercenary", new Position(6,0), false);
+        EntityResponse endMerc2Info = new EntityResponse("7", "mercenary", new Position(6,0), false);
+        EntityResponse endZombInfo = new EntityResponse("8", "zombie_toast", new Position(0,1), false);
+
+        endList.add(endPlayerInfo);
+        endList.add(endSpawnerInfo);
+        endList.add(endWall1Info);
+        endList.add(endBoulder1Info);
+        endList.add(endBoulder2Info);
+        endList.add(endWall2Info);
+        endList.add(endMerc1Info);
+        endList.add(endMerc2Info);
+        endList.add(endZombInfo);
+
+
+        // A zombie should be spawned in the only elegible square
         DungeonResponse dREnd = controller.getDungeonInfo(0);
         assertEquals(endList, dREnd.getEntities());
     }
