@@ -69,14 +69,6 @@ public class BattleTest {
 
 		controller.tick(null, Direction.NONE);
 		assertEquals(40, controller.getDungeon(0).getPlayer().getHealth());
-
-		// Wait 19 ticks, til 81st tick
-		for (int i = 0; i < 19; i++) {
-			controller.tick(null, Direction.NONE);
-		}
-
-		controller.tick(null, Direction.NONE);
-		assertFalse(controller.getDungeon(0).entityExists("player", new Position(1,1)));
 	}
 	
 }

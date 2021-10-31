@@ -16,10 +16,6 @@ Issues
         - For items that interact with the map, maybe pass in a pointer to the dungeon?
         - For items that interact with player, could implement as methods in the player class itself e.g usePotion()
 
-Assumptions
-    - The rare collectible is spawned at the location of battle rather than automatically added to the inventory
-    - Everything the player can obtain is a collectibleEntity (collectible entities, rare collectible entities, buildable entities)
-
 Questions for tutors
     - Are we given the map of the dungeons, initial spawn points of entities?
     - What are your thoughts on all the inheritance in the UML diagram?
@@ -47,9 +43,6 @@ Type: zombie id: 3
 inventory
 Type:potion , id: 1
 
-Assumptions
-	- Keeping consistent with cardinality of interaction between spawner and character, we are assuming that interacting with the mercenary can only be done from 2 tiles of (up down left right)  movement
-
 
 27/10
 JSON - This is the starting point of the game and does not get modified after.
@@ -62,22 +55,6 @@ Edge Cases:
 	- Spider meets boundary: reversal of path?
 	- Character meets boundary: still tick?
 	- entity’s momentum carries through a portal into a wall or boundary: still teleport?
-
-Assumption: Cant push a boulder THROUGH a portal
-	- Should the boulder stay in place or go on top of the portal, rendering the portal inaccessible?
-
-Spider assumptions
-	- After reversing direction when a spider hits a boulder, it rests for one tick before moving in the opposite direction
-	- Reversing direction means changing from clockwise to anticlockwise, vice versa
-	- If there are more than maximum spiders attempted to be added, exception is thrown: InvalidActionException
-	
-Zombie assumptions
-	- Blocked by walls and boulders,
-	- Boulders are not affected by zombies
-
-Mercenary assumptions
-	- Spawns every 10 ticks
-	- In specs, says spawn “periodically” at entry location
 
 Important notes
 	- Random movement will use java class “Random”
@@ -121,25 +98,6 @@ Minutes
 - Discussed only mercenaries can move through portals while spider and zombies don’t get affected and just traverse through it
 - Decided on the following health and attack damage of moving entities 
 - For methods to get dungeon / get dungeon info (essentially getting a save state), we need to pass in the dungeon’s unique id, NOT the name of the dungeon e.g. controller.getDungeon(int dungeonId). THis is because you can have 2 different saved games that started from the same dungeon
-
-Assumptions:
-- Player health set to max health of 100
-- Mercenary spawns periodically → spawns every 10 seconds
-	- Mercenary prioritises, then up, then down movement, then left, then right
-- Base attack of player is 5
-	- When player gets a weapon, they get bonus attack damage
-- When player has multiple weapons, they stack attack damage and use all weapons against enemies 
-- Arrow doesn’t add on any attack damage, needs a bow to do damage
-	- If player has 5 attack damage at start, a sword (+10), a bow (+10*2), gets 35 Attack damage
-- Moving entities will check if the square they are going to is valid (if it is out of bounds), the entity is stuck against the wall 
-- Play attack damage: 2
-- Default layer with most entities will be layer 0
-- Floor layer with example switch, will be layer -1
-- Mercenary can be bribed with 1 gold
-- When mercenary becomes ally and starts following player, his is in the same tile as player
-- Enemies cannot collide with each other (i.e. can’t be on the same square simultaneously)
-- Boulder cannot be pushed onto CollectibleEntity, or MovableEntity
-- MOVABLEENTITIES (apart from Spider) CANNOT coincide with exit
 
 30/10
 - Finished goals recursive function if there are multiple subgoals within subgoals
