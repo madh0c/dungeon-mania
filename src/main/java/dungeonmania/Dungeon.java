@@ -23,6 +23,7 @@ public class Dungeon {
     private String goals;
 	private int historicalEntCount;
 	private int tickNumber;
+	private Position spawnpoint;
 
 
     public Dungeon(int id, String name, Map<String, Entity> entities, String gameMode, String goals) {
@@ -126,6 +127,14 @@ public class Dungeon {
 
 	public int getTickNumber() {
 		return tickNumber;
+	}
+
+	public Position getSpawnpoint() {
+		return spawnpoint;
+	}
+
+	public void setSpawnpoint(Position spawnpoint) {
+		this.spawnpoint = spawnpoint;
 	}
 
 	public void tickOne() {

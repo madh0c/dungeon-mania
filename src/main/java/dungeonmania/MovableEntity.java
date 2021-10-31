@@ -26,6 +26,8 @@ public abstract class MovableEntity extends Entity {
 			return false;
 		} else if (entity instanceof Exit) {
 			return false;
+		} else if (entity instanceof MovableEntity) {
+			return false;
 		}
 		
 		return true;

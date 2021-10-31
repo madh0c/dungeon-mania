@@ -434,7 +434,6 @@ public class MovingEntityTest {
 	public void testMercenarySpawn() {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testMercenarySpawn.json", "Standard"));
-		assertTrue(controller.getDungeon(0).entityExists("mercenary"));
 
 		// Get player out of the way so mercenary can spawn
 		controller.tick(null, Direction.RIGHT);
@@ -445,7 +444,7 @@ public class MovingEntityTest {
 			assertFalse(controller.getDungeon(0).entityExists("mercenary"));
 			controller.tick(null, Direction.NONE);
 		}
-		// assertTrue(controller.getDungeon(0).entityExists("mercenary"));
+		assertTrue(controller.getDungeon(0).entityExists("mercenary"));
 
 	}
 
@@ -461,7 +460,7 @@ public class MovingEntityTest {
 		position = position.translateBy(Direction.DOWN);
 
 		controller.tick(null, Direction.NONE);
-
+		// assertEquals(-1, controller.getDungeon(0).getEntity("0").getPosition().getX());
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", new Position(4,2)));
 	}
 	// Check mercenary gets obstructed by
@@ -557,11 +556,25 @@ public class MovingEntityTest {
 		// Check if mercenary is blocked
 		controller.tick(null, Direction.NONE);
 
+		// assertEquals(controller.getDungeon(0).getEntity("1").getPosition().getX(), 0);
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary));
 
 		// Check if player moves down, mercenary moves down 1 too
 		controller.tick(null, Direction.DOWN);
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.DOWN)));
+	}
+
+	@Test
+	public void testMercenaryBlockedFromStart() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryBlocked.json", "Standard"));
+
+		Position mercenary = controller.getDungeon(0).getEntity("1").getPosition();
+
+		// move player down one
+		controller.tick(null, Direction.DOWN);
+
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.LEFT)));
 	}
 
 	// Test bribe with 1 gold

@@ -202,7 +202,24 @@ public class DungeonManiaController {
 
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
+		// First tick of game, some actions to do
+		if (currentDungeon.getTickNumber() == 0) {
+			// If player exists
+			if (currentDungeon.getPlayer() != null) {
+				currentDungeon.setSpawnpoint(currentDungeon.getPlayerPosition());
+			}
+		}
+
 		// Spawn in new entities after period of ticks
+		if (currentDungeon.getTickNumber() % 10 == 0 && currentDungeon.getTickNumber() > 0) {
+			// If there is a spawnpoint
+			if (currentDungeon.getSpawnpoint() != null) {
+				// Merc spawn every 10 ticks
+				Mercenary merc = new Mercenary(currentDungeon.getSpawnpoint());
+				currentDungeon.addEntity(merc);
+			}
+
+		}
 
 		
 		currentDungeon.tickOne();

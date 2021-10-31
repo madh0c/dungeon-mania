@@ -50,10 +50,12 @@ public class Mercenary extends MovableEntity {
 			Portal portal1 = (Portal) entity;
 			for (Map.Entry<String, Entity> entry : dungeon.getEntities().entrySet()) {
 				Entity currentEntity = entry.getValue();
-				// Check if same entity
 				if (!currentEntity.getId().equals(portal1.getId())) {
+					if (!(currentEntity instanceof Portal)) {
+						continue;
+					}
 					Portal portal2 = (Portal) currentEntity;
-					if (portal1.getColour().equals(portal2.getColour())) {
+					if (portal1.getColour().equals((portal2).getColour())) {
 						// Find position of p2
 						// Move in direciton of currDir
 						Entity nextTo = dungeon.getEntity(portal2.getPosition().translateBy(currentDir));
