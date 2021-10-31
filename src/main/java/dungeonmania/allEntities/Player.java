@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContextAttributeListener;
 import javax.xml.stream.events.EndElement;
 
 import dungeonmania.CollectibleEntity;
@@ -15,15 +16,18 @@ import dungeonmania.util.Position;
 
 
 public class Player extends Entity {
-    private int health = 100;
+    private int health;
 	private int attack;
-    private boolean visible = true;
+    private boolean visible;
 	private Direction currentDir;
 	private boolean haveKey;
-	private int invincibleTickDuration = 0;
+	private int invincibleTickDuration;
 
     public Player(Position position) {
         super(position, "player");
+		this.health = 100;
+		this.visible = true;
+		this.invincibleTickDuration = 0;
     }
 
     public void setHealth(int newHealth) {
@@ -41,6 +45,10 @@ public class Player extends Entity {
     public int getHealth() {
         return health;
     }
+
+	public Direction getCurrentDir() {
+		return currentDir;
+	}
 
     public boolean isVisible() {
         return visible;
@@ -85,6 +93,9 @@ public class Player extends Entity {
 			Portal portal1 = (Portal) entity;
 			for (Map.Entry<String, Entity> entry : dungeon.getEntities().entrySet()) {
 				Entity currentEntity = entry.getValue();
+				if (!(currentEntity instanceof Portal)) {
+					continue;
+				}
 				// Check if same entity
 				if (!currentEntity.getId().equals(portal1.getId())) {
 					Portal portal2 = (Portal) currentEntity;
