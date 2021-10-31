@@ -115,10 +115,10 @@ public class jsonExporter {
 		return null;
 	}
 
-	
+	/*
 	public static void main(String[] args) {
 		makeDungeon(0, "goals.json", "standard");
 	}
-	
+	*/
 
 }
