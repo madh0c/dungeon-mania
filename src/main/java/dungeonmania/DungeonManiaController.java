@@ -166,8 +166,12 @@ public class DungeonManiaController {
 		Move moveStrategy = new PlayerMove();
 
 		// Move player
-		moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);
-
+		if (currentDungeon.getPlayer() != null) {
+			moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);
+			// make sure invincibility wears off
+			int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
+			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
+		}
 		// Move everything else
 		for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
 			Entity currentEntity = entry.getValue();
@@ -206,9 +210,7 @@ public class DungeonManiaController {
 		// Use item
 		currentDungeon.useItem(itemUsed);
 		
-		// make sure invincibility wears off
-		int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
-		currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
+
 		
 		return getDungeonInfo(currentDungeon.getId());
 	}
