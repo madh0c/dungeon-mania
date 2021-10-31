@@ -362,26 +362,26 @@ public class MovingEntityTest {
 	// ZOMBIE TESTS
 
 	// Test that zombie spawns after 20 ticks
-	@Test
-	public void testZombieSpawn() {
-		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testZombieSpawn.json", "Standard"));
+	// @Test
+	// public void testZombieSpawn() {
+	// 	DungeonManiaController controller = new DungeonManiaController();
+	// 	assertDoesNotThrow(() -> controller.newGame("testZombieSpawn.json", "Standard"));
 		
-		Position zombiePos;
-		Position spawnerPos = controller.getDungeon(0).getEntity("0").getPosition();
+	// 	Position zombiePos;
+	// 	Position spawnerPos = controller.getDungeon(0).getEntity("0").getPosition();
 
-		// Check if zombie spawns in after 20 ticks
-		for (int i = 0; i < 20; i++) {
-			// Make sure nothing spawns during this time
-			// assertThrows(InvalidActionException.class, () -> controller.getEntity("1"));
-			assertFalse(controller.getDungeon(0).entityExists("zombie_toast"));
-			controller.tick(null, Direction.NONE);
-		}
+	// 	// Check if zombie spawns in after 20 ticks
+	// 	for (int i = 0; i < 20; i++) {
+	// 		// Make sure nothing spawns during this time
+	// 		// assertThrows(InvalidActionException.class, () -> controller.getEntity("1"));
+	// 		assertFalse(controller.getDungeon(0).entityExists("zombie_toast"));
+	// 		controller.tick(null, Direction.NONE);
+	// 	}
 
-		// Assert that zombie spawned cardinally adjacent
-		zombiePos = controller.getDungeon(0).getEntity("1").getPosition();
-		assertTrue(Position.isAdjacent(zombiePos, spawnerPos));
-	}
+	// 	// Assert that zombie spawned cardinally adjacent
+	// 	zombiePos = controller.getDungeon(0).getEntity("1").getPosition();
+	// 	assertTrue(Position.isAdjacent(zombiePos, spawnerPos));
+	// }
 
 	// Test that zombie obstructions
 	@Test
@@ -423,7 +423,7 @@ public class MovingEntityTest {
 
 			prevPos = currPos;
 			currPos = controller.getDungeon(0).getEntity("0").getPosition();
-			assertTrue(Position.isAdjacent(prevPos, currPos));
+			assertTrue(Position.isCardinallyAdjacent(prevPos, currPos));
 		}
 	}
 
@@ -457,9 +457,9 @@ public class MovingEntityTest {
 		// Move player up through portal
 		// Get position of second portal and check if player in correct position
 		Position position = controller.getDungeon(0).getEntity("2").getPosition();
-		position = position.translateBy(Direction.UP);
+		position = position.translateBy(Direction.DOWN);
 
-		controller.tick(null, Direction.UP);
+		controller.tick(null, Direction.NONE);
 
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", position));
 	}
