@@ -21,7 +21,7 @@ public class MovingEntityTest {
 	@Test
 	public void testSpiderSpawn() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testSpiderSpawn.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testSpiderSpawn", "Standard"));
 
 		// Check if spider 1 exists
 		Position spiderPos1 = controller.getDungeon(0).getEntity("0").getPosition();
@@ -51,7 +51,7 @@ public class MovingEntityTest {
 	@Test
     public void testSpiderMovement() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testSpiderMovement.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testSpiderMovement", "Standard"));
 
 		// Original position of spider
 		Position prevPos = controller.getDungeon(0).getEntity("0").getPosition();
@@ -125,7 +125,7 @@ public class MovingEntityTest {
 	@Test
 	public void testSpiderObstructions() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testSpiderObstruction.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testSpiderObstruction", "Standard"));
 
 		// Original position of spider
 		Position prevPos = controller.getDungeon(0).getEntity("0").getPosition();
@@ -198,7 +198,7 @@ public class MovingEntityTest {
 	@Test
 	public void testSpiderBoulders() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testSpiderBoulder.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testSpiderBoulder", "Standard"));
 
 		// Original position of spider
 		Position prevPos1 = controller.getDungeon(0).getEntity("0").getPosition();
@@ -387,7 +387,7 @@ public class MovingEntityTest {
 	@Test
 	public void testZombieObstruction() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testZombieObstruction.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testZombieObstruction", "Standard"));
 
 		Position zombiePos1 = controller.getDungeon(0).getEntity("0").getPosition();
 		Position zombiePos2 = controller.getDungeon(0).getEntity("1").getPosition();
@@ -412,7 +412,7 @@ public class MovingEntityTest {
 	@Test
 	public void testZombieMovement() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testZombieMovement.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testZombieMovement", "Standard"));
 
 		Position currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		Position prevPos;
@@ -433,7 +433,7 @@ public class MovingEntityTest {
 	@Test
 	public void testMercenarySpawn() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testMercenarySpawn.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testMercenarySpawn", "Standard"));
 
 		// Get player out of the way so mercenary can spawn
 		controller.tick(null, Direction.RIGHT);
@@ -452,7 +452,7 @@ public class MovingEntityTest {
 	@Test
 	public void testMercenaryPortal() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testMercenaryPortal.json", "Standard"));		
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryPortal", "Standard"));		
 
 		// Move player up through portal
 		// Get position of second portal and check if player in correct position
@@ -468,7 +468,7 @@ public class MovingEntityTest {
 	@Test
 	public void testMercenaryFourWalls() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testMercenaryFourWalls.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryFourWalls", "Standard"));
 
 		// for five ticks, no movement
 		Position position = controller.getDungeon(0).getEntity("0").getPosition();
@@ -483,7 +483,7 @@ public class MovingEntityTest {
 	@Test
 	public void testMercenaryMovement() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testMercenaryMovement.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryMovement", "Standard"));
 		Position player = controller.getDungeon(0).getEntity("0").getPosition();
 		Position mercenary = controller.getDungeon(0).getEntity("1").getPosition();
 		
@@ -513,7 +513,7 @@ public class MovingEntityTest {
 	@Test
 	public void testMercenaryMovementMoving() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testMercenaryMovement.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryMovement", "Standard"));
 		
 		Position mercenary = controller.getDungeon(0).getEntity("1").getPosition();
 
@@ -543,7 +543,7 @@ public class MovingEntityTest {
 	@Test
 	public void testMercenaryBlocked() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testMercenaryBlocked.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryBlocked", "Standard"));
 
 		Position mercenary = controller.getDungeon(0).getEntity("1").getPosition();
 
@@ -567,7 +567,7 @@ public class MovingEntityTest {
 	@Test
 	public void testMercenaryBlockedFromStart() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testMercenaryBlocked.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryBlocked", "Standard"));
 
 		Position mercenary = controller.getDungeon(0).getEntity("1").getPosition();
 
@@ -581,7 +581,7 @@ public class MovingEntityTest {
 	@Test
 	public void testMercenaryBribe() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testMercenaryBribe.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryBribe", "Standard"));
 	
 		// Pick up gold to right of player
 		controller.tick(null, Direction.RIGHT);
@@ -613,7 +613,7 @@ public class MovingEntityTest {
 	@Test
 	public void testMercenaryBribeFar() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testMercenaryBribeFar.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryBribeFar", "Standard"));
 
 		assertThrows(InvalidActionException.class, () -> controller.interact("0"));
 	}
@@ -623,7 +623,7 @@ public class MovingEntityTest {
 	@Test
 	public void testMercenaryCantBribe() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testMercenaryMovement.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryMovement", "Standard"));
 	
 		controller.tick(null, Direction.RIGHT);
 		controller.tick(null, Direction.RIGHT);
