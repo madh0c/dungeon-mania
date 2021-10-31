@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import dungeonmania.allEntities.Mercenary;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
@@ -43,7 +44,7 @@ public class MovingEntityTest {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testSpiderFour.json", "Standard"));
 		// Too many spiders (5)
-		assertThrows(InvalidActionException.class, () -> controller.newGame("testSpiderMax.json", "Standard"));
+		assertThrows(IllegalArgumentException.class, () -> controller.newGame("testSpiderMax.json", "Standard"));
 	}
 	
 	// Test movement of spider is correct
@@ -571,9 +572,12 @@ public class MovingEntityTest {
 
 		// interact with mercenary
 		controller.interact("1");
-		// check mercenary is an ally
 
-		assertTrue(controller.getDungeon(0).getEntity("1").isAlly());
+		// check mercenary is an ally
+		// cast into merc, check if ally
+		Mercenary merc = (Mercenary) controller.getDungeon(0).getEntity("1");
+
+		assertTrue(merc.getIsAlly());
 
 		// wait for merc to move into player
 		controller.tick("", Direction.NONE);

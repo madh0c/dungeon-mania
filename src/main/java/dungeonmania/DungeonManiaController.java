@@ -6,6 +6,7 @@ import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
+import dungeonmania.util.Position;
 import dungeonmania.Entity;
 import dungeonmania.Dungeon;
 import dungeonmania.jsonExporter;
@@ -161,7 +162,19 @@ public class DungeonManiaController {
 				moveStrategy.move(currentEntity, currentDungeon);
 			} else if (currentEntity instanceof Boulder) {
 				moveStrategy = new StandardMove();
+				Position prevPos = currentEntity.getPosition();
 				moveStrategy.move(currentEntity, currentDungeon, movementDirection);
+				Position currPos = currentEntity.getPosition();
+				// Check if switch is being activated
+				if (currentDungeon.entityExists("switch", currPos)) {
+					Switch sw = (Switch) currentDungeon.getEntity("switch", currPos);
+					sw.setStatus(true);
+				}
+				// Check if switch is being deactivated
+				if (currentDungeon.entityExists("switch", prevPos)) {
+					Switch sw = (Switch) currentDungeon.getEntity("switch", prevPos);
+					sw.setStatus(false);
+				}
 			} else if (currentEntity instanceof ZombieToast) {
 				moveStrategy = new StandardMove();
 				Random random = new Random();
