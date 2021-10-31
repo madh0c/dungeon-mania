@@ -587,7 +587,7 @@ public class MovingEntityTest {
 		controller.tick(null, Direction.RIGHT);
 
 		// interact with mercenary
-		controller.interact("1");
+		assertDoesNotThrow(() -> controller.interact("1"));
 
 		// cast into merc, check if ally
 		Mercenary merc = (Mercenary) controller.getDungeon(0).getEntity("1");
@@ -607,6 +607,14 @@ public class MovingEntityTest {
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", player));
 	}
 
+	@Test
+	public void testMercenaryBribeFar() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryBribeFar.json", "Standard"));
+
+		assertThrows(InvalidActionException.class, () -> controller.interact("0"));
+	}
+
 
 	// Test cannot bribe merc, not enough
 	@Test
@@ -616,6 +624,6 @@ public class MovingEntityTest {
 	
 		controller.tick(null, Direction.RIGHT);
 		controller.tick(null, Direction.RIGHT);
-		assertThrows(InvalidActionException.class, () -> controller.interact("mercenary"));
+		assertThrows(InvalidActionException.class, () -> controller.interact("1"));
 	}
 }

@@ -323,12 +323,20 @@ public class DungeonManiaController {
 
 	public DungeonResponse interact(String entityId) throws IllegalArgumentException, InvalidActionException {
 		checkValidInteract(entityId);
-		return null;
+		Entity ent = currentDungeon.getEntity(entityId);
+		// Attempt bribe if mercenary
+		if (ent instanceof Mercenary) {
+			Mercenary merc = (Mercenary) ent;
+			if (!merc.bribeable(currentDungeon)) {
+				throw new InvalidActionException("Cannot Bribe Mercenary; Not Enough Gold");
+			}
+		}
+		return getDungeonInfo(currentDungeon.getId());
 	}
 
 
 	public void checkValidInteract(String entityId) throws IllegalArgumentException, InvalidActionException{
-		if (currentDungeon.getEntity(entityId).equals(null)) {
+		if (currentDungeon.getEntity(entityId) == null) {
 			throw new IllegalArgumentException("Cannot Interact With Requested Entity; Entity Does Not Exist In The Map");
 		}
 

@@ -1,0 +1,16 @@
+{
+    "entities": [
+        {
+            "x": 1,
+            "y": 1,
+            "type": "mercenary"
+        },
+        {
+			"x": 4,
+			"y": 1,
+			"type": "player"
+		}
+    ],
+    "width": 6,
+    "height": 4
+}

@@ -1,7 +1,10 @@
 package dungeonmania.allEntities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import dungeonmania.CollectibleEntity;
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;
 import dungeonmania.MovableEntity;
@@ -79,5 +82,34 @@ public class Mercenary extends MovableEntity {
 		}
 		
 		return true;
+	}
+
+	public boolean bribeable(Dungeon dungeon) {
+		// If empty inv, can't bribe
+		if ((dungeon.getInventory() == null) || (dungeon.getInventory().isEmpty())) {
+			return false;
+		}
+
+		// Check number of gold in player's inventory
+		int numberOfGold = 0;
+		List<Integer> goldPos = new ArrayList<>();
+		for (CollectibleEntity ent : dungeon.getInventory()) {
+			if (ent instanceof Treasure) {
+				goldPos.add(Integer.parseInt(ent.getId()));
+				numberOfGold++;
+			}
+		}
+
+		// Bribeable
+		if (numberOfGold > 0) {
+			for (int i = 0; i < numberOfGold; i++) {
+				dungeon.getInventory().remove(goldPos.get(i));
+			}
+
+			return true;
+		}
+
+
+		return false;
 	}
 }
