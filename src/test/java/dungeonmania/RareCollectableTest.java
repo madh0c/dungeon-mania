@@ -23,7 +23,6 @@ public class RareCollectableTest {
 		assertEquals(85, player.getHealth());	
 		dungeonInfo = controller.getDungeonInfo(0);
 		assertEquals(Arrays.asList(new ItemResponse("2", "one_ring")), dungeonInfo.getInventory());
-
     }
 
 	@Test
