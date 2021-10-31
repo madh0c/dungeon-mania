@@ -23,7 +23,9 @@ public class SpiderMove implements Move {
 				// Get pos1
 				Position pos1 = spider.getRange().get(1);
 				// check collide in pos1
-				if (spider.collide(dungeon.getEntity(pos1))) {
+				// if (spider.collide(dungeon.getEntity(pos1))) {
+				if (spider.collide(dungeon.getEntity(pos1), dungeon)) {
+
 					// Move to pos1
 					spider.setPosition(pos1);
 					spider.setCurrTile(1);
@@ -47,7 +49,9 @@ public class SpiderMove implements Move {
 				}
 
 				// Check collide
-				if (spider.collide(dungeon.getEntity(nextPos))) {
+				// if (spider.collide(dungeon.getEntity(nextPos))) {
+				if (spider.collide(dungeon.getEntity(nextPos), dungeon)) {
+
 					spider.setPosition(nextPos);
 					spider.setCurrTile(nextTile);
 				} else {
@@ -61,7 +65,9 @@ public class SpiderMove implements Move {
 				// get pos5
 				Position pos5 = spider.getRange().get(5);
 				// Check collide in pos5
-				if (spider.collide(dungeon.getEntity(pos5))) {
+				// if (spider.collide(dungeon.getEntity(pos5))) {
+				if (spider.collide(dungeon.getEntity(pos5), dungeon)) {
+
 					// Move to pos5
 					spider.setPosition(pos5);
 					spider.setCurrTile(5);
@@ -85,7 +91,9 @@ public class SpiderMove implements Move {
 				}
 
 				// Check collide
-				if (spider.collide(dungeon.getEntity(nextPos))) {
+				// if (spider.collide(dungeon.getEntity(nextPos))) {
+				if (spider.collide(dungeon.getEntity(nextPos), dungeon)) {
+
 					spider.setPosition(nextPos);
 					spider.setCurrTile(nextTile);
 				} else {

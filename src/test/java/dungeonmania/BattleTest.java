@@ -16,6 +16,16 @@ import dungeonmania.util.Position;
 public class BattleTest {
 
 	@Test
+	public void testBattleOnce() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testBattleOnce.json", "Standard"));
+
+		Dungeon dungeon = controller.getDungeon(0);
+		controller.tick(null, Direction.RIGHT);
+		assertEquals(95, dungeon.getPlayer().getHealth());
+	}
+
+	@Test
 	public void testBasicBattle() {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testBasicBattle.json", "Standard"));
@@ -30,12 +40,16 @@ public class BattleTest {
 		// Next tick
 		controller.tick(null, Direction.LEFT);
 
+		dungeon = controller.getDungeon(0);
+		pos = dungeon.getPlayerPosition();
 		assertEquals(90, dungeon.getPlayer().getHealth());
 		assertFalse(dungeon.entityExists("spider", pos));
 
 		// Next tick
 		controller.tick(null, Direction.LEFT);
 
+		dungeon = controller.getDungeon(0);
+		pos = dungeon.getPlayerPosition();
 		assertEquals(85, dungeon.getPlayer().getHealth());
 		assertFalse(dungeon.entityExists("spider", pos));
 	}
@@ -51,8 +65,9 @@ public class BattleTest {
 		}
 
 		// On this tick, zombie spawns on player, and battles him
+		// Mercenary has already battled him twice too
 		controller.tick(null, Direction.NONE);
-		assertEquals(80, controller.getDungeon(0).getPlayer().getHealth());
+		assertEquals(50, controller.getDungeon(0).getPlayer().getHealth());
 
 		// Wait 19 ticks, til 41st tick
 		for (int i = 0; i < 19; i++) {
@@ -60,15 +75,8 @@ public class BattleTest {
 		}
 
 		controller.tick(null, Direction.NONE);
-		assertEquals(60, controller.getDungeon(0).getPlayer().getHealth());
+		assertEquals(15, controller.getDungeon(0).getPlayer().getHealth());
 
-		// Wait 19 ticks, til 61st tick
-		for (int i = 0; i < 19; i++) {
-			controller.tick(null, Direction.NONE);
-		}
-
-		controller.tick(null, Direction.NONE);
-		assertEquals(40, controller.getDungeon(0).getPlayer().getHealth());
 	}
 	
 }

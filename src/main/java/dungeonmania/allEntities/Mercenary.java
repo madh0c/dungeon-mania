@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import dungeonmania.Battle;
 import dungeonmania.CollectibleEntity;
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;
@@ -76,15 +77,21 @@ public class Mercenary extends MovableEntity {
 		}
 			return false;
 		}
+		
+		if (entity instanceof Player) {
+			// If not ally, battle
+			if (!isAlly) {
+				Battle.battle(this, dungeon);;
+				return true;
+			}
+			// If ally
+			return true;
+		}
 
 		// Have to add MovableEntity
 		if (entity instanceof MovableEntity) {
-			// If ally
-			if (!isAlly){				
-				return false;
-			} 
 
-			// Battle if true
+
 			return true;
 		}
 		
