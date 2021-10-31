@@ -43,7 +43,7 @@ public class BattleTest {
 	@Test
 	public void testBattleDie() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testPlayerDies", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testPlayerDies.json", "Standard"));
 
 		// For 20 ticks, wait for zombie to spawn
 		for (int i = 0; i < 20; i++) {
@@ -59,10 +59,24 @@ public class BattleTest {
 			controller.tick(null, Direction.NONE);
 		}
 
-		// Wait 19 ticks, til 61st tick
+		controller.tick(null, Direction.NONE);
+		assertEquals(60, controller.getDungeon(0).getPlayer().getHealth());
 
+		// Wait 19 ticks, til 61st tick
+		for (int i = 0; i < 19; i++) {
+			controller.tick(null, Direction.NONE);
+		}
+
+		controller.tick(null, Direction.NONE);
+		assertEquals(40, controller.getDungeon(0).getPlayer().getHealth());
 
 		// Wait 19 ticks, til 81st tick
+		for (int i = 0; i < 19; i++) {
+			controller.tick(null, Direction.NONE);
+		}
+
+		controller.tick(null, Direction.NONE);
+		assertFalse(controller.getDungeon(0).entityExists("player", new Position(1,1)));
 	}
 	
 }
