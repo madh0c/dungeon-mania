@@ -13,7 +13,7 @@ public class Switch extends Entity {
         this.isActivated = false;
     }
 
-    public void setActivated(boolean status) {
+    public void setStatus(boolean status) {
         this.isActivated = status;
     }
 
