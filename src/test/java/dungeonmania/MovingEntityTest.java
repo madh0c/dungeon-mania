@@ -56,67 +56,67 @@ public class MovingEntityTest {
 		Position prevPos = controller.getDungeon(0).getEntity("0").getPosition();
 		Position currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(prevPos.equals(currPos));
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Spider moves up 1
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.UP)));
 		prevPos = prevPos.translateBy(Direction.UP);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Spider moves right from here
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.RIGHT)));
 		prevPos = prevPos.translateBy(Direction.RIGHT);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Down
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.DOWN)));
 		prevPos = prevPos.translateBy(Direction.DOWN);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Down
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.DOWN)));
 		prevPos = prevPos.translateBy(Direction.DOWN);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Left
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.LEFT)));
 		prevPos = prevPos.translateBy(Direction.LEFT);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Left
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.LEFT)));
 		prevPos = prevPos.translateBy(Direction.LEFT);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Up
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.UP)));
 		prevPos = prevPos.translateBy(Direction.UP);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Up
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.UP)));
 		prevPos = prevPos.translateBy(Direction.UP);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Right
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.RIGHT)));
 		prevPos = prevPos.translateBy(Direction.RIGHT);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Right
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.RIGHT)));
 		prevPos = prevPos.translateBy(Direction.RIGHT);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
     }
 
@@ -130,67 +130,67 @@ public class MovingEntityTest {
 		Position prevPos = controller.getDungeon(0).getEntity("0").getPosition();
 		Position currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(prevPos.equals(currPos));
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Spider moves up 1
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.UP)));
 		prevPos = prevPos.translateBy(Direction.UP);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Spider moves right from here
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.RIGHT)));
 		prevPos = prevPos.translateBy(Direction.RIGHT);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Down
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.DOWN)));
 		prevPos = prevPos.translateBy(Direction.DOWN);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Down
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.DOWN)));
 		prevPos = prevPos.translateBy(Direction.DOWN);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Left
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.LEFT)));
 		prevPos = prevPos.translateBy(Direction.LEFT);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Left
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.LEFT)));
 		prevPos = prevPos.translateBy(Direction.LEFT);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Up
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.UP)));
 		prevPos = prevPos.translateBy(Direction.UP);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Up
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.UP)));
 		prevPos = prevPos.translateBy(Direction.UP);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Right
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.RIGHT)));
 		prevPos = prevPos.translateBy(Direction.RIGHT);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Right
 		currPos = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(currPos.equals(prevPos.translateBy(Direction.RIGHT)));
 		prevPos = prevPos.translateBy(Direction.RIGHT);
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 	}
 
 	// Test that boulders change the spiders movement in the correct way
@@ -209,7 +209,7 @@ public class MovingEntityTest {
 		assertTrue(prevPos2.equals(currPos2));
 
 
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// 1st tick
 		// Move spider1 down first
@@ -222,7 +222,7 @@ public class MovingEntityTest {
 		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.UP)));
 		prevPos2 = prevPos2.translateBy(Direction.UP);
 
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// 2nd tick
 		// Move spider1 left
@@ -236,7 +236,7 @@ public class MovingEntityTest {
 		prevPos2 = prevPos2.translateBy(Direction.RIGHT);
 
 
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 
 		// 3rd tick
@@ -250,7 +250,7 @@ public class MovingEntityTest {
 		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.DOWN)));
 		prevPos2 = prevPos2.translateBy(Direction.DOWN);
 
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// 4th tick
 		// Move spider1 up
@@ -263,7 +263,7 @@ public class MovingEntityTest {
 		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.DOWN)));
 		prevPos2 = prevPos2.translateBy(Direction.DOWN);
 
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 
 		// 5th tick
@@ -277,7 +277,7 @@ public class MovingEntityTest {
 		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.LEFT)));
 		prevPos2 = prevPos2.translateBy(Direction.LEFT);
 
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// 6th tick
 		// Move spider1 down
@@ -290,7 +290,7 @@ public class MovingEntityTest {
 		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.NONE)));
 		prevPos2 = prevPos2.translateBy(Direction.NONE);
 
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// 7th tick
 		// Move spider1 down
@@ -303,7 +303,7 @@ public class MovingEntityTest {
 		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.RIGHT)));
 		prevPos2 = prevPos2.translateBy(Direction.RIGHT);
 
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// 8th tick
 		// Move spider1 right
@@ -316,7 +316,7 @@ public class MovingEntityTest {
 		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.UP)));
 		prevPos2 = prevPos2.translateBy(Direction.UP);
 
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// 9th tick
 		// Move spider1 right
@@ -329,7 +329,7 @@ public class MovingEntityTest {
 		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.UP)));
 		prevPos2 = prevPos2.translateBy(Direction.UP);
 
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// 10th tick
 		// Move spider1 up
@@ -342,7 +342,7 @@ public class MovingEntityTest {
 		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.LEFT)));
 		prevPos2 = prevPos2.translateBy(Direction.LEFT);
 
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// 11th tick
 		// Move spider1 up
@@ -355,7 +355,7 @@ public class MovingEntityTest {
 		assertTrue(currPos2.equals(prevPos2.translateBy(Direction.NONE)));
 		prevPos2 = prevPos2.translateBy(Direction.NONE);
 
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 	}
 
 	// ZOMBIE TESTS
@@ -374,7 +374,7 @@ public class MovingEntityTest {
 			// Make sure nothing spawns during this time
 			// assertThrows(InvalidActionException.class, () -> controller.getEntity("1"));
 			assertFalse(controller.getDungeon(0).entityExists("zombie_toast"));
-			controller.tick("", Direction.NONE);
+			controller.tick(null, Direction.NONE);
 		}
 
 		// Assert that zombie spawned cardinally adjacent
@@ -401,7 +401,7 @@ public class MovingEntityTest {
 			
 			assertTrue(zombiePos1.equals(currPos1));
 			assertTrue(zombiePos2.equals(currPos2));
-			controller.tick("", Direction.NONE);
+			controller.tick(null, Direction.NONE);
 		}
 	}
 
@@ -418,7 +418,7 @@ public class MovingEntityTest {
 
 		// For all 10 ticks, all movements will be cardinally adjacent
 		for (int i = 0; i < 10; i++) {
-			controller.tick("", Direction.NONE);
+			controller.tick(null, Direction.NONE);
 
 			prevPos = currPos;
 			currPos = controller.getDungeon(0).getEntity("0").getPosition();
@@ -435,13 +435,13 @@ public class MovingEntityTest {
 		assertDoesNotThrow(() -> controller.newGame("testMercenarySpawn.json", "Standard"));
 
 		// Get player out of the way so mercenary can spawn
-		controller.tick("", Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
 
 		// For all 10 ticks, the mercenary will not be spawned in yet
 		for (int i = 0; i < 10; i++) {
 			// assertThrows(InvalidActionException.class, () -> controller.getEntity("1"));
 			assertFalse(controller.getDungeon(0).entityExists("mercenary"));
-			controller.tick("", Direction.NONE);
+			controller.tick(null, Direction.NONE);
 		}
 	}
 
@@ -456,7 +456,7 @@ public class MovingEntityTest {
 		Position position = controller.getDungeon(0).getEntity("2").getPosition();
 		position = position.translateBy(Direction.UP);
 
-		controller.tick("", Direction.UP);
+		controller.tick(null, Direction.UP);
 
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", position));
 	}
@@ -485,21 +485,21 @@ public class MovingEntityTest {
 		Position mercenary = controller.getDungeon(0).getEntity("1").getPosition();
 		
 		// one tick, move closer left
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.LEFT)));
 
 		mercenary = mercenary.translateBy(Direction.LEFT);
 
 		// move closer left
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.LEFT)));
 
 		mercenary = mercenary.translateBy(Direction.LEFT);
 
 		// move closer left
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.LEFT)));
 
@@ -515,20 +515,20 @@ public class MovingEntityTest {
 		Position mercenary = controller.getDungeon(0).getEntity("1").getPosition();
 
 		// Move player down one
-		controller.tick("", Direction.DOWN);
+		controller.tick(null, Direction.DOWN);
 
 		// player shouldve moved down, same with merc
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.DOWN)));
 		mercenary = mercenary.translateBy(Direction.DOWN);
 
 		// Move player right, merc should've moved left
-		controller.tick("", Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
 
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.LEFT)));
 		mercenary = mercenary.translateBy(Direction.LEFT);
 
 		// Move player down
-		controller.tick("", Direction.DOWN);
+		controller.tick(null, Direction.DOWN);
 
 		// merc moved down
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.DOWN)));
@@ -545,18 +545,18 @@ public class MovingEntityTest {
 		Position mercenary = controller.getDungeon(0).getEntity("1").getPosition();
 
 		// Moves closer to player
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.LEFT)));
 		mercenary = mercenary.translateBy(Direction.LEFT);
 		
 		// Check if mercenary is blocked
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary));
 
 		// Check if player moves down, mercenary moves down 1 too
-		controller.tick("", Direction.DOWN);
+		controller.tick(null, Direction.DOWN);
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.DOWN)));
 	}
 
@@ -567,7 +567,7 @@ public class MovingEntityTest {
 		assertDoesNotThrow(() -> controller.newGame("testMercenaryBribe.json", "Standard"));
 	
 		// Pick up gold to right of player
-		controller.tick("", Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
 
 		// interact with mercenary
 		controller.interact("1");
@@ -576,14 +576,14 @@ public class MovingEntityTest {
 		assertTrue(controller.getDungeon(0).getEntity("1").isAlly());
 
 		// wait for merc to move into player
-		controller.tick("", Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Now merc is on player, check he moves around with player
-		controller.tick("", Direction.DOWN);
+		controller.tick(null, Direction.DOWN);
 		Position player = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", player));
 
-		controller.tick("", Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
 		player = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", player));
 	}
@@ -595,8 +595,8 @@ public class MovingEntityTest {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testMercenaryMovement.json", "Standard"));
 	
-		controller.tick("", Direction.RIGHT);
-		controller.tick("", Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
 
 		assertThrows(InvalidActionException.class, () -> controller.interact("mercenary"));
 	}
