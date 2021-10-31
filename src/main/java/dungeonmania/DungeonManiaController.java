@@ -248,8 +248,21 @@ public class DungeonManiaController {
 
 		Switch switchFlick = null;
 		boolean switchOn = false;
-		// Move everything else
+
+		// Dungeon tempDun = new Dungeon(currentDungeon.getId(), 
+		// 							currentDungeon.getName(), 
+		// 							currentDungeon.getEntities(), 
+		// 							currentDungeon.getGameMode(), 
+		// 							currentDungeon.getGoals());
+
+		// tempDun = currentDungeon;
+		Map<String, Entity> tempEnts = new HashMap<>();
 		for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
+			tempEnts.put(entry.getKey(), entry.getValue());
+		}
+		// Move everything else
+		// for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
+		for (Map.Entry<String, Entity> entry : tempEnts.entrySet()) {
 			Entity currentEntity = entry.getValue();
 			if (currentEntity instanceof Spider) {
 				moveStrategy = new SpiderMove();

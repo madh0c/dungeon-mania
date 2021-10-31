@@ -27,8 +27,8 @@ public abstract class MovableEntity extends Entity {
 		this.health = health;
 	}
     
-	@Override
-	public boolean collide(Entity entity) {
+	// @Override
+	public boolean collide(Entity entity, Dungeon dungeon) {
 		// If empty space
 		if (entity == null) {
 			return true;
@@ -48,6 +48,9 @@ public abstract class MovableEntity extends Entity {
 			return false;
 		} else if (entity instanceof MovableEntity) {
 			return false;
+		} else if (entity instanceof Player) {
+			Battle.battle(this, dungeon);
+			return true;
 		}
 		if (entity instanceof CollectibleEntity) {
 			return true;

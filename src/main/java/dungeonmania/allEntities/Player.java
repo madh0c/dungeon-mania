@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.ServletContextAttributeListener;
 import javax.xml.stream.events.EndElement;
 
+import dungeonmania.Battle;
 import dungeonmania.CollectibleEntity;
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;
@@ -29,6 +30,7 @@ public class Player extends Entity {
 		this.health = 100;
 		this.visible = true;
 		this.invincibleTickDuration = 0;
+		this.attack = 2;
     }
 
     public void setHealth(int newHealth) {
@@ -144,9 +146,8 @@ public class Player extends Entity {
 
 		// BATTLE
 		if (entity instanceof MovableEntity) {
-			MovableEntity enemy = (MovableEntity)entity;
-
-			
+			Battle.battle(entity, dungeon);
+			/*MovableEntity enemy = (MovableEntity)entity;
 
 			while (enemy.getHealth() > 0 && getHealth() > 0) {
 				// if player invincible
@@ -225,8 +226,7 @@ public class Player extends Entity {
 				if (enemyHp <= 0) {
 					dungeon.removeEntity(entity);
 				}
-				
-			}
+			}*/
 			//One Ring Spawning
 			OneRing ring = new OneRing(getPosition(), 0);
 			if (ring.doesSpawn()) {
