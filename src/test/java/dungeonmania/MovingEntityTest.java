@@ -596,11 +596,14 @@ public class MovingEntityTest {
 
 		// wait for merc to move into player
 		controller.tick(null, Direction.NONE);
+		controller.tick(null, Direction.NONE);
 
 		// Now merc is on player, check he moves around with player
 		controller.tick(null, Direction.DOWN);
 		Position player = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", player));
+		// assertEquals(-1, controller.getDungeon(0).getEntity("1").getPosition().getX());
+		// assertTrue(controller.getDungeon(0).entityExists("mercenary", player.translateBy(Direction.UP)));
 
 		controller.tick(null, Direction.RIGHT);
 		player = controller.getDungeon(0).getEntity("0").getPosition();
