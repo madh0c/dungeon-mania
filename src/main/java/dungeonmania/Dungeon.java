@@ -134,7 +134,12 @@ public class Dungeon {
 
 	// Check if type exists regardless of position
 	public boolean entityExists(String type) {
-		return entities.keySet().contains(type);
+		for (Entity ent : entities.values()) {
+			if (ent.getType().equals(type)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// Check if something exists in position

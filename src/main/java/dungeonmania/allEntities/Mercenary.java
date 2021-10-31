@@ -5,13 +5,14 @@ import java.util.Map;
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;
 import dungeonmania.MovableEntity;
+import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 
 public class Mercenary extends MovableEntity {
 
 	private boolean isAlly;
-	private Position currentDir;
+	private Direction currentDir;
 
     public Mercenary(Position position) {
         super(position, "mercenary");
@@ -20,6 +21,14 @@ public class Mercenary extends MovableEntity {
 
 	public boolean getIsAlly() {
 		return this.isAlly;
+	}
+
+	public Direction getCurrentDir() {
+		return currentDir;
+	}
+
+	public void setCurrentDir(Direction currentDir) {
+		this.currentDir = currentDir;
 	}
 
 
