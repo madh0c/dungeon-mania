@@ -153,8 +153,8 @@ public class DungeonManiaController {
 		}
 		
 		if (gameExists == false) {
-			return;
-			// throw new IllegalArgumentException("Invalid Dungeon Map Passed; Requested Dungeon Does Not Exist");
+			// return;
+			throw new IllegalArgumentException("Invalid Dungeon Map Passed; Requested Dungeon Does Not Exist");
 		}
 
 		if (!this.getGameModes().contains(gameMode)) {
