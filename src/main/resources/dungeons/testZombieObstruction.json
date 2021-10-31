@@ -33,13 +33,12 @@
         {
             "x": 4,
             "y": 2,
-            "type": "switch"
+            "type": "boulder"
         },
         {
             "x": 3,
             "y": 1,
-            "type": "portal",
-			"colour": "BLUE"
+            "type": "exit"
         },
         {
             "x": 4,

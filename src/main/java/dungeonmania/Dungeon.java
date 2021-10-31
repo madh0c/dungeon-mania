@@ -24,6 +24,8 @@ public class Dungeon {
     private String gameMode;
     private String goals;
 	private int historicalEntCount;
+	private int tickNumber;
+	private Position spawnpoint;
 
 
     public Dungeon(int id, String name, Map<String, Entity> entities, String gameMode, String goals) {
@@ -124,6 +126,14 @@ public class Dungeon {
         return goals;
     }
 
+	public int getHistoricalEntCount () {
+		return historicalEntCount;
+	}
+
+	public void setHistoricalEntCount(int historicalEntCount) {
+		this.historicalEntCount = historicalEntCount;
+	}
+
 	public Entity getEntity(String id) {
 		return entities.get(id);
 	}
@@ -167,6 +177,22 @@ public class Dungeon {
 		return result;
 	}
 
+	public int getTickNumber() {
+		return tickNumber;
+	}
+
+	public Position getSpawnpoint() {
+		return spawnpoint;
+	}
+
+	public void setSpawnpoint(Position spawnpoint) {
+		this.spawnpoint = spawnpoint;
+	}
+
+	public void tickOne() {
+		tickNumber++;
+	}
+
 	public void removeEntity(Entity entity) {
 		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
 			Entity currentEntity = entry.getValue();
@@ -183,7 +209,12 @@ public class Dungeon {
 
 	// Check if type exists regardless of position
 	public boolean entityExists(String type) {
-		return entities.keySet().contains(type);
+		for (Entity ent : entities.values()) {
+			if (ent.getType().equals(type)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// Check if something exists in position

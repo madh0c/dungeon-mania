@@ -149,10 +149,12 @@ public class DungeonManiaController {
 			String dungeonWJson = dungeon + ".json";
 			if (dungeonWJson.equals(dungeonName)) {
 				gameExists = true;
+				break;
 			}
 		}
 		
 		if (gameExists == false) {
+			// return;
 			throw new IllegalArgumentException("Invalid Dungeon Map Passed; Requested Dungeon Does Not Exist");
 		}
 
@@ -201,6 +203,27 @@ public class DungeonManiaController {
 
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
+		// First tick of game, some actions to do
+		if (currentDungeon.getTickNumber() == 0) {
+			// If player exists
+			if (currentDungeon.getPlayer() != null) {
+				currentDungeon.setSpawnpoint(currentDungeon.getPlayerPosition());
+			}
+		}
+
+		// Spawn in new entities after period of ticks
+		if (currentDungeon.getTickNumber() % 10 == 0 && currentDungeon.getTickNumber() > 0) {
+			// If there is a spawnpoint
+			if (currentDungeon.getSpawnpoint() != null) {
+				// Merc spawn every 10 ticks
+				Mercenary merc = new Mercenary(currentDungeon.getSpawnpoint());
+				currentDungeon.addEntity(merc);
+			}
+
+		}
+
+		
+		currentDungeon.tickOne();
 		Move moveStrategy = new PlayerMove();
 		// Move player
 		if (currentDungeon.getPlayer() != null) {
@@ -327,12 +350,20 @@ public class DungeonManiaController {
 
 	public DungeonResponse interact(String entityId) throws IllegalArgumentException, InvalidActionException {
 		checkValidInteract(entityId);
-		return null;
+		Entity ent = currentDungeon.getEntity(entityId);
+		// Attempt bribe if mercenary
+		if (ent instanceof Mercenary) {
+			Mercenary merc = (Mercenary) ent;
+			if (!merc.bribeable(currentDungeon)) {
+				throw new InvalidActionException("Cannot Bribe Mercenary; Not Enough Gold");
+			}
+		}
+		return getDungeonInfo(currentDungeon.getId());
 	}
 
 
 	public void checkValidInteract(String entityId) throws IllegalArgumentException, InvalidActionException{
-		if (currentDungeon.getEntity(entityId).equals(null)) {
+		if (currentDungeon.getEntity(entityId) == null) {
 			throw new IllegalArgumentException("Cannot Interact With Requested Entity; Entity Does Not Exist In The Map");
 		}
 
@@ -374,6 +405,51 @@ public class DungeonManiaController {
 
 	public DungeonResponse build(String buildable) throws IllegalArgumentException, InvalidActionException {
 		checkValidBuild(buildable);
+		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
+		if (buildable.equals("bow")) {
+			CollectibleEntity bow = (CollectibleEntity) EntityFactory.createEntity("bow", currentDungeon.getPlayerPosition());
+			int id = getDungeon(currentDungeon.getId()).getHistoricalEntCount();
+			bow.setId(String.valueOf(id));
+			getDungeon(currentDungeon.getId()).setHistoricalEntCount(id++);
+			currentInventory.add(bow);
+			int counterArrow = 0;
+			int counterWood = 0;
+			for (int i = 0; i < currentInventory.size(); i++) {
+				CollectibleEntity found = currentInventory.get(i);
+				if (found.getType().equals("arrow") && counterArrow < 3) {
+					counterArrow++;
+					currentInventory.remove(i);
+					i = -1;
+				} else if (found.getType().equals("wood") && counterWood < 1) {
+					counterWood++;
+					currentInventory.remove(i);
+					i = -1;
+				}
+			}
+		} else if (buildable.equals("shield")) {
+			CollectibleEntity shield = (CollectibleEntity) EntityFactory.createEntity("shield", currentDungeon.getPlayerPosition());
+			int id = getDungeon(currentDungeon.getId()).getHistoricalEntCount();
+			shield.setId(String.valueOf(id));
+			getDungeon(currentDungeon.getId()).setHistoricalEntCount(id++);
+			currentInventory.add(shield);
+			int counterTreasure = 0;
+			int counterKey = 0;
+			int counterWood = 0;
+			for (int i = 0; i < currentInventory.size(); i++) {
+				CollectibleEntity found = currentInventory.get(i);
+				if (found.getType().equals("wood") && counterWood < 2) {
+					counterWood++;
+					currentInventory.remove(i);
+					i = -1;
+				} else if ((found.getType().equals("treasure") && counterTreasure < 1) || (found.getType().equals("key") && counterKey < 1)) {
+					counterTreasure++;
+					counterKey++;
+					currentInventory.remove(i);
+					i = -1;
+				}
+			}
+		}
+
 		return null;
 	}
 

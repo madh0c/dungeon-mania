@@ -42,7 +42,7 @@
 							"goal": "OR",
 							"subgoals": [
 								{
-									"goal": "bomb"
+									"goal": "exit"
 								},
 								{
 									"goal": "boulder"
