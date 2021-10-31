@@ -1221,8 +1221,7 @@ public class StaticEntityTest {
 
         assertEquals(expectedInventory1, dRMid.getInventory());
 
-        // Make player step on the spawner
-        controller.tick(null, Direction.RIGHT);
+        // Make player interact with spawner
         controller.tick(null, Direction.RIGHT);
         controller.interact("2");
 
