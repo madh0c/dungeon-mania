@@ -43,6 +43,10 @@ public class EntityFactory {
 			return new Sword(position);
 		else if (type.contains("player"))
 			return new Player(position);
+		else if (type.contains("bow"))
+			return new Bow(position);
+		else if (type.contains("shield"))
+			return new Shield(position);
 		return null;
 	}
 }
