@@ -83,38 +83,6 @@ public final class Position {
         return x + y == 1;
     }
 
-    public  static final boolean inBribingRange(Position a, Position b) {
-        int x = a.x - b.x;
-        int y = a.y - b.y;
-
-        boolean xInLine = (x == 0);
-        boolean yInLine = (y == 0);
-
-        boolean xCardinalRange = !(x < -2 || x > 2);
-        boolean yCardinalRange = !(y < -2 || y > 2);
-
-        boolean successX = (yInLine && xCardinalRange);
-        boolean successY = (xInLine && yCardinalRange);
-
-        return (successX || successY);
-    }
-
-    public  static final boolean isCardinallyAdjacent(Position a, Position b) {
-        int x = a.x - b.x;
-        int y = a.y - b.y;
-
-        boolean xInLine = (x == 0);
-        boolean yInLine = (y == 0);
-
-        boolean xCardinalRange = !(x < -1 || x > 1);
-        boolean yCardinalRange = !(y < -1 || y > 1);
-
-        boolean successX = (yInLine && xCardinalRange);
-        boolean successY = (xInLine && yCardinalRange);
-
-        return (successX || successY);
-    }
-
     // (Note: doesn't include z)
     public final Position scale(int factor) {
         return new Position(x * factor, y * factor, layer);
@@ -141,9 +109,4 @@ public final class Position {
         adjacentPositions.add(new Position(x-1, y));
         return adjacentPositions;
     }
-
-	// Check if same x and y coordinate
-	public boolean coincides(Position pos) {
-		return (getX() == pos.getX()) && (getY() == pos.getY());
-	}
 }

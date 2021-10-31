@@ -4,6 +4,9 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
+import dungeonmania.allEntities.HealthPotion;
+import dungeonmania.allEntities.InvincibilityPotion;
+import dungeonmania.allEntities.InvisibilityPotion;
 import dungeonmania.allEntities.Player;
 import dungeonmania.util.*;
 
@@ -30,6 +33,36 @@ public class Dungeon {
 		this.historicalEntCount = entities.size();
     }
 
+	public boolean useItem(String itemString) {
+		CollectibleEntity itemUsed = null;
+		for (CollectibleEntity collectible : inventory) {
+			if (collectible.getType().equals(itemString)) {
+				itemUsed = collectible;
+			}
+		}
+		
+		if (itemUsed instanceof HealthPotion) {
+			getPlayer().setHealth(100);
+			inventory.remove(itemUsed);
+			return true;
+		}
+		if (itemUsed instanceof InvisibilityPotion) {
+			getPlayer().setVisibility(false);
+			inventory.remove(itemUsed);
+			return true;
+		}
+
+		if (itemUsed instanceof InvincibilityPotion) {
+			getPlayer().setInvincibleTickDuration(8);
+			inventory.remove(itemUsed);
+			return true;
+		}
+
+		
+
+		return false;
+	}
+	
     public Map<String, Entity> getEntities() {
         return entities;
     }
@@ -70,19 +103,6 @@ public class Dungeon {
 				return currentEntity;
 			}
 		}
-
-		return null;
-	}
-
-	public Entity getEntity(String type, Position position) {
-		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
-			Entity currentEntity = entry.getValue();
-			if (currentEntity.getPosition().equals(position) &&
-				currentEntity.getType().equals(type)) {
-				return currentEntity;
-			}
-		}
-
 		return null;
 	}
 
