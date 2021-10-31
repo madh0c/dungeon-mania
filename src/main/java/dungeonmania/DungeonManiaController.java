@@ -79,6 +79,21 @@ public class DungeonManiaController {
 			entities.add(er);
 		}
 
+		// Check if switch is coincided with boulder
+		for (Map.Entry<String, Entity> entry : newDungeon.getEntities().entrySet()) {
+			Entity currentEntity = entry.getValue();
+			if (currentEntity instanceof Switch) {
+				Position pos = currentEntity.getPosition();
+				Position newPos = new Position(pos.getX(), pos.getY(), 0);
+				Boulder boulder = (Boulder) newDungeon.getEntity("boulder", newPos);
+				if (boulder != null) {
+					Switch sw = (Switch) currentEntity;
+					sw.setStatus(true);
+				}
+				
+			}
+		}
+
 		DungeonResponse result = new DungeonResponse(
 			String.valueOf(newDungeon.getId()), 
 			newDungeon.getName(), 
@@ -199,7 +214,24 @@ public class DungeonManiaController {
 				moveStrategy.move(currentEntity, currentDungeon);
 			} else if (currentEntity instanceof Boulder) {
 				moveStrategy = new StandardMove();
+				// Get position of switch, layer -1
+				Position prevPos = currentEntity.getPosition();
+				Position prevPosSwitch = new Position(prevPos.getX(), prevPos.getY(), -1);
 				moveStrategy.move(currentEntity, currentDungeon, movementDirection);
+				Position currPos = currentEntity.getPosition();
+				Position currPosSwitch = new Position(prevPos.getX(), prevPos.getY(), -1);
+
+				// Check if switch is being activated
+				if (currentDungeon.entityExists("switch", currPosSwitch)) {
+					Switch sw = (Switch) currentDungeon.getEntity("switch", currPosSwitch);
+					sw.setStatus(true);
+				}
+				// Check if switch is being deactivated
+				if (currentDungeon.entityExists("switch", prevPosSwitch)) {
+					Switch sw = (Switch) currentDungeon.getEntity("switch", prevPosSwitch);
+					sw.setStatus(false);
+				}
+
 			} else if (currentEntity instanceof ZombieToast) {
 				moveStrategy = new StandardMove();
 				Random random = new Random();
