@@ -2,6 +2,7 @@ package dungeonmania;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -10,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import dungeonmania.allEntities.Armour;
 import dungeonmania.allEntities.Player;
+import dungeonmania.allEntities.Sword;
 import dungeonmania.response.models.DungeonResponse;
 import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ItemResponse;
@@ -152,7 +155,7 @@ public class CollectibleEntitiesTest {
     }
 
     @Test
-    public void testShieldAndSword() {
+    public void testArmourAndSword() {
         DungeonManiaController controller = new DungeonManiaController();
 
         // create a new game and move the player right to pickup sword
@@ -168,14 +171,21 @@ public class CollectibleEntitiesTest {
 
         // grab the info of dungeon
         dungeonInfo = controller.getDungeonInfo(0);
-        assertEquals(Arrays.asList(new ItemResponse("1", "sword"), new ItemResponse("2", "shield")), dungeonInfo.getInventory());
+        assertEquals(Arrays.asList(new ItemResponse("1", "sword"), new ItemResponse("2", "armour")), dungeonInfo.getInventory());
 
         // move to right and fight the mercenary
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
-        // TODO: find what the health should be (50 IS WRONG)
+        // check that durabilities went down
+        Sword sword = (Sword) controller.getDungeon(0).getInventory().get(0);
+        assertNotEquals(10, sword.getDurability()); 
+
+        Armour armour = (Armour) controller.getDungeon(0).getInventory().get(1);
+        assertNotEquals(10, armour.getDurability()); 
+
+        // TODO: find what the health should be (100 IS WRONG)
         Player player = controller.getDungeon(0).getPlayer();
-        assertEquals(50, player.getHealth());
+        assertEquals(100, player.getHealth());
     }
 
 

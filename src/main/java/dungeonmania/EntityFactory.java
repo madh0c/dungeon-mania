@@ -47,6 +47,12 @@ public class EntityFactory {
 			return new Bow(position);
 		else if (type.contains("shield"))
 			return new Shield(position);
+		else if (type.contains("armour"))
+			return new Armour(position);
+		else if (type.contains("bow"))
+			return new Bow(position);
+		else if (type.contains("one_ring"))
+			return new OneRing(position, 0);
 		return null;
 	}
 }
