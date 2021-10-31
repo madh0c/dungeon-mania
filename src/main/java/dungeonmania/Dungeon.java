@@ -8,6 +8,7 @@ import dungeonmania.allEntities.HealthPotion;
 import dungeonmania.allEntities.InvincibilityPotion;
 import dungeonmania.allEntities.InvisibilityPotion;
 import dungeonmania.allEntities.Player;
+import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.*;
 
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class Dungeon {
     private String gameMode;
     private String goals;
 	private int historicalEntCount;
+	private int tickNumber;
 
 
     public Dungeon(int id, String name, Map<String, Entity> entities, String gameMode, String goals) {
@@ -33,12 +35,16 @@ public class Dungeon {
 		this.historicalEntCount = entities.size();
     }
 
-	public boolean useItem(String itemString) {
+	public boolean useItem(String itemString) throws InvalidActionException {
 		CollectibleEntity itemUsed = null;
 		for (CollectibleEntity collectible : inventory) {
 			if (collectible.getType().equals(itemString)) {
 				itemUsed = collectible;
 			}
+		}
+
+		if (itemString != null &&  itemUsed == null) {
+			throw new InvalidActionException("This item is not currently in your inventory");
 		}
 		
 		if (itemUsed instanceof HealthPotion) {
@@ -116,6 +122,14 @@ public class Dungeon {
 		}
 
 		return null;
+	}
+
+	public int getTickNumber() {
+		return tickNumber;
+	}
+
+	public void tickOne() {
+		tickNumber++;
 	}
 
 	public void removeEntity(Entity entity) {

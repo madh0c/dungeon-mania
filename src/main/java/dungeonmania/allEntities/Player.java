@@ -12,7 +12,7 @@ import dungeonmania.util.Position;
 
 
 public class Player extends Entity {
-    private int health;
+    private int health = 100;
 	private int attack;
     private boolean visible = true;
 	private Direction currentDir;

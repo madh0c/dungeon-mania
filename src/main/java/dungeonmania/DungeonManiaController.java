@@ -205,13 +205,14 @@ public class DungeonManiaController {
 		// Spawn in new entities after period of ticks
 
 		
+		currentDungeon.tickOne();
 		Move moveStrategy = new PlayerMove();
 		// Move player
 		if (currentDungeon.getPlayer() != null) {
-			moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);
 			// make sure invincibility wears off
 			int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
 			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
+			moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);			
 		}
 		// Move everything else
 		for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
@@ -370,7 +371,6 @@ public class DungeonManiaController {
 		}
 		
 	}
-
 
 
 }
