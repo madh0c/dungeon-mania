@@ -1224,6 +1224,7 @@ public class StaticEntityTest {
         // Make player step on the spawner
         controller.tick(null, Direction.RIGHT);
         controller.tick(null, Direction.RIGHT);
+        controller.interact("2");
 
         // Assert the sword is still in the inventory
         DungeonResponse dREnd = controller.getDungeonInfo(0);

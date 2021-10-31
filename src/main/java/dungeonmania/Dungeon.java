@@ -106,6 +106,18 @@ public class Dungeon {
 		return null;
 	}
 
+	public Entity getEntity(String type, Position position) {
+		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
+			Entity currentEntity = entry.getValue();
+			if (currentEntity.getPosition().equals(position) &&
+				currentEntity.getType().equals(type)) {
+				return currentEntity;
+			}
+		}
+
+		return null;
+	}
+
 	public void removeEntity(Entity entity) {
 		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
 			Entity currentEntity = entry.getValue();
