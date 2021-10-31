@@ -12,15 +12,18 @@ import dungeonmania.util.Position;
 
 
 public class Player extends Entity {
-    private int health = 100;
+    private int health;
 	private int attack;
-    private boolean visible = true;
+    private boolean visible;
 	private Direction currentDir;
 	private boolean haveKey;
-	private int invincibleTickDuration = 0;
+	private int invincibleTickDuration;
 
     public Player(Position position) {
         super(position, "player");
+		this.health = 100;
+		this.visible = true;
+		invincibleTickDuration = 0;
     }
 
     public void setHealth(int newHealth) {
