@@ -2,6 +2,7 @@ package dungeonmania.allEntities;
 
 import java.util.Map;
 
+import javax.servlet.ServletContextAttributeListener;
 import javax.xml.stream.events.EndElement;
 
 import dungeonmania.CollectibleEntity;
@@ -23,7 +24,7 @@ public class Player extends Entity {
         super(position, "player");
 		this.health = 100;
 		this.visible = true;
-		invincibleTickDuration = 0;
+		this.invincibleTickDuration = 0;
     }
 
     public void setHealth(int newHealth) {
@@ -41,6 +42,10 @@ public class Player extends Entity {
     public int getHealth() {
         return health;
     }
+
+	public Direction getCurrentDir() {
+		return currentDir;
+	}
 
     public boolean isVisible() {
         return visible;
