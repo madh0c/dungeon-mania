@@ -1,5 +1,8 @@
 package dungeonmania.allEntities;
 
+import java.util.List;
+
+import dungeonmania.Dungeon;
 import dungeonmania.Entity;
 import dungeonmania.util.Position;
 
@@ -10,4 +13,24 @@ public class ZombieToastSpawner extends Entity {
         super(position, "zombie_toast_spawner");
     }
 
+    public void spawnZombie(Dungeon currentDungeon) {
+
+		List<Position> spawnOrder = this.getPosition().getCardinallyAdjPositions();
+
+		for (Position spawnPoint : spawnOrder) {
+			List<Entity> conflictEntities = currentDungeon.getEntitiesOnCell(spawnPoint);
+			boolean canSpawn = true;
+			for (Entity conflictE : conflictEntities) {
+				if (conflictE.getType().equals("boulder") || conflictE.getType().equals("wall")) {
+					canSpawn = false;
+
+				}
+			}
+			if (canSpawn) {
+				ZombieToast zombie = new ZombieToast(spawnPoint);
+				currentDungeon.addEntity(zombie);
+                break;
+			}
+		}
+	}
 }

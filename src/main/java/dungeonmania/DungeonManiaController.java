@@ -216,7 +216,7 @@ public class DungeonManiaController {
 			}
 		}
 
-		// Spawn in new entities after period of ticks
+		// Spawn in new mercenary after 10 ticks
 		if (currentDungeon.getTickNumber() % 10 == 0 && currentDungeon.getTickNumber() > 0) {
 			// If there is a spawnpoint
 			if (currentDungeon.getSpawnpoint() != null) {
@@ -224,9 +224,17 @@ public class DungeonManiaController {
 				Mercenary merc = new Mercenary(currentDungeon.getSpawnpoint());
 				currentDungeon.addEntity(merc);
 			}
-
 		}
-		
+
+		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
+		for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
+			Entity currentEntity = entry.getValue();
+			if (currentEntity.getType().equals("zombie_toast_spawner")) {
+				ZombieToastSpawner foundSpawner = (ZombieToastSpawner)currentEntity;
+				spawners.add(foundSpawner);
+			}
+		}
+
 		currentDungeon.tickOne();
 		Move moveStrategy = new PlayerMove();
 		// Move player
@@ -318,6 +326,14 @@ public class DungeonManiaController {
 		}
 
 		currentDungeon.getEntities().keySet().removeAll(idsToBeRemoved);
+
+		// Spawn in new zombietoast after 20 ticks
+		if (currentDungeon.getTickNumber() % 20 == 1 && currentDungeon.getTickNumber() > 1) {
+			for (ZombieToastSpawner spawner : spawners) {
+				spawner.spawnZombie(currentDungeon);
+			}
+		}
+
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
@@ -349,7 +365,8 @@ public class DungeonManiaController {
 			throw new InvalidActionException("Cannot Use Requested Item; Item Does Not Exist In Inventory");
 		}
 	}
-
+				
+	
 	public DungeonResponse interact(String entityId) throws IllegalArgumentException, InvalidActionException {
 		checkValidInteract(entityId);
 		Entity ent = currentDungeon.getEntity(entityId);
