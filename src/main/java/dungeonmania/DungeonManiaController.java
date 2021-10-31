@@ -240,8 +240,8 @@ public class DungeonManiaController {
 		}
 
 		boolean itemInInventory = false;
-		List<Entity> currentInventory = currentDungeon.getInventory();
-		for (Entity item : currentInventory) {
+		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
+		for (CollectibleEntity item : currentInventory) {
 			if (item.getType().equals(itemUsed)) {
 				itemInInventory = true;
 			}
@@ -264,12 +264,12 @@ public class DungeonManiaController {
 
 		Entity interactEntity = currentDungeon.getEntity(entityId);
 
-		List<Entity> currentInventory = currentDungeon.getInventory();
+		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
 
 		boolean hasGold = false;
 		boolean hasWeapon = false;
 
-		for (Entity item : currentInventory) {
+		for (CollectibleEntity item : currentInventory) {
 			if (item.getType().equals("treasure")) {
 				hasGold = true;
 			} else if (item.getType().equals("sword") || item.getType().equals("bow")) {
