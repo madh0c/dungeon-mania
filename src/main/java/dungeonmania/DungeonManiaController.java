@@ -482,7 +482,7 @@ public class DungeonManiaController {
 			}
 		}
 
-		return null;
+		return getDungeonInfo(currentDungeon.getId());
 	}
 
 	public void checkValidBuild(String buildable) throws IllegalArgumentException, InvalidActionException{

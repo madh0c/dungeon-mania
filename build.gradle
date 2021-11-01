@@ -30,7 +30,6 @@ sourceSets {
     main {
         java {
             srcDir 'src/main/java'
-			exclude 'dungeonmania/scintilla/**'
         }
         resources {
             srcDir 'src/main/resources'
