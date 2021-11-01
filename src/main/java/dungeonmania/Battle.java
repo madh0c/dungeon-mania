@@ -89,7 +89,7 @@ public class Battle {
 			if (dungeon.getPlayer().getHealth() <= 0) {
 				for (CollectibleEntity item : dungeon.getInventory()) {
 					if (item instanceof OneRing) {
-						dungeon.getPlayer().setHealth(100);
+						dungeon.getPlayer().setHealth(dungeon.getMode().getHealth());
 					}
 				}
 				if (dungeon.getPlayer().getHealth() <= 0) {

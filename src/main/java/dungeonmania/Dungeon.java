@@ -27,6 +27,7 @@ public class Dungeon implements Serializable{
 	private int historicalEntCount;
 	private int tickNumber;
 	private Position spawnpoint;
+	private Mode mode;
 
 
     public Dungeon(int id, String name, Map<String, Entity> entities, String gameMode, String goals) {
@@ -37,6 +38,15 @@ public class Dungeon implements Serializable{
         this.gameMode = gameMode;
         this.goals = goals;
 		this.historicalEntCount = entities.size();
+		// Initialise gamemode
+		mode = new StandardMode();
+		if (gameMode.equals("Peaceful")) {
+			mode = new PeacefulMode();
+		} else if (gameMode.equals("Standard")) {
+			mode = new StandardMode();
+		} else if (gameMode.equals("Hard")) {
+			mode = new HardMode();
+		}
     }
 
 	public boolean useItem(String itemString) throws InvalidActionException {
@@ -48,7 +58,7 @@ public class Dungeon implements Serializable{
 		}
 		
 		if (itemUsed instanceof HealthPotion) {
-			getPlayer().setHealth(100);
+			getPlayer().setHealth(mode.getHealth());
 			inventory.remove(itemUsed);
 			return true;
 		}
@@ -59,7 +69,7 @@ public class Dungeon implements Serializable{
 		}
 
 		if (itemUsed instanceof InvincibilityPotion) {
-			getPlayer().setInvincibleTickDuration(8);
+			getPlayer().setInvincibleTickDuration(mode.getInvincDuration());
 			inventory.remove(itemUsed);
 			return true;
 		}
@@ -123,6 +133,10 @@ public class Dungeon implements Serializable{
         return gameMode;
     }
 
+	public Mode getMode() {
+		return mode;
+	}
+
     public String getGoals() {
         return goals;
     }
@@ -176,6 +190,10 @@ public class Dungeon implements Serializable{
 
 	public Position getSpawnpoint() {
 		return spawnpoint;
+	}
+
+	public int getSpawnRate() {
+		return mode.getZombieTick();
 	}
 
 	public void setSpawnpoint(Position spawnpoint) {
