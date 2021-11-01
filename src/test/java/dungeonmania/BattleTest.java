@@ -18,7 +18,7 @@ public class BattleTest {
 	@Test
 	public void testBattleOnce() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testBattleOnce.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testBattleOnce", "Standard"));
 
 		Dungeon dungeon = controller.getDungeon(0);
 		controller.tick(null, Direction.RIGHT);
@@ -28,7 +28,7 @@ public class BattleTest {
 	@Test
 	public void testBasicBattle() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testBasicBattle.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testBasicBattle", "Standard"));
 
 		controller.tick(null, Direction.LEFT);
 
@@ -57,7 +57,7 @@ public class BattleTest {
 	@Test
 	public void testBattleDie() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testPlayerDies.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testPlayerDies", "Standard"));
 
 		// For 20 ticks, wait for zombie to spawn
 		for (int i = 0; i < 21; i++) {

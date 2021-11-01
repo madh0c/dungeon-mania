@@ -365,7 +365,7 @@ public class MovingEntityTest {
 	@Test
 	public void testZombieSpawn() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testZombieSpawn.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testZombieSpawn", "Standard"));
 		
 		Position zombiePos;
 		Position spawnerPos = controller.getDungeon(0).getEntity("0").getPosition();
