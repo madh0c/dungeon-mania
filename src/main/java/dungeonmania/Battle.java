@@ -92,8 +92,10 @@ public class Battle {
 						dungeon.getPlayer().setHealth(100);
 					}
 				}
-				dungeon.removeEntity(dungeon.getPlayer());	
-				break;				
+				if (dungeon.getPlayer().getHealth() <= 0) {
+					dungeon.removeEntity(dungeon.getPlayer());	
+					break;				
+				}
 			} 
 
 			if (enemy.getHealth() <= 0) {

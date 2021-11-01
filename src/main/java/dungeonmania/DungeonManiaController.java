@@ -173,24 +173,24 @@ public class DungeonManiaController {
     }
 
 	public DungeonResponse loadGame(String name) throws IllegalArgumentException {
-		//checkValidLoadGame(name);
+		checkValidLoadGame(name);
 		return null;
 	}
 
-	// public void checkValidLoadGame(String name) throws IllegalArgumentException {
-	// 	boolean gameExists = false;
-	// 	int dungeonIdAsInt = Integer.parseInt(name);
+	public void checkValidLoadGame(String name) throws IllegalArgumentException {
+		boolean gameExists = false;
+		int dungeonIdAsInt = Integer.parseInt(name);
 
-	// 	for (Dungeon game : games) {
-	// 		if (game.getId() == dungeonIdAsInt) {
-	// 			gameExists = true;
-	// 		}
-	// 	}
+		for (Dungeon game : games) {
+			if (game.getId() == dungeonIdAsInt) {
+				gameExists = true;
+			}
+		}
 		
-	// 	if (gameExists == false) {
-	// 		throw new IllegalArgumentException("Invalid Dungeon Name Passed; Requested Dungeon Cannot Be Loaded As It Does Not Exist");
-	// 	}
-	// }
+		if (gameExists == false) {
+			throw new IllegalArgumentException("Invalid Dungeon Name Passed; Requested Dungeon Cannot Be Loaded As It Does Not Exist");
+		}
+	}
 
 
 	public List<String> allGames() {
