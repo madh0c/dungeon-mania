@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.plaf.TreeUI;
+
 
 public class StaticEntityTest {
     
@@ -54,7 +56,7 @@ public class StaticEntityTest {
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(2,0), true);
         EntityResponse startWallInfo = new EntityResponse("1", "wall", new Position(1,0), false);
-        EntityResponse startMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
 
         startList.add(startPlayerInfo);
         startList.add(startWallInfo);
@@ -71,7 +73,7 @@ public class StaticEntityTest {
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
         EntityResponse expectedWallInfo = new EntityResponse("1", "wall", new Position(1,0), false);
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), false);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
 
         expectedList.add(expectedPlayerInfo);
         expectedList.add(expectedWallInfo);
@@ -97,11 +99,11 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(6,0), true);
-        EntityResponse startSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), false);
+        EntityResponse startSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), true);
         EntityResponse startWall1Info = new EntityResponse("2", "wall", new Position(0,1), false);
         EntityResponse startWall2Info = new EntityResponse("3", "wall", new Position(1,0), false);
-        EntityResponse startBoulder1Info = new EntityResponse("4", "boulder", new Position(1,2), true);
-        EntityResponse startBoulder2Info = new EntityResponse("5", "boulder", new Position(2,1), true);
+        EntityResponse startBoulder1Info = new EntityResponse("4", "boulder", new Position(1,2), false);
+        EntityResponse startBoulder2Info = new EntityResponse("5", "boulder", new Position(2,1), false);
         EntityResponse startWall3Info = new EntityResponse("6", "wall", new Position(7,0), false);
 
 
@@ -125,14 +127,14 @@ public class StaticEntityTest {
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(6,0), true);
-        EntityResponse endSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), false);
+        EntityResponse endSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), true);
         EntityResponse endWall1Info = new EntityResponse("2", "wall", new Position(0,1), false);
         EntityResponse endWall2Info = new EntityResponse("3", "wall", new Position(1,0), false);
-        EntityResponse endBoulder1Info = new EntityResponse("4", "boulder", new Position(1,2), true);
-        EntityResponse endBoulder2Info = new EntityResponse("5", "boulder", new Position(2,1), true);
+        EntityResponse endBoulder1Info = new EntityResponse("4", "boulder", new Position(1,2), false);
+        EntityResponse endBoulder2Info = new EntityResponse("5", "boulder", new Position(2,1), false);
         EntityResponse endWall3Info = new EntityResponse("6", "wall", new Position(7,0), false);
-        EntityResponse endMerc1Info = new EntityResponse("7", "mercenary", new Position(6,0), false);
-        EntityResponse endMerc2Info = new EntityResponse("8", "mercenary", new Position(6,0), false);
+        EntityResponse endMerc1Info = new EntityResponse("7", "mercenary", new Position(6,0), true);
+        EntityResponse endMerc2Info = new EntityResponse("8", "mercenary", new Position(6,0), true);
 
         endList.add(endPlayerInfo);
         endList.add(endSpawnerInfo);
@@ -164,7 +166,7 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startBoulderInfo = new EntityResponse("1", "boulder", new Position(1,0), true);
+        EntityResponse startBoulderInfo = new EntityResponse("1", "boulder", new Position(1,0), false);
         EntityResponse startWallInfo = new EntityResponse("2", "wall", new Position(2,0), false);
  
         startList.add(startPlayerInfo);
@@ -269,7 +271,7 @@ public class StaticEntityTest {
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
         EntityResponse startExitInfo = new EntityResponse("1", "exit", new Position(1,0), false);
-        EntityResponse startMercenaryInfo = new EntityResponse("2", "mercenary", new Position(8,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("2", "mercenary", new Position(8,0), true);
 
         startList.add(startPlayerInfo);
         startList.add(startExitInfo);
@@ -301,7 +303,7 @@ public class StaticEntityTest {
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
         EntityResponse startExitInfo = new EntityResponse("1", "exit", new Position(1,0), false);
-        EntityResponse startTreasureInfo = new EntityResponse("2", "treasure", new Position(8,0), true);
+        EntityResponse startTreasureInfo = new EntityResponse("2", "treasure", new Position(8,0), false);
 
         startList.add(startPlayerInfo);
         startList.add(startExitInfo);
@@ -332,7 +334,7 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startMercenaryInfo = new EntityResponse("1", "mercenary", new Position(1,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("1", "mercenary", new Position(1,0), true);
         EntityResponse startExitInfo = new EntityResponse("2", "exit", new Position(3,0), false);
 
         startList.add(startPlayerInfo);
@@ -381,7 +383,7 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startTreasureInfo = new EntityResponse("1", "treasure", new Position(1,0), true);
+        EntityResponse startTreasureInfo = new EntityResponse("1", "treasure", new Position(1,0), false);
         EntityResponse startExitInfo = new EntityResponse("2", "exit", new Position(3,0), false);
 
         startList.add(startPlayerInfo);
@@ -442,7 +444,7 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
-        EntityResponse expectedBoulderInfo = new EntityResponse("1", "boulder", new Position(2,0), true);
+        EntityResponse expectedBoulderInfo = new EntityResponse("1", "boulder", new Position(2,0), false);
 
         startList.add(expectedPlayerInfo);
         startList.add(expectedBoulderInfo);
@@ -464,8 +466,8 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startBoulder1Info = new EntityResponse("1", "boulder", new Position(1,0), true);
-        EntityResponse startBoulder2Info = new EntityResponse("2", "boulder", new Position(2,0), true);
+        EntityResponse startBoulder1Info = new EntityResponse("1", "boulder", new Position(1,0), false);
+        EntityResponse startBoulder2Info = new EntityResponse("2", "boulder", new Position(2,0), false);
 
         startList.add(startPlayerInfo);
         startList.add(startBoulder1Info);
@@ -494,7 +496,7 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startBoulderInfo = new EntityResponse("1", "boulder", new Position(5,2), true);
+        EntityResponse startBoulderInfo = new EntityResponse("1", "boulder", new Position(5,2), false);
         EntityResponse startSpiderInfo = new EntityResponse("2", "spider", new Position(5,1), false);
 
         startList.add(startPlayerInfo);
@@ -511,7 +513,7 @@ public class StaticEntityTest {
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
-        EntityResponse expectedBoulderInfo = new EntityResponse("1", "boulder", new Position(5,2), true);
+        EntityResponse expectedBoulderInfo = new EntityResponse("1", "boulder", new Position(5,2), false);
         EntityResponse expectedSpiderInfo = new EntityResponse("2", "spider", new Position(5,0), false);
 
         endList.add(expectedPlayerInfo);
@@ -569,8 +571,8 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startBoulderInfo = new EntityResponse("1", "boulder", new Position(1,0), true);
-        EntityResponse startSwitchInfo = new EntityResponse("2", "switch", new Position(2,0, -1), true);
+        EntityResponse startBoulderInfo = new EntityResponse("1", "boulder", new Position(1,0), false);
+        EntityResponse startSwitchInfo = new EntityResponse("2", "switch", new Position(2,0, -1), false);
 
         startList.add(startPlayerInfo);
         startList.add(startBoulderInfo);
@@ -594,8 +596,8 @@ public class StaticEntityTest {
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
-        EntityResponse expectedBoulder1Info = new EntityResponse("1", "boulder", new Position(2,0), true);
-        EntityResponse expectedBoulder2Info = new EntityResponse("2", "switch", new Position(2,0, -1), true);
+        EntityResponse expectedBoulder1Info = new EntityResponse("1", "boulder", new Position(2,0), false);
+        EntityResponse expectedBoulder2Info = new EntityResponse("2", "switch", new Position(2,0, -1), false);
 
         endList.add(expectedPlayerInfo);
         endList.add(expectedBoulder1Info);
@@ -623,8 +625,8 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startBoulderInfo = new EntityResponse("1", "boulder", new Position(1,0), true);
-        EntityResponse startSwitchInfo = new EntityResponse("2", "switch", new Position(2,0, -1), true);
+        EntityResponse startBoulderInfo = new EntityResponse("1", "boulder", new Position(1,0), false);
+        EntityResponse startSwitchInfo = new EntityResponse("2", "switch", new Position(2,0, -1), false);
 
         startList.add(startPlayerInfo);
         startList.add(startBoulderInfo);
@@ -648,8 +650,8 @@ public class StaticEntityTest {
         List<EntityResponse> midList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
-        EntityResponse expectedBoulderInfo = new EntityResponse("1", "boulder", new Position(2,0), true);
-        EntityResponse expectedSwitchInfo = new EntityResponse("2", "switch", new Position(2,0, -1), true);
+        EntityResponse expectedBoulderInfo = new EntityResponse("1", "boulder", new Position(2,0), false);
+        EntityResponse expectedSwitchInfo = new EntityResponse("2", "switch", new Position(2,0, -1), false);
 
         midList.add(expectedPlayerInfo);
         midList.add(expectedBoulderInfo);
@@ -670,8 +672,8 @@ public class StaticEntityTest {
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(2,0), true);
-        EntityResponse endBoulderInfo = new EntityResponse("1", "boulder", new Position(3,0), true);
-        EntityResponse endSwitchInfo = new EntityResponse("2", "switch", new Position(2,0, -1), true);
+        EntityResponse endBoulderInfo = new EntityResponse("1", "boulder", new Position(3,0), false);
+        EntityResponse endSwitchInfo = new EntityResponse("2", "switch", new Position(2,0, -1), false);
 
         endList.add(endPlayerInfo);
         endList.add(endBoulderInfo);
@@ -699,7 +701,7 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startSwitchInfo = new EntityResponse("1", "switch", new Position(5,0, -1), true);
+        EntityResponse startSwitchInfo = new EntityResponse("1", "switch", new Position(5,0, -1), false);
         EntityResponse startSpiderInfo = new EntityResponse("2", "spider", new Position(5,1), false);
 
         startList.add(startPlayerInfo);
@@ -716,7 +718,7 @@ public class StaticEntityTest {
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
-        EntityResponse expectedSwitchInfo = new EntityResponse("1", "switch", new Position(5,0, -1), true);
+        EntityResponse expectedSwitchInfo = new EntityResponse("1", "switch", new Position(5,0, -1), false);
         EntityResponse expectedSpiderInfo = new EntityResponse("2", "spider", new Position(5,0), false);
 
         endList.add(expectedPlayerInfo);
@@ -780,8 +782,8 @@ public class StaticEntityTest {
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
-        EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(1,0), true);
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), false);
+        EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(1,0), false);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
 
         endList.add(expectedPlayerInfo);
         endList.add(expectedDoorInfo);
@@ -804,7 +806,7 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startDoorInfo = new EntityResponse("1", "door", new Position(5,0), true);
+        EntityResponse startDoorInfo = new EntityResponse("1", "door", new Position(5,0), false);
         EntityResponse startSpiderInfo = new EntityResponse("2", "spider", new Position(5,1), false);
 
         startList.add(startPlayerInfo);
@@ -821,7 +823,7 @@ public class StaticEntityTest {
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
-        EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(5,0), true);
+        EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(5,0), false);
         EntityResponse expectedSpiderInfo = new EntityResponse("2", "spider", new Position(5,0), false);
 
         endList.add(expectedPlayerInfo);
@@ -845,8 +847,8 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startKeyInfo = new EntityResponse("1", "key", new Position(1,0), true);
-        EntityResponse startDoorInfo = new EntityResponse("2", "door", new Position(2,0), true);
+        EntityResponse startKeyInfo = new EntityResponse("1", "key", new Position(1,0), false);
+        EntityResponse startDoorInfo = new EntityResponse("2", "door", new Position(2,0), false);
 
         startList.add(startPlayerInfo);
         startList.add(startKeyInfo);
@@ -862,7 +864,7 @@ public class StaticEntityTest {
         List<EntityResponse> midList = new ArrayList<EntityResponse>();
 
         EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
-        EntityResponse midDoorInfo = new EntityResponse("2", "door", new Position(2,0), true);
+        EntityResponse midDoorInfo = new EntityResponse("2", "door", new Position(2,0), false);
 
         midList.add(midPlayerInfo);
         midList.add(midDoorInfo);
@@ -891,7 +893,7 @@ public class StaticEntityTest {
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(2,0), true);
-        EntityResponse endDoorInfo = new EntityResponse("2", "door", new Position(2,0), true);
+        EntityResponse endDoorInfo = new EntityResponse("2", "door", new Position(2,0), false);
 
         endList.add(endPlayerInfo);
         endList.add(endDoorInfo);
@@ -1042,7 +1044,7 @@ public class StaticEntityTest {
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
         EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(2,0), false);
         EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(5,0), false);
-        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), true);
 
         startList.add(startPlayerInfo);
         startList.add(startPortal1Info);
@@ -1061,7 +1063,7 @@ public class StaticEntityTest {
         EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(9,0), true);
         EntityResponse endPortal1Info = new EntityResponse("1", "portal", new Position(2,0), false);
         EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(5,0), false);
-        EntityResponse endMercenaryInfo = new EntityResponse("3", "mercenary", new Position(6,0), false);
+        EntityResponse endMercenaryInfo = new EntityResponse("3", "mercenary", new Position(6,0), true);
 
         endList.add(endPlayerInfo);
         endList.add(endPortal1Info);
@@ -1086,7 +1088,7 @@ public class StaticEntityTest {
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
         EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(2,0), false);
         EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(5,0), false);
-        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), true);
         EntityResponse startWallInfo = new EntityResponse("4", "wall", new Position(6,0), false);
 
         startList.add(startPlayerInfo);
@@ -1107,7 +1109,7 @@ public class StaticEntityTest {
         EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(9,0), true);
         EntityResponse endPortal1Info = new EntityResponse("1", "portal", new Position(2,0), false);
         EntityResponse endPortal2Info = new EntityResponse("2", "portal", new Position(5,0), false);
-        EntityResponse endMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), false);
+        EntityResponse endMercenaryInfo = new EntityResponse("3", "mercenary", new Position(1,0), true);
         EntityResponse endWallInfo = new EntityResponse("4", "wall", new Position(6,0), false);
 
         endList.add(endPlayerInfo);
@@ -1216,16 +1218,16 @@ public class StaticEntityTest {
 	@Test
     public void testZombieSpawns() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testZombieSpawns.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testZombieSpawns", "Standard"));
 
         // Assert correct spawn positions
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(6,0), true);
-        EntityResponse startSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), false);
+        EntityResponse startSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), true);
         EntityResponse startWall1Info = new EntityResponse("2", "wall", new Position(1,0), false);
-        EntityResponse startBoulder1Info = new EntityResponse("3", "boulder", new Position(1,2), true);
-        EntityResponse startBoulder2Info = new EntityResponse("4", "boulder", new Position(2,1), true);
+        EntityResponse startBoulder1Info = new EntityResponse("3", "boulder", new Position(1,2), false);
+        EntityResponse startBoulder2Info = new EntityResponse("4", "boulder", new Position(2,1), false);
         EntityResponse startWall2Info = new EntityResponse("5", "wall", new Position(7,0), false);
 
         startList.add(startPlayerInfo);
@@ -1246,13 +1248,13 @@ public class StaticEntityTest {
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(6,0), true);
-        EntityResponse endSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), false);
+        EntityResponse endSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), true);
         EntityResponse endWall1Info = new EntityResponse("2", "wall", new Position(1,0), false);
-        EntityResponse endBoulder1Info = new EntityResponse("3", "boulder", new Position(1,2), true);
-        EntityResponse endBoulder2Info = new EntityResponse("4", "boulder", new Position(2,1), true);
+        EntityResponse endBoulder1Info = new EntityResponse("3", "boulder", new Position(1,2), false);
+        EntityResponse endBoulder2Info = new EntityResponse("4", "boulder", new Position(2,1), false);
         EntityResponse endWall2Info = new EntityResponse("5", "wall", new Position(7,0), false);
-        EntityResponse endMerc1Info = new EntityResponse("6", "mercenary", new Position(6,0), false);
-        EntityResponse endMerc2Info = new EntityResponse("7", "mercenary", new Position(6,0), false);
+        EntityResponse endMerc1Info = new EntityResponse("6", "mercenary", new Position(6,0), true);
+        EntityResponse endMerc2Info = new EntityResponse("7", "mercenary", new Position(6,0), true);
         EntityResponse endZombInfo = new EntityResponse("8", "zombie_toast", new Position(0,1), false);
 
         endList.add(endPlayerInfo);
@@ -1283,7 +1285,7 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startSwordInfo = new EntityResponse("1", "sword", new Position(1,0), true);
+        EntityResponse startSwordInfo = new EntityResponse("1", "sword", new Position(1,0), false);
         EntityResponse startSpawnerInfo = new EntityResponse("2", "zombie_toast_spawner", new Position(3,0), false);
 
         startList.add(startPlayerInfo);
@@ -1303,7 +1305,7 @@ public class StaticEntityTest {
         List<EntityResponse> midList = new ArrayList<EntityResponse>();
 
         EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse midSpawnerInfo = new EntityResponse("2", "zombie_toast_spawner", new Position(3,0), false);
+        EntityResponse midSpawnerInfo = new EntityResponse("2", "zombie_toast_spawner", new Position(3,0), true);
 
         midList.add(midPlayerInfo);
         midList.add(midSpawnerInfo);

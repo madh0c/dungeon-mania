@@ -52,8 +52,8 @@ public class BasicTest {
         List<EntityResponse> entityListCheck = new ArrayList<EntityResponse>();
 
         entityListCheck.add(new EntityResponse("0", "player", new Position(0, 0), true));
-        entityListCheck.add(new EntityResponse("1", "boulder", new Position(2, 1), true));
-        entityListCheck.add(new EntityResponse("2", "bomb", new Position(3, 4), true));
+        entityListCheck.add(new EntityResponse("1", "boulder", new Position(2, 1), false));
+        entityListCheck.add(new EntityResponse("2", "bomb", new Position(3, 4), false));
 
 
 		List<EntityResponse> entityListCheck1 = new ArrayList<EntityResponse>();
