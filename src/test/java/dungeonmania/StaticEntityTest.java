@@ -1216,7 +1216,7 @@ public class StaticEntityTest {
 	@Test
     public void testZombieSpawns() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testZombieSpawns.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testZombieSpawns", "Standard"));
 
         // Assert correct spawn positions
         List<EntityResponse> startList = new ArrayList<EntityResponse>();

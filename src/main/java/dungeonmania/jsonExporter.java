@@ -74,9 +74,6 @@ public class jsonExporter {
 			} 
 			JSONObject goalCon = new JSONObject(goalConditions);
 			goals = createGoals(goalCon).remainingString();
-			System.out.println(goals);
-
-		
 
         } catch (Exception IOException) {
 			System.out.println("error");

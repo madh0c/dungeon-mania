@@ -141,13 +141,13 @@ public class DungeonManiaController {
 			target.getGoals()
 		);
 	}
-	/*
+	
 	public void checkValidNewGame(String dungeonName, String gameMode) throws IllegalArgumentException {
 		boolean gameExists = false;
 		for (String dungeon : dungeons()) {
 			//String dungeonWJson = dungeon; + ".json";
-			String dungeonWJson = dungeon;
-			if (dungeonWJson.equals(dungeonName)) {
+			// String dungeonWJson = dungeon;
+			if (dungeon.equals(dungeonName)) {
 				gameExists = true;
 				break;
 			}
@@ -163,43 +163,46 @@ public class DungeonManiaController {
 			throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard");
 		}
 	}
-	*/
+	
 	public Dungeon getDungeon(int dungeonId) {
 		return games.get(dungeonId);
 	}
 
 	public DungeonResponse saveGame(String name) throws IllegalArgumentException {
-		return null;
-    }
+		String feed = name.replaceFirst(".json", "");
+
+		Persist persist = new Persist();
+		String path = ("src/main/resources/savedGames/" + feed); 
+		persist.exportJava(currentDungeon, path);
+
+		return getDungeonInfo(currentDungeon.getId());
+	}
 
 	public DungeonResponse loadGame(String name) throws IllegalArgumentException {
 		checkValidLoadGame(name);
-		return null;
+		System.out.println(name);
+		Persist persist = new Persist();
+		String path = ("src/main/resources/savedGames/" + name); 
+
+		Dungeon extractedDungeon = (Dungeon) persist.readFile(path);
+		currentDungeon = extractedDungeon;
+		
+		return getDungeonInfo(currentDungeon.getId());
 	}
 
 	public void checkValidLoadGame(String name) throws IllegalArgumentException {
-		boolean gameExists = false;
-		int dungeonIdAsInt = Integer.parseInt(name);
-
-		for (Dungeon game : games) {
-			if (game.getId() == dungeonIdAsInt) {
-				gameExists = true;
-			}
-		}
-		
-		if (gameExists == false) {
+		if (!allGames().contains(name)) {
 			throw new IllegalArgumentException("Invalid Dungeon Name Passed; Requested Dungeon Cannot Be Loaded As It Does Not Exist");
 		}
 	}
 
 
 	public List<String> allGames() {
-		ArrayList<String> gameList = new ArrayList<String>();
-		for (Dungeon game : games) {
-			String gameIdAsString = Integer.toString(game.getId());
-		    gameList.add(gameIdAsString);
+		try {
+			return FileLoader.listFileNamesInResourceDirectory("/savedGames");
+		} catch (IOException e) {
+			return new ArrayList<>();
 		}
-		return gameList;
 	}
 
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
