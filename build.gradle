@@ -40,10 +40,9 @@ sourceSets {
             srcDir 'src/test/java'
         }
         resources {
-            srcDir 'src/test/resources'
+            srcDir 'src/main/resources'
         }
     }
-	
 }
 
 mainClassName = 'App'
@@ -68,5 +67,14 @@ jacocoTestReport {
         html.enabled true
     }
 
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['**App**',
+                              'scintilla/**',
+                              ])
+        })
+    }
+    
     dependsOn test
 }
