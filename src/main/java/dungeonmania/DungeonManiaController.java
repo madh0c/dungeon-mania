@@ -340,7 +340,7 @@ public class DungeonManiaController {
 		currentDungeon.getEntities().keySet().removeAll(idsToBeRemoved);
 
 		// Spawn in new zombietoast after 20 ticks
-		if (currentDungeon.getTickNumber() % 20 == 1 && currentDungeon.getTickNumber() > 1) {
+		if (currentDungeon.getTickNumber() % currentDungeon.getMode().getZombieTick() == 1 && currentDungeon.getTickNumber() > 1) {
 			for (ZombieToastSpawner spawner : spawners) {
 				spawner.spawnZombie(currentDungeon);
 			}

@@ -26,6 +26,7 @@ public class Dungeon {
 	private int historicalEntCount;
 	private int tickNumber;
 	private Position spawnpoint;
+	private Mode mode;
 
 
     public Dungeon(int id, String name, Map<String, Entity> entities, String gameMode, String goals) {
@@ -36,6 +37,14 @@ public class Dungeon {
         this.gameMode = gameMode;
         this.goals = goals;
 		this.historicalEntCount = entities.size();
+		// Initialise gamemode
+		if (gameMode.equals("Peaceful")) {
+			mode = new PeacefulMode();
+		} else if (gameMode.equals("Standard")) {
+			mode = new StandardMode();
+		} else if (gameMode.equals("Hard")) {
+			mode = new HardMode();
+		}
     }
 
 	public boolean useItem(String itemString) throws InvalidActionException {
@@ -121,6 +130,10 @@ public class Dungeon {
     public String getGameMode() {
         return gameMode;
     }
+
+	public Mode getMode() {
+		return mode;
+	}
 
     public String getGoals() {
         return goals;

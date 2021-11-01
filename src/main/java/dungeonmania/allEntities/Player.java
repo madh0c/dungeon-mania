@@ -157,8 +157,10 @@ public class Player extends Entity {
 
 		// BATTLE
 		if (entity instanceof MovableEntity) {
-			Battle.battle(entity, dungeon);
 
+			if (dungeon.getMode().enemyAttack()) {
+				Battle.battle(entity, dungeon);
+			}
 			//One Ring Spawning
 			OneRing ring = new OneRing(getPosition(), 0);
 			if (ring.doesSpawn()) {

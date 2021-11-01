@@ -79,7 +79,9 @@ public class Spider extends MovableEntity {
 		if (entity instanceof Boulder) {
 			return false;
 		} else if (entity instanceof Player) {
-			Battle.battle(this, dungeon);
+			if (dungeon.getMode().enemyAttack()) {
+				Battle.battle(this, dungeon);
+			}
 		}
 		
 		else if (entity instanceof MovableEntity) {
