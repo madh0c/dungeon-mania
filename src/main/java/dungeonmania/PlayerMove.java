@@ -13,14 +13,18 @@ public class PlayerMove implements Move {
 	}
 
 	@Override
+	/**
+	 * Find the square that the player is about to move on to then collides the player with the square.
+	 * If collideable then player will move onto that square.
+	 * @param entity
+	 * @param dungeon
+	 * @param direction
+	 * 
+	 */
 	public void move(Entity entity, Dungeon dungeon, Direction direction) {
         Player player = (Player) entity;
 		Position newPos = entity.getPosition().translateBy(direction);
 
-		// Entity newEnt = dungeon.getEntity(newPos);
-		// if (!player.collide(newEnt, dungeon)) {
-		// 	return;
-		// }
 		boolean collideable = true;
 		for (Entity ent : dungeon.getEntitiesOnCell(newPos)) {
 			if (!player.collide(ent, dungeon)) {
@@ -37,6 +41,12 @@ public class PlayerMove implements Move {
 		
 	}
 
+	/**
+	 * Find the square that the player is about to move on (through the portal) then collides the player with the square.
+	 * If collideable then player will move through the portal onto that square.
+	 * @param player
+	 * @param dungeon
+	 */
 	public void portalMove(Player player, Dungeon dungeon) {
 		Position pos = player.getPosition();
 		Portal portal1 = (Portal) dungeon.getEntity("portal", pos);

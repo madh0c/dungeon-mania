@@ -13,6 +13,13 @@ public class SpiderMove implements Move {
 	}
 
 	@Override
+	/**
+	 * Given the 
+	 * @param Spider as an entity
+	 * @param dungeon
+	 * move the spider in a clockwise manner until it collide returns false
+	 * in which case, the spider will reverse its motion
+	 */
 	public void move(Entity entity, Dungeon dungeon) {
 		Spider spider = (Spider) entity;
 
