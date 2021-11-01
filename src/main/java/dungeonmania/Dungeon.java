@@ -39,6 +39,7 @@ public class Dungeon implements Serializable{
         this.goals = goals;
 		this.historicalEntCount = entities.size();
 		// Initialise gamemode
+		mode = new StandardMode();
 		if (gameMode.equals("Peaceful")) {
 			mode = new PeacefulMode();
 		} else if (gameMode.equals("Standard")) {
@@ -57,7 +58,7 @@ public class Dungeon implements Serializable{
 		}
 		
 		if (itemUsed instanceof HealthPotion) {
-			getPlayer().setHealth(100);
+			getPlayer().setHealth(mode.getHealth());
 			inventory.remove(itemUsed);
 			return true;
 		}
@@ -68,7 +69,7 @@ public class Dungeon implements Serializable{
 		}
 
 		if (itemUsed instanceof InvincibilityPotion) {
-			getPlayer().setInvincibleTickDuration(8);
+			getPlayer().setInvincibleTickDuration(mode.getInvincDuration());
 			inventory.remove(itemUsed);
 			return true;
 		}
@@ -189,6 +190,10 @@ public class Dungeon implements Serializable{
 
 	public Position getSpawnpoint() {
 		return spawnpoint;
+	}
+
+	public int getSpawnRate() {
+		return mode.getZombieTick();
 	}
 
 	public void setSpawnpoint(Position spawnpoint) {

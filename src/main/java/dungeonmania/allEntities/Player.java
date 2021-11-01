@@ -24,13 +24,18 @@ public class Player extends Entity {
 	private boolean haveKey;
 	private int invincibleTickDuration;
 
-    public Player(Position position) {
+    public Player(Position position, String gameMode) {
         super(position, "player");
 		this.attack = 2;
-		this.health = 100;
+		// this.health = 100;
 		this.visible = true;
 		this.invincibleTickDuration = 0;
 		this.attack = 2;
+		if (gameMode.equals("Peaceful") || gameMode.equals("Standard")) {
+			this.health = 100;
+		} else if (gameMode.equals("Hard")) {
+			this.health = 60;
+		}
     }
 
     public void setHealth(int newHealth) {

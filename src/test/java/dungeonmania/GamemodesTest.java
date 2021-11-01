@@ -27,7 +27,7 @@ public class GamemodesTest {
     @Test
     public void testGamemodeBasic() {
         DungeonManiaController controller = new DungeonManiaController();
-        assertDoesNotThrow(() -> controller.newGame("testGamemode.json", "Peaceful"));
+        assertDoesNotThrow(() -> controller.newGame("testGamemode", "Peaceful"));
 
         //move to right, then use potion
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
@@ -46,7 +46,7 @@ public class GamemodesTest {
         assertEquals(0, player.getInvincibleTickDuration());
 
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 11; i++) {
             assertDoesNotThrow(() ->controller.tick(null, Direction.NONE));
         }
 
@@ -58,7 +58,7 @@ public class GamemodesTest {
 		controller.tick(null, Direction.DOWN);
 
 		assertEquals(100, player.getHealth());
-		MovableEntity zom = (MovableEntity)controller.getDungeon(0).getEntity(pos);
+		MovableEntity zom = (MovableEntity)controller.getDungeon(0).getEntity("5");
 		assertEquals(20, zom.getHealth());
         
     }
@@ -66,7 +66,7 @@ public class GamemodesTest {
 	@Test
 	public void testZombieHard() {
 		DungeonManiaController controller = new DungeonManiaController();
-        assertDoesNotThrow(() -> controller.newGame("testGamemode.json", "Hard"));
+        assertDoesNotThrow(() -> controller.newGame("testGamemode", "Hard"));
 
 		Position pos = new Position(2, 1);
         for (int i = 0; i < 16; i++) {
@@ -76,12 +76,13 @@ public class GamemodesTest {
 
 		// Check zomebie spawns now
         assertTrue(controller.getDungeon(0).getEntity(pos) instanceof ZombieToast);
+		// assertTrue(controller.getDungeon(0).entityExists(pos));
 	}
 
 	@Test
 	public void testHardHealth() {
 		DungeonManiaController controller = new DungeonManiaController();
-        assertDoesNotThrow(() -> controller.newGame("testGamemode.json", "Hard"));
+        assertDoesNotThrow(() -> controller.newGame("testGamemode", "Hard"));
 
 		assertEquals(60, controller.getDungeon(0).getPlayer().getHealth());
 	}

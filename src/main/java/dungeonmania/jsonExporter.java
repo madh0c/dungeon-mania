@@ -61,6 +61,10 @@ public class jsonExporter {
 					Portal portal = new Portal(position, colour);
                     portal.setId(String.valueOf(i));
 					dungeonMap.put(String.valueOf(i), portal);
+				} else if (entityType.contains("player")) {
+					Player player = new Player(position, gameMode);
+					player.setId(String.valueOf(i));
+					dungeonMap.put(String.valueOf(i), player);
 				} else {
 					Entity newEntity = EntityFactory.createEntity(entityType, position);
 					newEntity.setId(String.valueOf(i));
