@@ -186,7 +186,8 @@ public class DungeonManiaController {
 
 	/**
 	 * Save the game into a file in /resources/savedGames
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException	If the given file name is not a real file
+	 * @return	DungeonResponse
 	 */
 	public DungeonResponse saveGame(String name) throws IllegalArgumentException {
 		String feed = name.replaceFirst(".json", "");
@@ -210,6 +211,10 @@ public class DungeonManiaController {
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
+	/**
+	 * Checks if the file name is a valid file name for loading
+	 * @param name	file name
+	 */
 	public void checkValidLoadGame(String name) throws IllegalArgumentException {
 		if (!allGames().contains(name)) {
 			throw new IllegalArgumentException("Invalid Dungeon Name Passed; Requested Dungeon Cannot Be Loaded As It Does Not Exist");
@@ -225,6 +230,21 @@ public class DungeonManiaController {
 		}
 	}
 
+	/**
+	 * Go to next tick in give dungeon <p>
+	 * Checks and uses itemUsed if it is valid <p>
+	 * Checks the desired movement for Player<p>
+	 * 			- Checks if able to move there<p>
+	 * 			- Checks if there is a boulder, then move the boulder<p>
+	 * Checks and moves all the MovableEntities
+	 * 			- Checks if they will battle with Player
+	 * 			- Checks if collideable with desired direction
+	 * @param itemUsed
+	 * @param movementDirection
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws InvalidActionException
+	 */
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
 
@@ -272,19 +292,11 @@ public class DungeonManiaController {
 		Switch switchFlick = null;
 		boolean switchOn = false;
 
-		// Dungeon tempDun = new Dungeon(currentDungeon.getId(), 
-		// 							currentDungeon.getName(), 
-		// 							currentDungeon.getEntities(), 
-		// 							currentDungeon.getGameMode(), 
-		// 							currentDungeon.getGoals());
-
-		// tempDun = currentDungeon;
 		Map<String, Entity> tempEnts = new HashMap<>();
 		for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
 			tempEnts.put(entry.getKey(), entry.getValue());
 		}
 		// Move everything else
-		// for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
 		for (Map.Entry<String, Entity> entry : tempEnts.entrySet()) {
 			Entity currentEntity = entry.getValue();
 			if (currentEntity instanceof Spider) {
@@ -373,6 +385,10 @@ public class DungeonManiaController {
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
+	/**
+	 * Checks if the itemUsed is able to be used
+	 * @param itemUsed
+	 */
 	public void checkValidTick(String itemUsed) throws IllegalArgumentException, InvalidActionException {
 		List<String> permittedItems = new ArrayList<String>();
 		permittedItems.add("bomb");
@@ -403,6 +419,15 @@ public class DungeonManiaController {
 	}
 				
 	
+	/**
+	 * Interacts with given entityId
+	 * @param entityId	Id of entity to be interacted with
+	 * @return	DungeonResponse dungeon of after interaction
+	 * @throws IllegalArgumentException	If cannot interact with entity
+	 * @throws InvalidActionException	If cannot bribe Mercenary
+	 * 									If out of range for bribery
+	 * 									If out of range for ZombieToastSpawner destruction
+	 */
 	public DungeonResponse interact(String entityId) throws IllegalArgumentException, InvalidActionException {
 		checkValidInteract(entityId);
 		Entity ent = currentDungeon.getEntity(entityId);
@@ -417,6 +442,12 @@ public class DungeonManiaController {
 	}
 
 
+	/**
+	 * Checks if given entity is a valid interaction
+	 * @param entityId
+	 * @throws IllegalArgumentException
+	 * @throws InvalidActionException
+	 */
 	public void checkValidInteract(String entityId) throws IllegalArgumentException, InvalidActionException{
 		if (currentDungeon.getEntity(entityId) == null) {
 			throw new IllegalArgumentException("Cannot Interact With Requested Entity; Entity Does Not Exist In The Map");
@@ -458,6 +489,13 @@ public class DungeonManiaController {
 		}
 	}
 
+	/**
+	 * Build a given entity
+	 * @param buildable	entity to be built
+	 * @return		DungeonResponse after build
+	 * @throws IllegalArgumentException	If entity cannot be used in build
+	 * @throws InvalidActionException	If not enough items to build
+	 */
 	public DungeonResponse build(String buildable) throws IllegalArgumentException, InvalidActionException {
 		checkValidBuild(buildable);
 		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
