@@ -4,6 +4,7 @@ import java.util.List;
 
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;
+import dungeonmania.MovableEntity;
 import dungeonmania.util.Position;
 
 
@@ -21,7 +22,7 @@ public class ZombieToastSpawner extends Entity {
 			List<Entity> conflictEntities = currentDungeon.getEntitiesOnCell(spawnPoint);
 			boolean canSpawn = true;
 			for (Entity conflictE : conflictEntities) {
-				if (conflictE.getType().equals("boulder") || conflictE.getType().equals("wall")) {
+				if (conflictE.getType().equals("boulder") || conflictE.getType().equals("wall") || conflictE instanceof MovableEntity) {
 					canSpawn = false;
 
 				}
