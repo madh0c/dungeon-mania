@@ -26,7 +26,7 @@ public class StaticEntityTest {
 	@Test
     public void testWallBlocksPlayerMovement() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testWallBlocksPlayerMovement.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testWallBlocksPlayerMovement", "Standard"));
 
         DungeonResponse dRStart = controller.getDungeonInfo(0);
         List<EntityResponse> startList = dRStart.getEntities();
@@ -47,7 +47,7 @@ public class StaticEntityTest {
 	@Test
     public void testWallBlocksMercenaryMovement() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testWallBlocksMercenaryMovement.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testWallBlocksMercenaryMovement", "Standard"));
 
         // Assert correct spawn positions
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -91,7 +91,7 @@ public class StaticEntityTest {
         
 		// Spawn 1 Zombie Toast Spawner in the middle of the map.
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testWallBlocksZombieToastSpawn.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testWallBlocksZombieToastSpawn", "Standard"));
 
         // Assert correct spawn positions
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -158,7 +158,7 @@ public class StaticEntityTest {
 	@Test
     public void testWallBlocksBoulderMovement() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testWallBlocksBoulderMovement.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testWallBlocksBoulderMovement", "Standard"));
         
         // Assert correct spawn positions
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -188,7 +188,7 @@ public class StaticEntityTest {
 	@Test
     public void testSpiderCanMoveThroughWall() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testSpiderCanMoveThroughWall.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testSpiderCanMoveThroughWall", "Standard"));
 
         // Assert the spawn positions of all entities.
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -232,7 +232,7 @@ public class StaticEntityTest {
 	@Test
     public void testPlayerOnExitCompletesGame() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testPlayerOnExitCompletesGame.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testPlayerOnExitCompletesGame", "Standard"));
 
         // Assert the spawn positions of all entities.
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -262,7 +262,7 @@ public class StaticEntityTest {
 	@Test
     public void testPlayerOnExitSubgoalNotSatisfiedI() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testPlayerOnExitSubgoalNotSatisfiedI.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testPlayerOnExitSubgoalNotSatisfiedI", "Standard"));
         
         // Assert the spawn positions of all entities.
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -294,7 +294,7 @@ public class StaticEntityTest {
 	@Test
     public void testPlayerOnExitSubgoalNotSatisfiedII() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testPlayerOnExitSubgoalNotSatisfiedII.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testPlayerOnExitSubgoalNotSatisfiedII", "Standard"));
 
         // Assert the spawn positions of all entities.
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -326,7 +326,7 @@ public class StaticEntityTest {
 	@Test
     public void testPlayerOnExitSubgoalSatisfiedI() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testPlayerOnExitSubgoalSatisfiedI.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testPlayerOnExitSubgoalSatisfiedI", "Standard"));
 
         // Assert that a player is spawned with a mercenary and an exit
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -374,7 +374,7 @@ public class StaticEntityTest {
 	@Test
     public void testPlayerOnExitSubgoalSatisfiedII() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testPlayerOnExitSubgoalSatisfiedII.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testPlayerOnExitSubgoalSatisfiedII", "Standard"));
 
 
         // Assert that a player is spawned with a treasure and an exit
@@ -433,7 +433,7 @@ public class StaticEntityTest {
 	@Test
     public void testBoulderMovement() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testBoulderMovement.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testBoulderMovement", "Standard"));
 
         // Move player into the boulder
 		controller.tick(null, Direction.RIGHT);
@@ -458,7 +458,7 @@ public class StaticEntityTest {
 	@Test
     public void testCantMoveTwoBoulders() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testCantMoveTwoBoulders.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testCantMoveTwoBoulders", "Standard"));
 
         // Assert the spawn positions of player and boulders
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -488,7 +488,7 @@ public class StaticEntityTest {
 	@Test
     public void testSpiderCantMoveThroughBoulder() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testSpiderCantMoveThroughBoulder.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testSpiderCantMoveThroughBoulder", "Standard"));
 
         // Assert the spawn positions of all entities.
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -529,7 +529,7 @@ public class StaticEntityTest {
     // @Test
     // public void testCantMoveBoulderBoundary() {
     //     DungeonManiaController controller = new DungeonManiaController();
-	// 	assertDoesNotThrow(() -> controller.newGame("testCantMoveBoulderBoundary.json", "Standard"));
+	// 	assertDoesNotThrow(() -> controller.newGame("testCantMoveBoulderBoundary", "Standard"));
 
     //     // Assert the spawn positions of all entities.
     //     List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -563,7 +563,7 @@ public class StaticEntityTest {
         // Task 2
         // Example from the specification
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testSwitchTriggerUntrigger.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testSwitchTriggerUntrigger", "Standard"));
 
         // Assert the spawn positions of all entities.
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -617,7 +617,7 @@ public class StaticEntityTest {
 	@Test
     public void testSwitchUntriggered() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testSwitchTriggerUntrigger.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testSwitchTriggerUntrigger", "Standard"));
 
         // Assert the spawn positions of all entities.
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -693,7 +693,7 @@ public class StaticEntityTest {
 	@Test
     public void testSpiderCanMoveThroughSwitch() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testSpiderCanMoveThroughSwitch.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testSpiderCanMoveThroughSwitch", "Standard"));
 
         // Assert the spawn positions of all entities.
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -738,7 +738,7 @@ public class StaticEntityTest {
 	@Test
     public void testPlayerCantMoveThroughDoor() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testPlayerCantMoveThroughDoor.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testPlayerCantMoveThroughDoor", "Standard"));
 
         // Assert the door is spawned closed
         Map<String, Entity> startEntities = controller.getDungeon(0).getEntities();
@@ -766,7 +766,7 @@ public class StaticEntityTest {
 	@Test
     public void testMercenaryCantMoveThroughDoor() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testMercenaryCantMoveThroughDoor.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryCantMoveThroughDoor", "Standard"));
 
         // Assert the door is spawned closed
         Map<String, Entity> startEntities = controller.getDungeon(0).getEntities();
@@ -798,7 +798,7 @@ public class StaticEntityTest {
 	@Test
     public void testSpiderCanMoveThroughDoor() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testSpiderCanMoveThroughDoor.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testSpiderCanMoveThroughDoor", "Standard"));
 
         // Assert the spawn positions of all entities.
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -839,7 +839,7 @@ public class StaticEntityTest {
 	@Test
     public void testKeyOpensDoor() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testKeyOpensDoor.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testKeyOpensDoor", "Standard"));
 
         // Assert that a player is spawned with a treasure and an exit
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -915,7 +915,7 @@ public class StaticEntityTest {
 	@Test
     public void testTeleportPlayerStandard() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testTeleportPlayerStandard.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testTeleportPlayerStandard", "Standard"));
 
         // Assert correct spawn positions
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -955,7 +955,7 @@ public class StaticEntityTest {
 	@Test
     public void testTeleportPlayerIntoWall() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testTeleportPlayerIntoWall.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testTeleportPlayerIntoWall", "Standard"));
 
         // Assert correct spawn positions
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -1004,7 +1004,7 @@ public class StaticEntityTest {
 	// @Test
     // public void testCantTeleportPlayerIntoBoundary() {
     //     DungeonManiaController controller = new DungeonManiaController();
-	// 	assertDoesNotThrow(() -> controller.newGame("testCantTeleportPlayerIntoBoundary.json", "Standard"));
+	// 	assertDoesNotThrow(() -> controller.newGame("testCantTeleportPlayerIntoBoundary", "Standard"));
 
 	// 	// Assert correct spawn positions
     //     List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -1034,7 +1034,7 @@ public class StaticEntityTest {
 	@Test
     public void testTeleportMercenaryStandard() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryStandard.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryStandard", "Standard"));
 
         // Assert correct spawn positions
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -1078,7 +1078,7 @@ public class StaticEntityTest {
 	@Test
     public void testTeleportMercenaryIntoWall() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryIntoWall.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryIntoWall", "Standard"));
 
         // Assert correct spawn positions
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -1126,7 +1126,7 @@ public class StaticEntityTest {
 	// @Test
     // public void testTeleportMercenaryIntoBoundary() {
     //     DungeonManiaController controller = new DungeonManiaController();
-	// 	assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryIntoBoundary.json", "Standard"));
+	// 	assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryIntoBoundary", "Standard"));
 
     //     // Assert correct spawn positions
     //     List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -1170,7 +1170,7 @@ public class StaticEntityTest {
 	@Test
     public void testSpiderDoesntTeleport() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testSpiderDoesntTeleport.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testSpiderDoesntTeleport", "Standard"));
 
         // Assert the spawn positions of all entities.
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -1216,7 +1216,7 @@ public class StaticEntityTest {
 	@Test
     public void testZombieSpawns() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testZombieSpawns.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testZombieSpawns", "Standard"));
 
         // Assert correct spawn positions
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -1277,7 +1277,7 @@ public class StaticEntityTest {
 	@Test
     public void testDestroyZombieToastSpawner() {
         DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testDestroyZombieToastSpawner.json", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testDestroyZombieToastSpawner", "Standard"));
 
         // Assert that a player is spawned with a treasure and an exit
         List<EntityResponse> startList = new ArrayList<EntityResponse>();

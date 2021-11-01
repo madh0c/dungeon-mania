@@ -2,6 +2,7 @@ package dungeonmania;
 
 import java.util.Map;
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import dungeonmania.allEntities.BombItem;
@@ -15,7 +16,7 @@ import dungeonmania.util.*;
 
 import java.util.HashMap;
 
-public class Dungeon {
+public class Dungeon implements Serializable{
 
 	private int id;
 	private String name;
