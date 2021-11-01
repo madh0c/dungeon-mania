@@ -92,8 +92,6 @@ public class DungeonManiaController {
 				
 			}
 		}
-		
-
 		DungeonResponse result = new DungeonResponse(
 			String.valueOf(newDungeon.getId()), 
 			newDungeon.getName(), 
