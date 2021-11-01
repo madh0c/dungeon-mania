@@ -17,4 +17,8 @@ public class Door extends Entity {
         return this.isOpen;
     }
 
+    public void setOpen(boolean isOpen) {
+        this.isOpen = isOpen;
+    }
+
 }

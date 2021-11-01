@@ -861,7 +861,7 @@ public class StaticEntityTest {
         // Assert the key is off the map
         List<EntityResponse> midList = new ArrayList<EntityResponse>();
 
-        EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
         EntityResponse midDoorInfo = new EntityResponse("2", "door", new Position(2,0), true);
 
         midList.add(midPlayerInfo);

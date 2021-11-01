@@ -3,6 +3,7 @@ package dungeonmania;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.ServletContextAttributeListener;
 import javax.xml.stream.events.EndElement;
@@ -20,6 +21,7 @@ public class Battle {
 	public static void battle(Entity entity, Dungeon dungeon) {
 		MovableEntity enemy = (MovableEntity)entity;
 		while (enemy.getHealth() > 0 && dungeon.getPlayer().getHealth() > 0) {
+		// while (enemy != null && dungeon.getPlayer().getHealth() > 0) {
 			// if player invincible
 			if (dungeon.getPlayer().getInvincibleTickDuration() > 0) {
 				dungeon.removeEntity(entity);
@@ -90,11 +92,20 @@ public class Battle {
 						dungeon.getPlayer().setHealth(100);
 					}
 				}
-				dungeon.removeEntity(dungeon.getPlayer());					
+				dungeon.removeEntity(dungeon.getPlayer());	
+				break;				
 			} 
 
 			if (enemy.getHealth() <= 0) {
+				if (enemy instanceof Mercenary || enemy instanceof ZombieToast) {
+					Random rand = new Random();
+					if (rand.nextInt(20) % 20 == 1) {
+						Armour armour = new Armour(enemy.getPosition());
+						dungeon.addEntity(armour);
+					}
+				}
 				dungeon.removeEntity(entity);
+				break;
 			}
 		}
 		OneRing ring = new OneRing(dungeon.getPlayerPosition(), 0);
