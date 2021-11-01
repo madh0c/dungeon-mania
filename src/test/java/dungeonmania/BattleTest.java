@@ -67,6 +67,8 @@ public class BattleTest {
 		// On this tick, zombie spawns on player, and battles him
 		// Mercenary has already battled him twice too
 		controller.tick(null, Direction.NONE);
+
+
 		assertEquals(50, controller.getDungeon(0).getPlayer().getHealth());
 
 		// Wait 19 ticks, til 40th tick

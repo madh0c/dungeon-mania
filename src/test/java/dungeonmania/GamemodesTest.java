@@ -46,7 +46,7 @@ public class GamemodesTest {
         assertEquals(0, player.getInvincibleTickDuration());
 
 
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 10; i++) {
             assertDoesNotThrow(() ->controller.tick(null, Direction.NONE));
         }
 
