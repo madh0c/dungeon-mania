@@ -67,6 +67,13 @@ public class DungeonManiaController {
 		}
 	}
 
+	/**
+	 * Create a new game, and store it into a file inside /resources/savedGames
+	 * @param dungeonName		fileName of the dungeon
+	 * @param gameMode			gameMode of the dungeon (Peaceful, Standard or Hard)
+	 * @return DungeonResponse	the dungeon which is being created
+	 * @throws IllegalArgumentException
+	 */
 	public DungeonResponse newGame(String dungeonName, String gameMode) throws IllegalArgumentException {
 		//checkValidNewGame(dungeonName, gameMode);
 		Dungeon newDungeon = jsonExporter.makeDungeon(lastUsedDungeonId, dungeonName+".json", gameMode);
@@ -108,7 +115,11 @@ public class DungeonManiaController {
 		return result;
 	}
 		
-	// helper
+	/**
+	 * Gets the dungeon from dungeonId and returns a DungeonResponse class
+	 * @param dungeonId		- Identifier of the dungeon in the list in controller
+	 * @return DungeonResponse
+	 */
 	public DungeonResponse getDungeonInfo(int dungeonId) {
 		Dungeon target = null;
 		for (Dungeon dungeon : games) {
@@ -140,6 +151,13 @@ public class DungeonManiaController {
 		);
 	}
 	
+	/**
+	 * Checks if dungeonName is a real file
+	 * Checks if gameMode is Peaceful, Standard or Hard
+	 * @param dungeonName	File name of desired file
+	 * @param gameMode		Desired gamemode of dungeon
+	 * @throws IllegalArgumentException	If not a real file, or not a real gamemode
+	 */
 	public void checkValidNewGame(String dungeonName, String gameMode) throws IllegalArgumentException {
 		boolean gameExists = false;
 		for (String dungeon : dungeons()) {
@@ -166,6 +184,10 @@ public class DungeonManiaController {
 		return games.get(dungeonId);
 	}
 
+	/**
+	 * Save the game into a file in /resources/savedGames
+	 * @throws IllegalArgumentException
+	 */
 	public DungeonResponse saveGame(String name) throws IllegalArgumentException {
 		String feed = name.replaceFirst(".json", "");
 

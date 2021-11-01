@@ -18,10 +18,19 @@ import dungeonmania.util.Position;
 
 
 public class Battle {
+	/**
+	 * Battle the enemy<p>
+	 * The player is received from the dungeon<p>
+	 * The player health has the formula:
+	 * 		playerHealth -= (enemyHealth * enemyAttack) / 10
+	 * The enemy health has the formula:
+	 * 		enemyHealth -= (enemyHealth * enemyAttack) / 10
+	 * @param entity - Enemy to be fought
+	 * @param dungeon - Dungeon where battle is taking place
+	 */
 	public static void battle(Entity entity, Dungeon dungeon) {
 		MovableEntity enemy = (MovableEntity)entity;
 		while (enemy.getHealth() > 0 && dungeon.getPlayer().getHealth() > 0) {
-		// while (enemy != null && dungeon.getPlayer().getHealth() > 0) {
 			// if player invincible
 			if (dungeon.getPlayer().getInvincibleTickDuration() > 0) {
 				dungeon.removeEntity(entity);

@@ -30,7 +30,6 @@ public class Player extends Entity {
 		// this.health = 100;
 		this.visible = true;
 		this.invincibleTickDuration = 0;
-		this.attack = 2;
 		if (gameMode.equals("Peaceful") || gameMode.equals("Standard")) {
 			this.health = 100;
 		} else if (gameMode.equals("Hard")) {
@@ -78,6 +77,16 @@ public class Player extends Entity {
 		this.currentDir = currentDir;
 	}
 
+	/**
+	 * Check if the player is able to collide with entity<p>
+	 * Collide means if they are able to be on the same square<p>
+	 * If the colliding entity is a MovableEntity, then a battle occurs
+	 * 
+	 * @param	entity	The entity in question
+	 * @param	dungeon	The given dungeon where this collision is taking place
+	 * @return	true - If player is able to collide<p>
+	 * 			false - If player is not able to collide
+	 */
 	public boolean collide(Entity entity, Dungeon dungeon) {
 		// If empty space
 		if (entity == null) {
