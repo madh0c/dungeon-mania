@@ -10,6 +10,14 @@ public class StandardMove implements Move {
 		return;
 	}
 
+	/**
+	 * Find the square that the entity is about to move on to then collides the player with the square.
+	 * If collideable then player will move onto that square.
+	 * @param entity
+	 * @param dungeon
+	 * @param direction
+	 * 
+	 */
 	@Override
 	public void move(Entity entity, Dungeon dungeon, Direction direction) {
 		Position newPos = entity.getPosition().translateBy(direction);
@@ -32,10 +40,3 @@ public class StandardMove implements Move {
 	}
 	
 }
-// Void Move(){
-// 	Position pos
-// 	If collide(entity(pos)) {
-// 	return
-	
-// 	… move code
-	

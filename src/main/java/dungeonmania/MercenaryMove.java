@@ -27,59 +27,44 @@ public class MercenaryMove implements Move {
 		if (player.getPosition().getY() != merc.getPosition().getY()) {
 			// If player is to the up of merc
 			if (player.getPosition().getY() < merc.getPosition().getY()) {
-				// merc.setPosition(merc.getPosition().translateBy(Direction.UP));
-				// merc.setCurrentDir(Direction.UP);
 				if(mercMove(merc, Direction.UP, dungeon)) {
 					return;
 				}
-
-				// mercMove(merc, Direction.UP, dungeon);
-
-				// portalMove(merc, dungeon);
 				
 			} 
 			// If on down side
 			else {
-				// merc.setPosition(merc.getPosition().translateBy(Direction.DOWN));
-				// merc.setCurrentDir(Direction.DOWN);
 				if (mercMove(merc, Direction.DOWN, dungeon)) {
 					return;
 				}
-				// mercMove(merc, Direction.DOWN, dungeon);
-
-				// portalMove(merc, dungeon);
 			}
-			// return;
 		}
 
 		// left right movement
 		if (player.getPosition().getX() != merc.getPosition().getX()) {
 			// If player is to the left of merc
 			if (player.getPosition().getX() < merc.getPosition().getX()) {
-				// merc.setPosition(merc.getPosition().translateBy(Direction.LEFT));
-				// merc.setCurrentDir(Direction.LEFT);
-
 				if (mercMove(merc, Direction.LEFT, dungeon)) {
 					return;
 				}
-				// mercMove(merc, Direction.LEFT, dungeon);
-				// portalMove(merc, dungeon);
 			} 
 			// If on right side
 			else {
-				// merc.setPosition(merc.getPosition().translateBy(Direction.RIGHT));
-				// merc.setCurrentDir(Direction.RIGHT);
 				if (mercMove(merc, Direction.RIGHT, dungeon)) {
 					return;
 				}
-				// mercMove(merc, Direction.RIGHT, dungeon);
-
-				// portalMove(merc, dungeon);
 			}
-			// return;
 		}
 	}
 
+	/**
+	 * Move the mercenery iff it can move to a cardinally adjacent cell that is closer to the player than
+	 * the current cell.
+	 * @param merc
+	 * @param direction
+	 * @param dungeon
+	 * @return boolean of whether the mercenary got moved
+	 */
 	public boolean mercMove(Mercenary merc, Direction direction, Dungeon dungeon) {
 		// Check if collidable with next entity
 		Position pos = merc.getPosition();
@@ -98,6 +83,12 @@ public class MercenaryMove implements Move {
 		return true;
 	}
 
+	/**
+	 * Find the square that the mercenary is about to move on (through the portal) then collides the mercenary with the square.
+	 * If collideable then mercenary will move through the portal onto that square.
+	 * @param player
+	 * @param dungeon
+	 */
 	public void portalMove(Mercenary merc, Dungeon dungeon) {
 		Position pos = merc.getPosition();
 		Portal portal1 = (Portal) dungeon.getEntity("portal", pos);

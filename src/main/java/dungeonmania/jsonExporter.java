@@ -18,13 +18,14 @@ import java.util.Collection;
 import java.util.HashMap;	
 
 public class jsonExporter {
-	//	dungeonMap (Map<String, Entity>):
-	// ("0", Player),
-	// ("1", Portal),
-	// ("2", Portal)
-	//
+	
+	/**
+	 * @param id
+	 * @param path
+	 * @param gameMode
+	 * @return a dungeon class, given the json path.
+	 */
     public static Dungeon makeDungeon(int id, String path, String gameMode) {
-
         String jsonString;
         Map<String, Entity> dungeonMap = new HashMap<String, Entity>();
         String goals = "";
@@ -86,6 +87,11 @@ public class jsonExporter {
         return new Dungeon(id, path, dungeonMap, gameMode, goals);
     }
 
+	/**
+	 * Extract the goals from a .json dungeon
+	 * @param goal
+	 * @return
+	 */
 	public static GoalNode createGoals (JSONObject goal) {
 		String current = goal.getString("goal");
 		if (current.equals("enemies")) {
@@ -116,10 +122,5 @@ public class jsonExporter {
 		return null;
 	}
 
-	/*
-	public static void main(String[] args) {
-		makeDungeon(0, "goals.json", "standard");
-	}
-	*/
 
 }
