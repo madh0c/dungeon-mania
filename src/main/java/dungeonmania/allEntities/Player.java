@@ -160,21 +160,21 @@ public class Player extends Entity {
 			Battle.battle(entity, dungeon);
 
 			//One Ring Spawning
-			OneRing ring = new OneRing(getPosition(), 0);
-			if (ring.doesSpawn()) {
-				int check = 0;
-				for (CollectibleEntity item : dungeon.getInventory()) {
-					if (item instanceof OneRing) {
-						check = 1;
-					}
-				}
-				if (check == 0) {
-					int id = dungeon.getHistoricalEntCount();
-					ring.setId(String.valueOf(id));
-					dungeon.setHistoricalEntCount(id++);
-					dungeon.addItemToInventory(ring);
-				}
-			}
+			// OneRing ring = new OneRing(getPosition(), 0);
+			// if (ring.doesSpawn()) {
+			// 	int check = 0;
+			// 	for (CollectibleEntity item : dungeon.getInventory()) {
+			// 		if (item instanceof OneRing) {
+			// 			check = 1;
+			// 		}
+			// 	}
+			// 	if (check == 0) {
+			// 		int id = dungeon.getHistoricalEntCount();
+			// 		ring.setId(String.valueOf(id));
+			// 		dungeon.setHistoricalEntCount(id++);
+			// 		dungeon.addItemToInventory(ring);
+			// 	}
+			// }
 		}
 		
 

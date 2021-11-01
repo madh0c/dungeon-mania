@@ -14,7 +14,7 @@ import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 public class BattleTest {
-
+	
 	@Test
 	public void testBattleOnce() {
 		DungeonManiaController controller = new DungeonManiaController();

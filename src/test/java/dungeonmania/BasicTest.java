@@ -23,7 +23,7 @@ public class BasicTest {
     @Test
     public void testBasic() {
         DungeonManiaController controller = new DungeonManiaController();
-        assertDoesNotThrow(() -> controller.newGame("portals.json", "Standard"));
+        assertDoesNotThrow(() -> controller.newGame("portals", "Standard"));
 
         List<EntityResponse> entityListCheck = new ArrayList<EntityResponse>();
 
@@ -46,8 +46,8 @@ public class BasicTest {
 	@Test
 	public void multipleTest() {
 		DungeonManiaController controller = new DungeonManiaController();
-        assertDoesNotThrow(() -> controller.newGame("goals.json", "Standard"));
-		assertDoesNotThrow(() -> controller.newGame("portals.json", "Standard"));
+        assertDoesNotThrow(() -> controller.newGame("goals", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("portals", "Standard"));
         
         List<EntityResponse> entityListCheck = new ArrayList<EntityResponse>();
 
@@ -79,7 +79,8 @@ public class BasicTest {
             new ArrayList<String>(), 
             "(enemies AND treasure)"
         );
-
+		System.out.println(expected.getDungeonName());
+		System.out.println(controller.getDungeonInfo(0).getDungeonName());
         assertEquals(expected, controller.getDungeonInfo(0));
 		assertEquals(expected1, controller.getDungeonInfo(1));
 	}

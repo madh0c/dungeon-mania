@@ -68,9 +68,8 @@ public class DungeonManiaController {
 	}
 
 	public DungeonResponse newGame(String dungeonName, String gameMode) throws IllegalArgumentException {
-		checkValidNewGame(dungeonName, gameMode);
-
-		Dungeon newDungeon = jsonExporter.makeDungeon(lastUsedDungeonId, dungeonName, gameMode);
+		//checkValidNewGame(dungeonName, gameMode);
+		Dungeon newDungeon = jsonExporter.makeDungeon(lastUsedDungeonId, dungeonName+".json", gameMode);
 				
 		List<EntityResponse> entities = new ArrayList<EntityResponse>();
 		for (Map.Entry<String, Entity> entry : newDungeon.getEntities().entrySet()) {
@@ -142,11 +141,12 @@ public class DungeonManiaController {
 			target.getGoals()
 		);
 	}
-
+	/*
 	public void checkValidNewGame(String dungeonName, String gameMode) throws IllegalArgumentException {
 		boolean gameExists = false;
 		for (String dungeon : dungeons()) {
-			String dungeonWJson = dungeon + ".json";
+			//String dungeonWJson = dungeon; + ".json";
+			String dungeonWJson = dungeon;
 			if (dungeonWJson.equals(dungeonName)) {
 				gameExists = true;
 				break;
@@ -154,6 +154,7 @@ public class DungeonManiaController {
 		}
 		
 		if (gameExists == false) {
+			System.out.println(dungeonName);
 			// return;
 			throw new IllegalArgumentException("Invalid Dungeon Map Passed; Requested Dungeon Does Not Exist");
 		}
@@ -162,7 +163,7 @@ public class DungeonManiaController {
 			throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard");
 		}
 	}
-
+	*/
 	public Dungeon getDungeon(int dungeonId) {
 		return games.get(dungeonId);
 	}
@@ -172,24 +173,24 @@ public class DungeonManiaController {
     }
 
 	public DungeonResponse loadGame(String name) throws IllegalArgumentException {
-		checkValidLoadGame(name);
+		//checkValidLoadGame(name);
 		return null;
 	}
 
-	public void checkValidLoadGame(String name) throws IllegalArgumentException {
-		boolean gameExists = false;
-		int dungeonIdAsInt = Integer.parseInt(name);
+	// public void checkValidLoadGame(String name) throws IllegalArgumentException {
+	// 	boolean gameExists = false;
+	// 	int dungeonIdAsInt = Integer.parseInt(name);
 
-		for (Dungeon game : games) {
-			if (game.getId() == dungeonIdAsInt) {
-				gameExists = true;
-			}
-		}
+	// 	for (Dungeon game : games) {
+	// 		if (game.getId() == dungeonIdAsInt) {
+	// 			gameExists = true;
+	// 		}
+	// 	}
 		
-		if (gameExists == false) {
-			throw new IllegalArgumentException("Invalid Dungeon Name Passed; Requested Dungeon Cannot Be Loaded As It Does Not Exist");
-		}
-	}
+	// 	if (gameExists == false) {
+	// 		throw new IllegalArgumentException("Invalid Dungeon Name Passed; Requested Dungeon Cannot Be Loaded As It Does Not Exist");
+	// 	}
+	// }
 
 
 	public List<String> allGames() {
@@ -481,7 +482,7 @@ public class DungeonManiaController {
 			}
 		}
 
-		return null;
+		return getDungeonInfo(currentDungeon.getId());
 	}
 
 	public void checkValidBuild(String buildable) throws IllegalArgumentException, InvalidActionException{

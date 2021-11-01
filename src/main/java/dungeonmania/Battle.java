@@ -108,5 +108,20 @@ public class Battle {
 				break;
 			}
 		}
+		OneRing ring = new OneRing(dungeon.getPlayerPosition(), 0);
+			if (ring.doesSpawn()) {
+				int check = 0;
+				for (CollectibleEntity item : dungeon.getInventory()) {
+					if (item instanceof OneRing) {
+						check = 1;
+					}
+				}
+				if (check == 0) {
+					int id = dungeon.getHistoricalEntCount();
+					ring.setId(String.valueOf(id));
+					dungeon.setHistoricalEntCount(id++);
+					dungeon.addItemToInventory(ring);
+				}
+			}
 	}
 }
