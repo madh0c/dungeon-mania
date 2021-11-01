@@ -67,3 +67,26 @@ Total player attack = base attack + sumAll(items.getAttack)
 Misc
 Default layer with most entities will be layer 0
 Floor layer with example switch, will be layer -1
+
+GameMode
+Peaceful:
+Zombie spawn 20 ticks
+Enemy don’t attack player
+Initialise 100 health
+One ring gives 100 health
+Invincibility pot last 8 secs
+
+Standard:
+Zombie spawn 20 ticks
+Enemy attacks player
+Initialise 100 health
+One ring gives 100 health
+Invincibility pot last 8 secs
+
+Hard:
+Zombie spawn 15 ticks
+Enemy attacks player
+Initialise 60 health
+One ring gives 60 health
+Invincibility pot last 0 secs
+
