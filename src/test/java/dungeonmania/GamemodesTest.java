@@ -2,6 +2,7 @@ package dungeonmania;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -24,9 +25,9 @@ import dungeonmania.util.Position;
 
 public class GamemodesTest {
     @Test
-    public void testBasic() {
+    public void testGamemodeBasic() {
         DungeonManiaController controller = new DungeonManiaController();
-        assertDoesNotThrow(() -> controller.newGame("testGamemode.json", "Standard"));
+        assertDoesNotThrow(() -> controller.newGame("testGamemode.json", "Peaceful"));
 
         //move to right, then use potion
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
@@ -48,10 +49,40 @@ public class GamemodesTest {
         for (int i = 0; i < 12; i++) {
             assertDoesNotThrow(() ->controller.tick(null, Direction.NONE));
         }
-                
-        assertTrue(controller.getDungeon(0).getEntity(new Position(2, 1)) instanceof ZombieToast);
 
-        
+		controller.tick(null, Direction.RIGHT);
+		Position pos = new Position(2,1);
+                
+        assertTrue(controller.getDungeon(0).getEntity(pos) instanceof ZombieToast);
+
+		controller.tick(null, Direction.DOWN);
+
+		assertEquals(100, player.getHealth());
+		MovableEntity zom = (MovableEntity)controller.getDungeon(0).getEntity(pos);
+		assertEquals(20, zom.getHealth());
         
     }
+
+	@Test
+	public void testZombieHard() {
+		DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.newGame("testGamemode.json", "Hard"));
+
+		Position pos = new Position(2, 1);
+        for (int i = 0; i < 16; i++) {
+			assertFalse(controller.getDungeon(0).entityExists(pos));
+            assertDoesNotThrow(() ->controller.tick(null, Direction.NONE));
+        }
+
+		// Check zomebie spawns now
+        assertTrue(controller.getDungeon(0).getEntity(pos) instanceof ZombieToast);
+	}
+
+	@Test
+	public void testHardHealth() {
+		DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.newGame("testGamemode.json", "Hard"));
+
+		assertEquals(60, controller.getDungeon(0).getPlayer().getHealth());
+	}
 }
