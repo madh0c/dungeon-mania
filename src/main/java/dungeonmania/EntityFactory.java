@@ -4,6 +4,11 @@ import dungeonmania.allEntities.*;
 import dungeonmania.util.*;
 
 public class EntityFactory {
+	/**
+	 * @param type
+	 * @param position
+	 * @return a new instance of the entity that should be created
+	 */
 	public static Entity createEntity(String type, Position position) {
 		if (type.contains("wall"))
 			return new Wall(position);

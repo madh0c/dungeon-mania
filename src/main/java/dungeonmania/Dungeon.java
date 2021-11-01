@@ -49,6 +49,11 @@ public class Dungeon implements Serializable{
 		}
     }
 
+	/**
+	 * @param itemString
+	 * @return whether the item was used successfully
+	 * @throws InvalidActionException
+	 */
 	public boolean useItem(String itemString) throws InvalidActionException {
 		CollectibleEntity itemUsed = null;
 		for (CollectibleEntity collectible : inventory) {
@@ -88,7 +93,11 @@ public class Dungeon implements Serializable{
 		}	
 		return false;
 	}
-
+	/**
+	 * returns a list of entity IDs surrounding an activated bomb which should be removed
+	 * @param centre
+	 * @return
+	 */
 	public List<String> toBeDetonated(Position centre) {
 
 		List<String> result = new ArrayList<String>();
@@ -169,7 +178,12 @@ public class Dungeon implements Serializable{
 
 		return null;
 	}
- 
+	
+	/**
+	 * get all the entities on a 
+	 * @param cell
+	 * @return
+	 */
 	public List<Entity> getEntitiesOnCell(Position cell) {
 		List<Entity> result = new ArrayList<>();
 		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {

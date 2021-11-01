@@ -41,7 +41,11 @@ public abstract class Entity {
         return (type == "player" || type == "zombie_toast_spawner" || type == "mercenary");
     }
 
-
+	/**
+	 * collides this.entity with the given entity
+	 * @param entity
+	 * @return true if they can collide
+	 */
 	public boolean collide(Entity entity) {
 		// If empty space
 		if (entity == null) {
