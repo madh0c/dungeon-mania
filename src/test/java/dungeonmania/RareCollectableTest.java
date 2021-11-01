@@ -15,7 +15,7 @@ public class RareCollectableTest {
     @Test
     public void testRareAppearing() {
 		DungeonManiaController controller = new DungeonManiaController();
-		controller.newGame("testDroppingRing", "Peaceful");
+		controller.newGame("testDroppingRing", "Standard");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
 		controller.tick(null, Direction.RIGHT);
 		//Fights mercenary
@@ -28,7 +28,7 @@ public class RareCollectableTest {
 	@Test
 	public void testRevive() {
 		DungeonManiaController controller = new DungeonManiaController();
-		controller.newGame("testRareCollectableMap", "Peaceful");
+		controller.newGame("testRareCollectableMap", "Standard");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
 		controller.tick(null, Direction.RIGHT);
 		dungeonInfo = controller.getDungeonInfo(0);
@@ -43,7 +43,7 @@ public class RareCollectableTest {
 	@Test
 	public void testMoreThanOne() {
 		DungeonManiaController controller = new DungeonManiaController();
-		controller.newGame("testMoreRing", "Peaceful");
+		controller.newGame("testMoreRing", "Standard");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
 		controller.tick(null, Direction.RIGHT);
 		Player player = controller.getDungeon(0).getPlayer();

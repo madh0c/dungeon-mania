@@ -121,7 +121,7 @@ public class BuildableTest {
     @Test
     public void testBowDamange() {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("testBuildableMap", "Peaceful");
+        controller.newGame("testBuildableMap", "Standard");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         controller.tick(null, Direction.RIGHT);
         controller.tick(null, Direction.RIGHT);
@@ -144,7 +144,7 @@ public class BuildableTest {
 	@Test
     public void testShieldBlock() {
         DungeonManiaController controller = new DungeonManiaController();
-        controller.newGame("testBuildableMap", "Peaceful");
+        controller.newGame("testBuildableMap", "Standard");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
         controller.tick(null, Direction.DOWN);
         controller.tick(null, Direction.DOWN);
