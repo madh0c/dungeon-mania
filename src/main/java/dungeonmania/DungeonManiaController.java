@@ -72,7 +72,7 @@ public class DungeonManiaController {
 	 * @throws IllegalArgumentException
 	 */
 	public DungeonResponse newGame(String dungeonName, String gameMode) throws IllegalArgumentException {
-		checkValidNewGame(dungeonName, gameMode);
+		// checkValidNewGame(dungeonName, gameMode);
 		Dungeon newDungeon = jsonExporter.makeDungeon(lastUsedDungeonId, dungeonName + ".json", gameMode);
 				
 		List<EntityResponse> entities = new ArrayList<EntityResponse>();

@@ -333,64 +333,64 @@ public class Dungeon implements Serializable{
 		this.historicalEntCount = historicalEntCount;
 	}
 
-	public boolean equals(Object obj) {
-		if (this == null || obj == null) {
-			return false;
-		}
+	// public boolean equals(Object obj) {
+	// 	if (this == null || obj == null) {
+	// 		return false;
+	// 	}
 
-		if (this == obj) {
-			return true;
-		} 
+	// 	if (this == obj) {
+	// 		return true;
+	// 	} 
 
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
+	// 	if (getClass() != obj.getClass()) {
+	// 		return false;
+	// 	}
 
-		Dungeon other = (Dungeon) obj;
+	// 	Dungeon other = (Dungeon) obj;
 
-		if (id != other.getId()) {
-			return false;
-		}
+	// 	if (id != other.getId()) {
+	// 		return false;
+	// 	}
 		
-		if (name == null) {
-			if (other.getName() != null) {
-				return false;
-			}
-		} else if (!name.equals(other.getName())) {
-			return false;
-		}
+	// 	if (name == null) {
+	// 		if (other.getName() != null) {
+	// 			return false;
+	// 		}
+	// 	} else if (!name.equals(other.getName())) {
+	// 		return false;
+	// 	}
 
-		if (inventory == null) {
-			if (other.getInventory() != null) {
-				return false;
-			}
-		} else if (!inventory.equals(other.getInventory())) {
-			return false;
-		}
+	// 	if (inventory == null) {
+	// 		if (other.getInventory() != null) {
+	// 			return false;
+	// 		}
+	// 	} else if (!inventory.equals(other.getInventory())) {
+	// 		return false;
+	// 	}
 
-		if (entities == null) {
-			if (other.getEntities() != null) {
-				return false;
-			}
-		} else if (!entities.equals(other.getEntities())) {
-			return false;
-		}
+	// 	if (entities == null) {
+	// 		if (other.getEntities() != null) {
+	// 			return false;
+	// 		}
+	// 	} else if (!entities.equals(other.getEntities())) {
+	// 		return false;
+	// 	}
 
-		if (gameMode == null) {
-			if (other.getGameMode() != null) {
-				return false;
-			}
-		} else if (!gameMode.equals(other.getGameMode())) {
-			return false;
-		}
+	// 	if (gameMode == null) {
+	// 		if (other.getGameMode() != null) {
+	// 			return false;
+	// 		}
+	// 	} else if (!gameMode.equals(other.getGameMode())) {
+	// 		return false;
+	// 	}
 
-		if (goals == null) {
-			if (other.getGoals() != null) {
-				return false;
-			}
-		} else if (!goals.equals(other.getGoals())) {
-			return false;
-		}
-		return true;
-	}
+	// 	if (goals == null) {
+	// 		if (other.getGoals() != null) {
+	// 			return false;
+	// 		}
+	// 	} else if (!goals.equals(other.getGoals())) {
+	// 		return false;
+	// 	}
+	// 	return true;
+	// }
 }
