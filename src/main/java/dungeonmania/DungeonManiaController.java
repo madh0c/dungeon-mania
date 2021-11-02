@@ -438,6 +438,11 @@ public class DungeonManiaController {
 				throw new InvalidActionException("Cannot Bribe Mercenary; Not Enough Gold");
 			}
 		}
+
+		if (ent instanceof ZombieToastSpawner) {
+			currentDungeon.removeEntity(ent);
+		}
+		
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
@@ -476,7 +481,7 @@ public class DungeonManiaController {
 			if (!Position.inBribingRange(playerPosition, entityPosition)) {
 				throw new InvalidActionException("Player Out Of Bribing Range Of Mercenary");
 			} else if (!hasGold) {
-				throw new InvalidActionException("Player Does Not Have Sufficient Gold To Mercenary");
+				throw new InvalidActionException("Player Does Not Have Sufficient Gold To Bribe Mercenary");
 			}
 		}
 
