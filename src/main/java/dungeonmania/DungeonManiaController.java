@@ -23,9 +23,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.HashMap;
 
-
-
-
 public class DungeonManiaController {
 
 	/**
@@ -75,8 +72,8 @@ public class DungeonManiaController {
 	 * @throws IllegalArgumentException
 	 */
 	public DungeonResponse newGame(String dungeonName, String gameMode) throws IllegalArgumentException {
-		//checkValidNewGame(dungeonName, gameMode);
-		Dungeon newDungeon = jsonExporter.makeDungeon(lastUsedDungeonId, dungeonName+".json", gameMode);
+		checkValidNewGame(dungeonName, gameMode);
+		Dungeon newDungeon = jsonExporter.makeDungeon(lastUsedDungeonId, dungeonName + ".json", gameMode);
 				
 		List<EntityResponse> entities = new ArrayList<EntityResponse>();
 		for (Map.Entry<String, Entity> entry : newDungeon.getEntities().entrySet()) {
@@ -160,18 +157,12 @@ public class DungeonManiaController {
 	 */
 	public void checkValidNewGame(String dungeonName, String gameMode) throws IllegalArgumentException {
 		boolean gameExists = false;
-		for (String dungeon : dungeons()) {
-			//String dungeonWJson = dungeon; + ".json";
-			// String dungeonWJson = dungeon;
-			if (dungeon.equals(dungeonName)) {
-				gameExists = true;
-				break;
-			}
+		if (dungeons().contains(dungeonName)) {
+			gameExists = true;
 		}
 		
 		if (gameExists == false) {
 			System.out.println(dungeonName);
-			// return;
 			throw new IllegalArgumentException("Invalid Dungeon Map Passed; Requested Dungeon Does Not Exist");
 		}
 
