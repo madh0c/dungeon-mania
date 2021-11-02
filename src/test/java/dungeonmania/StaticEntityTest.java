@@ -1286,7 +1286,7 @@ public class StaticEntityTest {
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
         EntityResponse startSwordInfo = new EntityResponse("1", "sword", new Position(1,0), false);
-        EntityResponse startSpawnerInfo = new EntityResponse("2", "zombie_toast_spawner", new Position(3,0), false);
+        EntityResponse startSpawnerInfo = new EntityResponse("2", "zombie_toast_spawner", new Position(3,0), true);
 
         startList.add(startPlayerInfo);
         startList.add(startSwordInfo);
@@ -1304,7 +1304,7 @@ public class StaticEntityTest {
         // Assert the sword is off the map
         List<EntityResponse> midList = new ArrayList<EntityResponse>();
 
-        EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
         EntityResponse midSpawnerInfo = new EntityResponse("2", "zombie_toast_spawner", new Position(3,0), true);
 
         midList.add(midPlayerInfo);
@@ -1334,7 +1334,7 @@ public class StaticEntityTest {
 
         // Assert the player destroys the spawner
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
-        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
+        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(2,0), true);
         endList.add(endPlayerInfo);
 
         assertEquals(endList, dREnd.getEntities());
