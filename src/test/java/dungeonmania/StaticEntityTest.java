@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.plaf.TreeUI;
-
 
 public class StaticEntityTest {
     
