@@ -13,6 +13,7 @@ import dungeonmania.jsonExporter;
 import dungeonmania.allEntities.*;
 import dungeonmania.Move;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.ModuleLayer.Controller;
 import java.rmi.ConnectIOException;
@@ -22,9 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.HashMap;
-
-
-
 
 public class DungeonManiaController {
 
@@ -67,6 +65,27 @@ public class DungeonManiaController {
 		}
 	}
 
+	public static List<String> getDungeons() {
+
+		String[] dungeons;
+
+        // Creates a new File instance by converting the given pathname string
+        // into an abstract pathname
+        File f = new File("src/main/resources/dungeons");
+
+        // Populates the array with names of files and directories
+        dungeons = f.list();
+
+		List<String> returnList = new ArrayList<>();
+
+        // Put every file name into a list
+        for (String dungeonFile : dungeons) {
+            returnList.add(dungeonFile.replace(".json", ""));
+		}
+
+		return returnList;
+	}
+
 	/**
 	 * Create a new game, and store it into a file inside /resources/savedGames
 	 * @param dungeonName		fileName of the dungeon
@@ -75,8 +94,8 @@ public class DungeonManiaController {
 	 * @throws IllegalArgumentException
 	 */
 	public DungeonResponse newGame(String dungeonName, String gameMode) throws IllegalArgumentException {
-		//checkValidNewGame(dungeonName, gameMode);
-		Dungeon newDungeon = jsonExporter.makeDungeon(lastUsedDungeonId, dungeonName+".json", gameMode);
+		checkValidNewGame(dungeonName, gameMode);
+		Dungeon newDungeon = jsonExporter.makeDungeon(lastUsedDungeonId, dungeonName + ".json", gameMode);
 				
 		List<EntityResponse> entities = new ArrayList<EntityResponse>();
 		for (Map.Entry<String, Entity> entry : newDungeon.getEntities().entrySet()) {
@@ -160,18 +179,11 @@ public class DungeonManiaController {
 	 */
 	public void checkValidNewGame(String dungeonName, String gameMode) throws IllegalArgumentException {
 		boolean gameExists = false;
-		for (String dungeon : dungeons()) {
-			//String dungeonWJson = dungeon; + ".json";
-			// String dungeonWJson = dungeon;
-			if (dungeon.equals(dungeonName)) {
-				gameExists = true;
-				break;
-			}
+		if (getDungeons().contains(dungeonName)) {
+			gameExists = true;
 		}
 		
 		if (gameExists == false) {
-			System.out.println(dungeonName);
-			// return;
 			throw new IllegalArgumentException("Invalid Dungeon Map Passed; Requested Dungeon Does Not Exist");
 		}
 
