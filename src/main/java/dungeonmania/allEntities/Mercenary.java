@@ -100,33 +100,19 @@ public class Mercenary extends MovableEntity {
 		return true;
 	}
 
-	public boolean bribeable(Dungeon dungeon) {
-		// If empty inv, can't bribe
-		if ((dungeon.getInventory() == null) || (dungeon.getInventory().isEmpty())) {
-			return false;
-		}
+	public void bribe(Dungeon dungeon) {
 
-		// Check number of gold in player's inventory
-		int numberOfGold = 0;
-		List<Integer> goldPos = new ArrayList<>();
+		// Remove the first gold
+		Integer goldPos = 0;
 		for (CollectibleEntity ent : dungeon.getInventory()) {
 			if (ent instanceof Treasure) {
-				goldPos.add(Integer.parseInt(ent.getId()));
-				numberOfGold++;
+				goldPos = Integer.parseInt(ent.getId());
+				break;			
 			}
 		}
 
-		// Bribeable
-		if (numberOfGold > 0) {
-			for (int i = 0; i < numberOfGold; i++) {
-				dungeon.getInventory().remove(goldPos.get(i));
-			}
-			isAlly = true;
-			return true;
-		}
-
-
-		return false;
+		dungeon.getInventory().remove(goldPos);
+		this.isAlly = true;
 	}
 	
 	// Can be in a player
