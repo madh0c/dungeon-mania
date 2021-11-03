@@ -13,6 +13,7 @@ import dungeonmania.jsonExporter;
 import dungeonmania.allEntities.*;
 import dungeonmania.Move;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.ModuleLayer.Controller;
 import java.rmi.ConnectIOException;
@@ -64,6 +65,27 @@ public class DungeonManiaController {
 		}
 	}
 
+	public List<String> getDungeons() {
+
+		String[] dungeons;
+
+        // Creates a new File instance by converting the given pathname string
+        // into an abstract pathname
+        File f = new File("src/main/resources/dungeons");
+
+        // Populates the array with names of files and directories
+        dungeons = f.list();
+
+		List<String> returnList = new ArrayList<>();
+
+        // Put every file name into a list
+        for (String dungeonFile : dungeons) {
+            returnList.add(dungeonFile.replace(".json", ""));
+		}
+
+		return returnList;
+	}
+
 	/**
 	 * Create a new game, and store it into a file inside /resources/savedGames
 	 * @param dungeonName		fileName of the dungeon
@@ -72,7 +94,7 @@ public class DungeonManiaController {
 	 * @throws IllegalArgumentException
 	 */
 	public DungeonResponse newGame(String dungeonName, String gameMode) throws IllegalArgumentException {
-		// checkValidNewGame(dungeonName, gameMode);
+		checkValidNewGame(dungeonName, gameMode);
 		Dungeon newDungeon = jsonExporter.makeDungeon(lastUsedDungeonId, dungeonName + ".json", gameMode);
 				
 		List<EntityResponse> entities = new ArrayList<EntityResponse>();
@@ -157,7 +179,7 @@ public class DungeonManiaController {
 	 */
 	public void checkValidNewGame(String dungeonName, String gameMode) throws IllegalArgumentException {
 		boolean gameExists = false;
-		if (dungeons().contains(dungeonName)) {
+		if (getDungeons().contains(dungeonName)) {
 			gameExists = true;
 		}
 		
