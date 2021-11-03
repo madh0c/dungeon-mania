@@ -184,7 +184,6 @@ public class DungeonManiaController {
 		}
 		
 		if (gameExists == false) {
-			System.out.println(dungeonName);
 			throw new IllegalArgumentException("Invalid Dungeon Map Passed; Requested Dungeon Does Not Exist");
 		}
 
