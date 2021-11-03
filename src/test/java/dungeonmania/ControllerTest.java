@@ -98,12 +98,16 @@ public class ControllerTest {
     }
 
 	@Test
-    public void interactSpawnerDungeons() {
-		int i = 0;
-        for (String dungeon : DungeonManiaController.dungeons()) {
-			System.out.println(dungeon);
-			i++;
-		} System.out.println(i);
+    public void ListAllGames() {
+        DungeonManiaController controller = new DungeonManiaController();
+        List<String> allGames = controller.allGames();
+        List<String> expectedGames = new ArrayList<String>();
+
+        expectedGames.add("testDroppingRing-1635727825621");
+        expectedGames.add("testSpiderDoesntTeleport-1635727766256");
+        expectedGames.add("name");
+
+        assertTrue(allGames.containsAll(expectedGames));
 
     }
 

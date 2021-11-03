@@ -65,7 +65,7 @@ public class DungeonManiaController {
 		}
 	}
 
-	public List<String> getDungeons() {
+	public static List<String> getDungeons() {
 
 		String[] dungeons;
 
