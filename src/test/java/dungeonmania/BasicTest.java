@@ -37,7 +37,7 @@ public class BasicTest {
             entityListCheck, 
             new ArrayList<ItemResponse>(),
             new ArrayList<String>(), 
-            "(enemies AND treasure)"
+            "(:enemies AND :treasure)"
         );
 
         assertEquals(expected, controller.getDungeonInfo(0));
@@ -68,7 +68,7 @@ public class BasicTest {
             entityListCheck, 
             new ArrayList<ItemResponse>(),
             new ArrayList<String>(), 
-            "(enemies AND (treasure OR (exit AND (exit OR boulder))))"
+            "(:enemies AND (:treasure OR (:exit AND (:exit OR :boulder))))"
         );
 
 		DungeonResponse expected1 = new DungeonResponse (
@@ -77,7 +77,7 @@ public class BasicTest {
             entityListCheck1, 
             new ArrayList<ItemResponse>(),
             new ArrayList<String>(), 
-            "(enemies AND treasure)"
+            "(:enemies AND :treasure)"
         );
 		System.out.println(expected.getDungeonName());
 		System.out.println(controller.getDungeonInfo(0).getDungeonName());

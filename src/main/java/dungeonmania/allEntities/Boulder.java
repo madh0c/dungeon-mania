@@ -7,8 +7,8 @@ import dungeonmania.util.Position;
 
 public class Boulder extends Entity {
 
-    public Boulder(Position position) {
-        super(position, "boulder");
+    public Boulder(String id, Position position) {
+        super(id, position, "boulder");
     }
 
 	@Override

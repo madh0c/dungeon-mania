@@ -6,8 +6,8 @@ import dungeonmania.util.Position;
 
 public class InvincibilityPotion extends CollectibleEntity {
 
-    public InvincibilityPotion(Position position) {
-        super(position, "invincibility_potion");
+    public InvincibilityPotion(String id, Position position) {
+        super(id, position, "invincibility_potion");
     }
 
 }

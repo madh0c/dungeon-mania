@@ -10,8 +10,8 @@ public class Sword extends CollectibleEntity {
     private int extraDamage = 5;
 
     
-    public Sword(Position position) {
-        super(position, "sword");
+    public Sword(String id, Position position) {
+        super(id, position, "sword");
         this.durability = 10;
     }
 

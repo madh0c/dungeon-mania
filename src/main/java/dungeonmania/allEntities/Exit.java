@@ -6,8 +6,8 @@ import dungeonmania.util.Position;
 
 public class Exit extends Entity {
 
-    public Exit(Position position) {
-        super(position, "exit");
+    public Exit(String id, Position position) {
+        super(id, position, "exit");
     }
 
 }

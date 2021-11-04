@@ -276,8 +276,10 @@ public class DungeonManiaController {
 			// If there is a spawnpoint
 			if (currentDungeon.getSpawnpoint() != null) {
 				// Merc spawn every 10 ticks
-				Mercenary merc = new Mercenary(currentDungeon.getSpawnpoint());
+				int newId = currentDungeon.getHistoricalEntCount();
+				Mercenary merc = new Mercenary(String.valueOf(newId), currentDungeon.getSpawnpoint());
 				currentDungeon.addEntity(merc);
+				currentDungeon.setHistoricalEntCount(newId + 1);
 			}
 		}
 
@@ -522,10 +524,9 @@ public class DungeonManiaController {
 		checkValidBuild(buildable);
 		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
 		if (buildable.equals("bow")) {
-			CollectibleEntity bow = (CollectibleEntity) EntityFactory.createEntity("bow", currentDungeon.getPlayerPosition());
-			int id = getDungeon(currentDungeon.getId()).getHistoricalEntCount();
-			bow.setId(String.valueOf(id));
-			getDungeon(currentDungeon.getId()).setHistoricalEntCount(id++);
+			int newId = currentDungeon.getHistoricalEntCount();				
+			CollectibleEntity bow = (CollectibleEntity) EntityFactory.createEntity(String.valueOf(newId),"bow", currentDungeon.getPlayerPosition());
+			currentDungeon.setHistoricalEntCount(newId + 1);
 			currentInventory.add(bow);
 			int counterArrow = 0;
 			int counterWood = 0;
@@ -542,10 +543,10 @@ public class DungeonManiaController {
 				}
 			}
 		} else if (buildable.equals("shield")) {
-			CollectibleEntity shield = (CollectibleEntity) EntityFactory.createEntity("shield", currentDungeon.getPlayerPosition());
-			int id = getDungeon(currentDungeon.getId()).getHistoricalEntCount();
-			shield.setId(String.valueOf(id));
-			getDungeon(currentDungeon.getId()).setHistoricalEntCount(id++);
+			int newId = currentDungeon.getHistoricalEntCount();	
+			CollectibleEntity shield = (CollectibleEntity) EntityFactory.createEntity(String.valueOf(newId), "shield", currentDungeon.getPlayerPosition());
+			currentDungeon.setHistoricalEntCount(newId + 1);
+
 			currentInventory.add(shield);
 			int counterTreasure = 0;
 			int counterKey = 0;
