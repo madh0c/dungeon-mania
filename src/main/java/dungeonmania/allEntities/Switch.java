@@ -8,8 +8,8 @@ public class Switch extends Entity {
 
     private boolean isActivated;
 
-    public Switch(Position position) {
-        super(new Position(position.getX(), position.getY(), -1), "switch");
+    public Switch(String id, Position position) {
+        super(id, new Position(position.getX(), position.getY(), -1), "switch");
         this.isActivated = false;
     }
 

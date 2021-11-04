@@ -80,13 +80,10 @@ public class Dungeon implements Serializable{
 		}
 
 		if (itemUsed instanceof BombItem) {
-			
-			BombStatic bomb = new BombStatic(getPlayerPosition());
+			BombStatic bomb = new BombStatic(String.valueOf(historicalEntCount), getPlayerPosition());
 
-			int id = getHistoricalEntCount();
-            bomb.setId(String.valueOf(id));
-			entities.put(String.valueOf(id), bomb);
-			setHistoricalEntCount(id++);
+			entities.put(String.valueOf(historicalEntCount), bomb);
+			setHistoricalEntCount(historicalEntCount + 1);
 
 			inventory.remove(itemUsed);
 			return true;
@@ -114,7 +111,7 @@ public class Dungeon implements Serializable{
 				result.add(cellEnt.getId());
 			}
 		}
-		return result;
+		return result; 
 	}
 	
     public Map<String, Entity> getEntities() {
@@ -219,13 +216,16 @@ public class Dungeon implements Serializable{
 	}
 
 	public void removeEntity(Entity entity) {
+		String removing = null;
 		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
 			Entity currentEntity = entry.getValue();
 			if (currentEntity.equals(entity)) {
-				entities.remove(currentEntity.getId());
+				removing = currentEntity.getId();
 				break;
 			}
 		}
+		getEntities().keySet().remove(removing);
+
 	}
 
 	public void addItemToInventory(CollectibleEntity entity) {

@@ -9,53 +9,53 @@ public class EntityFactory {
 	 * @param position
 	 * @return a new instance of the entity that should be created
 	 */
-	public static Entity createEntity(String type, Position position) {
+	public static Entity createEntity(String id, String type, Position position) {
 		if (type.contains("wall"))
-			return new Wall(position);
+			return new Wall(id, position);
 		else if (type.contains("exit"))
-			return new Exit(position);
+			return new Exit(id, position);
 		else if (type.contains("boulder"))
-			return new Boulder(position);	
+			return new Boulder(id, position);	
 		else if (type.contains("switch"))
-			return new Switch(position);
+			return new Switch(id, position);
 		else if (type.contains("door"))
-			return new Door(position);
+			return new Door(id, position);
 		else if (type.contains("zombie_toast_spawner"))
-			return new ZombieToastSpawner(position);
+			return new ZombieToastSpawner(id, position);
 		else if (type.contains("spider"))
-			return new Spider(position);
+			return new Spider(id, position);
 		else if (type.contains("zombie_toast"))
-			return new ZombieToast(position);
+			return new ZombieToast(id, position);
 		else if (type.contains("mercenary"))
-			return new Mercenary(position);
+			return new Mercenary(id, position);
 		else if (type.contains("treasure"))
-			return new Treasure(position);
+			return new Treasure(id, position);
 		else if (type.contains("key"))
-			return new Key(position);
+			return new Key(id, position);
 		else if (type.contains("health_potion"))
-			return new HealthPotion(position);
+			return new HealthPotion(id, position);
 		else if (type.contains("invincibility_potion"))
-			return new InvincibilityPotion(position);
+			return new InvincibilityPotion(id, position);
 		else if (type.contains("invisibility_potion"))
-			return new InvisibilityPotion(position);
+			return new InvisibilityPotion(id, position);
 		else if (type.contains("wood"))
-			return new Wood(position);
+			return new Wood(id, position);
 		else if (type.contains("arrow"))
-			return new Arrow(position);
+			return new Arrow(id, position);
 		else if (type.contains("bomb"))
-			return new BombItem(position);
+			return new BombItem(id, position);
 		else if (type.contains("sword"))
-			return new Sword(position);
+			return new Sword(id, position);
 		// else if (type.contains("player"))
-		// 	return new Player(position);
+		// 	return new Player(id, position);
 		else if (type.contains("bow"))
-			return new Bow(position);
+			return new Bow(id, position);
 		else if (type.contains("shield"))
-			return new Shield(position);
+			return new Shield(id, position);
 		else if (type.contains("armour"))
-			return new Armour(position);
+			return new Armour(id, position);
 		else if (type.contains("one_ring"))
-			return new OneRing(position, 0);
+			return new OneRing(id, position, 0);
 		return null;
 	}
 }

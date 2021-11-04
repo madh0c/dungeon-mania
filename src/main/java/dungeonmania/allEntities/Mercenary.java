@@ -18,8 +18,8 @@ public class Mercenary extends MovableEntity {
 	private boolean isAlly;
 	private Direction currentDir;
 
-    public Mercenary(Position position) {
-        super(position, "mercenary");
+    public Mercenary(String id, Position position) {
+        super(id, position, "mercenary");
 		this.isAlly = false;
 		super.setHealth(30);
 		super.setBaseAttack(5);

@@ -6,8 +6,8 @@ import dungeonmania.util.Position;
 
 public class HealthPotion extends CollectibleEntity {
 
-    public HealthPotion(Position position) {
-        super(position, "health_potion");
+    public HealthPotion(String id, Position position) {
+        super(id, position, "health_potion");
     }
 
 }

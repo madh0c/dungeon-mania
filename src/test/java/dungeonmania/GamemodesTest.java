@@ -31,7 +31,11 @@ public class GamemodesTest {
 
         //move to right, then use potion
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
-        assertDoesNotThrow(() ->controller.tick("invincibility_potion", Direction.NONE));
+
+        DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+        assertEquals(Arrays.asList(new ItemResponse("1", "invincibility_potion")), dungeonInfo.getInventory());
+        
+        assertDoesNotThrow(() ->controller.tick("1", Direction.NONE));
         Player player = controller.getDungeon(0).getPlayer();
 
         assertEquals(7, player.getInvincibleTickDuration());

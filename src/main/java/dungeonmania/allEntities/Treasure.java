@@ -6,8 +6,8 @@ import dungeonmania.util.Position;
 
 public class Treasure extends CollectibleEntity {
 
-    public Treasure(Position position) {
-        super(position, "treasure");
+    public Treasure(String id, Position position) {
+        super(id, position, "treasure");
     }
 
 }

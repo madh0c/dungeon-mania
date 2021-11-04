@@ -213,7 +213,6 @@ public class DungeonManiaController {
 
 	public DungeonResponse loadGame(String name) throws IllegalArgumentException {
 		checkValidLoadGame(name);
-		System.out.println(name);
 		Persist persist = new Persist();
 		String path = ("src/main/resources/savedGames/" + name); 
 
@@ -276,8 +275,10 @@ public class DungeonManiaController {
 			// If there is a spawnpoint
 			if (currentDungeon.getSpawnpoint() != null) {
 				// Merc spawn every 10 ticks
-				Mercenary merc = new Mercenary(currentDungeon.getSpawnpoint());
+				int newId = currentDungeon.getHistoricalEntCount();
+				Mercenary merc = new Mercenary(String.valueOf(newId), currentDungeon.getSpawnpoint());
 				currentDungeon.addEntity(merc);
+				currentDungeon.setHistoricalEntCount(newId + 1);
 			}
 		}
 
@@ -290,8 +291,10 @@ public class DungeonManiaController {
 			}
 		}
 
+		Move moveStrategy = null;
 		currentDungeon.tickOne();
-		Move moveStrategy = new PlayerMove();
+		
+		moveStrategy = new PlayerMove();
 		// Move player
 		if (currentDungeon.getPlayer() != null) {
 			currentDungeon.getPlayer().setCurrentDir(movementDirection);
@@ -300,7 +303,7 @@ public class DungeonManiaController {
 			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
 			moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);			
 		}
-
+		
 		Switch switchFlick = null;
 		boolean switchOn = false;
 
@@ -384,7 +387,6 @@ public class DungeonManiaController {
 				}
 			}
 		}
-
 		currentDungeon.getEntities().keySet().removeAll(idsToBeRemoved);
 
 		// Spawn in new zombietoast after 20 ticks
@@ -416,13 +418,18 @@ public class DungeonManiaController {
 			}
 		}
 
+		String itemType = null;
+		if (objectUsed != null) {
+			itemType = objectUsed.getType();
+		}
+
 		List<String> permittedItems = new ArrayList<String>();
 		permittedItems.add("bomb");
 		permittedItems.add("health_potion");
 		permittedItems.add("invincibility_potion");
 		permittedItems.add("invisibility_potion");
-
-		if (!(itemUsed == null) && !permittedItems.contains(objectUsed.getType()) ) {
+		
+		if (itemUsed != null && !permittedItems.contains(itemType) && itemType != null) {
 			throw new IllegalArgumentException("Cannot Use Requested Item; Ensure Item Is Either a Bomb, Health Potion, " +
 			"Invincibility Potion, Invisibility Potion or null");
 		}
@@ -522,10 +529,9 @@ public class DungeonManiaController {
 		checkValidBuild(buildable);
 		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
 		if (buildable.equals("bow")) {
-			CollectibleEntity bow = (CollectibleEntity) EntityFactory.createEntity("bow", currentDungeon.getPlayerPosition());
-			int id = getDungeon(currentDungeon.getId()).getHistoricalEntCount();
-			bow.setId(String.valueOf(id));
-			getDungeon(currentDungeon.getId()).setHistoricalEntCount(id++);
+			int newId = currentDungeon.getHistoricalEntCount();				
+			CollectibleEntity bow = (CollectibleEntity) EntityFactory.createEntity(String.valueOf(newId),"bow", currentDungeon.getPlayerPosition());
+			currentDungeon.setHistoricalEntCount(newId + 1);
 			currentInventory.add(bow);
 			int counterArrow = 0;
 			int counterWood = 0;
@@ -542,10 +548,10 @@ public class DungeonManiaController {
 				}
 			}
 		} else if (buildable.equals("shield")) {
-			CollectibleEntity shield = (CollectibleEntity) EntityFactory.createEntity("shield", currentDungeon.getPlayerPosition());
-			int id = getDungeon(currentDungeon.getId()).getHistoricalEntCount();
-			shield.setId(String.valueOf(id));
-			getDungeon(currentDungeon.getId()).setHistoricalEntCount(id++);
+			int newId = currentDungeon.getHistoricalEntCount();	
+			CollectibleEntity shield = (CollectibleEntity) EntityFactory.createEntity(String.valueOf(newId), "shield", currentDungeon.getPlayerPosition());
+			currentDungeon.setHistoricalEntCount(newId + 1);
+
 			currentInventory.add(shield);
 			int counterTreasure = 0;
 			int counterKey = 0;

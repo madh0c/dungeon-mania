@@ -5,11 +5,11 @@ import dungeonmania.util.Position;
 
 
 public class Portal extends Entity {
-
+    
     private String colour;
 
-    public Portal(Position position, String colour) {
-        super(position, "portal");
+    public Portal(String id, Position position, String colour) {
+        super(id, position, "portal");
         this.colour = colour;
     }
 

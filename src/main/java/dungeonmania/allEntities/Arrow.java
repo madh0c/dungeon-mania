@@ -7,8 +7,8 @@ import dungeonmania.util.Position;
 
 public class Arrow extends CollectibleEntity {
 
-    public Arrow(Position position) {
-        super(position, "arrow");
+    public Arrow(String id, Position position) {
+        super(id, position, "arrow");
     }
 
 }

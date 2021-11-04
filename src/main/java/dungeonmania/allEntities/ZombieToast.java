@@ -6,8 +6,8 @@ import dungeonmania.util.Position;
 
 public class ZombieToast extends MovableEntity {
 
-    public ZombieToast(Position position) {
-        super(position, "zombie_toast");
+    public ZombieToast(String id, Position position) {
+        super(id, position, "zombie_toast");
         super.setHealth(20);
         super.setBaseAttack(10);
     }
