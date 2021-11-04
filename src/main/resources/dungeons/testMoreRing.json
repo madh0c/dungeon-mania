@@ -10,7 +10,7 @@
 		{
 			"x": 1,
 			"y": 0,
-			"type": "mercenary"
+			"type": "one_ring"
 		},
 		{
 			"x": 2,
@@ -18,9 +18,9 @@
 			"type": "one_ring"
 		},
 		{
-			"x": 3,
+			"x": 5,
 			"y": 0,
-			"type": "one_ring"
+			"type": "mercenary"
 		}
 	]
 }
