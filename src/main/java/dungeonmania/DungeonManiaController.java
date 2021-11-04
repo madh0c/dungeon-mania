@@ -402,23 +402,29 @@ public class DungeonManiaController {
 	 * @param itemUsed
 	 */
 	public void checkValidTick(String itemUsed) throws IllegalArgumentException, InvalidActionException {
+		
+		boolean itemInInventory = false;
+
+		CollectibleEntity objectUsed = null; 
+		if (itemUsed != null) {
+			for (CollectibleEntity inv : currentDungeon.getInventory()) {
+				if (inv.getId().equals(itemUsed)) {
+					objectUsed = inv;
+					itemInInventory = true;
+					break;
+				}
+			}
+		}
+
 		List<String> permittedItems = new ArrayList<String>();
 		permittedItems.add("bomb");
 		permittedItems.add("health_potion");
 		permittedItems.add("invincibility_potion");
 		permittedItems.add("invisibility_potion");
 
-		if (!permittedItems.contains(itemUsed) && !(itemUsed == null)) {
+		if (!(itemUsed == null) && !permittedItems.contains(objectUsed.getType()) ) {
 			throw new IllegalArgumentException("Cannot Use Requested Item; Ensure Item Is Either a Bomb, Health Potion, " +
 			"Invincibility Potion, Invisibility Potion or null");
-		}
-
-		boolean itemInInventory = false;
-		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
-		for (CollectibleEntity item : currentInventory) {
-			if (!(itemUsed == null) && item.getType().equals(itemUsed)) {
-				itemInInventory = true;
-			}
 		}
 
 		if (itemUsed == null) {
@@ -428,6 +434,7 @@ public class DungeonManiaController {
 		if (!itemInInventory) {
 			throw new InvalidActionException("Cannot Use Requested Item; Item Does Not Exist In Inventory");
 		}
+		
 	}
 				
 	
@@ -446,9 +453,7 @@ public class DungeonManiaController {
 		// Attempt bribe if mercenary
 		if (ent instanceof Mercenary) {
 			Mercenary merc = (Mercenary) ent;
-			if (!merc.bribeable(currentDungeon)) {
-				throw new InvalidActionException("Cannot Bribe Mercenary; Not Enough Gold");
-			}
+			merc.bribe(currentDungeon);
 		}
 
 		if (ent instanceof ZombieToastSpawner) {
@@ -576,8 +581,5 @@ public class DungeonManiaController {
 		if (!currentBuildable.contains(buildable)) {
 			throw new InvalidActionException("Cannot Build The Desired Item; Not Enough Items To Complete The Recipe");
 		}
-		
 	}
-
-
 }

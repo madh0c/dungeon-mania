@@ -38,9 +38,57 @@ public class ControllerTest {
     }
 
 	@Test
-    public void testValidLoadGame() {
+    public void testInvalidLoadGame() {
         DungeonManiaController controller = new DungeonManiaController();
         assertThrows(IllegalArgumentException.class, () -> controller.loadGame("null"));
+    }
+
+    // TODO: Fix Load Game
+    @Test
+    public void testValidLoadGame() {
+        DungeonManiaController controller = new DungeonManiaController();
+
+		assertDoesNotThrow(() -> controller.newGame("testWallBlocksMercenaryMovement", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(2,0), true);
+        EntityResponse startWallInfo = new EntityResponse("1", "wall", new Position(1,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+
+        startList.add(startPlayerInfo);
+        startList.add(startWallInfo);
+        startList.add(startMercenaryInfo);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Move player away from the mercenary.
+		controller.tick(null, Direction.RIGHT);
+
+		// Assert the mercenary has not moved from spawn
+        List<EntityResponse> expectedList = new ArrayList<EntityResponse>();
+
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
+        EntityResponse expectedWallInfo = new EntityResponse("1", "wall", new Position(1,0), false);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+
+        expectedList.add(expectedPlayerInfo);
+        expectedList.add(expectedWallInfo);
+        expectedList.add(expectedMercenaryInfo);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertEquals(expectedList, dREnd.getEntities());
+
+        String gameName = "name";
+
+        // Assert that the Save Game Method Works
+        assertEquals(dREnd, controller.saveGame(gameName));
+
+        assertTrue(controller.allGames().contains(gameName));
+
+        assertDoesNotThrow(() -> controller.loadGame("name"));
     }
 
 	@Test
