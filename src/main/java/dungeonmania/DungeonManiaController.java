@@ -208,7 +208,6 @@ public class DungeonManiaController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
