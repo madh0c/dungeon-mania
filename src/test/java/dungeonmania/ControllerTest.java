@@ -191,8 +191,8 @@ public class ControllerTest {
         List<String> allGames = controller.allGames();
         List<String> expectedGames = new ArrayList<String>();
 
-        expectedGames.add("testDroppingRing-1635727825621");
-        expectedGames.add("testSpiderDoesntTeleport-1635727766256");
+        expectedGames.add("maze-1636040751794");
+        expectedGames.add("testCollectiblesException-1636034826490");
         expectedGames.add("name");
 
         assertTrue(allGames.containsAll(expectedGames));
