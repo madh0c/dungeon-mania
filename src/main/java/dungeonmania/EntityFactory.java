@@ -55,7 +55,7 @@ public class EntityFactory {
 		else if (type.contains("armour"))
 			return new Armour(id, position);
 		else if (type.contains("one_ring"))
-			return new OneRing(id, position, 0);
+			return new OneRing(id, position);
 		return null;
 	}
 }

@@ -51,7 +51,7 @@ public class Battle {
 						toBeRemoved.add(item);
 						continue;
 					}
-					playerAtk += bow.getExtraDamage();
+					playerAtk += bow.getExtraDamage()*2;
 					bow.setDurability(bow.getDurability() - 1);	
 				}
 
@@ -85,10 +85,15 @@ public class Battle {
 			enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
 
 			if (dungeon.getPlayer().getHealth() <= 0) {
+				List<CollectibleEntity> ringDelete = new ArrayList<> ();
 				for (CollectibleEntity item : dungeon.getInventory()) {
 					if (item instanceof OneRing) {
 						dungeon.getPlayer().setHealth(dungeon.getMode().getHealth());
+						ringDelete.add(item);
 					}
+				}
+				if (ringDelete.size() == 1) {
+					dungeon.getInventory().remove(ringDelete.get(0));
 				}
 				if (dungeon.getPlayer().getHealth() <= 0) {
 					dungeon.removeEntity(dungeon.getPlayer());	
@@ -109,7 +114,7 @@ public class Battle {
 				}
 
 				//drop one ring
-				OneRing ring = new OneRing(String.valueOf(dungeon.getHistoricalEntCount()), dungeon.getPlayerPosition(), 0);
+				OneRing ring = new OneRing(String.valueOf(dungeon.getHistoricalEntCount()), dungeon.getPlayerPosition());
 				if (ring.doesSpawn()) {
 					int check = 0;
 					for (CollectibleEntity item : dungeon.getInventory()) {

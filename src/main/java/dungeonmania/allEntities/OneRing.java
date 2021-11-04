@@ -10,14 +10,15 @@ public class OneRing extends CollectibleEntity {
 
     private Random random;
 
-	public OneRing(String id, Position position, long seed) {
+	public OneRing(String id, Position position) {
         super(id, position, "one_ring");
-		random = new Random(seed);
     }
 
 	public boolean doesSpawn() {
-		//Ring spawns 20% chance 
-		if (random.nextInt(100) % 5 == 0) {
+		random = new Random();
+		int rand = random.nextInt(100);
+		//Ring spawns 10% chance 
+		if (rand % 10 == 0) {
 			return true;
 		} 
 		return false;
