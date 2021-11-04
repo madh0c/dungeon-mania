@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import dungeonmania.exceptions.*;
 
@@ -17,7 +16,6 @@ import dungeonmania.allEntities.Armour;
 import dungeonmania.allEntities.Player;
 import dungeonmania.allEntities.Sword;
 import dungeonmania.response.models.DungeonResponse;
-import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
@@ -204,7 +202,6 @@ public class CollectibleEntitiesTest {
 
         // try to use an item thats not in inventory
         assertThrows(InvalidActionException.class, () ->controller.tick("2", Direction.NONE));
-        
     }
 
     @Test

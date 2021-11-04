@@ -11,6 +11,7 @@ import java.util.List;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.DungeonResponse;
 import dungeonmania.response.models.EntityResponse;
+import dungeonmania.response.models.ItemResponse;
 
 import org.junit.jupiter.api.Test;
 
@@ -94,7 +95,46 @@ public class ControllerTest {
 	@Test
     public void tickTestInvalidItemUsed() {
         DungeonManiaController controller = new DungeonManiaController();
-        assertThrows(IllegalArgumentException.class, () -> controller.tick("invalid", Direction.RIGHT));
+		assertDoesNotThrow(() -> controller.newGame("testKeyOpensDoor", "Standard"));
+
+        // Assert that a player is spawned with a treasure and an exit
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse startKeyInfo = new EntityResponse("1", "key", new Position(1,0), false);
+        EntityResponse startDoorInfo = new EntityResponse("2", "door", new Position(2,0), false);
+
+        startList.add(startPlayerInfo);
+        startList.add(startKeyInfo);
+        startList.add(startDoorInfo);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+        // Make the player claim the key
+		controller.tick(null, Direction.RIGHT);
+
+        // Assert the key is off the map
+        List<EntityResponse> midList = new ArrayList<EntityResponse>();
+
+        EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
+        EntityResponse midDoorInfo = new EntityResponse("2", "door", new Position(2,0), false);
+
+        midList.add(midPlayerInfo);
+        midList.add(midDoorInfo);
+
+        DungeonResponse dRMid = controller.getDungeonInfo(0);
+        assertEquals(midList, dRMid.getEntities());
+
+        // Assert the key is in the inventory
+        List<ItemResponse> expectedInventory1 = new ArrayList<ItemResponse>();
+        ItemResponse keyInfo = new ItemResponse("1", "key");
+        expectedInventory1.add(keyInfo);
+        
+        assertEquals(expectedInventory1, dRMid.getInventory());
+
+        // Try to use a key, which is not a usable item.
+        assertThrows(IllegalArgumentException.class, () -> controller.tick("1", Direction.RIGHT));
     }
 
 	@Test

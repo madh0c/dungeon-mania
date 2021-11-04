@@ -1,6 +1,6 @@
 package dungeonmania;
 
-import java.util.Map;
+// import java.util.Map;
 
 public interface GoalNode {
 	

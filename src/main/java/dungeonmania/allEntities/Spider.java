@@ -3,8 +3,6 @@ package dungeonmania.allEntities;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.w3c.dom.ranges.Range;
-
 import dungeonmania.Battle;
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;

@@ -1,7 +1,6 @@
 package dungeonmania;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -375,11 +374,11 @@ public class MovingEntityTest {
 			// Make sure nothing spawns during this time
 			// assertThrows(InvalidActionException.class, () -> controller.getEntity("1"));
 			assertFalse(controller.getDungeon(0).entityExists("zombie_toast"));
-			controller.tick(null, Direction.NONE);
+			controller.tick(null, Direction.RIGHT);
 		}
 
 		// Assert that zombie spawned cardinally adjacent
-		zombiePos = controller.getDungeon(0).getEntity("8").getPosition();
+		zombiePos = controller.getDungeon(0).getEntity("4").getPosition();
 		assertTrue(Position.isCardinallyAdjacent(zombiePos, spawnerPos));
 	}
 
@@ -484,7 +483,7 @@ public class MovingEntityTest {
 	public void testMercenaryMovement() {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testMercenaryMovement", "Standard"));
-		Position player = controller.getDungeon(0).getEntity("0").getPosition();
+		
 		Position mercenary = controller.getDungeon(0).getEntity("1").getPosition();
 		
 		// one tick, move closer left

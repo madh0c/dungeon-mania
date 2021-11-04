@@ -7,16 +7,10 @@ import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 import dungeonmania.util.Position;
-import dungeonmania.Entity;
-import dungeonmania.Dungeon;
-import dungeonmania.jsonExporter;
 import dungeonmania.allEntities.*;
-import dungeonmania.Move;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.ModuleLayer.Controller;
-import java.rmi.ConnectIOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -278,7 +272,7 @@ public class DungeonManiaController {
 				int newId = currentDungeon.getHistoricalEntCount();
 				Mercenary merc = new Mercenary(String.valueOf(newId), currentDungeon.getSpawnpoint());
 				currentDungeon.addEntity(merc);
-				currentDungeon.setHistoricalEntCount(newId + 1);
+				// currentDungeon.setHistoricalEntCount(newId + 1);
 			}
 		}
 
@@ -418,7 +412,16 @@ public class DungeonManiaController {
 			}
 		}
 
+		if (itemUsed == null) {
+			itemInInventory = true;
+		}
+
+		if (!itemInInventory) {
+			throw new InvalidActionException("Cannot Use Requested Item; Item Does Not Exist In Inventory");
+		}
+
 		String itemType = null;
+		
 		if (objectUsed != null) {
 			itemType = objectUsed.getType();
 		}
@@ -429,17 +432,9 @@ public class DungeonManiaController {
 		permittedItems.add("invincibility_potion");
 		permittedItems.add("invisibility_potion");
 		
-		if (itemUsed != null && !permittedItems.contains(itemType) && itemType != null) {
+		if (!permittedItems.contains(itemType) && itemType != null) {
 			throw new IllegalArgumentException("Cannot Use Requested Item; Ensure Item Is Either a Bomb, Health Potion, " +
 			"Invincibility Potion, Invisibility Potion or null");
-		}
-
-		if (itemUsed == null) {
-			itemInInventory = true;
-		}
-
-		if (!itemInInventory) {
-			throw new InvalidActionException("Cannot Use Requested Item; Item Does Not Exist In Inventory");
 		}
 		
 	}

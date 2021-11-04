@@ -1,9 +1,6 @@
 package dungeonmania.allEntities;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-
 import dungeonmania.Battle;
 import dungeonmania.CollectibleEntity;
 import dungeonmania.Dungeon;

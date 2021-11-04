@@ -1,8 +1,5 @@
 package dungeonmania;
-import dungeonmania.allEntities.Boulder;
-import dungeonmania.allEntities.Door;
-import dungeonmania.allEntities.Wall;
-import dungeonmania.allEntities.ZombieToastSpawner;
+
 import dungeonmania.util.Position;
 
 

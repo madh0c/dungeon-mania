@@ -3,21 +3,15 @@ package dungeonmania;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
 import dungeonmania.allEntities.Player;
 import dungeonmania.allEntities.ZombieToast;
 import dungeonmania.response.models.DungeonResponse;
-import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
@@ -62,7 +56,7 @@ public class GamemodesTest {
 		controller.tick(null, Direction.DOWN);
 
 		assertEquals(100, player.getHealth());
-		MovableEntity zom = (MovableEntity)controller.getDungeon(0).getEntity("6");
+		MovableEntity zom = (MovableEntity)controller.getDungeon(0).getEntity("5");
 		assertEquals(20, zom.getHealth());
         
     }

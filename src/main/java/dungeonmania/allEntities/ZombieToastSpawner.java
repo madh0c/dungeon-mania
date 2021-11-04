@@ -30,7 +30,6 @@ public class ZombieToastSpawner extends Entity {
 			if (canSpawn) {
 				int newId = currentDungeon.getHistoricalEntCount();				
 				ZombieToast zombie = new ZombieToast(String.valueOf(newId), spawnPoint);
-				currentDungeon.setHistoricalEntCount(newId + 1);
 				currentDungeon.addEntity(zombie);
                 break;
 			}

@@ -2,19 +2,8 @@ package dungeonmania;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-
-import javax.servlet.ServletContextAttributeListener;
-import javax.xml.stream.events.EndElement;
-
-import dungeonmania.CollectibleEntity;
-import dungeonmania.Dungeon;
-import dungeonmania.Entity;
-import dungeonmania.MovableEntity;
 import dungeonmania.allEntities.*;
-import dungeonmania.util.Direction;
-import dungeonmania.util.Position;
 
 
 public class Battle {
@@ -114,9 +103,9 @@ public class Battle {
 					if (rand.nextInt(20) % 20 == 1) { //TODO, add straight to inv
 						Armour armour = new Armour(String.valueOf(dungeon.getHistoricalEntCount()), enemy.getPosition());
 						dungeon.addItemToInventory(armour);
+						dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);
 					}
 
-					dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);
 				}
 
 				//drop one ring
@@ -129,8 +118,8 @@ public class Battle {
 						}
 					}
 					if (check == 0) {
-						dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);
 						dungeon.addItemToInventory(ring);
+						dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);
 					}
 				}
 
