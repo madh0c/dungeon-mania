@@ -82,14 +82,14 @@ public class ControllerTest {
         DungeonResponse dREnd = controller.getDungeonInfo(0);
         assertEquals(expectedList, dREnd.getEntities());
 
-        String gameName = "name";
+        String gameName = "testWallBlocksMercenaryMovement-1636040715294";
 
         // Assert that the Save Game Method Works
         assertEquals(dREnd, controller.saveGame(gameName));
+        System.out.println(controller.allGames());
+        // assertTrue(controller.allGames().contains(gameName + ".json"));
 
-        assertTrue(controller.allGames().contains(gameName));
-
-        assertDoesNotThrow(() -> controller.loadGame("name"));
+        assertDoesNotThrow(() -> controller.loadGame(gameName));
     }
 
 	@Test
@@ -193,7 +193,6 @@ public class ControllerTest {
 
         expectedGames.add("maze-1636040751794");
         expectedGames.add("testCollectiblesException-1636034826490");
-        expectedGames.add("name");
 
         assertTrue(allGames.containsAll(expectedGames));
 
