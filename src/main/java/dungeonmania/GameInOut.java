@@ -169,7 +169,7 @@ public class GameInOut {
 					newArmour.setDurability(durability);
 					returnInv.add(newArmour);
 				} else if (itemType.equals("one_ring")){
-					OneRing newRing = new OneRing(itemId, itemPos, 0);
+					OneRing newRing = new OneRing(itemId, itemPos);
 					returnInv.add(newRing);
 				} else if (itemType.equals("bow")){
 					Double durabilityD = (Double)currentItem.get("durability");
