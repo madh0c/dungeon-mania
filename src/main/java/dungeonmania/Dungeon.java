@@ -2,7 +2,6 @@ package dungeonmania;
 
 import java.util.Map;
 import java.util.List;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import dungeonmania.allEntities.BombItem;
@@ -14,7 +13,7 @@ import dungeonmania.allEntities.Player;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.*;
 
-public class Dungeon implements Serializable{
+public class Dungeon {
 
 	private int id;
 	private String name;
@@ -147,6 +146,10 @@ public class Dungeon implements Serializable{
 
 	public Entity getEntity(String id) {
 		return entities.get(id);
+	}
+
+	public void setInventory(List<CollectibleEntity> inventory) {
+		this.inventory = inventory;
 	}
 
 	public Entity getEntity(Position position) {
@@ -330,6 +333,35 @@ public class Dungeon implements Serializable{
 	public void setHistoricalEntCount(int historicalEntCount) {
 		this.historicalEntCount = historicalEntCount;
 	}
+
+	public void setTickNumber(int tickNumber) {
+		this.tickNumber = tickNumber;
+	}
+
+	public void setGoals(String goals) {
+		this.goals = goals;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setGameMode(String gameMode) {
+		this.gameMode = gameMode;
+	}
+
+	public void setMode(Mode mode) {
+		this.mode = mode;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setEntities(Map<String, Entity> entities) {
+		this.entities = entities;
+	}
+
 
 	// public boolean equals(Object obj) {
 	// 	if (this == null || obj == null) {

@@ -312,6 +312,13 @@ public class ControllerTest {
 
     }
 
+    @Test
+    public void Load() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.loadGame("testCollectiblesStack-1636034908141"));
+	    }
+
+
 
 	//TODO: Write tests for loading, saving games, calling allgames.
 
