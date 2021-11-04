@@ -40,7 +40,6 @@ public class Spider extends MovableEntity {
 		range.add(position.translateBy(Direction.LEFT));
 		range.add(position.translateBy(Direction.LEFT).translateBy(Direction.UP));
 
-
 		clockwise = true;
 
     }
