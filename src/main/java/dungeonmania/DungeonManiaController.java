@@ -272,7 +272,7 @@ public class DungeonManiaController {
 				int newId = currentDungeon.getHistoricalEntCount();
 				Mercenary merc = new Mercenary(String.valueOf(newId), currentDungeon.getSpawnpoint());
 				currentDungeon.addEntity(merc);
-				currentDungeon.setHistoricalEntCount(newId + 1);
+				// currentDungeon.setHistoricalEntCount(newId + 1);
 			}
 		}
 

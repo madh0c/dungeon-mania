@@ -374,11 +374,11 @@ public class MovingEntityTest {
 			// Make sure nothing spawns during this time
 			// assertThrows(InvalidActionException.class, () -> controller.getEntity("1"));
 			assertFalse(controller.getDungeon(0).entityExists("zombie_toast"));
-			controller.tick(null, Direction.NONE);
+			controller.tick(null, Direction.RIGHT);
 		}
 
 		// Assert that zombie spawned cardinally adjacent
-		zombiePos = controller.getDungeon(0).getEntity("8").getPosition();
+		zombiePos = controller.getDungeon(0).getEntity("4").getPosition();
 		assertTrue(Position.isCardinallyAdjacent(zombiePos, spawnerPos));
 	}
 

@@ -103,9 +103,9 @@ public class Battle {
 					if (rand.nextInt(20) % 20 == 1) { //TODO, add straight to inv
 						Armour armour = new Armour(String.valueOf(dungeon.getHistoricalEntCount()), enemy.getPosition());
 						dungeon.addItemToInventory(armour);
+						dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);
 					}
 
-					dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);
 				}
 
 				//drop one ring
@@ -118,8 +118,8 @@ public class Battle {
 						}
 					}
 					if (check == 0) {
-						dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);
 						dungeon.addItemToInventory(ring);
+						dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);
 					}
 				}
 
