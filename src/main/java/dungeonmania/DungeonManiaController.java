@@ -241,11 +241,21 @@ public class DungeonManiaController {
 
 
 	public List<String> allGames() {
-		try {
-			return FileLoader.listFileNamesInResourceDirectory("/savedGames");
-		} catch (IOException e) {
-			return new ArrayList<>();
+		String[] games;
+		// Creates a new File instance by converting the given pathname string
+		// into an abstract pathname
+		File f = new File("src/main/resources/savedGames");
+
+		// Populates the array with names of files and directories
+		games = f.list();
+		List<String> gamesList = new ArrayList<>();
+
+		// Put every file name into a list
+		for (String gameFile : games) {
+			gamesList.add(gameFile.replace(".json", ""));
 		}
+
+		return gamesList;
 	}
 
 	/**
