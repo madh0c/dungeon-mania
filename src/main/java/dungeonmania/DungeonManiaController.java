@@ -213,7 +213,6 @@ public class DungeonManiaController {
 
 	public DungeonResponse loadGame(String name) throws IllegalArgumentException {
 		checkValidLoadGame(name);
-		System.out.println(name);
 		Persist persist = new Persist();
 		String path = ("src/main/resources/savedGames/" + name); 
 
@@ -292,8 +291,10 @@ public class DungeonManiaController {
 			}
 		}
 
+		Move moveStrategy = null;
 		currentDungeon.tickOne();
-		Move moveStrategy = new PlayerMove();
+		
+		moveStrategy = new PlayerMove();
 		// Move player
 		if (currentDungeon.getPlayer() != null) {
 			currentDungeon.getPlayer().setCurrentDir(movementDirection);
@@ -302,7 +303,7 @@ public class DungeonManiaController {
 			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
 			moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);			
 		}
-
+		
 		Switch switchFlick = null;
 		boolean switchOn = false;
 
@@ -386,7 +387,6 @@ public class DungeonManiaController {
 				}
 			}
 		}
-
 		currentDungeon.getEntities().keySet().removeAll(idsToBeRemoved);
 
 		// Spawn in new zombietoast after 20 ticks
@@ -418,13 +418,18 @@ public class DungeonManiaController {
 			}
 		}
 
+		String itemType = null;
+		if (objectUsed != null) {
+			itemType = objectUsed.getType();
+		}
+
 		List<String> permittedItems = new ArrayList<String>();
 		permittedItems.add("bomb");
 		permittedItems.add("health_potion");
 		permittedItems.add("invincibility_potion");
 		permittedItems.add("invisibility_potion");
-
-		if (!(itemUsed == null) && !permittedItems.contains(objectUsed.getType()) ) {
+		
+		if (itemUsed != null && !permittedItems.contains(itemType) && itemType != null) {
 			throw new IllegalArgumentException("Cannot Use Requested Item; Ensure Item Is Either a Bomb, Health Potion, " +
 			"Invincibility Potion, Invisibility Potion or null");
 		}

@@ -30,7 +30,6 @@ public class Battle {
 	 */
 	public static void battle(Entity entity, Dungeon dungeon) {
 		MovableEntity enemy = (MovableEntity)entity;
-		System.out.println("Battle:");
 		while (enemy.getHealth() > 0 && dungeon.getPlayer().getHealth() > 0) {
 			// if player invincible
 			if (dungeon.getPlayer().getInvincibleTickDuration() > 0) {
@@ -96,9 +95,6 @@ public class Battle {
 			dungeon.getPlayer().setHealth(playerHp - ((enemyHp * enemyAtk) / 10));
 			enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
 
-			System.out.println("playerHP: " +  dungeon.getPlayer().getHealth());
-			System.out.println("enemyHP: " +  enemy.getHealth());
-
 			if (dungeon.getPlayer().getHealth() <= 0) {
 				for (CollectibleEntity item : dungeon.getInventory()) {
 					if (item instanceof OneRing) {
@@ -138,8 +134,7 @@ public class Battle {
 					}
 				}
 
-				// remove 
-				System.out.println("removing: " + entity.getType());
+				// remove
 				dungeon.removeEntity(entity);
 				break;
 			}
