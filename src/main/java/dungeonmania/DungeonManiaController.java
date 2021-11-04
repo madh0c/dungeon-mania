@@ -344,7 +344,7 @@ public class DungeonManiaController {
 			} else if (currentEntity instanceof ZombieToast) {
 				moveStrategy = new StandardMove();
 				Random random = new Random();
-				int dir = random.nextInt(3);
+				int dir = random.nextInt(4);
 				Direction currDir = Direction.NONE;
 				switch (dir) {
 					case 0:
