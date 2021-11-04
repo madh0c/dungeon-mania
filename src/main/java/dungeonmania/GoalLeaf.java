@@ -13,7 +13,7 @@ public class GoalLeaf implements GoalNode{
 	// }
 	@Override 
 	public String remainingString() {
-		return this.goal;
+		return ":" + this.goal;
 	}
 	
 }

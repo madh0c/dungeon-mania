@@ -51,6 +51,7 @@
         "time_travelling_portal": "images/tileset/entities/portal_04.png",
         "light_bulb_on": "images/tileset/entities/lightbulb.png",
         "light_bulb_off": "images/tileset/entities/lightbulb.png",
-        "wire": "images/tileset/entities/wire.png"
+        "wire": "images/tileset/entities/wire.png",
+        "enemies": "images/tileset/entities/zombie_00.png"
     }
 }
