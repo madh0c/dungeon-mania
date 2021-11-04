@@ -8,8 +8,8 @@ public class Door extends Entity {
 
     private boolean isOpen;
 
-    public Door(Position position) {
-        super(position, "door");
+    public Door(String id, Position position) {
+        super(id, position, "door");
         this.isOpen = false;
     }
 

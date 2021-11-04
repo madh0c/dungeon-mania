@@ -6,8 +6,8 @@ import dungeonmania.util.Position;
 
 public class Wood extends CollectibleEntity {
 
-    public Wood(Position position) {
-        super(position, "wood");
+    public Wood(String id, Position position) {
+        super(id, position, "wood");
     }
 
 }

@@ -4,8 +4,8 @@ import dungeonmania.util.Position;
 
 public abstract class CollectibleEntity extends Entity {
 
-    public CollectibleEntity(Position position, String type) {
-        super(position, type);
+    public CollectibleEntity(String id, Position position, String type) {
+        super(id, position, type);
     }
     
 }

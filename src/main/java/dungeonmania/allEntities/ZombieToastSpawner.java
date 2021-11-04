@@ -10,8 +10,8 @@ import dungeonmania.util.Position;
 
 public class ZombieToastSpawner extends Entity {
 
-    public ZombieToastSpawner(Position position) {
-        super(position, "zombie_toast_spawner");
+    public ZombieToastSpawner(String id, Position position) {
+        super(id, position, "zombie_toast_spawner");
     }
 
     public void spawnZombie(Dungeon currentDungeon) {
@@ -28,7 +28,9 @@ public class ZombieToastSpawner extends Entity {
 				}
 			}
 			if (canSpawn) {
-				ZombieToast zombie = new ZombieToast(spawnPoint);
+				int newId = currentDungeon.getHistoricalEntCount();				
+				ZombieToast zombie = new ZombieToast(String.valueOf(newId), spawnPoint);
+				currentDungeon.setHistoricalEntCount(newId + 1);
 				currentDungeon.addEntity(zombie);
                 break;
 			}

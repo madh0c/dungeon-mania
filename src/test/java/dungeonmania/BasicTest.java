@@ -74,8 +74,6 @@ public class BasicTest {
             new ArrayList<String>(), 
             "(:enemies AND :treasure)"
         );
-		System.out.println(expected.getDungeonName());
-		System.out.println(controller.getDungeonInfo(0).getDungeonName());
         assertEquals(expected, controller.getDungeonInfo(0));
 		assertEquals(expected1, controller.getDungeonInfo(1));
 	}

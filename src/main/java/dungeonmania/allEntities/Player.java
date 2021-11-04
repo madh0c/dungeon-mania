@@ -18,8 +18,8 @@ public class Player extends Entity {
 	private boolean haveKey;
 	private int invincibleTickDuration;
 
-    public Player(Position position, String gameMode) {
-        super(position, "player");
+    public Player(String id, Position position, String gameMode) {
+        super(id, position, "player");
 		this.attack = 2;
 		// this.health = 100;
 		this.visible = true;

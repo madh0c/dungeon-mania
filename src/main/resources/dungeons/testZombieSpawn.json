@@ -1,6 +1,11 @@
 {
     "entities": [
         {
+            "x": 0,
+            "y": 0,
+            "type": "player"
+        },
+        {
             "x": 1,
             "y": 1,
             "type": "zombie_toast_spawner"

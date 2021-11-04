@@ -9,7 +9,8 @@ public abstract class Entity {
     String type;
 	String id;
 
-    public Entity(Position position, String type) {
+    public Entity(String id, Position position, String type) {
+		this.id = id;
         this.position = position;
         this.type = type;
     }

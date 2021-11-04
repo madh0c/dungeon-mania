@@ -367,7 +367,7 @@ public class MovingEntityTest {
 		assertDoesNotThrow(() -> controller.newGame("testZombieSpawn", "Standard"));
 		
 		Position zombiePos;
-		Position spawnerPos = controller.getDungeon(0).getEntity("0").getPosition();
+		Position spawnerPos = controller.getDungeon(0).getEntity("1").getPosition();
 
 		// Check if zombie spawns in after 20 ticks
 		for (int i = 0; i < 21; i++) {
@@ -378,7 +378,7 @@ public class MovingEntityTest {
 		}
 
 		// Assert that zombie spawned cardinally adjacent
-		zombiePos = controller.getDungeon(0).getEntity("1").getPosition();
+		zombiePos = controller.getDungeon(0).getEntity("8").getPosition();
 		assertTrue(Position.isCardinallyAdjacent(zombiePos, spawnerPos));
 	}
 
@@ -441,7 +441,7 @@ public class MovingEntityTest {
 		for (int i = 0; i < 10; i++) {
 			// assertThrows(InvalidActionException.class, () -> controller.getEntity("1"));
 			assertFalse(controller.getDungeon(0).entityExists("mercenary"));
-			controller.tick(null, Direction.NONE);
+			controller.tick(null, Direction.LEFT);
 		}
 		assertTrue(controller.getDungeon(0).entityExists("mercenary"));
 

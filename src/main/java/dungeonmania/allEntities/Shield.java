@@ -7,8 +7,8 @@ import dungeonmania.util.Position;
 public class Shield extends CollectibleEntity {
     private double damageFactorReduction = 0.2;
     private int durability = 5;
-    public Shield(Position position) {
-        super(position, "shield");
+    public Shield(String id, Position position) {
+        super(id, position, "shield");
     }
 
     public double getDamageFactorReduction() {

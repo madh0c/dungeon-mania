@@ -1253,7 +1253,7 @@ public class StaticEntityTest {
         EntityResponse endWall2Info = new EntityResponse("5", "wall", new Position(7,0), false);
         EntityResponse endMerc1Info = new EntityResponse("6", "mercenary", new Position(6,0), true);
         EntityResponse endMerc2Info = new EntityResponse("7", "mercenary", new Position(6,0), true);
-        EntityResponse endZombInfo = new EntityResponse("8", "zombie_toast", new Position(0,1), false);
+        EntityResponse endZombInfo = new EntityResponse("9", "zombie_toast", new Position(0,1), false);
 
         endList.add(endPlayerInfo);
         endList.add(endSpawnerInfo);

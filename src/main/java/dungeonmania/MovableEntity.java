@@ -7,8 +7,8 @@ public abstract class MovableEntity extends Entity {
 	private int health;
 	private int baseAttack;
 
-    public MovableEntity(Position position, String type) {
-        super(position, type);
+    public MovableEntity(String id, Position position, String type) {
+        super(id, position, type);
     }
 
 	public int getBaseAttack() {

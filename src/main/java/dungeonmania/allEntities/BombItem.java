@@ -10,8 +10,8 @@ public class BombItem extends CollectibleEntity {
 	 * This bomb is a Collectible, as can be picked up
 	 * @param position	where the bomb is located
 	 */
-    public BombItem(Position position) {
-        super(position, "bomb");
-    }
+    public BombItem(String id, Position position) {
+        super(id, position, "bomb");
+	}
 
 }

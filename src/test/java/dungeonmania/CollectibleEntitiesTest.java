@@ -101,7 +101,7 @@ public class CollectibleEntitiesTest {
         assertEquals(1, controller.getDungeon(0).getPlayer().getHealth());
 
         // move player right again and use health potion, should pickup invis pot
-        assertDoesNotThrow(() ->controller.tick("health_potion", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick("1", Direction.RIGHT));
 
         Player player = controller.getDungeon(0).getPlayer();
         // health should be full
@@ -114,7 +114,7 @@ public class CollectibleEntitiesTest {
         assertEquals(Arrays.asList(new ItemResponse("2", "invisibility_potion")), dungeonInfo.getInventory());
 
         // move player right again and use invis pot, should also pickup invicible pot
-        assertDoesNotThrow(() ->controller.tick("invisibility_potion", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick("2", Direction.RIGHT));
         assertTrue(!player.isVisible());
 
         // update dungeon response
@@ -123,7 +123,7 @@ public class CollectibleEntitiesTest {
 
         // merc should be adjacent to character right now
         // use invicible pot and move right
-        assertDoesNotThrow(() ->controller.tick("invincibility_potion", Direction.RIGHT));
+        assertDoesNotThrow(() ->controller.tick("3", Direction.RIGHT));
 
         // health should be full as mercenary runs away / player is invincible
         assertEquals(100, player.getHealth());
@@ -194,15 +194,14 @@ public class CollectibleEntitiesTest {
         DungeonManiaController controller = new DungeonManiaController();
 
         // create a new game
-        assertDoesNotThrow(() -> controller.newGame("testCollectiblesPotions", "Standard"));
+        assertDoesNotThrow(() -> controller.newGame("testCollectiblesException", "Standard"));
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         //try to use a non-usable item
-        assertThrows(IllegalArgumentException.class, () ->controller.tick("2", Direction.NONE));
+        assertThrows(IllegalArgumentException.class, () ->controller.tick("1", Direction.NONE));
 
         // try to use an item thats not in inventory
-        assertThrows(InvalidActionException.class, () ->controller.tick("3", Direction.NONE));
-        
+        assertThrows(InvalidActionException.class, () ->controller.tick("2", Direction.NONE));
     }
 
     @Test

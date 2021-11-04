@@ -7,8 +7,8 @@ public class Armour extends CollectibleEntity {
     
     private int durability;
     
-    public Armour(Position position) {
-        super(position, "armour");
+    public Armour(String id, Position position) {
+        super(id, position, "armour");
         this.durability = 10;
     }
 

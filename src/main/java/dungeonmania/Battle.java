@@ -97,31 +97,37 @@ public class Battle {
 			} 
 
 			if (enemy.getHealth() <= 0) {
+				// drop armour 
 				if (enemy instanceof Mercenary || enemy instanceof ZombieToast) {
 					Random rand = new Random();
-					if (rand.nextInt(20) % 20 == 1) {
-						Armour armour = new Armour(enemy.getPosition());
-						dungeon.addEntity(armour);
+					if (rand.nextInt(20) % 20 == 1) { //TODO, add straight to inv
+						Armour armour = new Armour(String.valueOf(dungeon.getHistoricalEntCount()), enemy.getPosition());
+						dungeon.addItemToInventory(armour);
+					}
+
+					dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);
+				}
+
+				//drop one ring
+				OneRing ring = new OneRing(String.valueOf(dungeon.getHistoricalEntCount()), dungeon.getPlayerPosition(), 0);
+				if (ring.doesSpawn()) {
+					int check = 0;
+					for (CollectibleEntity item : dungeon.getInventory()) {
+						if (item instanceof OneRing) {
+							check = 1;
+						}
+					}
+					if (check == 0) {
+						dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);
+						dungeon.addItemToInventory(ring);
 					}
 				}
+
+				// remove
 				dungeon.removeEntity(entity);
 				break;
 			}
 		}
-		OneRing ring = new OneRing(dungeon.getPlayerPosition(), 0);
-			if (ring.doesSpawn()) {
-				int check = 0;
-				for (CollectibleEntity item : dungeon.getInventory()) {
-					if (item instanceof OneRing) {
-						check = 1;
-					}
-				}
-				if (check == 0) {
-					int id = dungeon.getHistoricalEntCount();
-					ring.setId(String.valueOf(id));
-					dungeon.setHistoricalEntCount(id++);
-					dungeon.addItemToInventory(ring);
-				}
-			}
+		
 	}
 }

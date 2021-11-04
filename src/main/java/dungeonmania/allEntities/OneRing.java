@@ -9,9 +9,9 @@ import dungeonmania.util.Position;
 public class OneRing extends CollectibleEntity {
 
     private Random random;
-	
-	public OneRing(Position position, long seed) {
-        super(position, "one_ring");
+
+	public OneRing(String id, Position position, long seed) {
+        super(id, position, "one_ring");
 		random = new Random(seed);
     }
 

@@ -59,16 +59,13 @@ public class jsonExporter {
                 
 				if (entityType.contains("portal")) {
 					String colour = (String)currentEntity.get("colour");
-					Portal portal = new Portal(position, colour);
-                    portal.setId(String.valueOf(i));
+					Portal portal = new Portal(String.valueOf(i), position, colour);
 					dungeonMap.put(String.valueOf(i), portal);
 				} else if (entityType.contains("player")) {
-					Player player = new Player(position, gameMode);
-					player.setId(String.valueOf(i));
+					Player player = new Player(String.valueOf(i), position, gameMode);
 					dungeonMap.put(String.valueOf(i), player);
 				} else {
-					Entity newEntity = EntityFactory.createEntity(entityType, position);
-					newEntity.setId(String.valueOf(i));
+					Entity newEntity = EntityFactory.createEntity(String.valueOf(i), entityType, position);
 					dungeonMap.put(String.valueOf(i), newEntity);
 				}
             }

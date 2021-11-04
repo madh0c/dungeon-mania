@@ -22,8 +22,8 @@ public class Spider extends MovableEntity {
 
 	private boolean clockwise;
 
-    public Spider(Position position) {
-        super(position, "spider");
+    public Spider(String id, Position position) {
+        super(id, position, "spider");
 		range = new ArrayList<>();
 		super.setHealth(10);
 		super.setBaseAttack(5);

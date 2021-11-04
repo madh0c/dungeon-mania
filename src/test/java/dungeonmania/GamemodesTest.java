@@ -9,16 +9,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 // import java.util.Map;
 // import java.util.List;
 // import java.util.ArrayList;
-// import java.util.Arrays;
+import java.util.Arrays;
 // import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
 import dungeonmania.allEntities.Player;
 import dungeonmania.allEntities.ZombieToast;
-// import dungeonmania.response.models.DungeonResponse;
+import dungeonmania.response.models.DungeonResponse;
 // import dungeonmania.response.models.EntityResponse;
-// import dungeonmania.response.models.ItemResponse;
+import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
@@ -31,7 +31,11 @@ public class GamemodesTest {
 
         //move to right, then use potion
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
-        assertDoesNotThrow(() ->controller.tick("invincibility_potion", Direction.NONE));
+
+        DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+        assertEquals(Arrays.asList(new ItemResponse("1", "invincibility_potion")), dungeonInfo.getInventory());
+        
+        assertDoesNotThrow(() ->controller.tick("1", Direction.NONE));
         Player player = controller.getDungeon(0).getPlayer();
 
         assertEquals(7, player.getInvincibleTickDuration());
@@ -58,7 +62,7 @@ public class GamemodesTest {
 		controller.tick(null, Direction.DOWN);
 
 		assertEquals(100, player.getHealth());
-		MovableEntity zom = (MovableEntity)controller.getDungeon(0).getEntity("5");
+		MovableEntity zom = (MovableEntity)controller.getDungeon(0).getEntity("6");
 		assertEquals(20, zom.getHealth());
         
     }
