@@ -102,16 +102,19 @@ public class Mercenary extends MovableEntity {
 
 	public void bribe(Dungeon dungeon) {
 
+		Treasure gold = null;
 		// Remove the first gold
-		Integer goldPos = 0;
+		// Integer goldPos = 0;
 		for (CollectibleEntity ent : dungeon.getInventory()) {
 			if (ent instanceof Treasure) {
-				goldPos = Integer.parseInt(ent.getId());
-				break;			
+				// goldPos = Integer.parseInt(ent.getId());
+				// break;
+				gold = (Treasure) ent;			
 			}
 		}
 
-		dungeon.getInventory().remove(goldPos);
+		// dungeon.getInventory().remove(goldPos);
+		dungeon.getInventory().remove(gold);
 		this.isAlly = true;
 	}
 	
