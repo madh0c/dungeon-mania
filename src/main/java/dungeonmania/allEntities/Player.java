@@ -70,6 +70,10 @@ public class Player extends Entity {
 	public void setCurrentDir(Direction currentDir) {
 		this.currentDir = currentDir;
 	}
+	
+	public void setHaveKey(boolean haveKey) {
+		this.haveKey = haveKey;
+	}
 
 	/**
 	 * Check if the player is able to collide with entity<p>

@@ -8,6 +8,8 @@ import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 import dungeonmania.util.Position;
 import dungeonmania.allEntities.*;
+import dungeonmania.GameInOut;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+
 import java.util.HashMap;
 
 public class DungeonManiaController {
@@ -197,23 +201,33 @@ public class DungeonManiaController {
 	 */
 	public DungeonResponse saveGame(String name) throws IllegalArgumentException {
 		String feed = name.replaceFirst(".json", "");
+		String path = ("src/main/resources/savedGames/" + feed + ".json"); 
 
-		Persist persist = new Persist();
-		String path = ("src/main/resources/savedGames/" + feed); 
-		persist.exportJava(currentDungeon, path);
+		try {
+			GameInOut.toJSON(path, currentDungeon);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
 	public DungeonResponse loadGame(String name) throws IllegalArgumentException {
 		checkValidLoadGame(name);
-		Persist persist = new Persist();
-		String path = ("src/main/resources/savedGames/" + name); 
+		String feed = name.replaceFirst(".json", "");
+		String path = (feed + ".json"); 
 
-		Dungeon extractedDungeon = (Dungeon) persist.readFile(path);
-		currentDungeon = extractedDungeon;
-		
-		return getDungeonInfo(currentDungeon.getId());
+		try {
+			currentDungeon = GameInOut.fromJSON(path, feed, lastUsedDungeonId);
+			System.out.println(currentDungeon);
+			setLastUsedDungeonId(getLastUsedDungeonId() + 1);
+			games.add(currentDungeon);
+			return getDungeonInfo(currentDungeon.getId());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	/**
@@ -583,4 +597,18 @@ public class DungeonManiaController {
 			throw new InvalidActionException("Cannot Build The Desired Item; Not Enough Items To Complete The Recipe");
 		}
 	}
+	
+	public int getLastUsedDungeonId() {
+		return lastUsedDungeonId;
+	}
+
+	public void setLastUsedDungeonId(int lastUsedDungeonId) {
+		this.lastUsedDungeonId = lastUsedDungeonId;
+	}
+
+	public Dungeon getCurrentDungeon() {
+		return currentDungeon;
+	}
+
+	
 }
