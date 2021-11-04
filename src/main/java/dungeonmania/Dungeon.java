@@ -57,7 +57,7 @@ public class Dungeon implements Serializable{
 	public boolean useItem(String itemString) throws InvalidActionException {
 		CollectibleEntity itemUsed = null;
 		for (CollectibleEntity collectible : inventory) {
-			if (collectible.getType().equals(itemString)) {
+			if (collectible.getId().equals(itemString)) {
 				itemUsed = collectible;
 			}
 		}
