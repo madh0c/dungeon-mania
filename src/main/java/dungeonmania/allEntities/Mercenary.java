@@ -51,6 +51,10 @@ public class Mercenary extends MovableEntity {
 		} else if (entity instanceof ZombieToastSpawner) {
 			return false;
 		} else if (entity instanceof Door) {
+			Door door = (Door) entity;
+			if (door.isOpen()) {
+				return true;
+			}
 			return false;
 		} else if (entity instanceof Boulder) {
 			return false;		
@@ -118,34 +122,4 @@ public class Mercenary extends MovableEntity {
 		this.isAlly = true;
 	}
 	
-	// Can be in a player
-	@Override
-	public boolean collide(Entity entity) {
-		// If empty space
-		if (entity == null) {
-			return true;
-		}
-		
-		if (entity instanceof Boulder) {
-			return false;
-		} else if (entity instanceof Wall) {
-			return false;
-		} else if (entity instanceof ZombieToastSpawner) {
-			return false;
-		} else if (entity instanceof Door) {
-			Door door = (Door) entity;
-			if (door.isOpen()) {
-				return true;
-			}
-			return false;
-		} else if (entity instanceof Exit) {
-			return false;
-		} else if (entity instanceof Player) {
-			return true;
-		} else if (entity instanceof MovableEntity) {
-			return false;
-		}
-		
-		return true;
-	}
 }
