@@ -100,6 +100,10 @@ public class Player extends Entity {
 		} else if (entity instanceof ZombieToastSpawner) {
 			return false;
 		} else if (entity instanceof Door) {
+			Door door = (Door) entity;
+			if (door.isOpen()) {
+				return true;
+			}
 			if (haveKey) {
 				CollectibleEntity removed = null;
 				for (CollectibleEntity item : dungeon.getInventory()) {
@@ -110,8 +114,6 @@ public class Player extends Entity {
 				}
 				dungeon.getInventory().remove(removed);
 				haveKey = false;
-
-				Door door = (Door) entity;
 				door.setOpen(true);
 				return true;
 			} else {
