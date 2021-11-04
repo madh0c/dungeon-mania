@@ -22,7 +22,7 @@ public class RareCollectableTest {
 		Player player = controller.getDungeon(0).getPlayer();
 		assertEquals(85, player.getHealth());	
 		dungeonInfo = controller.getDungeonInfo(0);
-		assertEquals(Arrays.asList(new ItemResponse("2", "one_ring")), dungeonInfo.getInventory());
+		assertEquals(Arrays.asList(new ItemResponse("3", "one_ring")), dungeonInfo.getInventory());
     }
 
 	@Test
@@ -49,10 +49,10 @@ public class RareCollectableTest {
 		Player player = controller.getDungeon(0).getPlayer();
 		assertEquals(85, player.getHealth());
 		dungeonInfo = controller.getDungeonInfo(0);
-		assertEquals(Arrays.asList(new ItemResponse("4", "one_ring")), dungeonInfo.getInventory());
+		assertEquals(Arrays.asList(new ItemResponse("5", "one_ring")), dungeonInfo.getInventory());
 		controller.tick(null, Direction.RIGHT);
 		dungeonInfo = controller.getDungeonInfo(0);
-		assertEquals(Arrays.asList(new ItemResponse("4", "one_ring")), dungeonInfo.getInventory());
+		assertEquals(Arrays.asList(new ItemResponse("5", "one_ring")), dungeonInfo.getInventory());
 	}
 
 }

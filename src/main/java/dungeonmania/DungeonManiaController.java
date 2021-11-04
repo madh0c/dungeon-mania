@@ -412,7 +412,16 @@ public class DungeonManiaController {
 			}
 		}
 
+		if (itemUsed == null) {
+			itemInInventory = true;
+		}
+
+		if (!itemInInventory) {
+			throw new InvalidActionException("Cannot Use Requested Item; Item Does Not Exist In Inventory");
+		}
+
 		String itemType = null;
+		
 		if (objectUsed != null) {
 			itemType = objectUsed.getType();
 		}
@@ -423,17 +432,9 @@ public class DungeonManiaController {
 		permittedItems.add("invincibility_potion");
 		permittedItems.add("invisibility_potion");
 		
-		if (itemUsed != null && !permittedItems.contains(itemType) && itemType != null) {
+		if (!permittedItems.contains(itemType) && itemType != null) {
 			throw new IllegalArgumentException("Cannot Use Requested Item; Ensure Item Is Either a Bomb, Health Potion, " +
 			"Invincibility Potion, Invisibility Potion or null");
-		}
-
-		if (itemUsed == null) {
-			itemInInventory = true;
-		}
-
-		if (!itemInInventory) {
-			throw new InvalidActionException("Cannot Use Requested Item; Item Does Not Exist In Inventory");
 		}
 		
 	}
