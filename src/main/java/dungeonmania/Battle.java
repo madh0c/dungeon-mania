@@ -100,7 +100,7 @@ public class Battle {
 				// drop armour 
 				if (enemy instanceof Mercenary || enemy instanceof ZombieToast) {
 					Random rand = new Random();
-					if (rand.nextInt(20) % 20 == 1) { //TODO, add straight to inv
+					if (rand.nextInt(20) % 20 == 1) {
 						Armour armour = new Armour(String.valueOf(dungeon.getHistoricalEntCount()), enemy.getPosition());
 						dungeon.addItemToInventory(armour);
 						dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);

@@ -118,21 +118,23 @@ public class StaticEntityTest {
         assertEquals(startList, dRStart.getEntities());
 
 		// Tick player 21 times
-		for (int i = 0; i < 21; i++) {
-			controller.tick(null, Direction.RIGHT);
+		for (int i = 0; i < 11; i++) {
+			controller.tick(null, Direction.DOWN);
+		}
+        // Tick player 21 times
+		for (int i = 0; i < 10; i++) {
+			controller.tick(null, Direction.UP);
 		}
 
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
-        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(6,0), true);
+        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(6,1), true);
         EntityResponse endSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), true);
         EntityResponse endWall1Info = new EntityResponse("2", "wall", new Position(0,1), false);
         EntityResponse endWall2Info = new EntityResponse("3", "wall", new Position(1,0), false);
         EntityResponse endBoulder1Info = new EntityResponse("4", "boulder", new Position(1,2), false);
         EntityResponse endBoulder2Info = new EntityResponse("5", "boulder", new Position(2,1), false);
         EntityResponse endWall3Info = new EntityResponse("6", "wall", new Position(7,0), false);
-        EntityResponse endMerc1Info = new EntityResponse("7", "mercenary", new Position(6,0), true);
-        EntityResponse endMerc2Info = new EntityResponse("8", "mercenary", new Position(6,0), true);
 
         endList.add(endPlayerInfo);
         endList.add(endSpawnerInfo);
@@ -141,8 +143,6 @@ public class StaticEntityTest {
         endList.add(endBoulder1Info);
         endList.add(endBoulder2Info);
         endList.add(endWall3Info);
-        endList.add(endMerc1Info);
-        endList.add(endMerc2Info);
 
 
         // There should be no change from the start after 22 ticks apart from two mercenaries spawning as the player 
