@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import dungeonmania.exceptions.*;
 
@@ -17,7 +16,6 @@ import dungeonmania.allEntities.Armour;
 import dungeonmania.allEntities.Player;
 import dungeonmania.allEntities.Sword;
 import dungeonmania.response.models.DungeonResponse;
-import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
@@ -147,7 +145,7 @@ public class CollectibleEntitiesTest {
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         // use the bomb
-        assertDoesNotThrow(() ->controller.tick("bomb", Direction.NONE));
+        assertDoesNotThrow(() ->controller.tick("1", Direction.NONE));
 
         // update info
         dungeonInfo = controller.getDungeonInfo(0);
@@ -200,10 +198,10 @@ public class CollectibleEntitiesTest {
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
 
         //try to use a non-usable item
-        assertThrows(IllegalArgumentException.class, () ->controller.tick("treasure", Direction.NONE));
+        assertThrows(IllegalArgumentException.class, () ->controller.tick("2", Direction.NONE));
 
         // try to use an item thats not in inventory
-        assertThrows(InvalidActionException.class, () ->controller.tick("invisibility_potion", Direction.NONE));
+        assertThrows(InvalidActionException.class, () ->controller.tick("3", Direction.NONE));
         
     }
 

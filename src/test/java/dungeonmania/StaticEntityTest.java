@@ -891,7 +891,7 @@ public class StaticEntityTest {
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(2,0), true);
-        EntityResponse endDoorInfo = new EntityResponse("2", "door", new Position(2,0), false);
+        EntityResponse endDoorInfo = new EntityResponse("2", "door_unlocked", new Position(2,0), false);
 
         endList.add(endPlayerInfo);
         endList.add(endDoorInfo);

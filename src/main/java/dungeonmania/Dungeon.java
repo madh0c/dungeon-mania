@@ -14,8 +14,6 @@ import dungeonmania.allEntities.Player;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.*;
 
-import java.util.HashMap;
-
 public class Dungeon implements Serializable{
 
 	private int id;

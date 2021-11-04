@@ -2,14 +2,9 @@ package dungeonmania;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +32,7 @@ public class BasicTest {
             entityListCheck, 
             new ArrayList<ItemResponse>(),
             new ArrayList<String>(), 
-            "(enemies AND treasure)"
+            "(:enemies AND :treasure)"
         );
 
         assertEquals(expected, controller.getDungeonInfo(0));
@@ -68,7 +63,7 @@ public class BasicTest {
             entityListCheck, 
             new ArrayList<ItemResponse>(),
             new ArrayList<String>(), 
-            "(enemies AND (treasure OR (exit AND (exit OR boulder))))"
+            "(:enemies AND (:treasure OR (:exit AND (:exit OR :boulder))))"
         );
 
 		DungeonResponse expected1 = new DungeonResponse (
@@ -77,7 +72,7 @@ public class BasicTest {
             entityListCheck1, 
             new ArrayList<ItemResponse>(),
             new ArrayList<String>(), 
-            "(enemies AND treasure)"
+            "(:enemies AND :treasure)"
         );
 		System.out.println(expected.getDungeonName());
 		System.out.println(controller.getDungeonInfo(0).getDungeonName());

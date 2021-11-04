@@ -2,19 +2,8 @@ package dungeonmania;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-
-import javax.servlet.ServletContextAttributeListener;
-import javax.xml.stream.events.EndElement;
-
-import dungeonmania.CollectibleEntity;
-import dungeonmania.Dungeon;
-import dungeonmania.Entity;
-import dungeonmania.MovableEntity;
 import dungeonmania.allEntities.*;
-import dungeonmania.util.Direction;
-import dungeonmania.util.Position;
 
 
 public class Battle {

@@ -1,6 +1,5 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.CollectibleEntity;
 import dungeonmania.Entity;
 import dungeonmania.util.Position;
 
