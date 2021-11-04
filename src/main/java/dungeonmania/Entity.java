@@ -33,6 +33,10 @@ public abstract class Entity {
 		this.id = id;
 	}
 
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public void setPosition(Position position) {
 		this.position = position;
 	}

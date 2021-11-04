@@ -72,8 +72,8 @@ public class MercenaryMove implements Move {
 		Direction prevDir = merc.getCurrentDir();
 		merc.setCurrentDir(direction);
 		if (ent != null && !merc.collide(ent, dungeon)) {
-				merc.setCurrentDir(prevDir);
-				return false;
+			merc.setCurrentDir(prevDir);
+			return false;
 		}
 
 

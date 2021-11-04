@@ -21,4 +21,9 @@ public class Door extends Entity {
         this.isOpen = isOpen;
     }
 
+    public void unlock() {
+        this.isOpen = true;
+        this.setType("door_unlocked");
+    }
+
 }

@@ -114,7 +114,7 @@ public class Player extends Entity {
 				}
 				dungeon.getInventory().remove(removed);
 				haveKey = false;
-				door.setOpen(true);
+				door.unlock();
 				return true;
 			} else {
 				return false;

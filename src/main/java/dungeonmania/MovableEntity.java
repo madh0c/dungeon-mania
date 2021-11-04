@@ -42,7 +42,11 @@ public abstract class MovableEntity extends Entity {
 			return false;
 		} else if (entity instanceof ZombieToastSpawner) {
 			return false;
-		} else if (entity instanceof Door) {
+		}  else if (entity instanceof Door) {
+			Door door = (Door) entity;
+			if (door.isOpen()) {
+				return true;
+			}
 			return false;
 		} else if (entity instanceof Exit) {
 			return false;
