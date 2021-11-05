@@ -145,4 +145,44 @@ public class MiscTest {
 
         assertEquals(endList, dREnd.getEntities());
     }
+
+    /**
+     * Testing the fields of entity responses.
+     */
+	@Test
+    public void testEntityResponseFields() {
+        DungeonManiaController controller = new DungeonManiaController();
+
+        // Creating First New Game
+		assertDoesNotThrow(() -> controller.newGame("portals", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList1 = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0, 0), true);
+        EntityResponse startWallInfo = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("2", "portal", new Position(4,0), false);
+
+        startList1.add(startPlayerInfo);
+        startList1.add(startWallInfo);
+        startList1.add(startMercenaryInfo);
+
+        DungeonResponse dRStart1 = controller.getDungeonInfo(0);
+        assertEquals(startList1, dRStart1.getEntities());
+
+        List<EntityResponse> currEnts = controller.getDungeonInfo(0).getEntities();
+        
+        EntityResponse playerResponse = currEnts.get(0);
+        assertTrue(playerResponse.isInteractable());
+        assertEquals("0", playerResponse.getId());
+        assertEquals("player", playerResponse.getType());
+        assertEquals(new Position(0,0), playerResponse.getPosition());
+
+        EntityResponse portalResponse1 = currEnts.get(1);
+
+        assertTrue(!portalResponse1.isInteractable());
+        assertEquals("1", portalResponse1.getId());
+        assertEquals("portal", portalResponse1.getType());
+        assertEquals(new Position(1,0), portalResponse1.getPosition());
+    }
 }
