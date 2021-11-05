@@ -229,12 +229,10 @@ public class DungeonManiaController {
 	public DungeonResponse loadGame(String name) throws IllegalArgumentException {
 		checkValidLoadGame(name);
 		String feed = name.replaceFirst(".json", "");
-		System.out.println(feed);
 		String fileName = (feed + ".json"); 
 
 		try {
 			currentDungeon = GameInOut.fromJSON(fileName, feed, lastUsedDungeonId);
-			System.out.println(currentDungeon);
 			setLastUsedDungeonId(getLastUsedDungeonId() + 1);
 			games.add(currentDungeon);
 			return getDungeonInfo(currentDungeon.getId());

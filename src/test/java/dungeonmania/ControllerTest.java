@@ -87,9 +87,9 @@ public class ControllerTest {
         // Assert that the Save Game Method Works
         assertEquals(dREnd, controller.saveGame(gameName));
         System.out.println(controller.allGames());
-        // assertTrue(controller.allGames().contains(gameName + ".json"));
 
         assertDoesNotThrow(() -> controller.loadGame(gameName));
+        controller.saveGame(gameName);
     }
 
 	@Test
@@ -191,8 +191,8 @@ public class ControllerTest {
         List<String> allGames = controller.allGames();
         List<String> expectedGames = new ArrayList<String>();
 
-        expectedGames.add("maze-1636040751794");
-        expectedGames.add("testCollectiblesException-1636034826490");
+        expectedGames.add("portals-1636042354580");
+        expectedGames.add("testWallBlocksMercenaryMovement-1636040715294");
 
         assertTrue(allGames.containsAll(expectedGames));
 
