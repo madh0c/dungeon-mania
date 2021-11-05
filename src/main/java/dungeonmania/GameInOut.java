@@ -67,7 +67,7 @@ public class GameInOut {
 			for (int i = 0; i < parseList.size(); i++) {
 
                 Map<String, Object> currentEntity = parseList.get(i);
-                
+				
 				String entityType = (String)currentEntity.get("type");
 				String entityId = null;
 				Position exportPos = null;
@@ -98,6 +98,7 @@ public class GameInOut {
 					if (entityType.contains("switch")) {
 						zCoord = -1;
 					}
+
 					exportPos = new Position(xCoord, yCoord, zCoord);
 				}
 
@@ -137,9 +138,7 @@ public class GameInOut {
 
 			if (expType.equals("load")) {
 				List<Map<String,Object>> inventoryList = (List<Map<String,Object>> )jsonMap.get("inventory"); 
-				for (Map<String, Object> itemMap : inventoryList) {
-
-					Map<String, Object> currentItem = itemMap;
+				for (Map<String, Object> currentItem : inventoryList) {
 	
 					String itemType = (String)currentItem.get("type");
 					String itemId = (String)currentItem.get("id");
