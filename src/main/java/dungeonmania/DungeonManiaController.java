@@ -462,7 +462,7 @@ public class DungeonManiaController {
 		
 		
 		// find all entities that should be blown up	
-		List<String> idsToBeRemoved = new ArrayList<String>();	
+		List<Entity> entitiesToBeRemoved = new ArrayList<>();	
 		
 		for (Entity entity : currentDungeon.getEntities()) {
 			if (entity instanceof BombStatic) {
@@ -470,14 +470,13 @@ public class DungeonManiaController {
 					Switch sw = (Switch)currentDungeon.getEntity("switch", cardinal);
 					if (sw != null) {
 						if (sw.getStatus()) {
-							idsToBeRemoved.addAll(currentDungeon.toBeDetonated(entity.getPosition()));							
+							entitiesToBeRemoved.addAll(currentDungeon.toBeDetonated(entity.getPosition()));							
 						}
 					}
 				}
 			}
 		}
-		
-		currentDungeon.getEntities().removeAll(idsToBeRemoved);
+		currentDungeon.getEntities().removeAll(entitiesToBeRemoved);
 
 		// Spawn in new zombietoast after 20 ticks
 		if (currentDungeon.getTickNumber() % currentDungeon.getMode().getZombieTick() == 1 && currentDungeon.getTickNumber() > 1) {

@@ -92,20 +92,20 @@ public class Dungeon {
 	 * @param centre
 	 * @return
 	 */
-	public List<String> toBeDetonated(Position centre) {
+	public List<Entity> toBeDetonated(Position centre) {
 
-		List<String> result = new ArrayList<String>();
+		List<Entity> result = new ArrayList<>();
 		for (Position adjacentPos : centre.getAdjacentPositions()) {
 			for (Entity cellEnt : getEntitiesOnCell(adjacentPos)) {
 				if (cellEnt != null && !(cellEnt instanceof Player)) {
-					result.add(cellEnt.getId());
+					result.add(cellEnt);
 				}
 			}	
 		}
 		
 		for (Entity cellEnt : getEntitiesOnCell(centre)) {
 			if (cellEnt != null && !(cellEnt instanceof Player)) {
-				result.add(cellEnt.getId());
+				result.add(cellEnt);
 			}
 		}
 		return result; 
@@ -149,9 +149,10 @@ public class Dungeon {
 		for (Entity entity : getEntities()) {
 			if (entity.getId().equals(id)) {
 				entId = getEntities().indexOf(entity);
+				return entities.get(entId);
 			}
 		}
-		return entities.get(entId);
+		return null;
 	}
 
 	public void setInventory(List<CollectibleEntity> inventory) {

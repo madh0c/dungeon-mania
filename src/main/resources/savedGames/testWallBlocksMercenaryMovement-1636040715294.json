@@ -1,13 +1,13 @@
 {
-  "id": 1,
-  "name": "testWallBlocksMercenaryMovement-1636040715294",
+  "id": 0,
+  "name": "testWallBlocksMercenaryMovement.json",
   "inventory": [],
-  "entities": {
-    "0": {
+  "entities": [
+    {
       "health": 100,
       "attack": 2,
       "visible": true,
-      "currentDir": "UP",
+      "currentDir": "RIGHT",
       "haveKey": false,
       "invincibleTickDuration": 0,
       "position": {
@@ -18,7 +18,7 @@
       "type": "player",
       "id": "0"
     },
-    "1": {
+    {
       "position": {
         "x": 1,
         "y": 0,
@@ -27,7 +27,7 @@
       "type": "wall",
       "id": "1"
     },
-    "2": {
+    {
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
@@ -39,7 +39,7 @@
       "type": "mercenary",
       "id": "2"
     }
-  },
+  ],
   "gameMode": "Standard",
   "goals": "",
   "historicalEntCount": 3,

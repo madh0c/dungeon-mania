@@ -1,6 +1,5 @@
 package dungeonmania.allEntities;
 
-import java.util.Map;
 import dungeonmania.Battle;
 import dungeonmania.CollectibleEntity;
 import dungeonmania.Dungeon;
@@ -57,13 +56,12 @@ public class Mercenary extends MovableEntity {
 			return false;		
 		} else if (entity instanceof Portal) {
 			Portal portal1 = (Portal) entity;
-			for (Map.Entry<String, Entity> entry : dungeon.getEntities().entrySet()) {
-				Entity currentEntity = entry.getValue();
-				if (!currentEntity.getId().equals(portal1.getId())) {
-					if (!(currentEntity instanceof Portal)) {
+			for (Entity currEnt : dungeon.getEntities()) {
+				if (!currEnt.getId().equals(portal1.getId())) {
+					if (!(currEnt instanceof Portal)) {
 						continue;
 					}
-					Portal portal2 = (Portal) currentEntity;
+					Portal portal2 = (Portal) currEnt;
 					if (portal1.getColour().equals((portal2).getColour())) {
 						// Find position of p2
 						// Move in direciton of currDir
@@ -71,7 +69,6 @@ public class Mercenary extends MovableEntity {
 						return collide(nextTo, dungeon);
 					}
 				}
-	
 			}
 		if (entity instanceof CollectibleEntity) {
 			return true;

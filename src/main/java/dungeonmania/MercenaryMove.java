@@ -95,8 +95,7 @@ public class MercenaryMove implements Move {
 		Position posPortal2 = new Position(0, 0);
 		if (portal1 != null) {
 			// Find other portal
-			for (Map.Entry<String, Entity> entry : dungeon.getEntities().entrySet()) {
-				Entity currEnt = entry.getValue();
+			for (Entity currEnt : dungeon.getEntities()) {
 				if (currEnt instanceof Portal) {
 					Portal portal2 = (Portal) currEnt;
 					if (portal2.getColour().equals(portal1.getColour()) && !portal2.equals(portal1)) {
