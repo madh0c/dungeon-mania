@@ -1,0 +1,112 @@
+{
+  "id": 0,
+  "name": "testSpiderDoesntTeleport.json",
+  "inventory": [],
+  "entities": {
+    "0": {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": false,
+      "invincibleTickDuration": 0,
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    "1": {
+      "colour": "BLUE",
+      "position": {
+        "x": 5,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "portal",
+      "id": "1"
+    },
+    "2": {
+      "colour": "BLUE",
+      "position": {
+        "x": 9,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "portal",
+      "id": "2"
+    },
+    "3": {
+      "range": [
+        {
+          "x": 5,
+          "y": 1,
+          "layer": 0
+        },
+        {
+          "x": 5,
+          "y": 0,
+          "layer": 0
+        },
+        {
+          "x": 6,
+          "y": 0,
+          "layer": 0
+        },
+        {
+          "x": 6,
+          "y": 1,
+          "layer": 0
+        },
+        {
+          "x": 6,
+          "y": 2,
+          "layer": 0
+        },
+        {
+          "x": 5,
+          "y": 2,
+          "layer": 0
+        },
+        {
+          "x": 4,
+          "y": 2,
+          "layer": 0
+        },
+        {
+          "x": 4,
+          "y": 1,
+          "layer": 0
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "layer": 0
+        }
+      ],
+      "currTile": 1,
+      "clockwise": true,
+      "health": 10,
+      "baseAttack": 5,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "spider",
+      "id": "3"
+    }
+  },
+  "gameMode": "Standard",
+  "goals": "",
+  "historicalEntCount": 4,
+  "tickNumber": 1,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "mode": {}
+}
