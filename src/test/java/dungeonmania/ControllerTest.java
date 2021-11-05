@@ -182,8 +182,49 @@ public class ControllerTest {
     public void interactZombieSpawnerWithoutWeapon() {
         DungeonManiaController controller = new DungeonManiaController();
         assertDoesNotThrow(() -> controller.newGame("testInteractZombieSpawnerWithoutWeapon", "Standard"));
-	
-        assertThrows(InvalidActionException.class, () -> controller.interact("1"));
+
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse startKeyInfo = new EntityResponse("1", "key", new Position(1,0), false);
+        EntityResponse startSpawnerInfo = new EntityResponse("2", "zombie_toast_spawner", new Position(2,0), true);
+
+        startList.add(startPlayerInfo);
+        startList.add(startKeyInfo);
+        startList.add(startSpawnerInfo);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+ 
+
+        // Make the player claim the key
+		controller.tick(null, Direction.RIGHT);
+
+        DungeonResponse dRMid = controller.getDungeonInfo(0);
+
+        // Assert the sword is off the map
+        List<EntityResponse> midList = new ArrayList<EntityResponse>();
+
+        EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
+        EntityResponse midSpawnerInfo = new EntityResponse("2", "zombie_toast_spawner", new Position(2,0), true);
+
+        midList.add(midPlayerInfo);
+        midList.add(midSpawnerInfo);
+
+        assertEquals(midList, dRMid.getEntities());
+
+        // Assert the sword is in the inventory
+        List<ItemResponse> expectedInventory1 = new ArrayList<ItemResponse>();
+        ItemResponse keyInfo = new ItemResponse("1", "key");
+        expectedInventory1.add(keyInfo);
+
+        assertEquals(expectedInventory1, dRMid.getInventory());
+
+        // Make player interact with spawner
+        controller.tick(null, Direction.RIGHT);
+
+        assertThrows(InvalidActionException.class, () -> controller.interact("2"));
+
     }
 
 	@Test
@@ -196,7 +237,6 @@ public class ControllerTest {
         expectedGames.add("testWallBlocksMercenaryMovement-1636040715294");
 
         assertTrue(allGames.containsAll(expectedGames));
-
     }
 
     
@@ -458,6 +498,31 @@ public class ControllerTest {
         assertEquals(null, dRLoad.getGoals());
         assertEquals("0", dRLoad.getDungeonId());
     }
+
+    @Test
+    public void testLoadReloadx2() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.loadGame("testMercenaryBribe-1636079593059"));
+
+        // Move player away from the mercenary.
+        for (int i = 0; i < 10; i++) {
+            controller.tick(null, Direction.UP);
+            controller.tick(null, Direction.DOWN);
+        }
+
+        assertDoesNotThrow(() -> controller.saveGame("testMercenaryBribe-1636079593059"));
+
+
+        assertDoesNotThrow(() -> controller.loadGame("testMercenaryBribe-1636079593059"));
+
+        // Move player away from the mercenary.
+        for (int i = 0; i < 10; i++) {
+            controller.tick(null, Direction.LEFT);
+            controller.tick(null, Direction.RIGHT);
+        }
+
+        assertDoesNotThrow(() -> controller.saveGame("testMercenaryBribe-1636079593059"));
+	}
 }
 
 
