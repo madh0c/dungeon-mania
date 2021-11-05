@@ -61,12 +61,9 @@ public class GameInOut {
    
 				Map<String, Double> entityPosition = (Map<String, Double>)currentEntity.get("position");
 
-				System.out.println(entityPosition.get("x").getClass());
 				Double xDouble = (Double)entityPosition.get("x");
                 Double yDouble = (Double)entityPosition.get("y");
 				Double zDouble = (Double)entityPosition.get("layer");
-
-				System.out.println("hello");
 
 				int xCoord = xDouble.intValue();
 				int yCoord = yDouble.intValue();
@@ -120,7 +117,6 @@ public class GameInOut {
 
 				Map<String, Double> entityPosition = (Map<String, Double>)currentItem.get("position");
 
-				System.out.println(entityPosition.get("x").getClass());
 				Double xDouble = (Double)entityPosition.get("x");
                 Double yDouble = (Double)entityPosition.get("y");
 				Double zDouble = (Double)entityPosition.get("layer");
@@ -130,7 +126,6 @@ public class GameInOut {
 				int zCoord = zDouble.intValue();
 				
                 Position itemPos = new Position(xCoord, yCoord, zCoord);
-				System.out.println(itemType);
 
 				if (itemType.equals("treasure")) {
 					Treasure newTreasure = new Treasure(itemId, itemPos);
