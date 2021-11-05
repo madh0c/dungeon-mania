@@ -45,7 +45,6 @@ public class GameInOut {
 
 		try {
             Map<String, Object> jsonMap = new Gson().fromJson(path, Map.class);
-			System.out.println(jsonMap);
 			if (expType.equals("load")) {
 				playMode = (String)jsonMap.get("gameMode"); 
 				goals = (String)jsonMap.get("goals"); 
@@ -87,7 +86,6 @@ public class GameInOut {
 					int zCoord = zDouble.intValue();
 					
 					exportPos = new Position(xCoord, yCoord, zCoord);
-					
 				} else if (expType.equals("new")){
 					entityId = String.valueOf(i);
 
