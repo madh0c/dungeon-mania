@@ -50,33 +50,17 @@ public class GameInOut {
 				playMode = (String)jsonMap.get("gameMode"); 
 				goals = (String)jsonMap.get("goals"); 
 			} else if (expType.equals("new")) {
-				System.out.println("hi");
-
-
 				playMode = gameMode;
-				System.out.println("jacko");
-
-				// Map<String, Object> goalConditions = (Map<String, Object>)jsonMap.get("goal-condition");
-				// System.out.println("latern");
-
-				// if (!goalConditions.get("goal").equals("AND") && !goalConditions.get("goal").equals("OR")) {
-				// 	System.out.println("1");
-
-				// 	goals = (String)goalConditions.get("goal");
-				// } 
-				// System.out.println("2");
-
-
-				// JSONObject goalCon = new JSONObject(goalConditions);
-
-				// System.out.println("2");
-
-				// goals = createGoals(goalCon).remainingString();
-				// System.out.println("o");
-
-				// System.out.println("yeet");
-				// goals = createGoals(goalCon).remainingString();
-				// System.out.println(goals);
+				Map<String, Object> goalConditions = (Map<String, Object>)jsonMap.get("goal-condition");
+				
+				if (goalConditions != null) {
+					if (!goalConditions.get("goal").equals("AND") && !goalConditions.get("goal").equals("OR")) {	
+						goals = (String)goalConditions.get("goal");
+					} 
+					JSONObject goalCon = new JSONObject(goalConditions);
+					goals = createGoals(goalCon).remainingString();
+					goals = createGoals(goalCon).remainingString();
+				}
 			}			
 
 			List<Map<String, Object>> entityMap = (List<Map<String, Object>>)jsonMap.get("entities"); 
@@ -103,6 +87,7 @@ public class GameInOut {
 					int zCoord = zDouble.intValue();
 					
 					exportPos = new Position(xCoord, yCoord, zCoord);
+					
 				} else if (expType.equals("new")){
 					entityId = String.valueOf(i);
 
