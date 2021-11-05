@@ -11,7 +11,7 @@ import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 
 import java.lang.String;
-
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class GameInOut {
 
-	public static void toJSON(String path, Dungeon dungeon) throws IOException {
+	public static void toJSON(String fileName, String path, Dungeon dungeon) throws IOException {
 
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create(); 
@@ -36,7 +36,7 @@ public class GameInOut {
 		}
 	}
 
-	public static Dungeon fromJSON(String path, String feed, int lastUsedDungeonId) throws IOException {
+	public static Dungeon fromJSON(String fileName, String feed, int lastUsedDungeonId) throws IOException {
         Map<String, Entity> returnMap = new HashMap<String, Entity>();
 		List<CollectibleEntity> returnInv = new ArrayList<>();
 		String goals = null;
@@ -45,7 +45,7 @@ public class GameInOut {
 
 
 		try {
-			jsonString = FileLoader.loadResourceFile("/savedGames/" + path);
+			jsonString = FileLoader.loadResourceFile("/savedGames/" + fileName);
             Map<String, Object> jsonMap = new Gson().fromJson(jsonString, Map.class);
 
 			playMode = (String)jsonMap.get("gameMode"); 
@@ -61,12 +61,9 @@ public class GameInOut {
    
 				Map<String, Double> entityPosition = (Map<String, Double>)currentEntity.get("position");
 
-				System.out.println(entityPosition.get("x").getClass());
 				Double xDouble = (Double)entityPosition.get("x");
                 Double yDouble = (Double)entityPosition.get("y");
 				Double zDouble = (Double)entityPosition.get("layer");
-
-				System.out.println("hello");
 
 				int xCoord = xDouble.intValue();
 				int yCoord = yDouble.intValue();
@@ -120,7 +117,6 @@ public class GameInOut {
 
 				Map<String, Double> entityPosition = (Map<String, Double>)currentItem.get("position");
 
-				System.out.println(entityPosition.get("x").getClass());
 				Double xDouble = (Double)entityPosition.get("x");
                 Double yDouble = (Double)entityPosition.get("y");
 				Double zDouble = (Double)entityPosition.get("layer");
@@ -130,7 +126,6 @@ public class GameInOut {
 				int zCoord = zDouble.intValue();
 				
                 Position itemPos = new Position(xCoord, yCoord, zCoord);
-				System.out.println(itemType);
 
 				if (itemType.equals("treasure")) {
 					Treasure newTreasure = new Treasure(itemId, itemPos);
@@ -212,7 +207,12 @@ public class GameInOut {
 			returnDungeon.setGoals(goals);
 			returnDungeon.setHistoricalEntCount(historicalEntCount);
 			returnDungeon.setTickNumber(tickNumber);
-			returnDungeon.setSpawnpoint(spawnpoint);
+			returnDungeon.setSpawnpoint(spawnpoint); 
+
+			String removePath = ("src/main/resources/savedGames/" + fileName); 
+			File removeFile = new File(removePath);
+			removeFile.delete(); 
+
 			return returnDungeon;
 
 		} catch (Exception e) {

@@ -7,6 +7,7 @@ import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 import dungeonmania.util.Position;
+import spark.utils.StringUtils;
 import dungeonmania.allEntities.*;
 import dungeonmania.GameInOut;
 
@@ -201,10 +202,24 @@ public class DungeonManiaController {
 	 */
 	public DungeonResponse saveGame(String name) throws IllegalArgumentException {
 		String feed = name.replaceFirst(".json", "");
+
 		String path = ("src/main/resources/savedGames/" + feed + ".json"); 
 
+		int count = 0;
+		for (int i = 0; i < feed.length( ); i++) {
+			if (feed.charAt(i) == '-') {
+				count++;
+			}
+		}
+
+		// If you are loading a gave that has previously been saved, the old timestamp must be removed.
+		if (count > 1) {
+			String reFeed = feed.replaceAll("-.*-", "-");
+			path = ("src/main/resources/savedGames/" + reFeed + ".json");
+		}
+
 		try {
-			GameInOut.toJSON(path, currentDungeon);
+			GameInOut.toJSON(feed, path, currentDungeon);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -214,11 +229,10 @@ public class DungeonManiaController {
 	public DungeonResponse loadGame(String name) throws IllegalArgumentException {
 		checkValidLoadGame(name);
 		String feed = name.replaceFirst(".json", "");
-		String path = (feed + ".json"); 
+		String fileName = (feed + ".json"); 
 
 		try {
-			currentDungeon = GameInOut.fromJSON(path, feed, lastUsedDungeonId);
-			System.out.println(currentDungeon);
+			currentDungeon = GameInOut.fromJSON(fileName, feed, lastUsedDungeonId);
 			setLastUsedDungeonId(getLastUsedDungeonId() + 1);
 			games.add(currentDungeon);
 			return getDungeonInfo(currentDungeon.getId());
