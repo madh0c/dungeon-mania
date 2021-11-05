@@ -46,7 +46,6 @@ public class ControllerTest {
         assertThrows(IllegalArgumentException.class, () -> controller.loadGame("null"));
     }
 
-    // TODO: Fix Load Game
     @Test
     public void testValidLoadGame() {
         DungeonManiaController controller = new DungeonManiaController();

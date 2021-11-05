@@ -14,8 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 
 public class StaticEntityTest {
     
@@ -794,7 +792,6 @@ public class StaticEntityTest {
     /**
 	 * A spider will move onto a door. 
 	 */
-    // TODO CHECK
 	@Test
     public void testSpiderCanMoveThroughDoor() {
 		DungeonManiaController controller = new DungeonManiaController();
@@ -835,7 +832,6 @@ public class StaticEntityTest {
     /**
 	 * The player will pick up a key and open a door.
 	 */
-    // TODO CHECK
 	@Test
     public void testKeyOpensDoor() {
         DungeonManiaController controller = new DungeonManiaController();
