@@ -1,13 +1,106 @@
 package dungeonmania;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
+
+import dungeonmania.allEntities.*;
+import dungeonmania.response.models.*;
+import dungeonmania.util.Direction;
+import dungeonmania.util.Position;
+
 
 public class MiscTest {
     @Test
     public void testDungeons() {
         assertTrue(DungeonManiaController.dungeons().size() > 0);
         assertTrue(DungeonManiaController.dungeons().contains("maze"));
+    }
+    
+    @Test
+    public void testDurability() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.newGame("testDurability", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse startE1 = new EntityResponse("1", "sword", new Position(1,0), false);
+        EntityResponse startE2 = new EntityResponse("2", "armour", new Position(2,0), false);
+        EntityResponse startE3 = new EntityResponse("3", "bow", new Position(3,0), false);
+        EntityResponse startE4 = new EntityResponse("4", "shield", new Position(4,0), false);
+        EntityResponse startE5 = new EntityResponse("5", "wall", new Position(5,0), false);
+
+        startList.add(startPlayerInfo);
+        startList.add(startE1);
+        startList.add(startE2);
+        startList.add(startE3);
+        startList.add(startE4);
+        startList.add(startE5);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Move player away from the mercenary.
+        for (int i = 0; i < 5; i++) {
+            controller.tick(null, Direction.RIGHT);
+        }
+
+        // Assert the mercenary has not moved from spawn
+        List<EntityResponse> midList = new ArrayList<EntityResponse>();
+
+        EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(4,0), true);
+        EntityResponse midE1 = new EntityResponse("5", "wall", new Position(5,0), false);
+
+        midList.add(midPlayerInfo);
+        midList.add(midE1);
+
+        // Move player away from the mercenary.
+        for (int i = 0; i < 25; i++) {
+            controller.tick(null, Direction.RIGHT);
+        }
+        List<ItemResponse> expInvList = new ArrayList<ItemResponse>();
+
+        ItemResponse i1 = new ItemResponse("1", "sword");
+        ItemResponse i2 = new ItemResponse("2", "armour");
+        ItemResponse i3 = new ItemResponse("3", "bow");
+        ItemResponse i4 = new ItemResponse("4", "shield");
+
+        expInvList.add(i1);
+        expInvList.add(i2);
+        expInvList.add(i3);
+        expInvList.add(i4);
+
+        DungeonResponse dRMid = controller.getDungeonInfo(0);
+        assertEquals(midList, dRMid.getEntities());
+        assertTrue(dRMid.getInventory().containsAll(expInvList));
+
+        List<CollectibleEntity> currentInv = controller.getCurrentDungeon().getInventory();
+
+        Sword swordInv = (Sword) currentInv.get(0);
+        assertEquals(8, swordInv.getDurability());
+
+        Armour armourInv = (Armour) currentInv.get(1);
+        assertEquals(8, armourInv.getDurability());
+
+        Bow bowInv = (Bow) currentInv.get(2);
+        assertEquals(3, bowInv.getDurability());
+
+        Shield shieldInv = (Shield) currentInv.get(3);
+        assertEquals(3, shieldInv.getDurability());
+
+        for (int i = 0; i < 500; i++) {
+            controller.tick(null, Direction.RIGHT);
+        }
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+
+        assertEquals(new ArrayList<ItemResponse>(), dREnd.getInventory());
     }
 }
