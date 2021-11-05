@@ -96,7 +96,6 @@ public class DungeonManiaController {
 			String path = FileLoader.loadResourceFile("/dungeons/" + fileName);
 			currentDungeon = GameInOut.fromJSON("new", path, fileName, lastUsedDungeonId, gameMode);
 		} catch (IOException e) {
-			System.out.println("oh no");
 			e.printStackTrace();
 		}
 

@@ -62,11 +62,11 @@ public class GameInOut {
 				}
 			}			
 
-			List<Map<String, Object>> entityMap = (List<Map<String, Object>>)jsonMap.get("entities"); 
+			List<Map<String, Object>> parseList = (List<Map<String, Object>>)jsonMap.get("entities"); 
 
-			for (int i = 0; i < entityMap.size(); i++) {
+			for (int i = 0; i < parseList.size(); i++) {
 
-                Map<String, Object> currentEntity = entityMap.get(i);
+                Map<String, Object> currentEntity = parseList.get(i);
                 
 				String entityType = (String)currentEntity.get("type");
 				String entityId = null;
