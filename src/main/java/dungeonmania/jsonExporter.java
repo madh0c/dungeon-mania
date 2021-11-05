@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import java.util.Map;
 import java.util.List;
 import dungeonmania.util.Position;
+
+import java.util.ArrayList;
 // import java.util.Map;
 // import java.io.IOException;
 // import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class jsonExporter {
 	 */
     public static Dungeon makeDungeon(int id, String path, String gameMode) {
         String jsonString;
-        Map<String, Entity> dungeonMap = new HashMap<String, Entity>();
+        List<Entity> entityList = new ArrayList<>();
         String goals = "";
 
         try {
@@ -60,13 +62,13 @@ public class jsonExporter {
 				if (entityType.contains("portal")) {
 					String colour = (String)currentEntity.get("colour");
 					Portal portal = new Portal(String.valueOf(i), position, colour);
-					dungeonMap.put(String.valueOf(i), portal);
+					entityList.add(portal);
 				} else if (entityType.contains("player")) {
 					Player player = new Player(String.valueOf(i), position, gameMode);
-					dungeonMap.put(String.valueOf(i), player);
+					entityList.add(player);
 				} else {
 					Entity newEntity = EntityFactory.createEntity(String.valueOf(i), entityType, position);
-					dungeonMap.put(String.valueOf(i), newEntity);
+					entityList.add(newEntity);
 				}
             }
 
@@ -81,7 +83,7 @@ public class jsonExporter {
 			System.out.println("error");
 
 		}
-        return new Dungeon(id, path, dungeonMap, gameMode, goals);
+        return new Dungeon(id, path, entityList, gameMode, goals);
     }
 
 	/**

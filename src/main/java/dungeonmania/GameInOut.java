@@ -37,7 +37,7 @@ public class GameInOut {
 	}
 
 	public static Dungeon fromJSON(String fileName, String feed, int lastUsedDungeonId) throws IOException {
-        Map<String, Entity> returnMap = new HashMap<String, Entity>();
+        List<Entity> entityList = new ArrayList<>();
 		List<CollectibleEntity> returnInv = new ArrayList<>();
 		String goals = null;
 		String playMode = null; 
@@ -51,10 +51,10 @@ public class GameInOut {
 			playMode = (String)jsonMap.get("gameMode"); 
 			goals = (String)jsonMap.get("goals"); 
 
-			Map<String, Map<String, Object>> entityMap = (Map<String, Map<String, Object>>)jsonMap.get("entities"); 
+			List<Map<String, Object>> entityMap = (List<Map<String, Object>>)jsonMap.get("entities"); 
 
-			for (Map.Entry<String, Map<String, Object>> entry : entityMap.entrySet()) {
-                Map<String, Object> currentEntity = entry.getValue();
+			for (Map<String, Object> entry : entityMap) {
+                Map<String, Object> currentEntity = entry;
                 
 				String entityType = (String)currentEntity.get("type");
 				String entityId = (String)currentEntity.get("id");
@@ -74,7 +74,7 @@ public class GameInOut {
 				if (entityType.contains("portal")) {
 					String colour = (String)currentEntity.get("colour");
 					Portal portal = new Portal(entityId, exportPos, colour);
-					returnMap.put(entityId, portal);
+					entityList.add(portal);
 				} else if (entityType.contains("player")) {
 					Player player = new Player(entityId, exportPos, playMode);
                 
@@ -97,11 +97,11 @@ public class GameInOut {
 					player.setHaveKey(haveKey);
 					player.setInvincibleTickDuration(invincibleTickDuration);
 
-					returnMap.put(entityId, player);
+					entityList.add(player);
 
 				} else {
 					Entity newEntity = EntityFactory.createEntity(entityId, entityType, exportPos);
-					returnMap.put(entityId, newEntity);
+					entityList.add(newEntity);
 				}
 
 			}
@@ -181,7 +181,7 @@ public class GameInOut {
 				}
 			}
 
-			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, returnMap, playMode, goals);
+			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals);
 
 			Double tickD = (Double)jsonMap.get("tickNumber"); 
 			int tickNumber = tickD.intValue();
@@ -203,7 +203,7 @@ public class GameInOut {
 			returnDungeon.setId(lastUsedDungeonId);
 			returnDungeon.setName(feed);
 			returnDungeon.setInventory(returnInv);
-			returnDungeon.setEntities(returnMap);
+			returnDungeon.setEntities(entityList);
 			returnDungeon.setGoals(goals);
 			returnDungeon.setHistoricalEntCount(historicalEntCount);
 			returnDungeon.setTickNumber(tickNumber);
