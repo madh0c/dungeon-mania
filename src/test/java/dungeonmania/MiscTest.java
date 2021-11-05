@@ -103,4 +103,46 @@ public class MiscTest {
 
         assertEquals(new ArrayList<ItemResponse>(), dREnd.getInventory());
     }
+
+    @Test
+    public void testPreActiveSwitch() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.newGame("testPreActiveSwitch", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(1,1), true);
+        EntityResponse startE1 = new EntityResponse("1", "bomb", new Position(2,1), false);
+        EntityResponse startE2 = new EntityResponse("2", "switch", new Position(3,1), false);
+        EntityResponse startE3 = new EntityResponse("3", "boulder", new Position(3,1), false);
+        EntityResponse startE4 = new EntityResponse("4", "wall", new Position(3,0), false);
+        EntityResponse startE5 = new EntityResponse("5", "wall", new Position(3,2), false);
+
+        startList.add(startPlayerInfo);
+        startList.add(startE1);
+        startList.add(startE2);
+        startList.add(startE3);
+        startList.add(startE4);
+        startList.add(startE5);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+        List<Entity> currEnts = controller.getCurrentDungeon().getEntities();
+        Switch swch = (Switch) currEnts.get(2);
+
+        assertTrue(swch.getStatus());
+
+        assertDoesNotThrow(() -> controller.tick(null, Direction.RIGHT));
+        assertDoesNotThrow(() -> controller.tick("1", Direction.NONE));
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+
+        List<EntityResponse> endList = new ArrayList<>();
+        EntityResponse eP = new EntityResponse("0", "player", new Position(2,1), true);
+        endList.add(eP);
+
+        assertEquals(endList, dREnd.getEntities());
+    }
 }
