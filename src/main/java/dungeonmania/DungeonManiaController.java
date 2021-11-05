@@ -7,6 +7,7 @@ import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 import dungeonmania.util.Position;
+import spark.utils.StringUtils;
 import dungeonmania.allEntities.*;
 import dungeonmania.GameInOut;
 
@@ -201,8 +202,20 @@ public class DungeonManiaController {
 	 */
 	public DungeonResponse saveGame(String name) throws IllegalArgumentException {
 		String feed = name.replaceFirst(".json", "");
-		System.out.println(feed);
 		String path = ("src/main/resources/savedGames/" + feed + ".json"); 
+
+		int count = 0;
+		for (int i = 0; i < feed.length( ); i++) {
+			if (feed.charAt(i) == '-') {
+				count++;
+			}
+		}
+
+		if (count > 1) {
+			String stripped = feed.replaceAll("-.*-", "");
+			String stripped2 = stripped.replaceFirst("-", "");
+			path = ("src/main/resources/savedGames/" + stripped2 + ".json");
+		}
 
 		try {
 			GameInOut.toJSON(path, currentDungeon);
