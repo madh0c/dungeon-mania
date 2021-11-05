@@ -898,7 +898,6 @@ public class StaticEntityTest {
 
         assertEquals(endList, dREnd.getEntities());
 
-
         // Assert the door is also open
         List<Entity> endEntities = controller.getDungeon(0).getEntities();
         Door door = (Door)endEntities.get(1);
