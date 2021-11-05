@@ -203,10 +203,6 @@ public class DungeonManiaController {
 	public DungeonResponse saveGame(String name) throws IllegalArgumentException {
 		String feed = name.replaceFirst(".json", "");
 
-		if (!allGames().contains(feed)) {
-			throw new IllegalArgumentException ("Invalid Game Passed: Such Game Doesn't Exist");
-		}
-		
 		String path = ("src/main/resources/savedGames/" + feed + ".json"); 
 
 		int count = 0;
@@ -223,7 +219,7 @@ public class DungeonManiaController {
 		}
 
 		try {
-			GameInOut.toJSON(path, currentDungeon);
+			GameInOut.toJSON(feed, path, currentDungeon);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

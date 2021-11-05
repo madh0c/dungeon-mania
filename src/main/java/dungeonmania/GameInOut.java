@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class GameInOut {
 
-	public static void toJSON(String path, Dungeon dungeon) throws IOException {
+	public static void toJSON(String fileName, String path, Dungeon dungeon) throws IOException {
 
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create(); 
@@ -207,13 +207,11 @@ public class GameInOut {
 			returnDungeon.setGoals(goals);
 			returnDungeon.setHistoricalEntCount(historicalEntCount);
 			returnDungeon.setTickNumber(tickNumber);
-			returnDungeon.setSpawnpoint(spawnpoint);
-			
-			String path = ("src/main/resources/savedGames/" + fileName); 
-			File removeFile = new File(path);
-			
-			removeFile.delete();  
+			returnDungeon.setSpawnpoint(spawnpoint); 
 
+			String removePath = ("src/main/resources/savedGames/" + fileName); 
+			File removeFile = new File(removePath);
+			removeFile.delete(); 
 
 			return returnDungeon;
 
