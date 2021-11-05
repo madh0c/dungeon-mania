@@ -1,13 +1,13 @@
 {
-  "id": 0,
-  "name": "testWallBlocksMercenaryMovement.json",
+  "id": 1,
+  "name": "testWallBlocksMercenaryMovement-1636040715294",
   "inventory": [],
   "entities": [
     {
       "health": 100,
       "attack": 2,
       "visible": true,
-      "currentDir": "RIGHT",
+      "currentDir": "UP",
       "haveKey": false,
       "invincibleTickDuration": 0,
       "position": {

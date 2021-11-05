@@ -82,14 +82,14 @@ public class ControllerTest {
         DungeonResponse dREnd = controller.getDungeonInfo(0);
         assertEquals(expectedList, dREnd.getEntities());
 
-        // String gameName = "testWallBlocksMercenaryMovement-1636040715294";
+        String gameName = "testWallBlocksMercenaryMovement-1636040715294";
 
-        // // Assert that the Save Game Method Works
-        // assertEquals(dREnd, controller.saveGame(gameName));
-        // System.out.println(controller.allGames());
+        // Assert that the Save Game Method Works
+        assertEquals(dREnd, controller.saveGame(gameName));
+        System.out.println(controller.allGames());
 
-        // assertDoesNotThrow(() -> controller.loadGame(gameName));
-        // controller.saveGame(gameName);
+        assertDoesNotThrow(() -> controller.loadGame(gameName));
+        controller.saveGame(gameName);
     }
 
 	@Test
@@ -313,8 +313,9 @@ public class ControllerTest {
 
     @Test
     public void Load() {
-        // DungeonManiaController controller = new DungeonManiaController();
-        // assertDoesNotThrow(() -> controller.loadGame("testCollectiblesStack-1636034908141"));
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.loadGame("testMercenaryBribe-1636079593059"));
+        assertDoesNotThrow(() -> controller.saveGame("testMercenaryBribe-1636079593059"));
 	}
 
 	//TODO: Write tests for loading, saving games, calling allgames.

@@ -1,35 +1,44 @@
 {
   "id": 0,
-  "name": "testCantMoveBoulderBoundary.json",
+  "name": "testMercenaryBribe-1636079593059",
   "inventory": [],
-  "entities": {
-    "0": {
+  "entities": [
+    {
       "health": 100,
       "attack": 2,
       "visible": true,
+      "currentDir": "UP",
       "haveKey": false,
       "invincibleTickDuration": 0,
       "position": {
-        "x": 0,
-        "y": 0,
+        "x": 2,
+        "y": 1,
         "layer": 0
       },
       "type": "player",
       "id": "0"
     },
-    "1": {
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
       "position": {
-        "x": 1,
-        "y": 0,
+        "x": 4,
+        "y": 1,
         "layer": 0
       },
-      "type": "boulder",
+      "type": "mercenary",
       "id": "1"
     }
-  },
+  ],
   "gameMode": "Standard",
   "goals": "",
-  "historicalEntCount": 2,
-  "tickNumber": 0,
+  "historicalEntCount": 3,
+  "tickNumber": 1,
+  "spawnpoint": {
+    "x": 1,
+    "y": 1,
+    "layer": 0
+  },
   "mode": {}
 }
