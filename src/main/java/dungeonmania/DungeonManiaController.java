@@ -145,7 +145,7 @@ public class DungeonManiaController {
 		}
 		
 		List<EntityResponse> listER = new ArrayList<EntityResponse>();
-		for (Entity entity : currentDungeon.getEntities()) {
+		for (Entity entity : target.getEntities()) {
 			EntityResponse eR = new EntityResponse(entity.getId(), entity.getType(), entity.getPosition(), entity.isInteractable());
 			listER.add(eR);
 		}

@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import dungeonmania.allEntities.Mercenary;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.DungeonResponse;
 import dungeonmania.response.models.EntityResponse;
@@ -191,7 +192,7 @@ public class ControllerTest {
         List<String> allGames = controller.allGames();
         List<String> expectedGames = new ArrayList<String>();
 
-        expectedGames.add("portals-1636042354580");
+        expectedGames.add("testMercenaryBribe-1636079593059");
         expectedGames.add("testWallBlocksMercenaryMovement-1636040715294");
 
         assertTrue(allGames.containsAll(expectedGames));
@@ -207,35 +208,21 @@ public class ControllerTest {
         DungeonManiaController controller = new DungeonManiaController();
 
         // Creating First New Game
-		assertDoesNotThrow(() -> controller.newGame("testWallBlocksPlayerMovement", "Standard"));
-
-        DungeonResponse dRStart = controller.getDungeonInfo(0);
-        List<EntityResponse> startList = dRStart.getEntities();
-
-		// Move player into the wall
-		controller.tick(null, Direction.RIGHT);
-
-        // Assert the player doesnt move 
-        DungeonResponse dREnd = controller.getDungeonInfo(0);
-        assertEquals(startList, dREnd.getEntities());
-
-
-        // Creating Second New Game
 		assertDoesNotThrow(() -> controller.newGame("testWallBlocksMercenaryMovement", "Standard"));
 
         // Assert correct spawn positions
-        List<EntityResponse> startList2 = new ArrayList<EntityResponse>();
+        List<EntityResponse> startList1 = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(2,0), true);
         EntityResponse startWallInfo = new EntityResponse("1", "wall", new Position(1,0), false);
         EntityResponse startMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
 
-        startList2.add(startPlayerInfo);
-        startList2.add(startWallInfo);
-        startList2.add(startMercenaryInfo);
+        startList1.add(startPlayerInfo);
+        startList1.add(startWallInfo);
+        startList1.add(startMercenaryInfo);
 
-        DungeonResponse dRStart2 = controller.getDungeonInfo(1);
-        assertEquals(startList2, dRStart2.getEntities());
+        DungeonResponse dRStart1 = controller.getDungeonInfo(0);
+        assertEquals(startList1, dRStart1.getEntities());
 
 		// Move player away from the mercenary.
 		controller.tick(null, Direction.RIGHT);
@@ -251,15 +238,44 @@ public class ControllerTest {
         expectedList.add(expectedWallInfo);
         expectedList.add(expectedMercenaryInfo);
 
-        DungeonResponse dREnd2 = controller.getDungeonInfo(1);
-        assertEquals(expectedList, dREnd2.getEntities());
+        DungeonResponse dREnd1 = controller.getDungeonInfo(0);
+        assertEquals(expectedList, dREnd1.getEntities());
 
-        String gameName = "name";
+
+        // Creating Second New Game
+        assertDoesNotThrow(() -> controller.newGame("testMercenaryBribe", "Standard"));
+
+        // Pick up gold to right of player
+		controller.tick(null, Direction.RIGHT);
+
+		// interact with mercenary
+		assertDoesNotThrow(() -> controller.interact("1"));
+
+		// cast into merc, check if ally
+		Mercenary merc = (Mercenary) controller.getDungeon(1).getEntity("1");
+		assertTrue(merc.getIsAlly());
+;
+		// wait for merc to move into player
+		controller.tick(null, Direction.NONE);
+		controller.tick(null, Direction.NONE);
+
+		// Now merc is on player, check he moves around with player
+		controller.tick(null, Direction.DOWN);
+		Position player = controller.getDungeon(1).getEntity("0").getPosition();
+		assertTrue(controller.getDungeon(1).entityExists("mercenary", player));
+		// assertEquals(-1, controller.getDungeon(0).getEntity("1").getPosition().getX());
+		// assertTrue(controller.getDungeon(0).entityExists("mercenary", player.translateBy(Direction.UP)));
+
+		controller.tick(null, Direction.RIGHT);
+		player = controller.getDungeon(1).getEntity("0").getPosition();
+		assertTrue(controller.getDungeon(1).entityExists("mercenary", player));
+
+        DungeonResponse dREnd2 = controller.getDungeonInfo(1);
+
+        String gameName = "testMercenaryBribe-1636079593059";
         // Asserting that the Save Game Method Works
         assertEquals(dREnd2, controller.saveGame(gameName));
-
         assertTrue(controller.allGames().contains(gameName));
-
     }
 
     /**
