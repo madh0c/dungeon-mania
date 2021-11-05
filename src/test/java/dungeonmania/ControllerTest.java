@@ -10,6 +10,7 @@ import java.util.List;
 
 import dungeonmania.allEntities.Mercenary;
 import dungeonmania.exceptions.InvalidActionException;
+import dungeonmania.response.models.AnimationQueue;
 import dungeonmania.response.models.DungeonResponse;
 import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ItemResponse;
@@ -451,13 +452,13 @@ public class ControllerTest {
 
         assertEquals(endList, dRLoad.getEntities());
         assertEquals(expInvList, dRLoad.getInventory());
+
+        assertEquals(new ArrayList<AnimationQueue>(), dRLoad.getAnimations());
+        assertEquals("testLoadInventory.json", dRLoad.getDungeonName());
+        assertEquals(new ArrayList<String>(), dRLoad.getBuildables());
+        assertEquals(null, dRLoad.getGoals());
+        assertEquals("0", dRLoad.getDungeonId());
     }
-
-	//TODO: Write tests for loading, saving games, calling allgames.
-
-	
-
-
 }
 
 
