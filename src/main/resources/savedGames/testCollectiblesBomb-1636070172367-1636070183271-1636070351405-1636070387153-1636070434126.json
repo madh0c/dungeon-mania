@@ -1,0 +1,54 @@
+{
+  "id": 4,
+  "name": "testCollectiblesBomb-1636070172367-1636070183271-1636070351405-1636070387153",
+  "inventory": [
+    {
+      "position": {
+        "x": 5,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "one_ring",
+      "id": "6"
+    }
+  ],
+  "entities": {
+    "0": {
+      "health": 85,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "UP",
+      "haveKey": false,
+      "invincibleTickDuration": 0,
+      "position": {
+        "x": 7,
+        "y": 10,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    "7": {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "position": {
+        "x": 0,
+        "y": 8,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "7"
+    }
+  },
+  "gameMode": "Standard",
+  "goals": "",
+  "historicalEntCount": 8,
+  "tickNumber": 28,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "mode": {}
+}

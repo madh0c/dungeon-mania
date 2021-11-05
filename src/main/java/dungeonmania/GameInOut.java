@@ -11,7 +11,7 @@ import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 
 import java.lang.String;
-
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -36,7 +36,7 @@ public class GameInOut {
 		}
 	}
 
-	public static Dungeon fromJSON(String path, String feed, int lastUsedDungeonId) throws IOException {
+	public static Dungeon fromJSON(String fileName, String feed, int lastUsedDungeonId) throws IOException {
         Map<String, Entity> returnMap = new HashMap<String, Entity>();
 		List<CollectibleEntity> returnInv = new ArrayList<>();
 		String goals = null;
@@ -45,7 +45,7 @@ public class GameInOut {
 
 
 		try {
-			jsonString = FileLoader.loadResourceFile("/savedGames/" + path);
+			jsonString = FileLoader.loadResourceFile("/savedGames/" + fileName);
             Map<String, Object> jsonMap = new Gson().fromJson(jsonString, Map.class);
 
 			playMode = (String)jsonMap.get("gameMode"); 
@@ -213,6 +213,13 @@ public class GameInOut {
 			returnDungeon.setHistoricalEntCount(historicalEntCount);
 			returnDungeon.setTickNumber(tickNumber);
 			returnDungeon.setSpawnpoint(spawnpoint);
+			
+			String path = ("src/main/resources/savedGames/" + fileName); 
+			File removeFile = new File(path);
+			
+			removeFile.delete();  
+
+
 			return returnDungeon;
 
 		} catch (Exception e) {
