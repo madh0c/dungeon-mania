@@ -1,0 +1,34 @@
+{
+    "entities": [
+        {
+            "x": 1,
+            "y": 1,
+            "type": "player"
+        },
+        {
+            "x": 2,
+            "y": 1,
+            "type": "bomb"
+        },
+        {
+            "x": 3,
+            "y": 1,
+            "type": "switch"
+        },
+        {
+            "x": 3,
+            "y": 1,
+            "type": "boulder"
+        },
+        {
+            "x": 3,
+            "y": 0,
+            "type": "wall"
+        },
+        {
+            "x": 3,
+            "y": 2,
+            "type": "wall"
+        }
+    ]
+}
