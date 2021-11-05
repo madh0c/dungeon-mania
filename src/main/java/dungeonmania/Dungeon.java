@@ -18,7 +18,7 @@ public class Dungeon {
 	private int id;
 	private String name;
 	private List<CollectibleEntity> inventory;
-    private Map<String, Entity> entities;
+    private List<Entity> entities;
     private String gameMode;
     private String goals;
 	private int historicalEntCount;
@@ -27,7 +27,7 @@ public class Dungeon {
 	private Mode mode;
 
 
-    public Dungeon(int id, String name, Map<String, Entity> entities, String gameMode, String goals) {
+    public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals) {
 		this.id = id;
 		this.name = name;	
 		this.inventory = new ArrayList<>();	
@@ -79,7 +79,7 @@ public class Dungeon {
 		if (itemUsed instanceof BombItem) {
 			BombStatic bomb = new BombStatic(String.valueOf(historicalEntCount), getPlayerPosition());
 
-			entities.put(String.valueOf(historicalEntCount), bomb);
+			entities.add(bomb);
 			setHistoricalEntCount(historicalEntCount + 1);
 
 			inventory.remove(itemUsed);
@@ -92,31 +92,31 @@ public class Dungeon {
 	 * @param centre
 	 * @return
 	 */
-	public List<String> toBeDetonated(Position centre) {
+	public List<Entity> toBeDetonated(Position centre) {
 
-		List<String> result = new ArrayList<String>();
+		List<Entity> result = new ArrayList<>();
 		for (Position adjacentPos : centre.getAdjacentPositions()) {
 			for (Entity cellEnt : getEntitiesOnCell(adjacentPos)) {
 				if (cellEnt != null && !(cellEnt instanceof Player)) {
-					result.add(cellEnt.getId());
+					result.add(cellEnt);
 				}
 			}	
 		}
 		
 		for (Entity cellEnt : getEntitiesOnCell(centre)) {
 			if (cellEnt != null && !(cellEnt instanceof Player)) {
-				result.add(cellEnt.getId());
+				result.add(cellEnt);
 			}
 		}
 		return result; 
 	}
 	
-    public Map<String, Entity> getEntities() {
+    public List<Entity> getEntities() {
         return entities;
     }
 
     public void addEntity(Entity newEntity) {
-        this.entities.put((String.valueOf(historicalEntCount)), newEntity);
+        this.entities.add(newEntity);
 		historicalEntCount++;
     }
 
@@ -145,7 +145,14 @@ public class Dungeon {
     }
 
 	public Entity getEntity(String id) {
-		return entities.get(id);
+		int entId = 0;
+		for (Entity entity : getEntities()) {
+			if (entity.getId().equals(id)) {
+				entId = getEntities().indexOf(entity);
+				return entities.get(entId);
+			}
+		}
+		return null;
 	}
 
 	public void setInventory(List<CollectibleEntity> inventory) {
@@ -153,27 +160,20 @@ public class Dungeon {
 	}
 
 	public Entity getEntity(Position position) {
-		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
-			Entity currentEntity = entry.getValue();
-			if (
-				currentEntity.getPosition().equals(position)
-				&& currentEntity.getPosition().getLayer() == position.getLayer()			
-			) {
-				return currentEntity;
+		for (Entity entity : getEntities()) {
+			if (entity.getPosition().equals(position) && entity.getPosition().getLayer() == position.getLayer()) {
+				return entity;
 			}
 		}
 		return null;
 	}
 
 	public Entity getEntity(String type, Position position) {
-		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
-			Entity currentEntity = entry.getValue();
-			if (currentEntity.getPosition().equals(position) &&
-				currentEntity.getType().equals(type)) {
-				return currentEntity;
+		for (Entity entity : getEntities()) {
+			if (entity.getPosition().equals(position) && entity.getType().equals(type)) {
+				return entity;
 			}
 		}
-
 		return null;
 	}
 	
@@ -184,13 +184,9 @@ public class Dungeon {
 	 */
 	public List<Entity> getEntitiesOnCell(Position cell) {
 		List<Entity> result = new ArrayList<>();
-		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
-			Entity currentEntity = entry.getValue();
-			if (
-				currentEntity.getPosition().getX() == cell.getX()
-				&& currentEntity.getPosition().getY() == cell.getY()
-			) {
-				result.add(currentEntity);
+		for (Entity entity : getEntities()) {
+			if (entity.getPosition().getX() == cell.getX() && entity.getPosition().getY() == cell.getY()) {
+				result.add(entity);
 			}
 		}
 		return result;
@@ -217,16 +213,7 @@ public class Dungeon {
 	}
 
 	public void removeEntity(Entity entity) {
-		String removing = null;
-		for (Map.Entry<String, Entity> entry : getEntities().entrySet()) {
-			Entity currentEntity = entry.getValue();
-			if (currentEntity.equals(entity)) {
-				removing = currentEntity.getId();
-				break;
-			}
-		}
-		getEntities().keySet().remove(removing);
-
+		getEntities().remove(entity);
 	}
 
 	public void addItemToInventory(CollectibleEntity entity) {
@@ -235,7 +222,7 @@ public class Dungeon {
 
 	// Check if type exists regardless of position
 	public boolean entityExists(String type) {
-		for (Entity ent : entities.values()) {
+		for (Entity ent : getEntities()) {
 			if (ent.getType().equals(type)) {
 				return true;
 			}
@@ -245,7 +232,7 @@ public class Dungeon {
 
 	// Check if something exists in position
 	public boolean entityExists(Position position) {
-		for (Entity ent : entities.values()) {
+		for (Entity ent : getEntities()) {
 			if (ent.getPosition().equals(position)) {
 				return true;
 			}
@@ -255,7 +242,7 @@ public class Dungeon {
 
 	// Check if type exists in position
 	public boolean entityExists(String type, Position position) {		
-		for (Entity ent : entities.values()) {
+		for (Entity ent : getEntities()) {
 			if (ent.getPosition().equals(position) && ent.getType().equals(type)) {
 				return true;
 			}
@@ -267,11 +254,10 @@ public class Dungeon {
 	 * @return player's curr position in the dungeon
 	 */
 	public Position getPlayerPosition() {
-		for (Map.Entry<String, Entity> entry : entities.entrySet()) {
-			Entity currentEntity = entry.getValue();
-			if (currentEntity instanceof Player) {
-				return currentEntity.getPosition();
-			}		
+		for (Entity entity : getEntities()) {
+			if (entity instanceof Player) {
+				return entity.getPosition();
+			}	
 		}
 		return null;
 	}
@@ -280,11 +266,10 @@ public class Dungeon {
 	 * @return the player entity of a dungeon
 	 */
 	public Player getPlayer() {
-		for (Map.Entry<String, Entity> entry : entities.entrySet()) {
-			Entity currentEntity = entry.getValue();
-			if (currentEntity instanceof Player) {
-				return (Player)currentEntity;
-			}		
+		for (Entity entity : getEntities()) {
+			if (entity instanceof Player) {
+				return (Player)entity;
+			}	
 		}
 		return null;
 	}
@@ -358,7 +343,7 @@ public class Dungeon {
 		this.name = name;
 	}
 
-	public void setEntities(Map<String, Entity> entities) {
+	public void setEntities(List<Entity> entities) {
 		this.entities = entities;
 	}
 

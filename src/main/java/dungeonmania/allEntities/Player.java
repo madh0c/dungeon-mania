@@ -1,6 +1,5 @@
 package dungeonmania.allEntities;
 
-import java.util.Map;
 import dungeonmania.Battle;
 import dungeonmania.CollectibleEntity;
 import dungeonmania.Dungeon;
@@ -125,14 +124,14 @@ public class Player extends Entity {
 			return boulder.collide(dungeon.getEntity(newPos));		
 		} else if (entity instanceof Portal) {
 			Portal portal1 = (Portal) entity;
-			for (Map.Entry<String, Entity> entry : dungeon.getEntities().entrySet()) {
-				Entity currentEntity = entry.getValue();
-				if (!(currentEntity instanceof Portal)) {
+
+			for (Entity currEnt : dungeon.getEntities()) {
+				if (!(currEnt instanceof Portal)) {
 					continue;
 				}
 				// Check if same entity
-				if (!currentEntity.getId().equals(portal1.getId())) {
-					Portal portal2 = (Portal) currentEntity;
+				if (!currEnt.getId().equals(portal1.getId())) {
+					Portal portal2 = (Portal) currEnt;
 					if (portal1.getColour().equals(portal2.getColour())) {
 						// Find position of p2
 						// Move in direciton of currDir
@@ -140,7 +139,6 @@ public class Player extends Entity {
 						return collide(nextTo, dungeon);
 					}
 				}
-	
 			}
 			return false;
 		}

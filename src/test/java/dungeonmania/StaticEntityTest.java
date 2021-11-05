@@ -579,9 +579,9 @@ public class StaticEntityTest {
         DungeonResponse dRStart = controller.getDungeonInfo(0);
         assertEquals(startList, dRStart.getEntities());
 
-        Map<String, Entity> startEntities = controller.getDungeon(0).getEntities();
+        List<Entity> startEntities = controller.getDungeon(0).getEntities();
 
-        Switch startSwitch = (Switch)startEntities.get("2");
+        Switch startSwitch = (Switch)startEntities.get(2);
         
         boolean startSwitchStatus = startSwitch.getStatus();
 
@@ -605,8 +605,8 @@ public class StaticEntityTest {
         assertEquals(endList, dREnd.getEntities());
 
         // Assert the switch is activated
-        Map<String, Entity> endEntities = controller.getDungeon(0).getEntities();
-        Switch endSwitch = (Switch)endEntities.get("2");
+        List<Entity> endEntities = controller.getDungeon(0).getEntities();
+        Switch endSwitch = (Switch)endEntities.get(2);
         boolean endSwitchStatus = endSwitch.getStatus();
         assertEquals(true, endSwitchStatus);
     }
@@ -633,9 +633,9 @@ public class StaticEntityTest {
         DungeonResponse dRStart = controller.getDungeonInfo(0);
         assertEquals(startList, dRStart.getEntities());
 
-        Map<String, Entity> startEntities = controller.getDungeon(0).getEntities();
+        List<Entity> startEntities = controller.getDungeon(0).getEntities();
 
-        Switch startSwitch = (Switch)startEntities.get("2");
+        Switch startSwitch = (Switch)startEntities.get(2);
         
         boolean startSwitchStatus = startSwitch.getStatus();
 
@@ -658,8 +658,8 @@ public class StaticEntityTest {
         DungeonResponse dRMid = controller.getDungeonInfo(0);
         assertEquals(midList, dRMid.getEntities());
 
-        Map<String, Entity> midEntities = controller.getDungeon(0).getEntities();
-        Switch midSwitch = (Switch)midEntities.get("2");
+        List<Entity> midEntities = controller.getDungeon(0).getEntities();
+        Switch midSwitch = (Switch)midEntities.get(2);
         boolean midSwitchStatus = midSwitch.getStatus();
         assertEquals(true, midSwitchStatus);
 
@@ -681,8 +681,8 @@ public class StaticEntityTest {
         assertEquals(endList, dREnd.getEntities());
 
         // Assert the switch reverts to being non-active
-        Map<String, Entity> endEntities = controller.getDungeon(0).getEntities();
-        Switch endSwitch = (Switch)endEntities.get("2");
+        List<Entity> endEntities = controller.getDungeon(0).getEntities();
+        Switch endSwitch = (Switch)endEntities.get(2);
         boolean endSwitchStatus = endSwitch.getStatus();
         assertEquals(false, endSwitchStatus);
     }
@@ -741,9 +741,9 @@ public class StaticEntityTest {
 		assertDoesNotThrow(() -> controller.newGame("testPlayerCantMoveThroughDoor", "Standard"));
 
         // Assert the door is spawned closed
-        Map<String, Entity> startEntities = controller.getDungeon(0).getEntities();
+        List<Entity> startEntities = controller.getDungeon(0).getEntities();
         
-        Entity doorEnt = startEntities.get("1");
+        Entity doorEnt = startEntities.get(1);
         Door door = (Door)doorEnt;
         assertEquals(false, door.isOpen());
 
@@ -769,8 +769,8 @@ public class StaticEntityTest {
 		assertDoesNotThrow(() -> controller.newGame("testMercenaryCantMoveThroughDoor", "Standard"));
 
         // Assert the door is spawned closed
-        Map<String, Entity> startEntities = controller.getDungeon(0).getEntities();
-        Door door = (Door)startEntities.get("1");
+        List<Entity> startEntities = controller.getDungeon(0).getEntities();
+        Door door = (Door)startEntities.get(1);
         assertEquals(false, door.isOpen());
 
         // Move player away from the mercenary.
@@ -898,10 +898,9 @@ public class StaticEntityTest {
 
         assertEquals(endList, dREnd.getEntities());
 
-
         // Assert the door is also open
-        Map<String, Entity> endEntities = controller.getDungeon(0).getEntities();
-        Door door = (Door)endEntities.get("2");
+        List<Entity> endEntities = controller.getDungeon(0).getEntities();
+        Door door = (Door)endEntities.get(1);
         assertEquals(true, door.isOpen());
     }
 
