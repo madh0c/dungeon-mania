@@ -209,9 +209,12 @@ public class GameInOut {
 			returnDungeon.setTickNumber(tickNumber);
 			returnDungeon.setSpawnpoint(spawnpoint); 
 
-			String removePath = ("src/main/resources/savedGames/" + fileName); 
-			File removeFile = new File(removePath);
-			removeFile.delete(); 
+			/**
+			 * If we want to get rid of duplicate files we can do this.
+			 */
+			// String removePath = ("src/main/resources/savedGames/" + fileName); 
+			// File removeFile = new File(removePath);
+			// removeFile.delete(); 
 
 			return returnDungeon;
 
