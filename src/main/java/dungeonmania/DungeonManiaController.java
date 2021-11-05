@@ -8,7 +8,6 @@ import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 import dungeonmania.util.Position;
 import dungeonmania.allEntities.*;
-import dungeonmania.GameInOut;
 
 
 import java.io.File;
