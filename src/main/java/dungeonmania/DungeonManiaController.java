@@ -202,6 +202,11 @@ public class DungeonManiaController {
 	 */
 	public DungeonResponse saveGame(String name) throws IllegalArgumentException {
 		String feed = name.replaceFirst(".json", "");
+
+		if (!allGames().contains(feed)) {
+			throw new IllegalArgumentException ("Invalid Game Passed: Such Game Doesn't Exist");
+		}
+		
 		String path = ("src/main/resources/savedGames/" + feed + ".json"); 
 
 		int count = 0;
@@ -211,10 +216,10 @@ public class DungeonManiaController {
 			}
 		}
 
+		// If you are loading a gave that has previously been saved, the old timestamp must be removed.
 		if (count > 1) {
-			String stripped = feed.replaceAll("-.*-", "");
-			String stripped2 = stripped.replaceFirst("-", "");
-			path = ("src/main/resources/savedGames/" + stripped2 + ".json");
+			String reFeed = feed.replaceAll("-.*-", "-");
+			path = ("src/main/resources/savedGames/" + reFeed + ".json");
 		}
 
 		try {
