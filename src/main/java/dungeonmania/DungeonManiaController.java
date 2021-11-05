@@ -7,7 +7,6 @@ import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 import dungeonmania.util.Position;
-import spark.utils.StringUtils;
 import dungeonmania.allEntities.*;
 import dungeonmania.GameInOut;
 
@@ -17,11 +16,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
-
-import java.util.HashMap;
 
 public class DungeonManiaController {
 
@@ -94,39 +90,48 @@ public class DungeonManiaController {
 	 */
 	public DungeonResponse newGame(String dungeonName, String gameMode) throws IllegalArgumentException {
 		checkValidNewGame(dungeonName, gameMode);
-		Dungeon newDungeon = jsonExporter.makeDungeon(lastUsedDungeonId, dungeonName + ".json", gameMode);
-				
-		List<EntityResponse> entitiyResponses = new ArrayList<EntityResponse>();
+		String fileName = (dungeonName + ".json"); 
 
-		for (Entity entity : newDungeon.getEntities()) {
-			EntityResponse eR = new EntityResponse(entity.getId(), entity.getType(), entity.getPosition(), entity.isInteractable());
-			entitiyResponses.add(eR);
+		try {
+			System.out.println("sup1");
+			String path = FileLoader.loadResourceFile("/dungeons/" + fileName);
+			System.out.println("sup2");
+			currentDungeon = GameInOut.fromJSON("new", path, null, lastUsedDungeonId, gameMode);
+			System.out.println("sup3");
+		} catch (IOException e) {
+			System.out.println("oh no");
+			e.printStackTrace();
 		}
 
-		for (Entity entity : newDungeon.getEntities()) {
+		int currentId = currentDungeon.getId();
+		lastUsedDungeonId++;
+		games.add(currentDungeon);
+
+				
+		List<EntityResponse> entitiyResponses = getDungeonInfo(currentId).getEntities();
+
+		for (Entity entity : currentDungeon.getEntities()) {
 			if (entity instanceof Switch) {
 				Position pos = entity.getPosition();
 				Position newPos = new Position(pos.getX(), pos.getY(), 0);
-				Boulder boulder = (Boulder) newDungeon.getEntity("boulder", newPos);
+				Boulder boulder = (Boulder) currentDungeon.getEntity("boulder", newPos);
 				if (boulder != null) {
 					Switch sw = (Switch) entity;
 					sw.setStatus(true);
 				}
-				
 			}
 		}
+		
 		DungeonResponse result = new DungeonResponse(
-			String.valueOf(newDungeon.getId()), 
-			newDungeon.getName(), 
+			String.valueOf(currentDungeon.getId()), 
+			currentDungeon.getName(), 
 			entitiyResponses, 
 			new ArrayList<ItemResponse>(), 
-			newDungeon.getBuildables(),             
-			newDungeon.getGoals() 
+			currentDungeon.getBuildables(),             
+			currentDungeon.getGoals() 
 		);
 
-		lastUsedDungeonId++;
-		currentDungeon = newDungeon;
-		games.add(newDungeon);
+		
 
 		return result;
 	}
@@ -229,9 +234,11 @@ public class DungeonManiaController {
 		String fileName = (feed + ".json"); 
 
 		try {
-			currentDungeon = GameInOut.fromJSON(fileName, feed, lastUsedDungeonId);
+			String path = FileLoader.loadResourceFile("/savedGames/" + fileName);
+			currentDungeon = GameInOut.fromJSON("load", path, feed, lastUsedDungeonId, null);
 			setLastUsedDungeonId(getLastUsedDungeonId() + 1);
 			games.add(currentDungeon);
+
 			return getDungeonInfo(currentDungeon.getId());
 		} catch (IOException e) {
 			e.printStackTrace();
