@@ -1,0 +1,34 @@
+{
+    "entities": [
+        {
+            "x": 0,
+            "y": 0,
+            "type": "player"
+        },
+        {
+            "x": 1,
+            "y": 0,
+            "type": "sword"
+        },
+        {
+            "x": 2,
+            "y": 0,
+            "type": "armour"
+        },
+        {
+            "x": 3,
+            "y": 0,
+            "type": "bow"
+        },
+        {
+            "x": 4,
+            "y": 0,
+            "type": "shield"
+        },
+        {
+            "x": 5,
+            "y": 0,
+            "type": "wall"
+        }
+    ]
+}

@@ -689,5 +689,9 @@ public class DungeonManiaController {
 	public void setLastUsedDungeonId(int lastUsedDungeonId) {
 		this.lastUsedDungeonId = lastUsedDungeonId;
 	}
+
+	public Dungeon getCurrentDungeon() {
+		return currentDungeon;
+	}
 	
 }
