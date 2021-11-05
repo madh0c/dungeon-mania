@@ -279,7 +279,7 @@ public class ControllerTest {
     }
 
     /**
-     * Running Multiple Games from a Single Controller.
+     * Saving a game.
      */
 	@Test
     public void testSaveGame() {
@@ -318,7 +318,7 @@ public class ControllerTest {
         DungeonResponse dREnd = controller.getDungeonInfo(0);
         assertEquals(expectedList, dREnd.getEntities());
 
-        String gameName = "name";
+        String gameName = "testMercenaryBribe-1636079593059";
 
         // Assert that the Save Game Method Works
         assertEquals(dREnd, controller.saveGame(gameName));
@@ -328,11 +328,130 @@ public class ControllerTest {
     }
 
     @Test
-    public void Load() {
+    public void testLoad() {
         DungeonManiaController controller = new DungeonManiaController();
         assertDoesNotThrow(() -> controller.loadGame("testMercenaryBribe-1636079593059"));
         assertDoesNotThrow(() -> controller.saveGame("testMercenaryBribe-1636079593059"));
 	}
+
+    @Test
+    public void testLoadInventory() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.newGame("testLoadInventory", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse startE1 = new EntityResponse("1", "treasure", new Position(1,0), false);
+        EntityResponse startE2 = new EntityResponse("2", "key", new Position(2,0), false);
+        EntityResponse startE3 = new EntityResponse("3", "health_potion", new Position(3,0), false);
+        EntityResponse startE4 = new EntityResponse("4", "invincibility_potion", new Position(4,0), false);
+        EntityResponse startE5 = new EntityResponse("5", "invisibility_potion", new Position(5,0), false);
+        EntityResponse startE6 = new EntityResponse("6", "wood", new Position(6,0), false);
+        EntityResponse startE7 = new EntityResponse("7", "arrow", new Position(7,0), false);
+        EntityResponse startE8 = new EntityResponse("8", "bomb", new Position(8,0), false);
+        EntityResponse startE9 = new EntityResponse("9", "sword", new Position(9,0), false);
+        EntityResponse startE10 = new EntityResponse("10", "armour", new Position(10,0), false);
+        EntityResponse startE11 = new EntityResponse("11", "one_ring", new Position(11,0), false);
+        EntityResponse startE12 = new EntityResponse("12", "bow", new Position(12,0), false);
+        EntityResponse startE13 = new EntityResponse("13", "shield", new Position(13,0), false);
+        EntityResponse startE14 = new EntityResponse("14", "wall", new Position(19,20), false);
+        EntityResponse startE15 = new EntityResponse("15", "wall", new Position(20,19), false);
+        EntityResponse startE16 = new EntityResponse("16", "mercenary", new Position(20,20), true);
+        EntityResponse startE17 = new EntityResponse("17", "wall", new Position(20,21), false);
+        EntityResponse startE18 = new EntityResponse("18", "wall", new Position(21,20), false);
+
+        startList.add(startPlayerInfo);
+        startList.add(startE1);
+        startList.add(startE2);
+        startList.add(startE3);
+        startList.add(startE4);
+        startList.add(startE5);
+        startList.add(startE6);
+        startList.add(startE7);
+        startList.add(startE8);
+        startList.add(startE9);
+        startList.add(startE10);
+        startList.add(startE11);
+        startList.add(startE12);
+        startList.add(startE13);
+        startList.add(startE14);
+        startList.add(startE15);
+        startList.add(startE16);
+        startList.add(startE17);
+        startList.add(startE18);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Move player away from the mercenary.
+        for (int i = 0; i < 13; i++) {
+            controller.tick(null, Direction.RIGHT);
+        }
+
+		// Assert the mercenary has not moved from spawn
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(13,0), true);
+        EntityResponse endE1 = new EntityResponse("14", "wall", new Position(19,20), false);
+        EntityResponse endE2 = new EntityResponse("15", "wall", new Position(20,19), false);
+        EntityResponse endE3 = new EntityResponse("16", "mercenary", new Position(20,20), true);
+        EntityResponse endE4 = new EntityResponse("17", "wall", new Position(20,21), false);
+        EntityResponse endE5 = new EntityResponse("18", "wall", new Position(21,20), false);
+        EntityResponse endE6 = new EntityResponse("19", "mercenary", new Position(3,0), true);
+
+        endList.add(endPlayerInfo);
+        endList.add(endE1);
+        endList.add(endE2);
+        endList.add(endE3);
+        endList.add(endE4);
+        endList.add(endE5);
+        endList.add(endE6);
+
+
+        List<ItemResponse> expInvList = new ArrayList<ItemResponse>();
+
+        ItemResponse i1 = new ItemResponse("1", "treasure");
+        ItemResponse i2 = new ItemResponse("2", "key");
+        ItemResponse i3 = new ItemResponse("3", "health_potion");
+        ItemResponse i4 = new ItemResponse("4", "invincibility_potion");
+        ItemResponse i5 = new ItemResponse("5", "invisibility_potion");
+        ItemResponse i6 = new ItemResponse("6", "wood");
+        ItemResponse i7 = new ItemResponse("7", "arrow");
+        ItemResponse i8 = new ItemResponse("8", "bomb");
+        ItemResponse i9 = new ItemResponse("9", "sword");
+        ItemResponse i10 = new ItemResponse("10", "armour");
+        ItemResponse i11 = new ItemResponse("11", "one_ring");
+        ItemResponse i12 = new ItemResponse("12", "bow");
+        ItemResponse i13 = new ItemResponse("13", "shield");
+
+        expInvList.add(i1);
+        expInvList.add(i2);
+        expInvList.add(i3);
+        expInvList.add(i4);
+        expInvList.add(i5);
+        expInvList.add(i6);
+        expInvList.add(i7);
+        expInvList.add(i8);
+        expInvList.add(i9);
+        expInvList.add(i10);
+        expInvList.add(i11);
+        expInvList.add(i12);
+        expInvList.add(i13);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertEquals(endList, dREnd.getEntities());
+        assertEquals(expInvList, dREnd.getInventory());
+
+        assertDoesNotThrow(() -> controller.saveGame("testLoadInventory-1636120871272"));
+        assertDoesNotThrow(() -> controller.loadGame("testLoadInventory-1636120871272"));
+
+        DungeonResponse dRLoad = controller.getDungeonInfo(0);
+
+        assertEquals(endList, dRLoad.getEntities());
+        assertEquals(expInvList, dRLoad.getInventory());
+    }
 
 	//TODO: Write tests for loading, saving games, calling allgames.
 

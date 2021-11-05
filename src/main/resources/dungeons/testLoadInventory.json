@@ -1,0 +1,102 @@
+{
+    "width": 50,
+    "height": 50,
+    "entities": [
+        {
+            "x": 0,
+            "y": 0,
+            "type": "player"
+        },
+        {
+            "x": 1,
+            "y": 0,
+            "type": "treasure"
+        },
+        {
+            "x": 2,
+            "y": 0,
+            "type": "key"
+        },
+        {
+            "x": 3,
+            "y": 0,
+            "type": "health_potion"
+        },
+        {
+            "x": 4,
+            "y": 0,
+            "type": "invincibility_potion"
+        },
+        {
+            "x": 5,
+            "y": 0,
+            "type": "invisibility_potion"
+        },
+        {
+            "x": 6,
+            "y": 0,
+            "type": "wood"
+        }, 
+		{
+			"x": 7,
+			"y": 0,
+			"type": "arrow"
+		},
+        {
+            "x": 8,
+            "y": 0,
+            "type": "bomb"
+        }, 
+        {
+            "x": 9,
+            "y": 0, 
+            "type": "sword"
+        },
+        {
+            "x": 10,
+            "y": 0,
+            "type": "armour"
+        },
+        {
+            "x": 11,
+            "y": 0,
+            "type": "one_ring"
+        }, 
+		{
+			"x": 12,
+			"y": 0,
+			"type": "bow"
+		}, 
+		{
+			"x": 13,
+			"y": 0,
+			"type": "shield"
+		},
+		{
+			"x": 19,
+			"y": 20,
+			"type": "wall"
+		},
+		{
+			"x": 20,
+			"y": 19,
+			"type": "wall"
+		},
+		{
+			"x": 20,
+			"y": 20,
+			"type": "mercenary"
+		},
+		{
+			"x": 20,
+			"y": 21,
+			"type": "wall"
+		},
+		{
+			"x": 21,
+			"y": 20,
+			"type": "wall"
+		}
+
+    ]
+}
