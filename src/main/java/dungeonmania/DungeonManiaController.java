@@ -322,15 +322,15 @@ public class DungeonManiaController {
 
 		Move moveStrategy = null;
 		currentDungeon.tickOne();
-		
-		moveStrategy = new PlayerMove();
+
 		// Move player
 		if (currentDungeon.getPlayer() != null) {
 			currentDungeon.getPlayer().setCurrentDir(movementDirection);
 			// make sure invincibility wears off
 			int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
 			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
-			moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);			
+			// moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);			
+			currentDungeon.getPlayer().move(currentDungeon, movementDirection);
 		}
 		
 		Switch switchFlick = null;
