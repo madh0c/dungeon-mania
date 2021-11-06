@@ -201,19 +201,19 @@ public class Player extends Entity {
 		// Check if the direction is able to be moved into
 		Position newPos = getPosition().translateBy(direction);
 
-		boolean collideable = true;
+		// boolean collideable = true;
 		for (Entity entity : dungeon.getEntitiesOnCell(newPos)) {
 			if (!collide(entity, dungeon)) {
-				collideable = false;
-				break;
+				// collideable = false;
+				return;
 			}
 		}
 
 		// If can, move
-		if (collideable) {
-			setPosition(newPos);
-			setCurrentDir(direction);
-			portalMove(dungeon);
-		}
+		// if (collideable) {
+		setPosition(newPos);
+		setCurrentDir(direction);
+		portalMove(dungeon);
+		// }
 	}
 }

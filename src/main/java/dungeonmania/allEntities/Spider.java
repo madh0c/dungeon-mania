@@ -88,24 +88,8 @@ public class Spider extends MovableEntity {
 		return true;
 	}
 
-	// @Override
-	// public boolean collide(Entity entity) {
-	// 	// If empty space
-	// 	if (entity == null) {
-	// 		return true;
-	// 	}
+
+	public void move(Dungeon dungeon) {
 		
-	// 	if (entity instanceof Boulder) {
-	// 		return false;
-	// 	} 
-	// 	// else if (entity instanceof Player) {
-	// 	// 	Battle.battle(this, dungeon);
-	// 	// }
-		
-	// 	else if (entity instanceof MovableEntity) {
-	// 		return false;
-	// 	}
-		
-	// 	return true;
-	// }
+	}
 }

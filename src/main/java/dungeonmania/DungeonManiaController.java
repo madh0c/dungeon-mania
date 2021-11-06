@@ -329,17 +329,8 @@ public class DungeonManiaController {
 			// make sure invincibility wears off
 			int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
 			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
-			// moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);			
 			currentDungeon.getPlayer().move(currentDungeon, movementDirection);
 		}
-		
-		Switch switchFlick = null;
-		boolean switchOn = false;
-
-		// Map<String, Entity> tempEnts = new HashMap<>();
-		// for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
-		// 	tempEnts.put(entry.getKey(), entry.getValue());
-		// }
 
 		List<Entity> tempEnts = new ArrayList<>();
 
@@ -347,120 +338,23 @@ public class DungeonManiaController {
 			tempEnts.add(entity);
 		}
 
-		
-		// Move everything else
-		// for (Map.Entry<String, Entity> entry : tempEnts.entrySet()) {
-		// 	Entity currentEntity = entry.getValue();
-		// 	if (currentEntity instanceof Spider) {
-		// 		moveStrategy = new SpiderMove();
-		// 		moveStrategy.move(currentEntity, currentDungeon);
-		// 	} else if (currentEntity instanceof Mercenary) {
-		// 		moveStrategy = new MercenaryMove();
-		// 		moveStrategy.move(currentEntity, currentDungeon);
-		// 	} else if (currentEntity instanceof Boulder) {
-		// 		if (!currentEntity.getPosition().equals(currentDungeon.getPlayerPosition())) {
-		// 			continue;
-		// 		}
-		// 		moveStrategy = new StandardMove();
-		// 		// Get position of switch, layer -1
-		// 		Position prevPos = currentEntity.getPosition();
-		// 		Position prevPosSwitch = new Position(prevPos.getX(), prevPos.getY(), -1);
-		// 		moveStrategy.move(currentEntity, currentDungeon, movementDirection);
-
-		// 		Position currPos = currentEntity.getPosition();
-		// 		Position currPosSwitch = new Position(currPos.getX(), currPos.getY(), -1);
-
-		// 		// Check if switch is being activated
-		// 		if (currentDungeon.entityExists("switch", currPosSwitch)) {
-		// 			switchFlick = (Switch) currentDungeon.getEntity("switch", currPosSwitch);
-		// 			switchOn = true;
-		// 		}
-		// 		// Check if switch is being deactivated
-		// 		if (currentDungeon.entityExists("switch", prevPosSwitch)) {
-		// 			switchFlick = (Switch) currentDungeon.getEntity("switch", prevPosSwitch);
-		// 			switchOn = false;
-		// 		}
-
-		// 	} else if (currentEntity instanceof ZombieToast) {
-		// 		moveStrategy = new StandardMove();
-		// 		Random random = new Random();
-		// 		int dir = random.nextInt(4);
-		// 		Direction currDir = Direction.NONE;
-		// 		switch (dir) {
-		// 			case 0:
-		// 				currDir = Direction.UP;
-		// 				break;
-		// 			case 1:
-		// 				currDir = Direction.DOWN;
-		// 				break;
-		// 			case 2:
-		// 				currDir = Direction.LEFT;
-		// 				break;
-		// 			case 3:
-		// 				currDir = Direction.RIGHT;
-		// 				break;
-		// 		}
-		// 		moveStrategy.move(currentEntity, currentDungeon, currDir);
-		// 	}
-		// }
-
 		for (Entity entity : tempEnts) {
 			if (entity instanceof Spider) {
-				moveStrategy = new SpiderMove();
-				moveStrategy.move(entity, currentDungeon);
+				// moveStrategy = new SpiderMove();
+				// moveStrategy.move(entity, currentDungeon);
+				Spider spider = (Spider) entity;
+				spider.move(currentDungeon);
 			} else if (entity instanceof Mercenary) {
 				moveStrategy = new MercenaryMove();
 				moveStrategy.move(entity, currentDungeon);
 			} else if (entity instanceof Boulder) {
-				if (!entity.getPosition().equals(currentDungeon.getPlayerPosition())) {
-					continue;
-				}
-				moveStrategy = new StandardMove();
-				// Get position of switch, layer -1
-				Position prevPos = entity.getPosition();
-				Position prevPosSwitch = new Position(prevPos.getX(), prevPos.getY(), -1);
-				moveStrategy.move(entity, currentDungeon, movementDirection);
-
-				Position currPos = entity.getPosition();
-				Position currPosSwitch = new Position(currPos.getX(), currPos.getY(), -1);
-
-				// Check if switch is being activated
-				if (currentDungeon.entityExists("switch", currPosSwitch)) {
-					switchFlick = (Switch) currentDungeon.getEntity("switch", currPosSwitch);
-					switchOn = true;
-				}
-				// Check if switch is being deactivated
-				if (currentDungeon.entityExists("switch", prevPosSwitch)) {
-					switchFlick = (Switch) currentDungeon.getEntity("switch", prevPosSwitch);
-					switchOn = false;
-				}
-
+				Boulder boulder = (Boulder) entity;
+				boulder.move(currentDungeon);
 			} else if (entity instanceof ZombieToast) {
-				moveStrategy = new StandardMove();
-				Random random = new Random();
-				int dir = random.nextInt(4);
-				Direction currDir = Direction.NONE;
-				switch (dir) {
-					case 0:
-						currDir = Direction.UP;
-						break;
-					case 1:
-						currDir = Direction.DOWN;
-						break;
-					case 2:
-						currDir = Direction.LEFT;
-						break;
-					case 3:
-						currDir = Direction.RIGHT;
-						break;
-				}
-				moveStrategy.move(entity, currentDungeon, currDir);
+				ZombieToast zombie = (ZombieToast) entity;
+				zombie.move(currentDungeon);
 			}
 		}
-
-		if (switchFlick != null) {
-			switchFlick.setStatus(switchOn);
-		}		
 		
 		
 		// find all entities that should be blown up	
