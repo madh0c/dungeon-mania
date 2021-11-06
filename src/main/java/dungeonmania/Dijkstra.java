@@ -75,8 +75,6 @@ public interface Dijkstra {
 
 
 	public static Position traverse(int height, int width, Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap) {
-		Position nextPosition = null;
-
 		Map<Position, Double> dist = new HashMap<>();
 		Map<Position, Position> prev = new HashMap<>();
 
@@ -98,14 +96,24 @@ public interface Dijkstra {
 			Map<Position, Integer> compPos = dungeonMap.get(u);
 			
 			for (Map.Entry<Position,Integer> entry : compPos.entrySet()) {
-				if(dist.get(u) +  entry.getValue() < dist.get(entry.getKey()) {
+				if (dist.get(u) +  entry.getValue() < dist.get(entry.getKey()) {
 					dist.put(entry.getKey(), dist.get(u) +  entry.getValue());
 					prev.put(entry.getKey(), u);
 				}
 			}
 		}
-		
-		return nextPosition;
+		if (dist.get(destination) != 0.0) {
+			return nextPos(destination, source, prev);
+		}
+		return null;
+
+		// return prev.get(source, );
+	}
+
+	public static Position nextPos(Position currPos, Position source, Map<Position, Position> prev) {
+		if (!prev.get(currPos).equals(source)) {
+			nextPos(prev.get(currPos), source, prev);
+		} return currPos;
 	}
 	
 }
