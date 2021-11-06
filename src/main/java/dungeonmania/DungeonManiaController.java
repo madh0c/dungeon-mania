@@ -549,15 +549,17 @@ public class DungeonManiaController {
 	public DungeonResponse interact(String entityId) throws IllegalArgumentException, InvalidActionException {
 		checkValidInteract(entityId);
 		Entity ent = currentDungeon.getEntity(entityId);
-		// Attempt bribe if mercenary
-		if (ent instanceof Mercenary) {
-			Mercenary merc = (Mercenary) ent;
-			merc.bribe(currentDungeon);
-		}
-
+		
+		/* Destroy entity if entityId matches a spawner, bribe the entity if the entityId matches a mercenary or assassin */
 		if (ent instanceof ZombieToastSpawner) {
 			currentDungeon.removeEntity(ent);
-		}
+		} else if (ent instanceof Mercenary) {
+			Mercenary merc = (Mercenary) ent;
+			merc.bribe(currentDungeon);
+		} else if (ent instanceof Assassin) {
+			Assassin assassin = (Assassin) ent;
+			assassin.bribe(currentDungeon);
+		} 
 		
 		return getDungeonInfo(currentDungeon.getId());
 	}
@@ -577,35 +579,42 @@ public class DungeonManiaController {
 		Entity interactEntity = currentDungeon.getEntity(entityId);
 
 		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
-
-		boolean hasGold = false;
+		
 		boolean hasWeapon = false;
+		boolean hasGold = false;
+		boolean hasRing = false;
 
 		for (CollectibleEntity item : currentInventory) {
-			if (item.getType().equals("treasure")) {
-				hasGold = true;
-			} else if (item.getType().equals("sword") || item.getType().equals("bow")) {
+			if (item.getType().equals("sword") || item.getType().equals("bow")) {
 				hasWeapon = true;
-			}
+			} else if (item.getType().equals("treasure")) {
+				hasGold = true;
+			} else if (item.getType().equals("one_ring")) {
+				hasRing = true;
+			}  
 		}
 
 		Position playerPosition = currentDungeon.getPlayerPosition();
 		Position entityPosition = currentDungeon.getEntity(entityId).getPosition();
 
 
-		if (interactEntity.getType().equals("mercenary")) {
-			if (!Position.inBribingRange(playerPosition, entityPosition)) {
-				throw new InvalidActionException("Player Out Of Bribing Range Of Mercenary");
-			} else if (!hasGold) {
-				throw new InvalidActionException("Player Does Not Have Sufficient Gold To Bribe Mercenary");
-			}
-		}
-
 		if (interactEntity.getType().equals("zombie_toast_spawner")) {
 			if (!Position.isCardinallyAdjacent(playerPosition, entityPosition)) {
 				throw new InvalidActionException("Player Out Of Range To Destroy Zombie Toast Spawner");
 			} else if (!hasWeapon) {
 				throw new InvalidActionException("Player Does Not Have A Weapon To Destroy Spawner");
+			}
+		} else if (interactEntity.getType().equals("mercenary")) {
+			if (!Position.inBribingRange(playerPosition, entityPosition)) {
+				throw new InvalidActionException("Player Out Of Bribing Range Of Mercenary");
+			} else if (!hasGold) {
+				throw new InvalidActionException("Player Does Not Have Sufficient Gold To Bribe Mercenary");
+			}
+		} else if (interactEntity.getType().equals("assassin")) {
+			if (!Position.inBribingRange(playerPosition, entityPosition)) {
+				throw new InvalidActionException("Player Out Of Bribing Range Of Assassin");
+			} else if (!hasRing) {
+				throw new InvalidActionException("Player Does Not Have Sufficient Resources To Bribe Assassin");
 			}
 		}
 	}
@@ -632,11 +641,11 @@ public class DungeonManiaController {
 				if (found.getType().equals("arrow") && counterArrow < 3) {
 					counterArrow++;
 					currentInventory.remove(i);
-					i = -1;
+					i--;
 				} else if (found.getType().equals("wood") && counterWood < 1) {
 					counterWood++;
 					currentInventory.remove(i);
-					i = -1;
+					i--;
 				}
 			}
 		} else if (buildable.equals("shield")) {
@@ -653,12 +662,12 @@ public class DungeonManiaController {
 				if (found.getType().equals("wood") && counterWood < 2) {
 					counterWood++;
 					currentInventory.remove(i);
-					i = -1;
+					i--;
 				} else if ((found.getType().equals("treasure") && counterTreasure < 1) || (found.getType().equals("key") && counterKey < 1)) {
 					counterTreasure++;
 					counterKey++;
 					currentInventory.remove(i);
-					i = -1;
+					i--;
 				}
 			}
 		}
