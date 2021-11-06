@@ -12,11 +12,16 @@ import dungeonmania.util.Position;
 public class ZombieToast extends MovableEntity {
 
 	private int randSeed;
+	private Random random;
 
     public ZombieToast(String id, Position position) {
         super(id, position, "zombie_toast");
         super.setHealth(20);
         super.setBaseAttack(10);
+		Random rand = new Random();
+		setSeed(rand.nextInt());
+		this.randSeed = rand.nextInt(100);
+		this.random = new Random(randSeed);
     }
 
 	public void setSeed(int randSeed) {
@@ -30,14 +35,7 @@ public class ZombieToast extends MovableEntity {
 	// @Override
 	public void move(Dungeon dungeon) {
 		// Generate random number
-
-		// Get the seed of the random sequence, so can use for testing
-
-		Random rand = new Random();
-		setSeed(rand.nextInt());
-
-		Random random = new Random(getSeed());
-		int num = random.nextInt(3);
+		int num = random.nextInt(4);
 
 		Direction dir = Direction.NONE;
 		switch (num) {

@@ -320,7 +320,6 @@ public class DungeonManiaController {
 			}
 		}
 
-		Move moveStrategy = null;
 		currentDungeon.tickOne();
 
 		// Move player
@@ -340,13 +339,11 @@ public class DungeonManiaController {
 
 		for (Entity entity : tempEnts) {
 			if (entity instanceof Spider) {
-				// moveStrategy = new SpiderMove();
-				// moveStrategy.move(entity, currentDungeon);
 				Spider spider = (Spider) entity;
 				spider.move(currentDungeon);
 			} else if (entity instanceof Mercenary) {
-				moveStrategy = new MercenaryMove();
-				moveStrategy.move(entity, currentDungeon);
+				Mercenary merc = (Mercenary) entity;
+				merc.move(currentDungeon);
 			} else if (entity instanceof Boulder) {
 				Boulder boulder = (Boulder) entity;
 				boulder.move(currentDungeon);
