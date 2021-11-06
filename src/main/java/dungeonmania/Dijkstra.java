@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dungeonmania.allEntities.SwampTile;
 import dungeonmania.util.Position;
 
 public interface Dijkstra {
@@ -31,17 +32,25 @@ public interface Dijkstra {
 
 				if (!Collections.disjoint(entOnCell, mercIllegal)) {
 					break;
-				} entHelper(dungeonMap, currPos, currentDungeon, entOnCell, mercIllegal);
+				} 
+				
+				Map<Position, Integer> outlets = entHelper(currPos, currentDungeon, entOnCell, mercIllegal);
+
+				if (outlets.size() != 0) {
+					dungeonMap.put(currPos, outlets);
+				}
 			}
 		} return dungeonMap;
 	}
 
-	public static void entHelper(Map<Position, Map<Position, Integer>> dungeonMap, Position currPos, Dungeon currentDungeon, List<Entity >entOnCell, List<String> mercIllegal) {
+	public static Map<Position, Integer> entHelper(Position currPos, Dungeon currentDungeon, List<Entity >entOnCell, List<String> mercIllegal) {
 		List<Position> adjPos = currPos.getCardinallyAdjPositions();
+		
+		Map<Position, Integer> outlets = new HashMap<>();
 
 		for (Position pos : adjPos) {
-			int swamp = 0;
-			if (!checkValidPos(pos, currentDungeon)) {
+			int bogFactor = 0;
+			if (!currentDungeon.validPos(pos)) {
 				break;
 			}
 			List<String> entTypesAdjCell = new ArrayList<>();
@@ -49,8 +58,8 @@ public interface Dijkstra {
 
 			for (Entity ent : entCell) {
 				if (ent instanceof SwampTile) {
-					swamp = ent.getBogFactor();
-
+					SwampTile swamp = (SwampTile) ent;
+					bogFactor = swamp.getBogFactor();
 				}
 				entTypesAdjCell.add(ent.getType());
 			}
@@ -59,47 +68,21 @@ public interface Dijkstra {
 				break;
 			}
 
-			if (entTypesAdjCell.contains("swamp_tile")) {
-
+			if (bogFactor != 0) {
+				outlets.put(pos, bogFactor);
+			} else {
+				outlets.put(pos, 1);
 			}
  		}
-	}
-
-	public static boolean checkValidPos(Position pos, Dungeon currentDungeon){
-		int posX = pos.getX();
-		int posY = pos.getY();
-
-		if (posX < 0 || posX > currentDungeon.getWidth()) {
-			return false;
-		} else if (posY < 0 || posY > currentDungeon.getHeight()){
-			return false;
-		}
-
-		return true;
+		return outlets;
 	}
 
 
 
-	public static Position traverse(Position source, Position destination, Dungeon currentDungeon) {
+	public static Position traverse(Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap) {
 		Position nextPosition = null;
 
-		Map<Position, Integer> dungeonMap = new HashMap<>();
-
-		List<String> mercIllegal = new ArrayList<>();
-		mercIllegal.add("door");
-		mercIllegal.add("wall");
-		mercIllegal.add("boulder");
-
-		for (int x = 0; x < currentDungeon.getWidth(); x++) {
-			for (int y = 0; y < currentDungeon.getWidth(); y++) {
-				Position currPos = new Position(x, y);
-				List<Entity> entOnCell = currentDungeon.getEntitiesOnCell(currPos);
-				if (entOnCell.containsAll(mercIllegal)) {
-					break;
-				}
-				
-			}
-		}
+		
 
 
 	return nextPosition;

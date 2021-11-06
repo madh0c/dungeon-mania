@@ -314,6 +314,18 @@ public class Dungeon {
 		return result;
 	}
 
+	public boolean validPos(Position pos){
+		int posX = pos.getX();
+		int posY = pos.getY();
+
+		if (posX < 0 || posX > this.getWidth()) {
+			return false;
+		} else if (posY < 0 || posY > this.getHeight()){
+			return false;
+		}
+		return true;
+	}
+
 	public int getHistoricalEntCount() {
 		return this.historicalEntCount;
 	}
