@@ -82,6 +82,7 @@ public class GamemodesTest {
 		DungeonManiaController controller = new DungeonManiaController();
         assertDoesNotThrow(() -> controller.newGame("testGamemode", "Hard"));
 
-		assertEquals(60, controller.getDungeon(0).getPlayer().getHealth());
+        Player currP = (Player) controller.getDungeon(0).getPlayer();
+		assertEquals(60, currP.getHealth());
 	}
 }
