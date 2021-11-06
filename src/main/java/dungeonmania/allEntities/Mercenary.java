@@ -1,15 +1,15 @@
 package dungeonmania.allEntities;
 
 import dungeonmania.Battle;
-import dungeonmania.CollectibleEntity;
+import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;
-import dungeonmania.MovableEntity;
+import dungeonmania.MovingEntity;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 
-public class Mercenary extends MovableEntity {
+public class Mercenary extends MovingEntity {
 
 	private boolean isAlly;
 	private Direction currentDir;
@@ -70,7 +70,7 @@ public class Mercenary extends MovableEntity {
 					}
 				}
 			}
-		if (entity instanceof CollectibleEntity) {
+		if (entity instanceof CollectableEntity) {
 			return true;
 		}
 			return false;
@@ -89,7 +89,7 @@ public class Mercenary extends MovableEntity {
 		}
 
 		// Have to add MovableEntity
-		if (entity instanceof MovableEntity) {
+		if (entity instanceof MovingEntity) {
 
 
 			return true;
@@ -103,7 +103,7 @@ public class Mercenary extends MovableEntity {
 		Treasure gold = null;
 		// Remove the first gold
 		// Integer goldPos = 0;
-		for (CollectibleEntity ent : dungeon.getInventory()) {
+		for (CollectableEntity ent : dungeon.getInventory()) {
 			if (ent instanceof Treasure) {
 				// goldPos = Integer.parseInt(ent.getId());
 				// break;

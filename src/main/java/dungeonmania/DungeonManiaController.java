@@ -152,8 +152,8 @@ public class DungeonManiaController {
 
 		List<ItemResponse> inventory = new ArrayList<ItemResponse>();
 
-		for (CollectibleEntity collectibleEntity : target.getInventory()) {
-			inventory.add(new ItemResponse(collectibleEntity.getId(), collectibleEntity.getType()));
+		for (CollectableEntity collectableEntity : target.getInventory()) {
+			inventory.add(new ItemResponse(collectableEntity.getId(), collectableEntity.getType()));
 		}
 		
 		return new DungeonResponse(
@@ -498,9 +498,9 @@ public class DungeonManiaController {
 		
 		boolean itemInInventory = false;
 
-		CollectibleEntity objectUsed = null; 
+		CollectableEntity objectUsed = null; 
 		if (itemUsed != null) {
-			for (CollectibleEntity inv : currentDungeon.getInventory()) {
+			for (CollectableEntity inv : currentDungeon.getInventory()) {
 				if (inv.getId().equals(itemUsed)) {
 					objectUsed = inv;
 					itemInInventory = true;
@@ -576,12 +576,12 @@ public class DungeonManiaController {
 
 		Entity interactEntity = currentDungeon.getEntity(entityId);
 
-		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
+		List<CollectableEntity> currentInventory = currentDungeon.getInventory();
 
 		boolean hasGold = false;
 		boolean hasWeapon = false;
 
-		for (CollectibleEntity item : currentInventory) {
+		for (CollectableEntity item : currentInventory) {
 			if (item.getType().equals("treasure")) {
 				hasGold = true;
 			} else if (item.getType().equals("sword") || item.getType().equals("bow")) {
@@ -619,16 +619,16 @@ public class DungeonManiaController {
 	 */
 	public DungeonResponse build(String buildable) throws IllegalArgumentException, InvalidActionException {
 		checkValidBuild(buildable);
-		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
+		List<CollectableEntity> currentInventory = currentDungeon.getInventory();
 		if (buildable.equals("bow")) {
 			int newId = currentDungeon.getHistoricalEntCount();				
-			CollectibleEntity bow = (CollectibleEntity) EntityFactory.createEntity(String.valueOf(newId),"bow", currentDungeon.getPlayerPosition());
+			CollectableEntity bow = (CollectableEntity) EntityFactory.createEntity(String.valueOf(newId),"bow", currentDungeon.getPlayerPosition());
 			currentDungeon.setHistoricalEntCount(newId + 1);
 			currentInventory.add(bow);
 			int counterArrow = 0;
 			int counterWood = 0;
 			for (int i = 0; i < currentInventory.size(); i++) {
-				CollectibleEntity found = currentInventory.get(i);
+				CollectableEntity found = currentInventory.get(i);
 				if (found.getType().equals("arrow") && counterArrow < 3) {
 					counterArrow++;
 					currentInventory.remove(i);
@@ -641,7 +641,7 @@ public class DungeonManiaController {
 			}
 		} else if (buildable.equals("shield")) {
 			int newId = currentDungeon.getHistoricalEntCount();	
-			CollectibleEntity shield = (CollectibleEntity) EntityFactory.createEntity(String.valueOf(newId), "shield", currentDungeon.getPlayerPosition());
+			CollectableEntity shield = (CollectableEntity) EntityFactory.createEntity(String.valueOf(newId), "shield", currentDungeon.getPlayerPosition());
 			currentDungeon.setHistoricalEntCount(newId + 1);
 
 			currentInventory.add(shield);
@@ -649,7 +649,7 @@ public class DungeonManiaController {
 			int counterKey = 0;
 			int counterWood = 0;
 			for (int i = 0; i < currentInventory.size(); i++) {
-				CollectibleEntity found = currentInventory.get(i);
+				CollectableEntity found = currentInventory.get(i);
 				if (found.getType().equals("wood") && counterWood < 2) {
 					counterWood++;
 					currentInventory.remove(i);

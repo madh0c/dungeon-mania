@@ -23,8 +23,8 @@ public class StandardMove implements Move {
 		Position newPos = entity.getPosition().translateBy(direction);
 		Entity newEnt = dungeon.getEntity(newPos);
 		// MovableEntity moving = (MovableEntity) entity;
-		if (entity instanceof MovableEntity) {
-			MovableEntity moving = (MovableEntity) entity;
+		if (entity instanceof MovingEntity) {
+			MovingEntity moving = (MovingEntity) entity;
 			if (!moving.collide(newEnt, dungeon)) {
 				return;
 			}

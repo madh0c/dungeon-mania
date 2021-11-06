@@ -82,7 +82,7 @@ public class MiscTest {
         assertEquals(midList, dRMid.getEntities());
         assertTrue(dRMid.getInventory().containsAll(expInvList));
 
-        List<CollectibleEntity> currentInv = controller.getCurrentDungeon().getInventory();
+        List<CollectableEntity> currentInv = controller.getCurrentDungeon().getInventory();
 
         Sword swordInv = (Sword) currentInv.get(0);
         assertEquals(8, swordInv.getDurability());

@@ -1,10 +1,10 @@
 package dungeonmania.allEntities;
 
 import dungeonmania.Battle;
-import dungeonmania.CollectibleEntity;
+import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;
-import dungeonmania.MovableEntity;
+import dungeonmania.MovingEntity;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
@@ -102,8 +102,8 @@ public class Player extends Entity {
 				return true;
 			}
 			if (haveKey) {
-				CollectibleEntity removed = null;
-				for (CollectibleEntity item : dungeon.getInventory()) {
+				CollectableEntity removed = null;
+				for (CollectableEntity item : dungeon.getInventory()) {
 					if (item instanceof Key) {
 						removed = item;
 						break;
@@ -144,7 +144,7 @@ public class Player extends Entity {
 		}
 
 		// PICKUP ITEM
-		if (entity instanceof CollectibleEntity) {
+		if (entity instanceof CollectableEntity) {
 			// can't have 2 keys in inv
 			if (entity instanceof Key) {
 				if (haveKey) {
@@ -152,7 +152,7 @@ public class Player extends Entity {
 				}			
 				haveKey = true;
 			} else if (entity instanceof OneRing) {
-				for (CollectibleEntity item : dungeon.getInventory()) {
+				for (CollectableEntity item : dungeon.getInventory()) {
 					if (item.getType().equals("one_ring")) {
 						return true;
 					}
@@ -162,13 +162,13 @@ public class Player extends Entity {
 			dungeon.removeEntity(entity);
 
 			// Add to player inv
-			dungeon.addItemToInventory((CollectibleEntity)entity);
+			dungeon.addItemToInventory((CollectableEntity)entity);
 
 			return true;
 		}
 
 		// BATTLE
-		if (entity instanceof MovableEntity) {
+		if (entity instanceof MovingEntity) {
 
 			if (dungeon.getMode().enemyAttack()) {
 				Battle.battle(entity, dungeon);

@@ -39,7 +39,7 @@ public class GameInOut {
 
 	public static Dungeon fromJSON(String expType, String path, String feed, int lastUsedDungeonId, String gameMode) throws IOException {
         List<Entity> entityList = new ArrayList<>();
-		List<CollectibleEntity> returnInv = new ArrayList<>();
+		List<CollectableEntity> returnInv = new ArrayList<>();
 		String goals = null;
 		String playMode = null; 
 		int height = 50;
@@ -65,18 +65,15 @@ public class GameInOut {
 			}
 
 			Map<String, Object> goalConditions = (Map<String, Object>)jsonMap.get("goal-condition");
-			if (goalConditions != null) {
-				height = (int)jsonMap.get("height"); 
+
+			if (jsonMap.get("height") != null) {
+				Double expHeight = (Double)jsonMap.get("height");
+				height = expHeight.intValue(); 
 			}
 
-			String expHeight = (String)jsonMap.get("height");
-			if (expHeight != null) {
-				height = (int)jsonMap.get("height"); 
-			}
-
-			String expWidth = (String)jsonMap.get("width");
-			if (expWidth != null) {
-				width = (int)jsonMap.get("width"); 
+			if (jsonMap.get("width") != null) {
+				Double expWidth = (Double)jsonMap.get("width");
+				width = expWidth.intValue();  
 			}
 
 			List<Map<String, Object>> parseList = (List<Map<String, Object>>)jsonMap.get("entities"); 
@@ -146,6 +143,13 @@ public class GameInOut {
 						player.setInvincibleTickDuration(invincibleTickDuration);
 					} 
 					entityList.add(player);
+				} else if (entityType.contains("swamp_tile")) {
+
+					Double moveFD = (Double)currentEntity.get("movement_factor");
+					int moveF = moveFD.intValue();
+					
+					SwampTile swampT = new SwampTile(entityId, exportPos, moveF);
+					entityList.add(swampT);
 				} else {
 					Entity newEntity = EntityFactory.createEntity(entityId, entityType, exportPos);
 					entityList.add(newEntity);

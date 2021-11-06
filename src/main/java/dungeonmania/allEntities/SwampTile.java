@@ -16,9 +16,12 @@ public class SwampTile extends Entity {
         super(id, position, "swamp_tile");
 		this.moveFactor = moveFactor;
 	}
-
-	public int moveFactor() {
+	public int getMoveFactor() {
 		return moveFactor;
+	}
+
+	public void setMoveFactor(int moveFactor) {
+		this.moveFactor = moveFactor;
 	}
 
 }

@@ -16,7 +16,7 @@ public class Dungeon {
 
 	private int id;
 	private String name;
-	private List<CollectibleEntity> inventory;
+	private List<CollectableEntity> inventory;
     private List<Entity> entities;
     private String gameMode;
     private String goals;
@@ -55,10 +55,10 @@ public class Dungeon {
 	 * @throws InvalidActionException
 	 */
 	public boolean useItem(String itemString) throws InvalidActionException {
-		CollectibleEntity itemUsed = null;
-		for (CollectibleEntity collectible : inventory) {
-			if (collectible.getId().equals(itemString)) {
-				itemUsed = collectible;
+		CollectableEntity itemUsed = null;
+		for (CollectableEntity colllectable : inventory) {
+			if (colllectable.getId().equals(itemString)) {
+				itemUsed = colllectable;
 			}
 		}
 		
@@ -131,7 +131,7 @@ public class Dungeon {
 		return name;
 	}
 
-	public List<CollectibleEntity> getInventory() {
+	public List<CollectableEntity> getInventory() {
 		return inventory;
 	}
 
@@ -158,7 +158,7 @@ public class Dungeon {
 		return null;
 	}
 
-	public void setInventory(List<CollectibleEntity> inventory) {
+	public void setInventory(List<CollectableEntity> inventory) {
 		this.inventory = inventory;
 	}
 
@@ -219,7 +219,7 @@ public class Dungeon {
 		getEntities().remove(entity);
 	}
 
-	public void addItemToInventory(CollectibleEntity entity) {
+	public void addItemToInventory(CollectableEntity entity) {
 		inventory.add(entity);
 	}
 

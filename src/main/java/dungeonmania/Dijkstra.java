@@ -99,7 +99,7 @@ public interface Dijkstra {
 			for (Entity ent : entCell) {
 				if (ent instanceof SwampTile) {
 					SwampTile swampTile = (SwampTile) ent;
-					traverseSpeed = swampTile.moveFactor();
+					traverseSpeed = swampTile.getMoveFactor();
 				} entTypesAdjCell.add(ent.getType());
 			}
 

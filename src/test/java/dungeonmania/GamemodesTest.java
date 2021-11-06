@@ -56,7 +56,7 @@ public class GamemodesTest {
 		controller.tick(null, Direction.DOWN);
 
 		assertEquals(100, player.getHealth());
-		MovableEntity zom = (MovableEntity)controller.getDungeon(0).getEntity("5");
+		MovingEntity zom = (MovingEntity)controller.getDungeon(0).getEntity("5");
 		assertEquals(20, zom.getHealth());
         
     }

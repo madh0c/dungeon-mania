@@ -4,85 +4,51 @@
   "inventory": [],
   "entities": [
     {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
+      "health": 70,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": false,
+      "invincibleTickDuration": 0,
       "position": {
-        "x": 2,
-        "y": 2,
+        "x": 3,
+        "y": 0,
         "layer": 0
       },
-      "type": "mercenary",
-      "id": "7"
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "1"
     },
     {
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
       "position": {
-        "x": 1,
-        "y": 1,
+        "x": 0,
+        "y": 0,
         "layer": 0
       },
       "type": "mercenary",
-      "id": "8"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "9"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "10"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "11"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "12"
+      "id": "2"
     }
   ],
   "gameMode": "Standard",
-  "historicalEntCount": 13,
-  "tickNumber": 105,
+  "historicalEntCount": 5,
+  "tickNumber": 21,
   "spawnpoint": {
-    "x": 1,
-    "y": 1,
+    "x": 2,
+    "y": 0,
     "layer": 0
   },
-  "mode": {}
+  "mode": {},
+  "height": 50,
+  "width": 50
 }

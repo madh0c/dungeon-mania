@@ -1,10 +1,10 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.MovableEntity;
+import dungeonmania.MovingEntity;
 import dungeonmania.util.Position;
 
 
-public class ZombieToast extends MovableEntity {
+public class ZombieToast extends MovingEntity {
 
     public ZombieToast(String id, Position position) {
         super(id, position, "zombie_toast");
