@@ -681,6 +681,23 @@ public class DungeonManiaController {
 		}
 	}
 
+	public DungeonResponse rewind(int ticks) throws IllegalArgumentException {
+		if (ticks <= 0) {
+			throw new IllegalArgumentException("Invalid Ticks Passed; ticks <= 0 Strictly.");
+		}
+		return new DungeonResponse(null, null, null, null, null, null);
+	}
+
+	public DungeonResponse generateDungeon(int xStart, int yStart, int xEnd, int yEnd, String gameMode) throws IllegalArgumentException {
+		if (!this.getGameModes().contains(gameMode)) {
+			throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard.");
+		}
+
+		return new DungeonResponse(null, null, null, null, null, null);
+	}
+
+
+
 	public int getLastUsedDungeonId() {
 		return lastUsedDungeonId;
 	}
