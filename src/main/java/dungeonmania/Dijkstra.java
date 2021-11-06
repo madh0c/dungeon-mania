@@ -48,6 +48,7 @@ public interface Dijkstra {
 					entTypesOnCell.add(ent.getType());
 				}
 
+				/* If the cell contains entities the Merc/Assassin cannot coincide with, the current cell will be disregarded */
 				if (!Collections.disjoint(entOnCell, mercIllegal)) {
 					break;
 				} 
@@ -66,19 +67,34 @@ public interface Dijkstra {
 		} return dungeonMap;
 	}
 
+
+	/**
+	 * A helper function returns a map with the key of the entries being positions of the adjacent cells 
+	 * traversable by the Merc/Assasin during the current tick, and the values being the appropriate weight of the
+	 * corresponding edge as the value of each entry.
+	 * @param currPos
+	 * @param currentDungeon
+	 * @param entOnCell
+	 * @param mercIllegal
+	 * @return
+	 */
 	public static Map<Position, Integer> entHelper(Position currPos, Dungeon currentDungeon, List<Entity >entOnCell, List<String> mercIllegal) {
 		List<Position> adjPos = currPos.getCardinallyAdjPositions();
 		
-		Map<Position, Integer> outlets = new HashMap<>();
+		Map<Position, Integer> outPaths = new HashMap<>();
 
+		/* Iterating through the list of positions that adjacent to the current cell */
 		for (Position pos : adjPos) {
 			int traverseSpeed = 2;
+
+			/* If the adjacent position is out of bounds, we will disregard it */
 			if (!currentDungeon.validPos(pos)) {
 				break;
 			}
 
-			List<String> entTypesAdjCell = new ArrayList<>();
+			/* Obtaining a list of entities on the cell, and their types */
 			List<Entity> entCell = currentDungeon.getEntitiesOnCell(pos);
+			List<String> entTypesAdjCell = new ArrayList<>();
 
 			for (Entity ent : entCell) {
 				if (ent instanceof SwampTile) {
@@ -89,12 +105,22 @@ public interface Dijkstra {
 
 			if (!Collections.disjoint(entTypesAdjCell, mercIllegal)) {
 				break;
-			} outlets.put(pos, traverseSpeed);
- 		} return outlets;
+			} outPaths.put(pos, traverseSpeed);
+ 		} return outPaths;
 	}
 
 
-
+	/**
+	 * A Method that traverses through the above created weighted graph and executes Dijkstra's algortithm, returning the next
+	 * position the Merc/Assasin should go to next tot maximise efficiency chasing the player. Pseudocode sourced from the 
+	 * project specification: https://gitlab.cse.unsw.edu.au/COMP2511/21T3/project-specification/-/blob/master/M3.md.
+	 * @param height
+	 * @param width
+	 * @param source
+	 * @param destination
+	 * @param dungeonMap
+	 * @return
+	 */
 	public static Position traverse(int height, int width, Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap) {
 		Map<Position, Double> dist = new HashMap<>();
 		Map<Position, Position> prev = new HashMap<>();
@@ -116,12 +142,15 @@ public interface Dijkstra {
 		while (!dijkstraQueue.isEmpty()) {
 			Position u = null;
 			double min = Double.POSITIVE_INFINITY;
+
 			for (Position entry : dist.keySet()) {
 				if (dist.get(entry) < min);
 				min = dist.get(entry);
 				u = entry;
-			} dijkstraQueue.remove(u);
-
+			} 
+			
+			dijkstraQueue.remove(u);
+			
 			Map<Position, Integer> compPos = dungeonMap.get(u);
 			
 			for (Map.Entry<Position,Integer> entry : compPos.entrySet()) {
@@ -136,6 +165,13 @@ public interface Dijkstra {
 		} return null; 
 	}
 
+	/**
+	 * A recursive helper function that ensures the most optimal next position for the Merc/Assassin is returned.
+	 * @param currPos
+	 * @param source
+	 * @param prev
+	 * @return
+	*/
 	public static Position nextPos(Position currPos, Position source, Map<Position, Position> prev) {
 		if (!prev.get(currPos).equals(source)) {
 			nextPos(prev.get(currPos), source, prev);
