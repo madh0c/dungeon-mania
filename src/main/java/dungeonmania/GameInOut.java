@@ -42,6 +42,8 @@ public class GameInOut {
 		List<CollectibleEntity> returnInv = new ArrayList<>();
 		String goals = null;
 		String playMode = null; 
+		int height = 50;
+		int width  = 50;
 
 		try {
             Map<String, Object> jsonMap = new Gson().fromJson(path, Map.class);
@@ -60,7 +62,22 @@ public class GameInOut {
 					goals = createGoals(goalCon).remainingString();
 					goals = createGoals(goalCon).remainingString();
 				}
-			}			
+			}
+
+			Map<String, Object> goalConditions = (Map<String, Object>)jsonMap.get("goal-condition");
+			if (goalConditions != null) {
+				height = (int)jsonMap.get("height"); 
+			}
+
+			String expHeight = (String)jsonMap.get("height");
+			if (expHeight != null) {
+				height = (int)jsonMap.get("height"); 
+			}
+
+			String expWidth = (String)jsonMap.get("width");
+			if (expWidth != null) {
+				width = (int)jsonMap.get("width"); 
+			}
 
 			List<Map<String, Object>> parseList = (List<Map<String, Object>>)jsonMap.get("entities"); 
 
@@ -210,7 +227,7 @@ public class GameInOut {
 				}
 			}
 			
-			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals);
+			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, height, width);
 
 			if (expType.equals("load")) {
 				Double tickD = (Double)jsonMap.get("tickNumber"); 

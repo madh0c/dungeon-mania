@@ -24,9 +24,11 @@ public class Dungeon {
 	private int tickNumber;
 	private Position spawnpoint;
 	private Mode mode;
+	private int height;
+	private int width;
 
 
-    public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals) {
+    public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals, int height, int width) {
 		this.id = id;
 		this.name = name;	
 		this.inventory = new ArrayList<>();	
@@ -43,6 +45,8 @@ public class Dungeon {
 		} else if (gameMode.equals("Hard")) {
 			mode = new HardMode();
 		}
+		this.height = height;
+		this.width = width;
     }
 
 	/**
@@ -314,6 +318,14 @@ public class Dungeon {
 		return this.historicalEntCount;
 	}
 
+	public int getHeight() {
+		return height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
 	public void setHistoricalEntCount(int historicalEntCount) {
 		this.historicalEntCount = historicalEntCount;
 	}
@@ -344,6 +356,14 @@ public class Dungeon {
 
 	public void setEntities(List<Entity> entities) {
 		this.entities = entities;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
 
