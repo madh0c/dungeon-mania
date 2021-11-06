@@ -683,7 +683,7 @@ public class DungeonManiaController {
 
 	public DungeonResponse rewind(int ticks) throws IllegalArgumentException {
 		if (ticks <= 0) {
-			throw new IllegalArgumentException("Invalid Ticks Passed; ticks <= 0 Strictly.");
+			throw new IllegalArgumentException("Invalid Ticks Passed; Ticks Strictly <= 0.");
 		}
 		return new DungeonResponse(null, null, null, null, null, null);
 	}
