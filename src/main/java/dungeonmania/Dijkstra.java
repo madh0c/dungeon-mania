@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 import dungeonmania.allEntities.SwampTile;
 import dungeonmania.util.Position;
@@ -20,7 +22,7 @@ public interface Dijkstra {
 		mercIllegal.add("boulder");
 
 		for (int x = 0; x < currentDungeon.getWidth(); x++) {
-			for (int y = 0; y < currentDungeon.getWidth(); y++) {
+			for (int y = 0; y < currentDungeon.getHeight(); y++) {
 				Position currPos = new Position(x, y);
 				List<Entity> entOnCell = currentDungeon.getEntitiesOnCell(currPos);
 
@@ -49,43 +51,61 @@ public interface Dijkstra {
 		Map<Position, Integer> outlets = new HashMap<>();
 
 		for (Position pos : adjPos) {
-			int bogFactor = 0;
+			int traverseSpeed = 2;
 			if (!currentDungeon.validPos(pos)) {
 				break;
 			}
+
 			List<String> entTypesAdjCell = new ArrayList<>();
 			List<Entity> entCell = currentDungeon.getEntitiesOnCell(pos);
 
 			for (Entity ent : entCell) {
 				if (ent instanceof SwampTile) {
-					SwampTile swamp = (SwampTile) ent;
-					bogFactor = swamp.getBogFactor();
-				}
-				entTypesAdjCell.add(ent.getType());
+					SwampTile swampTile = (SwampTile) ent;
+					traverseSpeed = swampTile.moveFactor();
+				} entTypesAdjCell.add(ent.getType());
 			}
 
 			if (!Collections.disjoint(entTypesAdjCell, mercIllegal)) {
 				break;
-			}
-
-			if (bogFactor != 0) {
-				outlets.put(pos, bogFactor);
-			} else {
-				outlets.put(pos, 1);
-			}
- 		}
-		return outlets;
+			} outlets.put(pos, traverseSpeed);
+ 		} return outlets;
 	}
 
 
 
-	public static Position traverse(Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap) {
+	public static Position traverse(int height, int width, Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap) {
 		Position nextPosition = null;
 
+		Map<Position, Double> dist = new HashMap<>();
+		Map<Position, Position> prev = new HashMap<>();
+
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				Position pos = new Position(x, y);
+				dist.put(pos, Double.POSITIVE_INFINITY);
+				prev.put(pos, null);
+			}
+		}
+
+		dist.put(source, 0.0);
+
+
+		Queue<Position> dijkstraQueue = new PriorityQueue<>();
+
+		while (!dijkstraQueue.isEmpty()) {
+			// Position u = dijkstraQueue
+			Map<Position, Integer> compPos = dungeonMap.get(u);
+			
+			for (Map.Entry<Position,Integer> entry : compPos.entrySet()) {
+				if(dist.get(u) +  entry.getValue() < dist.get(entry.getKey()) {
+					dist.put(entry.getKey(), dist.get(u) +  entry.getValue());
+					prev.put(entry.getKey(), u);
+				}
+			}
+		}
 		
-
-
-	return nextPosition;
-}
+		return nextPosition;
+	}
 	
 }

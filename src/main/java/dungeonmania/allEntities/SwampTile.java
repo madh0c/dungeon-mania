@@ -6,19 +6,19 @@ import dungeonmania.util.Position;
 
 public class SwampTile extends Entity {
 
-	int bogFactor;
+	int moveFactor;
 
 	/**
 	 * This bomb is a Collectible, as can be picked up
 	 * @param position	where the bomb is located
 	 */
-    public SwampTile(String id, Position position, int bogFactor) {
+    public SwampTile(String id, Position position, int moveFactor) {
         super(id, position, "swamp_tile");
-		this.bogFactor = bogFactor;
+		this.moveFactor = moveFactor;
 	}
 
-	public int getBogFactor() {
-		return bogFactor;
+	public int moveFactor() {
+		return moveFactor;
 	}
 
 }
