@@ -32,7 +32,7 @@ public class ZombieToast extends MovableEntity {
 		return randSeed;
 	}
 
-	// @Override
+	@Override
 	public void move(Dungeon dungeon) {
 		// Generate random number
 		int num = random.nextInt(4);

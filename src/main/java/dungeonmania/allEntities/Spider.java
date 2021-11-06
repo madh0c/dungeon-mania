@@ -88,7 +88,7 @@ public class Spider extends MovableEntity {
 		return true;
 	}
 
-
+	@Override
 	public void move(Dungeon dungeon) {
 		// Find predetermined position
 		if (clockwise) {

@@ -64,6 +64,6 @@ public abstract class MovableEntity extends Entity {
 		return true;
 	}
 
-	// public abstract void move(Dungeon dungeon, Direction direction);
+	public abstract void move(Dungeon dungeon);
 }
 

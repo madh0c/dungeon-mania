@@ -98,6 +98,11 @@ public class Mercenary extends MovableEntity {
 		return true;
 	}
 
+	/**
+	 * Bribe the Mercenary <p>
+	 * The check for if the player has enough gold is already done before this
+	 * @param dungeon	Current dungeon of mercenary
+	 */
 	public void bribe(Dungeon dungeon) {
 
 		Treasure gold = null;
@@ -118,7 +123,7 @@ public class Mercenary extends MovableEntity {
 	/**
 	 * Find the square that the mercenary is about to move on (through the portal) then collides the mercenary with the square.
 	 * If collideable then mercenary will move through the portal onto that square.
-	 * @param dungeon
+	 * @param dungeon	Current dungeon of mercenary
 	 */
 	public void portalMove(Dungeon dungeon) {
 		Position pos = getPosition();
@@ -142,8 +147,8 @@ public class Mercenary extends MovableEntity {
 	/**
 	 * Move the mercenery iff it can move to a cardinally adjacent cell that is closer to the player than
 	 * the current cell.
-	 * @param direction
-	 * @param dungeon
+	 * @param direction	Desired direction of mercenary
+	 * @param dungeon	Current dungeon of mercenary
 	 * @return boolean of whether the mercenary got moved
 	 */
 	public boolean mercMove(Direction direction, Dungeon dungeon) {
@@ -163,7 +168,13 @@ public class Mercenary extends MovableEntity {
 		return true;
 	}
 
-
+	/**
+	 * Move the mercenary towards the player<p>
+	 * Up / Down first priority<p>
+	 * Left / Right second priority
+	 * @param dungeon	Current dungeon of mercenary
+	 */
+	@Override
 	public void move(Dungeon dungeon) {
 		// Find player
 		Player player = dungeon.getPlayer();

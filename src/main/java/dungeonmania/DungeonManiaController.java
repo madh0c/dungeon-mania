@@ -322,37 +322,33 @@ public class DungeonManiaController {
 
 		currentDungeon.tickOne();
 
-		// Move player
+		// Player actions
 		if (currentDungeon.getPlayer() != null) {
 			currentDungeon.getPlayer().setCurrentDir(movementDirection);
 			// make sure invincibility wears off
 			int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
 			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
+
+			// Move player
 			currentDungeon.getPlayer().move(currentDungeon, movementDirection);
 		}
 
-		List<Entity> tempEnts = new ArrayList<>();
+		List<MovableEntity> tempEnts = new ArrayList<>();
 
 		for (Entity entity : currentDungeon.getEntities()) {
-			tempEnts.add(entity);
-		}
-
-		for (Entity entity : tempEnts) {
-			if (entity instanceof Spider) {
-				Spider spider = (Spider) entity;
-				spider.move(currentDungeon);
-			} else if (entity instanceof Mercenary) {
-				Mercenary merc = (Mercenary) entity;
-				merc.move(currentDungeon);
+			if (entity instanceof MovableEntity) {
+				MovableEntity mov = (MovableEntity) entity;
+				tempEnts.add(mov);
 			} else if (entity instanceof Boulder) {
 				Boulder boulder = (Boulder) entity;
 				boulder.move(currentDungeon);
-			} else if (entity instanceof ZombieToast) {
-				ZombieToast zombie = (ZombieToast) entity;
-				zombie.move(currentDungeon);
 			}
 		}
-		
+
+		// Move all Movable Entities
+		for (MovableEntity mov : tempEnts) {
+			mov.move(currentDungeon);
+		}
 		
 		// find all entities that should be blown up	
 		List<Entity> entitiesToBeRemoved = new ArrayList<>();	
