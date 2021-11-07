@@ -9,6 +9,7 @@ public class Portal extends Entity {
     private String colour;
 
     public Portal(String id, Position position, String colour) {
+
         super(id, position, "portal");
         this.colour = colour;
     }
@@ -16,5 +17,4 @@ public class Portal extends Entity {
     public String getColour() {
         return this.colour;
     }
-
 }

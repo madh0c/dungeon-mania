@@ -123,11 +123,11 @@ public class App {
         }, gson::toJson);
 
         Spark.post("/api/game/rewind", "application/json", (request, response) -> {
-            return callUsingSessionAndArgument(request, (dmc) -> dmc.rewind(Integer.parseInt(request.queryParams(("ticks")))));
+            return callUsingSessionAndArgument(request, (dmc) -> dmc.rewind(Integer.valueOf(request.queryParams(("ticks")))));
         }, gson::toJson);
 
         Spark.post("/api/game/new/generate", "application/json", (request, response) -> {
-            return callUsingSessionAndArgument(request, (dmc) -> dmc.generateDungeon(Integer.parseInt(request.queryParams(("xStart"))), Integer.parseInt(request.queryParams(("yStart"))), Integer.parseInt(request.queryParams(("xEnd"))), Integer.parseInt(request.queryParams(("yEnd"))), (request.queryParams("gameMode"))));
+            return callUsingSessionAndArgument(request, (dmc) -> dmc.generateDungeon(Integer.valueOf(request.queryParams(("xStart"))), Integer.valueOf(request.queryParams(("yStart"))), Integer.valueOf(request.queryParams(("xEnd"))), Integer.valueOf(request.queryParams(("yEnd"))), request.queryParams("gameMode")));
         }, gson::toJson);
 
         Scintilla.start();
