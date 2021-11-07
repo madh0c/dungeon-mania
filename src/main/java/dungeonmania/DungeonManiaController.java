@@ -432,43 +432,30 @@ public class DungeonManiaController {
 		boolean treasure = true;
 		boolean boulders = true;
 
-		List<String> targetGoals = new ArrayList<>();
-		targetGoals.add("enemies");
-		targetGoals.add("exit");
-		targetGoals.add("treasure");
-		targetGoals.add("enemies");
-
 		for (Entity ent: currentDungeon.getEntities()) {
 			if (ent instanceof MovingEntity) {
 				enemies = false;
-				break;
+				continue;
 			} else if (ent instanceof Exit) {
 				Position playerPos = currentDungeon.getPlayerPosition();
 				Position exitPos = ent.getPosition();
 				if (playerPos.coincides(exitPos)) {
 					exit = true;
-					break;
+					continue;
 				} 
 			} else if (ent instanceof Treasure) {
 				treasure = false;
-				break;
+				continue;
 			} else if (ent instanceof Switch) {
 				Switch swtch = (Switch) ent;
 				if (!swtch.getStatus()) {
 					boulders = false;
-					break;
+					continue;
 				}
 			}
 		}
-
-		String boolString = currentDungeon.getGoals();
-
-		boolString.replaceAll(":enemies", String.valueOf(enemies));
-		boolString.replaceAll(":exit", String.valueOf(exit));
-		boolString.replaceAll(":treasure", String.valueOf(treasure));
-		boolString.replaceAll(":boulders", String.valueOf(boulders));
-		boolString.replaceAll("AND", String.valueOf("&&"));
-		boolString.replaceAll("OR", String.valueOf("||"));
+		
+		/* Evaluate the string given enemies, exit, treasure and boulder */
 
 		return bool;
 	}
