@@ -1,23 +1,19 @@
 {
   "id": 1,
   "name": "testMercenaryBribe-1636079593059",
-  "inventory": [],
-  "entities": [
+  "inventory": [
     {
-      "health": 35,
-      "attack": 2,
-      "visible": true,
-      "currentDir": "RIGHT",
-      "haveKey": false,
-      "invincibleTickDuration": 0,
+      "durability": 9,
       "position": {
-        "x": 3,
+        "x": 2,
         "y": 0,
         "layer": 0
       },
-      "type": "player",
-      "id": "0"
-    },
+      "type": "armour",
+      "id": "15"
+    }
+  ],
+  "entities": [
     {
       "position": {
         "x": 1,
@@ -44,29 +40,89 @@
       "health": 30,
       "baseAttack": 5,
       "position": {
-        "x": 1,
-        "y": 1,
+        "x": 2,
+        "y": 0,
         "layer": 0
       },
       "type": "mercenary",
-      "id": "13"
+      "id": "14"
     },
     {
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
       "position": {
-        "x": 1,
-        "y": 1,
+        "x": 2,
+        "y": 0,
         "layer": 0
       },
       "type": "mercenary",
-      "id": "14"
+      "id": "16"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "17"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "18"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "19"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "20"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "21"
     }
   ],
   "gameMode": "Standard",
-  "historicalEntCount": 15,
-  "tickNumber": 125,
+  "historicalEntCount": 22,
+  "tickNumber": 185,
   "spawnpoint": {
     "x": 2,
     "y": 0,
