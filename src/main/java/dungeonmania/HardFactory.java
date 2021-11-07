@@ -24,11 +24,11 @@ public class HardFactory extends EntityFactory {
 		else if (type.contains("zombie_toast_spawner"))
 			return new ZombieToastSpawner(id, position, 15);
 		else if (type.contains("spider"))
-			return new Spider(id, position);
+			return new Spider(id, position, true);
 		else if (type.contains("zombie_toast"))
-			return new ZombieToast(id, position);
+			return new ZombieToast(id, position, true);
 		else if (type.contains("mercenary"))
-			return new Mercenary(id, position);
+			return new Mercenary(id, position, true);
 		else if (type.contains("treasure"))
 			return new Treasure(id, position);
 		else if (type.contains("key"))

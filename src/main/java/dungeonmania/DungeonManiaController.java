@@ -306,7 +306,8 @@ public class DungeonManiaController {
 			if (currentDungeon.getSpawnpoint() != null) {
 				// Merc spawn every 10 ticks
 				int newId = currentDungeon.getHistoricalEntCount();
-				Mercenary merc = new Mercenary(String.valueOf(newId), currentDungeon.getSpawnpoint());
+				// Mercenary merc = new Mercenary(String.valueOf(newId), currentDungeon.getSpawnpoint());
+				Entity merc = currentDungeon.getFactory().createEntity(String.valueOf(newId), "mercenary", currentDungeon.getSpawnpoint());
 				currentDungeon.addEntity(merc);
 			}
 		}

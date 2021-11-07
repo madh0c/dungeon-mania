@@ -14,8 +14,8 @@ public class Mercenary extends MovableEntity {
 	private boolean isAlly;
 	private Direction currentDir;
 
-    public Mercenary(String id, Position position) {
-        super(id, position, "mercenary");
+    public Mercenary(String id, Position position, boolean enemyAttack) {
+        super(id, position, "mercenary", enemyAttack);
 		this.isAlly = false;
 		super.setHealth(30);
 		super.setBaseAttack(5);
@@ -33,7 +33,7 @@ public class Mercenary extends MovableEntity {
 		this.currentDir = currentDir;
 	}
 
-
+	@Override
 	public boolean collide(Entity entity, Dungeon dungeon) {
 		// If empty space
 		if (entity == null) {
@@ -79,7 +79,8 @@ public class Mercenary extends MovableEntity {
 		if (entity instanceof Player) {
 			// If not ally, battle
 			if (!isAlly) {
-				if (dungeon.getMode().enemyAttack()) {
+				// if (dungeon.getMode().enemyAttack()) {
+				if (enemyAttack()) {
 					Battle.battle(this, dungeon);
 				}
 				return true;

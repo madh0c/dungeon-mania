@@ -94,7 +94,17 @@ public class Prims {
 		List<Entity> entityList = new ArrayList<>();
 		int historicalEntCount = 0;
 
-		Player player = new Player(String.valueOf(historicalEntCount), startPos, gameMode);
+		// Player player = new Player(String.valueOf(historicalEntCount), startPos, gameMode);
+		EntityFactory factory = null;
+		if (gameMode.equals("Peaceful")) {
+			factory = new PeacefulFactory();
+		} else if (gameMode.equals("Standard")) {
+			factory = new StandardFactory();
+		} else if (gameMode.equals("Hard")) {
+			factory = new HardFactory();
+		}
+		Player player = factory.createPlayer(String.valueOf(historicalEntCount), startPos);
+		
 		entityList.add(player);
 		historicalEntCount++;
 

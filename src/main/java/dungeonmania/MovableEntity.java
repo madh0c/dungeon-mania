@@ -7,9 +7,11 @@ import dungeonmania.util.Position;
 public abstract class MovableEntity extends Entity {
 	private int health;
 	private int baseAttack;
+	private final boolean enemyAttack;
 
-    public MovableEntity(String id, Position position, String type) {
+    public MovableEntity(String id, Position position, String type, boolean enemyAttack) {
         super(id, position, type);
+		this.enemyAttack = enemyAttack;
     }
 
 	public int getBaseAttack() {
@@ -22,6 +24,10 @@ public abstract class MovableEntity extends Entity {
 
 	public int getHealth() {
 		return health;
+	}
+
+	public boolean enemyAttack() {
+		return enemyAttack;
 	}
 
 	public void setHealth(int health) {
@@ -53,7 +59,8 @@ public abstract class MovableEntity extends Entity {
 		} else if (entity instanceof MovableEntity) {
 			return false;
 		} else if (entity instanceof Player) {
-			if (dungeon.getMode().enemyAttack()) {
+			// if (dungeon.getMode().enemyAttack()) {
+			if (enemyAttack()) {
 				Battle.battle(this, dungeon);
 			}
 			return true;

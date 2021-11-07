@@ -33,6 +33,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 0,
         "y": 0,

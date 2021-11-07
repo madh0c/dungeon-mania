@@ -7,6 +7,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 2,
         "y": 2,
@@ -19,6 +20,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -31,6 +33,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -43,6 +46,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -55,6 +59,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -67,6 +72,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -79,6 +85,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -91,6 +98,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -103,6 +111,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -115,6 +124,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -127,6 +137,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -139,6 +150,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -151,6 +163,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -163,6 +176,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -175,6 +189,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -187,6 +202,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -199,6 +215,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -211,6 +228,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -223,6 +241,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -235,6 +254,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -247,6 +267,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -259,6 +280,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -271,6 +293,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -283,6 +306,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -295,6 +319,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -307,6 +332,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -319,6 +345,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -331,6 +358,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -343,6 +371,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -355,6 +384,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -367,6 +397,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -379,6 +410,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 1,
         "y": 1,
@@ -386,11 +418,635 @@
       },
       "type": "mercenary",
       "id": "38"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "39"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "40"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "41"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "42"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "43"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "44"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "45"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "46"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "47"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "48"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "49"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "50"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "51"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "52"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "53"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "54"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "55"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "56"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "57"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "58"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "59"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "60"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "61"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "62"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "63"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "64"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "65"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "66"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "67"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "68"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "69"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "70"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "71"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "72"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "73"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "74"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "75"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "76"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "77"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "78"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "79"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "80"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "81"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "82"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "83"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "84"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "85"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "86"
     }
   ],
   "gameMode": "Standard",
-  "historicalEntCount": 39,
-  "tickNumber": 365,
+  "historicalEntCount": 87,
+  "tickNumber": 845,
   "spawnpoint": {
     "x": 1,
     "y": 1,
