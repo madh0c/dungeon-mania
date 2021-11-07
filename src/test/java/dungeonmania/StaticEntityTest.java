@@ -395,7 +395,7 @@ public class StaticEntityTest {
         // Assert the treasure is off the map
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
-        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
         EntityResponse endExitInfo = new EntityResponse("2", "exit", new Position(3,0), false);
 
         endList.add(endPlayerInfo);

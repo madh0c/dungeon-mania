@@ -206,6 +206,7 @@
     }
   ],
   "gameMode": "Standard",
+  "goals": "",
   "historicalEntCount": 20,
   "tickNumber": 13,
   "spawnpoint": {
@@ -215,5 +216,9 @@
   },
   "mode": {},
   "height": 50,
-  "width": 50
+  "width": 50,
+  "foundGoals": {
+    "goal": "treasure",
+    "hasCompleted": true
+  }
 }

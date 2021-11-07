@@ -32,9 +32,9 @@ public class GoalsTest {
 		controller.newGame("testAndGoal", "Standard");
 		assertEquals(controller.getDungeon(0).getGoals(), "(:enemies AND :treasure)");
 		controller.tick(null, Direction.RIGHT);
-		assertEquals(controller.getDungeon(0).getGoals(), "(:enemies AND :treasure)");
+		assertEquals(controller.getDungeon(0).getGoals(), ":treasure");
 		controller.tick(null, Direction.RIGHT);
-		//assertEquals(controller.getDungeon(0).getGoals(), "");
+		assertEquals(controller.getDungeon(0).getGoals(), "");
 	}
 	
 }

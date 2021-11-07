@@ -4,8 +4,7 @@ package dungeonmania;
 
 public interface GoalNode {
 	
-	public Boolean evaluate(Dungeon dungeon);
+	public Boolean evaluate();
 	public String remainingString();
-	//public Boolean isCompleted;
 }
 

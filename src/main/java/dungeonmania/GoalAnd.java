@@ -15,12 +15,7 @@ public class GoalAnd implements GoalNode{
 	}
 
 	@Override
-	public Boolean evaluate(Dungeon dungeon) {
-		if (subGoals.stream().allMatch(x->x.evaluate(dungeon).equals(true))) {
-			hasCompleted = true;
-		} else {
-			hasCompleted = false;
-		}
+	public Boolean evaluate() {
 		return hasCompleted;
 	}
 
@@ -49,6 +44,10 @@ public class GoalAnd implements GoalNode{
 
 	public List<GoalNode> getList() {
 		return subGoals;
+	}
+
+	public void setHasCompleted(Boolean hasCompleted) {
+		this.hasCompleted = hasCompleted;
 	}
 	
 }

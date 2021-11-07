@@ -453,50 +453,122 @@ public class DungeonManiaController {
 				}
 			}
 		}
-		
-		/* Evaluate the string given enemies, exit, treasure and boulder */
-		GoalLeaf treasureLeaf = new GoalLeaf("treasure");
-		GoalLeaf enemiesLeaf = new GoalLeaf("enemies");
-		GoalLeaf exitLeaf = new GoalLeaf("exit");
-		GoalLeaf bouldersLeaf = new GoalLeaf("boulders");
 
-		if (treasure) {
-			treasureLeaf.sethasCompleted(true);
-			System.out.println(treasureLeaf.remainingString());
-		}  
+		List<String> currAchieved = new ArrayList<>();
+
 		if (enemies) {
-			enemiesLeaf.sethasCompleted(true);
-		} 
+			currAchieved.add("enemies");
+		}
 		if (exit) {
-			exitLeaf.sethasCompleted(true);
-		} 
+			currAchieved.add("exit");
+		}
+		if (treasure) {
+			currAchieved.add("treasure");
+		}
 		if (boulders) {
-			bouldersLeaf.sethasCompleted(true);
+			currAchieved.add("boulders");
 		}
-		System.out.println(currentDungeon.getFoundGoals().remainingString());
 
-		if (!currentDungeon.getGoals().contains("AND") && !currentDungeon.getGoals().contains("OR")) {
-			System.out.println(currentDungeon.getGoals());
-			if (currentDungeon.getGoals().contains("treasure")) {
-				currentDungeon.setFoundGoals(treasureLeaf);
-			} else if (currentDungeon.getGoals().contains("enemies")) {
-				currentDungeon.setFoundGoals(enemiesLeaf);
-			} else if (currentDungeon.getGoals().contains("exit")) {
-				currentDungeon.setFoundGoals(exitLeaf);
-			} else if (currentDungeon.getGoals().contains("boulders")) {
-				currentDungeon.setFoundGoals(bouldersLeaf);
+		evalLeafs(currAchieved, currentDungeon.getFoundGoals());
+
+		evalNodes(currentDungeon.getFoundGoals());
+
+		currentDungeon.setGoals(currentDungeon.getFoundGoals().remainingString());
+	}
+
+	public void evalLeafs(List<String> currAchieved, GoalNode head) {
+		if (head instanceof GoalAnd) {
+			GoalAnd headAnd = (GoalAnd) head;
+			for (GoalNode subgoal : headAnd.getList()) {
+				evalLeafs(currAchieved, subgoal);
+			}
+		} else if (head instanceof GoalOr) {
+			GoalOr headOr = (GoalOr) head;
+			for (GoalNode subgoal : headOr.getList()) {
+				evalLeafs(currAchieved, subgoal);
+			}
+		} else {
+			GoalLeaf leaf = (GoalLeaf) head;
+			if (currAchieved.contains(leaf.getGoal())) {
+				leaf.setHasCompleted(true);
+			} else {
+				leaf.setHasCompleted(false);
+			}
+		} 
+	}
+
+	public void evalNodes(GoalNode head) {
+		if (head instanceof GoalAnd) {
+			GoalAnd headAnd = (GoalAnd) head;
+			int success = 0;
+			for (GoalNode subgoal : headAnd.getList()) {
+				if (subgoal.evaluate()) {
+					success++;
+				}
+				if (subgoal instanceof GoalAnd || subgoal instanceof GoalOr) {
+					success = evalSubGoals(subgoal, success);
+				}
+			}
+			if (success == headAnd.getList().size()) {
+				headAnd.setHasCompleted(true);
+			}
+		} else if (head instanceof GoalOr) {
+			GoalOr headOr = (GoalOr) head;
+			int success = 0;
+			for (GoalNode subgoal : headOr.getList()) {
+				if (subgoal.evaluate()) {
+					break;
+				}
+
+				if (subgoal instanceof GoalOr || subgoal instanceof GoalOr) {
+					success = evalSubGoals(subgoal, success);
+				}
+			}
+
+			if (success > 0) {
+				headOr.setHasCompleted(true);
 			}
 		}
+	}
 
-		if (currentDungeon.getGoals().contains("AND")) {
-			GoalAnd andLeaf = new GoalAnd ("AND");
-			List <GoalNode> subCon = andLeaf.getList();
-			for (GoalNode goal : subCon) {
+	public int evalSubGoals(GoalNode head, int total) {
+		
+		if (head instanceof GoalAnd) {
+			GoalAnd headAnd = (GoalAnd) head;
+			int success = 0;
+			for (GoalNode subgoal : headAnd.getList()) {
+				if (subgoal.evaluate()) {
+					success++;
+					total++;
+				}
+				if (subgoal instanceof GoalAnd || subgoal instanceof GoalOr) {
+					total = evalSubGoals(subgoal, total);
+					success = evalSubGoals(subgoal, success);
+				}
+			}
+			if (success == headAnd.getList().size()) {
+				headAnd.setHasCompleted(true);
+			}
+		} else if (head instanceof GoalOr) {
+			GoalOr headOr = (GoalOr) head;
+			int success = 0;
+			for (GoalNode subgoal : headOr.getList()) {
+				if (subgoal.evaluate()) {
+					success++;
+					total++;
+					break;
+				}
 
+				if (subgoal instanceof GoalOr || subgoal instanceof GoalOr) {
+					total = total + evalSubGoals(subgoal, total);
+					success = success + evalSubGoals(subgoal, success);
+				}
+			}
+			if (success > 0) {
+				headOr.setHasCompleted(true);
 			}
 		}
-
-		return;
+		return total;
 	}
 				
 	

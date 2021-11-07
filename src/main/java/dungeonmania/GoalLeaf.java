@@ -1,6 +1,6 @@
 package dungeonmania;
 
-public class GoalLeaf implements GoalNode{
+public class GoalLeaf implements GoalNode {
 
 	private String goal;
 	private Boolean hasCompleted = false;
@@ -9,7 +9,7 @@ public class GoalLeaf implements GoalNode{
 	}
 
 	@Override
-	public Boolean evaluate(Dungeon dungeon) {
+	public Boolean evaluate() {
 		return hasCompleted;
 	}
 
@@ -22,6 +22,14 @@ public class GoalLeaf implements GoalNode{
 	}
 	
 	public void sethasCompleted(Boolean hasCompleted) {
+		this.hasCompleted = hasCompleted;
+	}
+
+	public String getGoal() {
+		return goal;
+	}
+
+	public void setHasCompleted(Boolean hasCompleted) {
 		this.hasCompleted = hasCompleted;
 	}
 }

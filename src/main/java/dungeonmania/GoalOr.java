@@ -15,7 +15,7 @@ public class GoalOr implements GoalNode{
 	}
 
 	@Override
-	public Boolean evaluate(Dungeon dungeon) {
+	public Boolean evaluate() {
 		return hasCompleted;
 	}
 
@@ -44,6 +44,10 @@ public class GoalOr implements GoalNode{
 
 	public List<GoalNode> getList() {
 		return subGoals;
+	}
+
+	public void setHasCompleted(Boolean hasCompleted) {
+		this.hasCompleted = hasCompleted;
 	}
 
 	// public boolean getCompleted() {
