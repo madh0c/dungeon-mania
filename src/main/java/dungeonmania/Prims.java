@@ -65,7 +65,7 @@ public class Prims {
 			potentialNeighbours.addAll(neighbour.getPositionsTwoTilesAway());
 			
 			for (Position potNeigh : potentialNeighbours) {
-				if (validPotNeigh(potNeigh, maze)) {
+				if (isValid(potNeigh, maze)) {
 					neighbours.add(potNeigh);
 				} potentialNeighbours.remove(potNeigh);
 			}
@@ -104,9 +104,9 @@ public class Prims {
 
 		for (int x = 0; x < 50; x++) {
 			for (int y = 0; y < 50; y++) {
-				if (maze[x][y] == false) {
-					Wall newWall = new Wall(String.valueOf(historicalEntCount), new Position(x, y));
-					entityList.add(newWall);
+				if (!maze[x][y]) {
+					Wall wall = new Wall(String.valueOf(historicalEntCount), new Position(x, y));
+					entityList.add(wall);
 					historicalEntCount++;
 				}
 			}
@@ -116,7 +116,12 @@ public class Prims {
 		entityList.add(exit);
 		historicalEntCount++;
 
-		return new Dungeon(id, "primsDungeon", entityList, gameMode, ":exit");
+		Dungeon newDungeon = new Dungeon(id, "primsDungeon", entityList, gameMode, ":exit");
+
+		// newDungeon.setHeight(50);
+		// newDungeon.setWidth(50);
+
+		return newDungeon;
 	}
 	
 }
