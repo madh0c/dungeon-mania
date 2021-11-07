@@ -156,7 +156,7 @@ public final class Position {
         List<Position> adjacentPositions = new ArrayList<>();
         adjacentPositions.add(new Position(x-2, y));
         adjacentPositions.add(new Position(x  , y-2));
-        adjacentPositions.add(new Position(x, y-+2));
+        adjacentPositions.add(new Position(x, y+2));
         adjacentPositions.add(new Position(x+2, y));
         return adjacentPositions;
     }
