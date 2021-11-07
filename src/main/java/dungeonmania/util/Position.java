@@ -152,6 +152,15 @@ public final class Position {
         return adjacentPositions;
     }
 
+    public List<Position> getPositionsTwoTilesAway() {
+        List<Position> adjacentPositions = new ArrayList<>();
+        adjacentPositions.add(new Position(x-2, y));
+        adjacentPositions.add(new Position(x  , y-2));
+        adjacentPositions.add(new Position(x, y-+2));
+        adjacentPositions.add(new Position(x+2, y));
+        return adjacentPositions;
+    }
+
 	// Check if same x and y coordinate
 	public boolean coincides(Position pos) {
 		return (getX() == pos.getX()) && (getY() == pos.getY());
