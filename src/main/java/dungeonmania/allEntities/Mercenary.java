@@ -7,6 +7,8 @@ import dungeonmania.Entity;
 import dungeonmania.MovingEntity;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
+import dungeonmania.Dijkstra;
+
 
 
 public class Mercenary extends MovingEntity {
@@ -153,18 +155,22 @@ public class Mercenary extends MovingEntity {
 	 */
 	public boolean mercMove(Direction direction, Dungeon dungeon) {
 		// Check if collidable with next entity
-		Position pos = getPosition();
-		Entity ent = dungeon.getEntity(pos.translateBy(direction));
-		Direction prevDir = getCurrentDir();
-		setCurrentDir(direction);
-		if (ent != null && !collide(ent, dungeon)) {
-			setCurrentDir(prevDir);
-			return false;
-		}
+		// Position pos = getPosition();
+		// Entity ent = dungeon.getEntity(pos.translateBy(direction));
+		// Direction prevDir = getCurrentDir();
+		// setCurrentDir(direction);
+		// if (ent != null && !collide(ent, dungeon)) {
+		// 	setCurrentDir(prevDir);
+		// 	return false;
+		// }
 
-		setPosition(getPosition().translateBy(direction));
+		// setPosition(getPosition().translateBy(direction));
 
-		portalMove(dungeon);
+		// portalMove(dungeon);
+
+		Position currPos = this.getPosition();
+		this.setPosition(Dijkstra.move(currPos, dungeon));
+
 		return true;
 	}
 
