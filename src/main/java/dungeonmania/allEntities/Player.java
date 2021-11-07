@@ -1,11 +1,10 @@
 package dungeonmania.allEntities;
 
-import java.util.Map;
 import dungeonmania.Battle;
-import dungeonmania.CollectibleEntity;
+import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;
-import dungeonmania.MovableEntity;
+import dungeonmania.MovingEntity;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
@@ -70,6 +69,10 @@ public class Player extends Entity {
 	public void setCurrentDir(Direction currentDir) {
 		this.currentDir = currentDir;
 	}
+	
+	public void setHaveKey(boolean haveKey) {
+		this.haveKey = haveKey;
+	}
 
 	/**
 	 * Check if the player is able to collide with entity<p>
@@ -87,11 +90,10 @@ public class Player extends Entity {
 			return true;
 		}
 		
-		if (entity instanceof Wall) {
-			return false;
-		} else if (entity instanceof BombStatic) {
-			return false;
-		} else if (entity instanceof ZombieToastSpawner) {
+		if (entity instanceof Wall || 
+			entity instanceof BombStatic || 
+			entity instanceof ZombieToastSpawner) 
+		{
 			return false;
 		} else if (entity instanceof Door) {
 			Door door = (Door) entity;
@@ -99,8 +101,8 @@ public class Player extends Entity {
 				return true;
 			}
 			if (haveKey) {
-				CollectibleEntity removed = null;
-				for (CollectibleEntity item : dungeon.getInventory()) {
+				CollectableEntity removed = null;
+				for (CollectableEntity item : dungeon.getInventory()) {
 					if (item instanceof Key) {
 						removed = item;
 						break;
@@ -110,25 +112,25 @@ public class Player extends Entity {
 				haveKey = false;
 				door.unlock();
 				return true;
-			} else {
-				return false;
 			}
+			return false;
 			
 		} else if (entity instanceof Boulder) {
 			Boulder boulder = (Boulder) entity;
 
 			Position newPos = boulder.getPosition().translateBy(currentDir);
 			return boulder.collide(dungeon.getEntity(newPos));		
+
 		} else if (entity instanceof Portal) {
 			Portal portal1 = (Portal) entity;
-			for (Map.Entry<String, Entity> entry : dungeon.getEntities().entrySet()) {
-				Entity currentEntity = entry.getValue();
-				if (!(currentEntity instanceof Portal)) {
+
+			for (Entity currEnt : dungeon.getEntities()) {
+				if (!(currEnt instanceof Portal)) {
 					continue;
 				}
 				// Check if same entity
-				if (!currentEntity.getId().equals(portal1.getId())) {
-					Portal portal2 = (Portal) currentEntity;
+				if (!currEnt.getId().equals(portal1.getId())) {
+					Portal portal2 = (Portal) currEnt;
 					if (portal1.getColour().equals(portal2.getColour())) {
 						// Find position of p2
 						// Move in direciton of currDir
@@ -136,13 +138,10 @@ public class Player extends Entity {
 						return collide(nextTo, dungeon);
 					}
 				}
-	
 			}
 			return false;
-		}
 
-		// PICKUP ITEM
-		if (entity instanceof CollectibleEntity) {
+		} else if (entity instanceof CollectableEntity) {
 			// can't have 2 keys in inv
 			if (entity instanceof Key) {
 				if (haveKey) {
@@ -150,7 +149,7 @@ public class Player extends Entity {
 				}			
 				haveKey = true;
 			} else if (entity instanceof OneRing) {
-				for (CollectibleEntity item : dungeon.getInventory()) {
+				for (CollectableEntity item : dungeon.getInventory()) {
 					if (item.getType().equals("one_ring")) {
 						return true;
 					}
@@ -158,40 +157,63 @@ public class Player extends Entity {
 			} 
 			// Remove entity
 			dungeon.removeEntity(entity);
-
 			// Add to player inv
-			dungeon.addItemToInventory((CollectibleEntity)entity);
+			dungeon.addItemToInventory((CollectableEntity)entity);
 
-			return true;
-		}
-
-		// BATTLE
-		if (entity instanceof MovableEntity) {
-
+		} else if (entity instanceof MovingEntity) {
 			if (dungeon.getMode().enemyAttack()) {
 				Battle.battle(entity, dungeon);
 			}
-			//One Ring Spawning
-			// OneRing ring = new OneRing(getPosition(), 0);
-			// if (ring.doesSpawn()) {
-			// 	int check = 0;
-			// 	for (CollectibleEntity item : dungeon.getInventory()) {
-			// 		if (item instanceof OneRing) {
-			// 			check = 1;
-			// 		}
-			// 	}
-			// 	if (check == 0) {
-			// 		int id = dungeon.getHistoricalEntCount();
-			// 		ring.setId(String.valueOf(id));
-			// 		dungeon.setHistoricalEntCount(id++);
-			// 		dungeon.addItemToInventory(ring);
-			// 	}
-			// }
 		}
-		
 
 		return true;
 	}
 
+	/**
+	 * Move through a portal, if the current player is standing on a portal tile
+	 * @param dungeon	Current dungeon of player
+	 */
+	public void portalMove(Dungeon dungeon) {
+		Position pos = getPosition();
+		Portal portal1 = (Portal) dungeon.getEntity("portal", pos);
+		Position posPortal2 = new Position(0, 0);
+		if (portal1 != null) {
+			// Find other portal
+			for (Entity currEnt : dungeon.getEntities()) {
+				if (currEnt instanceof Portal) {
+					Portal portal2 = (Portal) currEnt;
+					if (portal2.getColour().equals(portal1.getColour()) && !portal2.equals(portal1)) {
+						posPortal2 = portal2.getPosition();
+						break;
+					}
+				}
+			}
+			setPosition(posPortal2.translateBy(getCurrentDir()));
+		}
+	}
 
+	/**
+	 * Translate a player by a "direction", if possible
+	 * @param dungeon	Current dungeon of player
+	 * @param direction	Desired direction of movement of player
+	 */
+	public void move (Dungeon dungeon, Direction direction) {
+		// Check if the direction is able to be moved into
+		Position newPos = getPosition().translateBy(direction);
+
+		// boolean collideable = true;
+		for (Entity entity : dungeon.getEntitiesOnCell(newPos)) {
+			if (!collide(entity, dungeon)) {
+				// collideable = false;
+				return;
+			}
+		}
+
+		// If can, move
+		// if (collideable) {
+		setPosition(newPos);
+		setCurrentDir(direction);
+		portalMove(dungeon);
+		// }
+	}
 }

@@ -9,14 +9,13 @@ import dungeonmania.util.FileLoader;
 import dungeonmania.util.Position;
 import dungeonmania.allEntities.*;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.HashMap;
 
 public class DungeonManiaController {
 
@@ -89,42 +88,45 @@ public class DungeonManiaController {
 	 */
 	public DungeonResponse newGame(String dungeonName, String gameMode) throws IllegalArgumentException {
 		checkValidNewGame(dungeonName, gameMode);
-		Dungeon newDungeon = jsonExporter.makeDungeon(lastUsedDungeonId, dungeonName + ".json", gameMode);
-				
-		List<EntityResponse> entities = new ArrayList<EntityResponse>();
-		for (Map.Entry<String, Entity> entry : newDungeon.getEntities().entrySet()) {
-			Entity currentEntity = entry.getValue();
-			EntityResponse er = new EntityResponse(entry.getKey(), currentEntity.getType(), currentEntity.getPosition(), currentEntity.isInteractable());
-			entities.add(er);
+		String fileName = (dungeonName + ".json"); 
+
+		try {
+			String path = FileLoader.loadResourceFile("/dungeons/" + fileName);
+			currentDungeon = GameInOut.fromJSON("new", path, fileName, lastUsedDungeonId, gameMode);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
-		// Check if switch is coincided with boulder
-		for (Map.Entry<String, Entity> entry : newDungeon.getEntities().entrySet()) {
-			Entity currentEntity = entry.getValue();
-			if (currentEntity instanceof Switch) {
-				Position pos = currentEntity.getPosition();
+		int currentId = currentDungeon.getId();
+		lastUsedDungeonId++;
+		games.add(currentDungeon);
+
+				
+		List<EntityResponse> entitiyResponses = getDungeonInfo(currentId).getEntities();
+
+		for (Entity entity : currentDungeon.getEntities()) {
+			if (entity instanceof Switch) {
+				Position pos = entity.getPosition();
 				Position newPos = new Position(pos.getX(), pos.getY(), 0);
-				Boulder boulder = (Boulder) newDungeon.getEntity("boulder", newPos);
+				Boulder boulder = (Boulder) currentDungeon.getEntity("boulder", newPos);
 				if (boulder != null) {
-					Switch sw = (Switch) currentEntity;
+					Switch sw = (Switch) entity;
 					sw.setStatus(true);
 				}
-				
 			}
 		}
+		
 		DungeonResponse result = new DungeonResponse(
-			String.valueOf(newDungeon.getId()), 
-			newDungeon.getName(), 
-			entities, 
+			String.valueOf(currentDungeon.getId()), 
+			currentDungeon.getName(), 
+			entitiyResponses, 
 			new ArrayList<ItemResponse>(), 
-			newDungeon.getBuildables(),             
-			newDungeon.getGoals() 
+			currentDungeon.getBuildables(),             
+			currentDungeon.getGoals() 
 		);
 
-		lastUsedDungeonId++;
+		
 
-		currentDungeon = newDungeon;
-		games.add(newDungeon);
 		return result;
 	}
 		
@@ -140,24 +142,23 @@ public class DungeonManiaController {
 				target = dungeon;
 			}
 		}
-
-		List<EntityResponse> entities = new ArrayList<EntityResponse>();
-		for (Map.Entry<String, Entity> entry : target.getEntities().entrySet()) {
-			Entity currentEntity = entry.getValue();
-			EntityResponse er = new EntityResponse(entry.getKey(), currentEntity.getType(), currentEntity.getPosition(), currentEntity.isInteractable());
-			entities.add(er);
+		
+		List<EntityResponse> listER = new ArrayList<EntityResponse>();
+		for (Entity entity : target.getEntities()) {
+			EntityResponse eR = new EntityResponse(entity.getId(), entity.getType(), entity.getPosition(), entity.isInteractable());
+			listER.add(eR);
 		}
 
 		List<ItemResponse> inventory = new ArrayList<ItemResponse>();
 
-		for (CollectibleEntity collectibleEntity : target.getInventory()) {
-			inventory.add(new ItemResponse(collectibleEntity.getId(), collectibleEntity.getType()));
+		for (CollectableEntity collectableEntity : target.getInventory()) {
+			inventory.add(new ItemResponse(collectableEntity.getId(), collectableEntity.getType()));
 		}
 		
 		return new DungeonResponse(
 			String.valueOf(target.getId()), 
 			target.getName(), 
-			entities, 
+			listER, 
 			inventory, 
 			target.getBuildables(),             
 			target.getGoals()
@@ -198,22 +199,46 @@ public class DungeonManiaController {
 	public DungeonResponse saveGame(String name) throws IllegalArgumentException {
 		String feed = name.replaceFirst(".json", "");
 
-		Persist persist = new Persist();
-		String path = ("src/main/resources/savedGames/" + feed); 
-		persist.exportJava(currentDungeon, path);
+		String path = ("src/main/resources/savedGames/" + feed + ".json"); 
 
+		int count = 0;
+		for (int i = 0; i < feed.length( ); i++) {
+			if (feed.charAt(i) == '-') {
+				count++;
+			}
+		}
+
+		// If you are loading a gave that has previously been saved, the old timestamp must be removed.
+		if (count > 1) {
+			String reFeed = feed.replaceAll("-.*-", "-");
+			path = ("src/main/resources/savedGames/" + reFeed + ".json");
+		}
+
+		try {
+			GameInOut.toJSON(feed, path, currentDungeon);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
 	public DungeonResponse loadGame(String name) throws IllegalArgumentException {
 		checkValidLoadGame(name);
-		Persist persist = new Persist();
-		String path = ("src/main/resources/savedGames/" + name); 
+		String feed = name.replaceFirst(".json", "");
+		String fileName = (feed + ".json"); 
 
-		Dungeon extractedDungeon = (Dungeon) persist.readFile(path);
-		currentDungeon = extractedDungeon;
-		
-		return getDungeonInfo(currentDungeon.getId());
+		try {
+			String path = FileLoader.loadResourceFile("/savedGames/" + fileName);
+			currentDungeon = GameInOut.fromJSON("load", path, feed, lastUsedDungeonId, null);
+			setLastUsedDungeonId(getLastUsedDungeonId() + 1);
+			games.add(currentDungeon);
+
+			return getDungeonInfo(currentDungeon.getId());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	/**
@@ -228,11 +253,21 @@ public class DungeonManiaController {
 
 
 	public List<String> allGames() {
-		try {
-			return FileLoader.listFileNamesInResourceDirectory("/savedGames");
-		} catch (IOException e) {
-			return new ArrayList<>();
+		String[] games;
+		// Creates a new File instance by converting the given pathname string
+		// into an abstract pathname
+		File f = new File("src/main/resources/savedGames");
+
+		// Populates the array with names of files and directories
+		games = f.list();
+		List<String> gamesList = new ArrayList<>();
+
+		// Put every file name into a list
+		for (String gameFile : games) {
+			gamesList.add(gameFile.replace(".json", ""));
 		}
+
+		return gamesList;
 	}
 
 	/**
@@ -272,34 +307,33 @@ public class DungeonManiaController {
 				int newId = currentDungeon.getHistoricalEntCount();
 				Mercenary merc = new Mercenary(String.valueOf(newId), currentDungeon.getSpawnpoint());
 				currentDungeon.addEntity(merc);
-				// currentDungeon.setHistoricalEntCount(newId + 1);
 			}
 		}
 
 		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
-		for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
-			Entity currentEntity = entry.getValue();
-			if (currentEntity.getType().equals("zombie_toast_spawner")) {
-				ZombieToastSpawner foundSpawner = (ZombieToastSpawner)currentEntity;
+
+		for (Entity entity : currentDungeon.getEntities()) {
+			if (entity.getType().equals("zombie_toast_spawner")) {
+				ZombieToastSpawner foundSpawner = (ZombieToastSpawner)entity;
 				spawners.add(foundSpawner);
 			}
 		}
 
-		Move moveStrategy = null;
 		currentDungeon.tickOne();
-		
-		moveStrategy = new PlayerMove();
-		// Move player
+
+		// Player actions
 		if (currentDungeon.getPlayer() != null) {
 			currentDungeon.getPlayer().setCurrentDir(movementDirection);
 			// make sure invincibility wears off
 			int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
 			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
-			moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);			
+
+			// Move player
+			currentDungeon.getPlayer().move(currentDungeon, movementDirection);
 		}
 		int treasureMapCount = 0;
-		for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
-			if (entry.getValue().getType().equals("treasure")) {
+		for (Entity entry : currentDungeon.getEntities()) {
+			if (entry.getType().equals("treasure")) {
 				treasureMapCount++;
 			}
 		}
@@ -318,96 +352,49 @@ public class DungeonManiaController {
 		}
 
 
-		Switch switchFlick = null;
-		boolean switchOn = false;
+		List<MovingEntity> tempEnts = new ArrayList<>();
 
-		Map<String, Entity> tempEnts = new HashMap<>();
-		for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
-			tempEnts.put(entry.getKey(), entry.getValue());
-		}
-		// Move everything else
-		for (Map.Entry<String, Entity> entry : tempEnts.entrySet()) {
-			Entity currentEntity = entry.getValue();
-			if (currentEntity instanceof Spider) {
-				moveStrategy = new SpiderMove();
-				moveStrategy.move(currentEntity, currentDungeon);
-			} else if (currentEntity instanceof Mercenary) {
-				moveStrategy = new MercenaryMove();
-				moveStrategy.move(currentEntity, currentDungeon);
-			} else if (currentEntity instanceof Boulder) {
-				if (!currentEntity.getPosition().equals(currentDungeon.getPlayerPosition())) {
-					continue;
-				}
-				moveStrategy = new StandardMove();
-				// Get position of switch, layer -1
-				Position prevPos = currentEntity.getPosition();
-				Position prevPosSwitch = new Position(prevPos.getX(), prevPos.getY(), -1);
-				moveStrategy.move(currentEntity, currentDungeon, movementDirection);
-
-				Position currPos = currentEntity.getPosition();
-				Position currPosSwitch = new Position(currPos.getX(), currPos.getY(), -1);
-
-				// Check if switch is being activated
-				if (currentDungeon.entityExists("switch", currPosSwitch)) {
-					switchFlick = (Switch) currentDungeon.getEntity("switch", currPosSwitch);
-					switchOn = true;
-				}
-				// Check if switch is being deactivated
-				if (currentDungeon.entityExists("switch", prevPosSwitch)) {
-					switchFlick = (Switch) currentDungeon.getEntity("switch", prevPosSwitch);
-					switchOn = false;
-				}
-
-			} else if (currentEntity instanceof ZombieToast) {
-				moveStrategy = new StandardMove();
-				Random random = new Random();
-				int dir = random.nextInt(4);
-				Direction currDir = Direction.NONE;
-				switch (dir) {
-					case 0:
-						currDir = Direction.UP;
-						break;
-					case 1:
-						currDir = Direction.DOWN;
-						break;
-					case 2:
-						currDir = Direction.LEFT;
-						break;
-					case 3:
-						currDir = Direction.RIGHT;
-						break;
-				}
-				moveStrategy.move(currentEntity, currentDungeon, currDir);
+		for (Entity entity : currentDungeon.getEntities()) {
+			if (entity instanceof MovingEntity) {
+				MovingEntity mov = (MovingEntity) entity;
+				tempEnts.add(mov);
+			} else if (entity instanceof Boulder) {
+				Boulder boulder = (Boulder) entity;
+				boulder.move(currentDungeon);
 			}
 		}
 
-		if (switchFlick != null) {
-			switchFlick.setStatus(switchOn);
-		}		
-		
+		// Move all Movable Entities
+		for (MovingEntity mov : tempEnts) {
+			mov.move(currentDungeon);
+		}
 		
 		// find all entities that should be blown up	
-		List<String> idsToBeRemoved = new ArrayList<String>();		
-		for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
-			Entity currentEntity = entry.getValue();
-			if (currentEntity instanceof BombStatic) {
-				for (Position cardinal : currentEntity.getPosition().getCardinallyAdjPositions()) {
+		List<Entity> entitiesToBeRemoved = new ArrayList<>();	
+		
+		for (Entity entity : currentDungeon.getEntities()) {
+			if (entity instanceof BombStatic) {
+				for (Position cardinal : entity.getPosition().getCardinallyAdjPositions()) {
 					Switch sw = (Switch)currentDungeon.getEntity("switch", cardinal);
 					if (sw != null) {
 						if (sw.getStatus()) {
-							idsToBeRemoved.addAll(currentDungeon.toBeDetonated(currentEntity.getPosition()));							
+							entitiesToBeRemoved.addAll(currentDungeon.toBeDetonated(entity.getPosition()));							
 						}
 					}
 				}
 			}
 		}
-		currentDungeon.getEntities().keySet().removeAll(idsToBeRemoved);
+		currentDungeon.getEntities().removeAll(entitiesToBeRemoved);
 
 		// Spawn in new zombietoast after 20 ticks
 		if (currentDungeon.getTickNumber() % currentDungeon.getMode().getZombieTick() == 1 && currentDungeon.getTickNumber() > 1) {
 			for (ZombieToastSpawner spawner : spawners) {
 				spawner.spawnZombie(currentDungeon);
 			}
+		}
+
+		if(evalGoal(currentDungeon)) {
+			currentDungeon.setGoals("");
 		}
 
 		return getDungeonInfo(currentDungeon.getId());
@@ -421,9 +408,9 @@ public class DungeonManiaController {
 		
 		boolean itemInInventory = false;
 
-		CollectibleEntity objectUsed = null; 
+		CollectableEntity objectUsed = null; 
 		if (itemUsed != null) {
-			for (CollectibleEntity inv : currentDungeon.getInventory()) {
+			for (CollectableEntity inv : currentDungeon.getInventory()) {
 				if (inv.getId().equals(itemUsed)) {
 					objectUsed = inv;
 					itemInInventory = true;
@@ -458,6 +445,41 @@ public class DungeonManiaController {
 		}
 		
 	}
+
+	public boolean evalGoal(Dungeon currentDungeon) {
+		boolean bool = false;
+		boolean enemies = true;
+		boolean exit = false;
+		boolean treasure = true;
+		boolean boulders = true;
+
+		for (Entity ent: currentDungeon.getEntities()) {
+			if (ent instanceof MovingEntity) {
+				enemies = false;
+				continue;
+			} else if (ent instanceof Exit) {
+				Position playerPos = currentDungeon.getPlayerPosition();
+				Position exitPos = ent.getPosition();
+				if (playerPos.coincides(exitPos)) {
+					exit = true;
+					continue;
+				} 
+			} else if (ent instanceof Treasure) {
+				treasure = false;
+				continue;
+			} else if (ent instanceof Switch) {
+				Switch swtch = (Switch) ent;
+				if (!swtch.getStatus()) {
+					boulders = false;
+					continue;
+				}
+			}
+		}
+		
+		/* Evaluate the string given enemies, exit, treasure and boulder */
+
+		return bool;
+	}
 				
 	
 	/**
@@ -472,15 +494,17 @@ public class DungeonManiaController {
 	public DungeonResponse interact(String entityId) throws IllegalArgumentException, InvalidActionException {
 		checkValidInteract(entityId);
 		Entity ent = currentDungeon.getEntity(entityId);
-		// Attempt bribe if mercenary
-		if (ent instanceof Mercenary) {
-			Mercenary merc = (Mercenary) ent;
-			merc.bribe(currentDungeon);
-		}
-
+		
+		/* Destroy entity if entityId matches a spawner, bribe the entity if the entityId matches a mercenary or assassin */
 		if (ent instanceof ZombieToastSpawner) {
 			currentDungeon.removeEntity(ent);
-		}
+		} else if (ent instanceof Mercenary) {
+			Mercenary merc = (Mercenary) ent;
+			merc.bribe(currentDungeon);
+		// } else if (ent instanceof Assassin) {
+		// 	Assassin assassin = (Assassin) ent;
+		// 	assassin.bribe(currentDungeon);
+		} 
 		
 		return getDungeonInfo(currentDungeon.getId());
 	}
@@ -499,36 +523,45 @@ public class DungeonManiaController {
 
 		Entity interactEntity = currentDungeon.getEntity(entityId);
 
-		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
+		List<CollectableEntity> currentInventory = currentDungeon.getInventory();
 
 		boolean hasGold = false;
 		boolean hasWeapon = false;
+		boolean hasRing = false;
 
-		for (CollectibleEntity item : currentInventory) {
+		for (CollectableEntity item : currentInventory) {
 			if (item.getType().equals("treasure")) {
 				hasGold = true;
 			} else if (item.getType().equals("sword") || item.getType().equals("bow")) {
 				hasWeapon = true;
-			}
+			} else if (item.getType().equals("treasure")) {
+				hasGold = true;
+			} else if (item.getType().equals("one_ring")) {
+				hasRing = true;
+			}  
 		}
 
 		Position playerPosition = currentDungeon.getPlayerPosition();
 		Position entityPosition = currentDungeon.getEntity(entityId).getPosition();
 
 
-		if (interactEntity.getType().equals("mercenary")) {
-			if (!Position.inBribingRange(playerPosition, entityPosition)) {
-				throw new InvalidActionException("Player Out Of Bribing Range Of Mercenary");
-			} else if (!hasGold) {
-				throw new InvalidActionException("Player Does Not Have Sufficient Gold To Bribe Mercenary");
-			}
-		}
-
 		if (interactEntity.getType().equals("zombie_toast_spawner")) {
 			if (!Position.isCardinallyAdjacent(playerPosition, entityPosition)) {
 				throw new InvalidActionException("Player Out Of Range To Destroy Zombie Toast Spawner");
 			} else if (!hasWeapon) {
 				throw new InvalidActionException("Player Does Not Have A Weapon To Destroy Spawner");
+			}
+		} else if (interactEntity.getType().equals("mercenary")) {
+			if (!Position.inBribingRange(playerPosition, entityPosition)) {
+				throw new InvalidActionException("Player Out Of Bribing Range Of Mercenary");
+			} else if (!hasGold) {
+				throw new InvalidActionException("Player Does Not Have Sufficient Gold To Bribe Mercenary");
+			}
+		} else if (interactEntity.getType().equals("assassin")) {
+			if (!Position.inBribingRange(playerPosition, entityPosition)) {
+				throw new InvalidActionException("Player Out Of Bribing Range Of Assassin");
+			} else if (!hasRing) {
+				throw new InvalidActionException("Player Does Not Have Sufficient Resources To Bribe Assassin");
 			}
 		}
 	}
@@ -542,29 +575,29 @@ public class DungeonManiaController {
 	 */
 	public DungeonResponse build(String buildable) throws IllegalArgumentException, InvalidActionException {
 		checkValidBuild(buildable);
-		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
+		List<CollectableEntity> currentInventory = currentDungeon.getInventory();
 		if (buildable.equals("bow")) {
 			int newId = currentDungeon.getHistoricalEntCount();				
-			CollectibleEntity bow = (CollectibleEntity) EntityFactory.createEntity(String.valueOf(newId),"bow", currentDungeon.getPlayerPosition());
+			CollectableEntity bow = (CollectableEntity) EntityFactory.createEntity(String.valueOf(newId),"bow", currentDungeon.getPlayerPosition());
 			currentDungeon.setHistoricalEntCount(newId + 1);
 			currentInventory.add(bow);
 			int counterArrow = 0;
 			int counterWood = 0;
 			for (int i = 0; i < currentInventory.size(); i++) {
-				CollectibleEntity found = currentInventory.get(i);
+				CollectableEntity found = currentInventory.get(i);
 				if (found.getType().equals("arrow") && counterArrow < 3) {
 					counterArrow++;
 					currentInventory.remove(i);
-					i = -1;
+					i--;
 				} else if (found.getType().equals("wood") && counterWood < 1) {
 					counterWood++;
 					currentInventory.remove(i);
-					i = -1;
+					i--;
 				}
 			}
 		} else if (buildable.equals("shield")) {
 			int newId = currentDungeon.getHistoricalEntCount();	
-			CollectibleEntity shield = (CollectibleEntity) EntityFactory.createEntity(String.valueOf(newId), "shield", currentDungeon.getPlayerPosition());
+			CollectableEntity shield = (CollectableEntity) EntityFactory.createEntity(String.valueOf(newId), "shield", currentDungeon.getPlayerPosition());
 			currentDungeon.setHistoricalEntCount(newId + 1);
 
 			currentInventory.add(shield);
@@ -572,16 +605,16 @@ public class DungeonManiaController {
 			int counterKey = 0;
 			int counterWood = 0;
 			for (int i = 0; i < currentInventory.size(); i++) {
-				CollectibleEntity found = currentInventory.get(i);
+				CollectableEntity found = currentInventory.get(i);
 				if (found.getType().equals("wood") && counterWood < 2) {
 					counterWood++;
 					currentInventory.remove(i);
-					i = -1;
+					i--;
 				} else if ((found.getType().equals("treasure") && counterTreasure < 1) || (found.getType().equals("key") && counterKey < 1)) {
 					counterTreasure++;
 					counterKey++;
 					currentInventory.remove(i);
-					i = -1;
+					i--;
 				}
 			}
 		}
@@ -603,4 +636,42 @@ public class DungeonManiaController {
 			throw new InvalidActionException("Cannot Build The Desired Item; Not Enough Items To Complete The Recipe");
 		}
 	}
+
+	public DungeonResponse rewind(int ticks) throws IllegalArgumentException {
+		if (ticks <= 0) {
+			throw new IllegalArgumentException("Invalid Ticks Passed; Ticks Strictly <= 0.");
+		}
+		return new DungeonResponse(null, null, null, null, null, null);
+	}
+
+	public DungeonResponse generateDungeon(int xStart, int yStart, int xEnd, int yEnd, String gameMode) throws IllegalArgumentException {
+		if (!this.getGameModes().contains(gameMode)) {
+			throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard.");
+		}
+		Position startPos = new Position(xStart, yStart);
+		Position endPos = new Position(xEnd, yEnd);
+
+		currentDungeon = Prims.generateDungeon(startPos, endPos, gameMode, lastUsedDungeonId);
+		games.add(currentDungeon);
+		lastUsedDungeonId++;
+		
+		return getDungeonInfo(currentDungeon.getId());
+	}
+
+	
+
+
+
+	public int getLastUsedDungeonId() {
+		return lastUsedDungeonId;
+	}
+
+	public void setLastUsedDungeonId(int lastUsedDungeonId) {
+		this.lastUsedDungeonId = lastUsedDungeonId;
+	}
+
+	public Dungeon getCurrentDungeon() {
+		return currentDungeon;
+	}
+	
 }

@@ -18,7 +18,7 @@ public class Battle {
 	 * @param dungeon - Dungeon where battle is taking place
 	 */
 	public static void battle(Entity entity, Dungeon dungeon) {
-		MovableEntity enemy = (MovableEntity)entity;
+		MovingEntity enemy = (MovingEntity) entity;
 		while (enemy.getHealth() > 0 && dungeon.getPlayer().getHealth() > 0) {
 			// if player invincible
 			if (dungeon.getPlayer().getInvincibleTickDuration() > 0) {
@@ -31,10 +31,10 @@ public class Battle {
 
 			int playerAtk = dungeon.getPlayer().getAttack();
 			int enemyAtk = enemy.getBaseAttack();
-			List<CollectibleEntity> toBeRemoved = new ArrayList<CollectibleEntity>();
+			List<CollectableEntity> toBeRemoved = new ArrayList<CollectableEntity>();
 
 			
-			for (CollectibleEntity item : dungeon.getInventory()) {
+			for (CollectableEntity item : dungeon.getInventory()) {
 				if (item instanceof Sword) {						
 					Sword sword = (Sword) item;
 					if (sword.getDurability() == 0) {
@@ -85,8 +85,8 @@ public class Battle {
 			enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
 
 			if (dungeon.getPlayer().getHealth() <= 0) {
-				List<CollectibleEntity> ringDelete = new ArrayList<> ();
-				for (CollectibleEntity item : dungeon.getInventory()) {
+				List<CollectableEntity> ringDelete = new ArrayList<> ();
+				for (CollectableEntity item : dungeon.getInventory()) {
 					if (item instanceof OneRing) {
 						dungeon.getPlayer().setHealth(dungeon.getMode().getHealth());
 						ringDelete.add(item);
@@ -105,7 +105,7 @@ public class Battle {
 				// drop armour 
 				if (enemy instanceof Mercenary || enemy instanceof ZombieToast) {
 					Random rand = new Random();
-					if (rand.nextInt(20) % 20 == 1) { //TODO, add straight to inv
+					if (rand.nextInt(20) % 20 == 1) {
 						Armour armour = new Armour(String.valueOf(dungeon.getHistoricalEntCount()), enemy.getPosition());
 						dungeon.addItemToInventory(armour);
 						dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);
@@ -117,7 +117,7 @@ public class Battle {
 				OneRing ring = new OneRing(String.valueOf(dungeon.getHistoricalEntCount()), dungeon.getPlayerPosition());
 				if (ring.doesSpawn()) {
 					int check = 0;
-					for (CollectibleEntity item : dungeon.getInventory()) {
+					for (CollectableEntity item : dungeon.getInventory()) {
 						if (item instanceof OneRing) {
 							check = 1;
 						}

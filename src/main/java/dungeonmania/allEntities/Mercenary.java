@@ -1,16 +1,17 @@
 package dungeonmania.allEntities;
 
-import java.util.Map;
 import dungeonmania.Battle;
-import dungeonmania.CollectibleEntity;
+import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;
-import dungeonmania.MovableEntity;
+import dungeonmania.MovingEntity;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
+import dungeonmania.Dijkstra;
 
 
-public class Mercenary extends MovableEntity {
+
+public class Mercenary extends MovingEntity {
 
 	private boolean isAlly;
 	private Direction currentDir;
@@ -57,13 +58,12 @@ public class Mercenary extends MovableEntity {
 			return false;		
 		} else if (entity instanceof Portal) {
 			Portal portal1 = (Portal) entity;
-			for (Map.Entry<String, Entity> entry : dungeon.getEntities().entrySet()) {
-				Entity currentEntity = entry.getValue();
-				if (!currentEntity.getId().equals(portal1.getId())) {
-					if (!(currentEntity instanceof Portal)) {
+			for (Entity currEnt : dungeon.getEntities()) {
+				if (!currEnt.getId().equals(portal1.getId())) {
+					if (!(currEnt instanceof Portal)) {
 						continue;
 					}
-					Portal portal2 = (Portal) currentEntity;
+					Portal portal2 = (Portal) currEnt;
 					if (portal1.getColour().equals((portal2).getColour())) {
 						// Find position of p2
 						// Move in direciton of currDir
@@ -71,9 +71,8 @@ public class Mercenary extends MovableEntity {
 						return collide(nextTo, dungeon);
 					}
 				}
-	
 			}
-		if (entity instanceof CollectibleEntity) {
+		if (entity instanceof CollectableEntity) {
 			return true;
 		}
 			return false;
@@ -92,7 +91,7 @@ public class Mercenary extends MovableEntity {
 		}
 
 		// Have to add MovableEntity
-		if (entity instanceof MovableEntity) {
+		if (entity instanceof MovingEntity) {
 
 
 			return true;
@@ -101,22 +100,128 @@ public class Mercenary extends MovableEntity {
 		return true;
 	}
 
+	/**
+	 * Bribe the Mercenary <p>
+	 * The check for if the player has enough gold is already done before this
+	 * @param dungeon	Current dungeon of mercenary
+	 */
 	public void bribe(Dungeon dungeon) {
 
 		Treasure gold = null;
 		// Remove the first gold
 		// Integer goldPos = 0;
-		for (CollectibleEntity ent : dungeon.getInventory()) {
+		for (CollectableEntity ent : dungeon.getInventory()) {
 			if (ent instanceof Treasure) {
 				// goldPos = Integer.parseInt(ent.getId());
 				// break;
 				gold = (Treasure) ent;			
 			}
 		}
-
 		// dungeon.getInventory().remove(goldPos);
 		dungeon.getInventory().remove(gold);
 		this.isAlly = true;
+	}
+
+	/**
+	 * Find the square that the mercenary is about to move on (through the portal) then collides the mercenary with the square.
+	 * If collideable then mercenary will move through the portal onto that square.
+	 * @param dungeon	Current dungeon of mercenary
+	 */
+	public void portalMove(Dungeon dungeon) {
+		Position pos = getPosition();
+		Portal portal1 = (Portal) dungeon.getEntity("portal", pos);
+		Position posPortal2 = new Position(0, 0);
+		if (portal1 != null) {
+			// Find other portal
+			for (Entity currEnt : dungeon.getEntities()) {
+				if (currEnt instanceof Portal) {
+					Portal portal2 = (Portal) currEnt;
+					if (portal2.getColour().equals(portal1.getColour()) && !portal2.equals(portal1)) {
+						posPortal2 = portal2.getPosition();
+						break;
+					}
+				}
+			}
+			setPosition(posPortal2.translateBy(getCurrentDir()));
+		}
+	}
+
+	/**
+	 * Move the mercenery iff it can move to a cardinally adjacent cell that is closer to the player than
+	 * the current cell.
+	 * @param direction	Desired direction of mercenary
+	 * @param dungeon	Current dungeon of mercenary
+	 * @return boolean of whether the mercenary got moved
+	 */
+	public boolean mercMove(Direction direction, Dungeon dungeon) {
+		// Check if collidable with next entity
+		Position pos = getPosition();
+		Entity ent = dungeon.getEntity(pos.translateBy(direction));
+		Direction prevDir = getCurrentDir();
+		setCurrentDir(direction);
+		if (ent != null && !collide(ent, dungeon)) {
+			setCurrentDir(prevDir);
+			return false;
+		}
+
+		setPosition(getPosition().translateBy(direction));
+
+		portalMove(dungeon);
+
+		// Position currPos = getPosition();
+		// setPosition(Dijkstra.move(currPos, dungeon));
+		// portalMove(dungeon);
+
+		return true;
+	}
+
+	/**
+	 * Move the mercenary towards the player<p>
+	 * Up / Down first priority<p>
+	 * Left / Right second priority
+	 * @param dungeon	Current dungeon of mercenary
+	 */
+	@Override
+	public void move(Dungeon dungeon) {
+		// Find player
+		Player player = dungeon.getPlayer();
+		if (player == null) {
+			return;
+		}
+		
+		// Prioritise up down movement
+		// If not on same y axis
+		if (player.getPosition().getY() != getPosition().getY()) {
+			// If player is to the up of merc
+			if (player.getPosition().getY() < getPosition().getY()) {
+				if(mercMove(Direction.UP, dungeon)) {
+					return;
+				}
+				
+			} 
+			// If on down side
+			else {
+				if (mercMove(Direction.DOWN, dungeon)) {
+					return;
+				}
+			}
+		}
+
+		// left right movement
+		if (player.getPosition().getX() != getPosition().getX()) {
+			// If player is to the left of merc
+			if (player.getPosition().getX() < getPosition().getX()) {
+				if (mercMove(Direction.LEFT, dungeon)) {
+					return;
+				}
+			} 
+			// If on right side
+			else {
+				if (mercMove(Direction.RIGHT, dungeon)) {
+					return;
+				}
+			}
+		}
 	}
 	
 }
