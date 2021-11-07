@@ -68,7 +68,7 @@ public class Prims {
 				if (isValid(potNeigh, maze)) {
 					neighbours.add(potNeigh);
 				} potentialNeighbours.remove(potNeigh);
-			}
+			} options.addAll(neighbours);
 
 			newDungeon = createDungeon(startPos, endPos, maze, gameMode, lastUsedDungeonId);
 		}
