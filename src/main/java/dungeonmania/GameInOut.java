@@ -44,8 +44,8 @@ public class GameInOut {
 		String playMode = null; 
 		int height = 50;
 		int width  = 50;
-		GoalNode foundGoals = new GoalLeaf("treasure");
-
+		GoalNode foundGoals = new GoalLeaf("goal");
+		
 		try {
             Map<String, Object> jsonMap = new Gson().fromJson(path, Map.class);
 			if (expType.equals("load")) {
