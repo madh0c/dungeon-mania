@@ -3,12 +3,7 @@ package dungeonmania;
 import java.util.List;
 import java.util.ArrayList;
 
-import dungeonmania.allEntities.BombItem;
-import dungeonmania.allEntities.BombStatic;
-import dungeonmania.allEntities.HealthPotion;
-import dungeonmania.allEntities.InvincibilityPotion;
-import dungeonmania.allEntities.InvisibilityPotion;
-import dungeonmania.allEntities.Player;
+import dungeonmania.allEntities.*;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.*;
 
@@ -100,7 +95,7 @@ public class Dungeon {
 		List<Entity> result = new ArrayList<>();
 		for (Position adjacentPos : centre.getAdjacentPositions()) {
 			for (Entity cellEnt : getEntitiesOnCell(adjacentPos)) {
-				if (cellEnt != null && !(cellEnt instanceof Player)) {
+				if (cellEnt != null && !(cellEnt instanceof Player) && !(cellEnt instanceof Portal)) {
 					result.add(cellEnt);
 				}
 			}	
