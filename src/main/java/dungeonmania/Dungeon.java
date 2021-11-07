@@ -19,6 +19,7 @@ public class Dungeon {
 	private int tickNumber;
 	private Position spawnpoint;
 	private EntityFactory factory;
+	private int mercSpawnrate;
 
 
     public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals) {
@@ -32,10 +33,13 @@ public class Dungeon {
 		// Initialise gamemode
 		if (gameMode.equals("Peaceful")) {
 			this.factory = new PeacefulFactory();
+			this.mercSpawnrate = 20;
 		} else if (gameMode.equals("Standard")) {
 			this.factory = new StandardFactory();
+			this.mercSpawnrate = 20;
 		} else if (gameMode.equals("Hard")) {
 			this.factory = new HardFactory();
+			this.mercSpawnrate = 10;
 		}
     }
 
@@ -189,6 +193,10 @@ public class Dungeon {
 
 	public int getTickNumber() {
 		return tickNumber;
+	}
+
+	public int getMercSpawnrate() {
+		return mercSpawnrate;
 	}
 
 	public Position getSpawnpoint() {

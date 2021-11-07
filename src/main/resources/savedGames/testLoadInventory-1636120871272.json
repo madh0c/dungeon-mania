@@ -194,29 +194,16 @@
       },
       "type": "wall",
       "id": "18"
-    },
-    {
-      "isAlly": false,
-      "currentDir": "RIGHT",
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "position": {
-        "x": 3,
-        "y": 0,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "19"
     }
   ],
   "gameMode": "Standard",
-  "historicalEntCount": 20,
+  "historicalEntCount": 19,
   "tickNumber": 13,
   "spawnpoint": {
     "x": 0,
     "y": 0,
     "layer": 0
   },
-  "factory": {}
+  "factory": {},
+  "mercSpawnrate": 20
 }

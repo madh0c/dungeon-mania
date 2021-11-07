@@ -300,8 +300,9 @@ public class DungeonManiaController {
 			}
 		}
 
-		// Spawn in new mercenary after 10 ticks
-		if (currentDungeon.getTickNumber() % 10 == 0 && currentDungeon.getTickNumber() > 0) {
+		// Spawn in new mercenary after amount of ticks, dependent on gamemode
+		// if (currentDungeon.getTickNumber() % 10 == 0 && currentDungeon.getTickNumber() > 0) {
+		if (currentDungeon.getTickNumber() % currentDungeon.getMercSpawnrate() == 0 && currentDungeon.getTickNumber() > 0) {	
 			// If there is a spawnpoint
 			if (currentDungeon.getSpawnpoint() != null) {
 				// Merc spawn every 10 ticks

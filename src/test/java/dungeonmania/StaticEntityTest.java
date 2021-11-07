@@ -1246,9 +1246,8 @@ public class StaticEntityTest {
         EntityResponse endBoulder1Info = new EntityResponse("3", "boulder", new Position(1,2), false);
         EntityResponse endBoulder2Info = new EntityResponse("4", "boulder", new Position(2,1), false);
         EntityResponse endWall2Info = new EntityResponse("5", "wall", new Position(7,0), false);
-        EntityResponse endMerc1Info = new EntityResponse("6", "mercenary", new Position(6,0), true);
-        EntityResponse endMerc2Info = new EntityResponse("7", "mercenary", new Position(6,0), true);
-        EntityResponse endZombInfo = new EntityResponse("8", "zombie_toast", new Position(0,1), false);
+        EntityResponse endMercInfo = new EntityResponse("6", "mercenary", new Position(6,0), true);
+        EntityResponse endZombInfo = new EntityResponse("7", "zombie_toast", new Position(0,1), false);
 
         endList.add(endPlayerInfo);
         endList.add(endSpawnerInfo);
@@ -1256,8 +1255,7 @@ public class StaticEntityTest {
         endList.add(endBoulder1Info);
         endList.add(endBoulder2Info);
         endList.add(endWall2Info);
-        endList.add(endMerc1Info);
-        endList.add(endMerc2Info);
+        endList.add(endMercInfo);
         endList.add(endZombInfo);
 
         // A zombie should be spawned in the only elegible square

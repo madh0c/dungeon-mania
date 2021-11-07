@@ -52,5 +52,6 @@
     "y": 0,
     "layer": 0
   },
-  "factory": {}
+  "factory": {},
+  "mercSpawnrate": 20
 }
