@@ -487,6 +487,10 @@ public class DungeonManiaController {
 			}
 		}
 
+		if(evalGoal(currentDungeon)) {
+			currentDungeon.setGoals("");
+		}
+
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
@@ -534,6 +538,54 @@ public class DungeonManiaController {
 			"Invincibility Potion, Invisibility Potion or null");
 		}
 		
+	}
+
+	public boolean evalGoal(Dungeon currentDungeon) {
+		boolean bool = false;
+		boolean enemies = true;
+		boolean exit = false;
+		boolean treasure = true;
+		boolean boulders = true;
+
+		List<String> targetGoals = new ArrayList<>();
+		targetGoals.add("enemies");
+		targetGoals.add("exit");
+		targetGoals.add("treasure");
+		targetGoals.add("enemies");
+
+		for (Entity ent: currentDungeon.getEntities()) {
+			if (ent instanceof MovingEntity) {
+				enemies = false;
+				break;
+			} else if (ent instanceof Exit) {
+				Position playerPos = currentDungeon.getPlayerPosition();
+				Position exitPos = ent.getPosition();
+				if (playerPos.coincides(exitPos)) {
+					exit = true;
+					break;
+				} 
+			} else if (ent instanceof Treasure) {
+				treasure = false;
+				break;
+			} else if (ent instanceof Switch) {
+				Switch swtch = (Switch) ent;
+				if (!swtch.getStatus()) {
+					boulders = false;
+					break;
+				}
+			}
+		}
+
+		String boolString = currentDungeon.getGoals();
+
+		boolString.replaceAll(":enemies", String.valueOf(enemies));
+		boolString.replaceAll(":exit", String.valueOf(exit));
+		boolString.replaceAll(":enemies", String.valueOf(enemies));
+		boolString.replaceAll(":enemies", String.valueOf(enemies));
+		boolString.replaceAll("AND", String.valueOf("&&"));
+		boolString.replaceAll("OR", String.valueOf("||"));
+
+		return bool;
 	}
 				
 	
