@@ -16,6 +16,15 @@ import dungeonmania.util.Position;
  */
 public interface Dijkstra {
 
+	public static Position move(Position source, Dungeon currentDungeon) {
+		Map<Position, Map<Position, Integer>> dungeonMap = createGraph(currentDungeon);
+		
+		int dungeonHeight = currentDungeon.getHeight();
+		int dungeonWidth = currentDungeon.getHeight();
+
+		return traverse(dungeonHeight, dungeonWidth, source, currentDungeon.getPlayerPosition(), dungeonMap);
+	}
+
 	/**
 	 * createGraph creates a weighted graph of the current dungeon. If the Mercenary/Assassin is unable to traverse through
 	 * a cell during the the tick, an edge will not exist between the two cell. Edges only exist between adjacent 

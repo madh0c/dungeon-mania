@@ -7,6 +7,8 @@ import dungeonmania.Entity;
 import dungeonmania.MovingEntity;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
+import dungeonmania.Dijkstra;
+
 
 
 public class Mercenary extends MovingEntity {
@@ -165,6 +167,11 @@ public class Mercenary extends MovingEntity {
 		setPosition(getPosition().translateBy(direction));
 
 		portalMove(dungeon);
+
+		// Position currPos = getPosition();
+		// setPosition(Dijkstra.move(currPos, dungeon));
+		// portalMove(dungeon);
+
 		return true;
 	}
 
