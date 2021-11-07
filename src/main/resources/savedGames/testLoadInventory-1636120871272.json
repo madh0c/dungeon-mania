@@ -135,6 +135,9 @@
       "currentDir": "RIGHT",
       "haveKey": true,
       "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
       "position": {
         "x": 13,
         "y": 0,
@@ -165,6 +168,7 @@
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
+      "enemyAttack": true,
       "position": {
         "x": 20,
         "y": 20,
@@ -190,23 +194,10 @@
       },
       "type": "wall",
       "id": "18"
-    },
-    {
-      "isAlly": false,
-      "currentDir": "RIGHT",
-      "health": 30,
-      "baseAttack": 5,
-      "position": {
-        "x": 3,
-        "y": 0,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "19"
     }
   ],
   "gameMode": "Standard",
-  "historicalEntCount": 20,
+  "historicalEntCount": 19,
   "tickNumber": 13,
   "spawnpoint": {
     "x": 0,

@@ -6,7 +6,7 @@ import dungeonmania.util.Position;
 
 public class Portal extends Entity {
     
-    private String colour;
+    private final String colour;
 
     public Portal(String id, Position position, String colour) {
 

@@ -10,11 +10,25 @@ import dungeonmania.util.Position;
 
 public class ZombieToastSpawner extends Entity {
 
-    public ZombieToastSpawner(String id, Position position) {
+	private int tickrate;
+
+    public ZombieToastSpawner(String id, Position position, int tickrate) {
         super(id, position, "zombie_toast_spawner");
+		this.tickrate = tickrate;
     }
 
+	/**
+	 * Spawns in a Zombie in a cardinally-adjacent square to this spawner periodically<p>
+	 * Peaceful Mode - Every 20 ticks<p>
+	 * Standard Mode - Every 20 ticks<p>
+	 * Hard Mode - Every 20 ticks
+	 * @param currentDungeon	Current dungeon of spawner
+	 */
     public void spawnZombie(Dungeon currentDungeon) {
+
+		if (currentDungeon.getTickNumber() % tickrate != 1 || currentDungeon.getTickNumber() <= 1) {
+			return;
+		}
 
 		List<Position> spawnOrder = this.getPosition().getCardinallyAdjPositions();
 
@@ -29,7 +43,7 @@ public class ZombieToastSpawner extends Entity {
 			}
 			if (canSpawn) {
 				int newId = currentDungeon.getHistoricalEntCount();				
-				ZombieToast zombie = new ZombieToast(String.valueOf(newId), spawnPoint);
+				Entity zombie = currentDungeon.getFactory().createEntity(String.valueOf(newId), "zombie_toast", spawnPoint);
 				currentDungeon.addEntity(zombie);
                 break;
 			}

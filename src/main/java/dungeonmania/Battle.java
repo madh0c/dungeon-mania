@@ -88,7 +88,8 @@ public class Battle {
 				List<CollectableEntity> ringDelete = new ArrayList<> ();
 				for (CollectableEntity item : dungeon.getInventory()) {
 					if (item instanceof OneRing) {
-						dungeon.getPlayer().setHealth(dungeon.getMode().getHealth());
+						dungeon.getPlayer().setHealth(dungeon.getPlayer().getInitialHealth());
+
 						ringDelete.add(item);
 					}
 				}

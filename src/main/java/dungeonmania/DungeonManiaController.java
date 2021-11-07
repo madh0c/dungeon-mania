@@ -298,13 +298,13 @@ public class DungeonManiaController {
 			}
 		}
 
-		// Spawn in new mercenary after 10 ticks
-		if (currentDungeon.getTickNumber() % 10 == 0 && currentDungeon.getTickNumber() > 0) {
+		// Spawn in new mercenary after amount of ticks, dependent on gamemode
+		if (currentDungeon.getTickNumber() % currentDungeon.getMercSpawnrate() == 0 && currentDungeon.getTickNumber() > 0) {	
 			// If there is a spawnpoint
 			if (currentDungeon.getSpawnpoint() != null) {
 				// Merc spawn every 10 ticks
 				int newId = currentDungeon.getHistoricalEntCount();
-				Mercenary merc = new Mercenary(String.valueOf(newId), currentDungeon.getSpawnpoint());
+				Entity merc = currentDungeon.getFactory().createEntity(String.valueOf(newId), "mercenary", currentDungeon.getSpawnpoint());
 				currentDungeon.addEntity(merc);
 			}
 		}
@@ -365,11 +365,9 @@ public class DungeonManiaController {
 		}
 		currentDungeon.getEntities().removeAll(entitiesToBeRemoved);
 
-		// Spawn in new zombietoast after 20 ticks
-		if (currentDungeon.getTickNumber() % currentDungeon.getMode().getZombieTick() == 1 && currentDungeon.getTickNumber() > 1) {
-			for (ZombieToastSpawner spawner : spawners) {
-				spawner.spawnZombie(currentDungeon);
-			}
+		// Spawn in new zombietoast after 20 ticks (20 ticks checked inside method)
+		for (ZombieToastSpawner spawner : spawners) {
+			spawner.spawnZombie(currentDungeon);
 		}
 
 		if(evalGoal(currentDungeon)) {
@@ -557,7 +555,9 @@ public class DungeonManiaController {
 		List<CollectableEntity> currentInventory = currentDungeon.getInventory();
 		if (buildable.equals("bow")) {
 			int newId = currentDungeon.getHistoricalEntCount();				
-			CollectableEntity bow = (CollectableEntity) EntityFactory.createEntity(String.valueOf(newId),"bow", currentDungeon.getPlayerPosition());
+
+			CollectableEntity bow = (CollectableEntity) currentDungeon.getFactory().createEntity(String.valueOf(newId), "bow", currentDungeon.getPlayerPosition()); 			
+			
 			currentDungeon.setHistoricalEntCount(newId + 1);
 			currentInventory.add(bow);
 			int counterArrow = 0;
@@ -576,7 +576,9 @@ public class DungeonManiaController {
 			}
 		} else if (buildable.equals("shield")) {
 			int newId = currentDungeon.getHistoricalEntCount();	
-			CollectableEntity shield = (CollectableEntity) EntityFactory.createEntity(String.valueOf(newId), "shield", currentDungeon.getPlayerPosition());
+			
+			CollectableEntity shield = (CollectableEntity) currentDungeon.getFactory().createEntity(String.valueOf(newId), "shield", currentDungeon.getPlayerPosition());
+
 			currentDungeon.setHistoricalEntCount(newId + 1);
 
 			currentInventory.add(shield);

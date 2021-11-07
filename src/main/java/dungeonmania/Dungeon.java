@@ -18,9 +18,10 @@ public class Dungeon {
 	private int historicalEntCount;
 	private int tickNumber;
 	private Position spawnpoint;
-	private Mode mode;
 	private int height;
 	private int width;
+	private EntityFactory factory;
+	private int mercSpawnrate;
 
 
     public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals, int height, int width) {
@@ -32,13 +33,15 @@ public class Dungeon {
         this.goals = goals;
 		this.historicalEntCount = entities.size();
 		// Initialise gamemode
-		mode = new StandardMode();
 		if (gameMode.equals("Peaceful")) {
-			mode = new PeacefulMode();
+			this.factory = new PeacefulFactory();
+			this.mercSpawnrate = 20;
 		} else if (gameMode.equals("Standard")) {
-			mode = new StandardMode();
+			this.factory = new StandardFactory();
+			this.mercSpawnrate = 20;
 		} else if (gameMode.equals("Hard")) {
-			mode = new HardMode();
+			this.factory = new HardFactory();
+			this.mercSpawnrate = 10;
 		}
 		this.height = height;
 		this.width = width;
@@ -58,7 +61,7 @@ public class Dungeon {
 		}
 		
 		if (itemUsed instanceof HealthPotion) {
-			getPlayer().setHealth(mode.getHealth());
+			getPlayer().setHealth(getPlayer().getInitialHealth());
 			inventory.remove(itemUsed);
 			return true;
 		}
@@ -69,7 +72,7 @@ public class Dungeon {
 		}
 
 		if (itemUsed instanceof InvincibilityPotion) {
-			getPlayer().setInvincibleTickDuration(mode.getInvincDuration());
+			getPlayer().setInvincibleTickDuration(getPlayer().getInvincibleAmount());
 			inventory.remove(itemUsed);
 			return true;
 		}
@@ -134,13 +137,13 @@ public class Dungeon {
         return gameMode;
     }
 
-	public Mode getMode() {
-		return mode;
-	}
-
     public String getGoals() {
         return goals;
     }
+
+	public EntityFactory getFactory() {
+		return factory;
+	}
 
 	public Entity getEntity(String id) {
 		int entId = 0;
@@ -194,12 +197,12 @@ public class Dungeon {
 		return tickNumber;
 	}
 
-	public Position getSpawnpoint() {
-		return spawnpoint;
+	public int getMercSpawnrate() {
+		return mercSpawnrate;
 	}
 
-	public int getSpawnRate() {
-		return mode.getZombieTick();
+	public Position getSpawnpoint() {
+		return spawnpoint;
 	}
 
 	public void setSpawnpoint(Position spawnpoint) {
@@ -354,10 +357,6 @@ public class Dungeon {
 
 	public void setGameMode(String gameMode) {
 		this.gameMode = gameMode;
-	}
-
-	public void setMode(Mode mode) {
-		this.mode = mode;
 	}
 
 	public void setName(String name) {
