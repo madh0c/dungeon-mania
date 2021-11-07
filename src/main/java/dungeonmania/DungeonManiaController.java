@@ -580,8 +580,8 @@ public class DungeonManiaController {
 
 		boolString.replaceAll(":enemies", String.valueOf(enemies));
 		boolString.replaceAll(":exit", String.valueOf(exit));
-		boolString.replaceAll(":enemies", String.valueOf(enemies));
-		boolString.replaceAll(":enemies", String.valueOf(enemies));
+		boolString.replaceAll(":treasure", String.valueOf(treasure));
+		boolString.replaceAll(":boulders", String.valueOf(boulders));
 		boolString.replaceAll("AND", String.valueOf("&&"));
 		boolString.replaceAll("OR", String.valueOf("||"));
 
