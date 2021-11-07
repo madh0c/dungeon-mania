@@ -70,10 +70,7 @@ public class Prims {
 				} potentialNeighbours.remove(potNeigh);
 			} options.addAll(neighbours);
 
-			newDungeon = createDungeon(startPos, endPos, maze, gameMode, lastUsedDungeonId);
-		}
-
-		return newDungeon;
+		} return createDungeon(startPos, endPos, maze, gameMode, lastUsedDungeonId);
 	}
 
 	static boolean isValid(Position position, boolean[][] maze) {
