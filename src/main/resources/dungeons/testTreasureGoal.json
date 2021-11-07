@@ -1,0 +1,19 @@
+{
+	"width": 3,
+	"height": 3,
+	"entities": [
+		{
+			"x": 0,
+			"y": 0,
+			"type": "player"
+		},
+		{
+			"x": 1,
+			"y": 0,
+			"type": "treasure"
+		}
+	],
+	"goal-condition": {
+		"goal": "treasure"
+	}
+}

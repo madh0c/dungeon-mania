@@ -14,10 +14,15 @@ public class GoalAnd implements GoalNode{
 		hasCompleted = false;
 	}
 
-	// @Override
-	// public Boolean evaluate() {
-	// 	return (goal1.evaluate() && goal2.evaluate());
-	// }
+	@Override
+	public Boolean evaluate(Dungeon dungeon) {
+		if (subGoals.stream().allMatch(x->x.evaluate(dungeon).equals(true))) {
+			hasCompleted = true;
+		} else {
+			hasCompleted = false;
+		}
+		return hasCompleted;
+	}
 
 	@Override
 	public String remainingString() {

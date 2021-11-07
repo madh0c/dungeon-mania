@@ -145,6 +145,10 @@ public class Dungeon implements Serializable{
         return goals;
     }
 
+	public void setGoals(String goals) {
+		this.goals = goals;
+	}
+
 	public Entity getEntity(String id) {
 		return entities.get(id);
 	}

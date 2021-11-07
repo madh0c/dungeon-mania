@@ -297,7 +297,27 @@ public class DungeonManiaController {
 			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
 			moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);			
 		}
-		
+		int treasureMapCount = 0;
+		for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
+			if (entry.getValue().getType().equals("treasure")) {
+				treasureMapCount++;
+			}
+		}
+		//If player has collected all treasures
+
+		if (treasureMapCount == 0) {
+			GoalLeaf treasure = new GoalLeaf("treasure");
+			treasure.sethasCompleted(true);
+			if (currentDungeon.getGoals().contains("AND")) {
+				GoalAnd and = new GoalAnd("AND");
+				and.evaluate(currentDungeon);
+				and.remainingString();
+			}
+			currentDungeon.setGoals("");
+			treasure.evaluate(currentDungeon);
+		}
+
+
 		Switch switchFlick = null;
 		boolean switchOn = false;
 

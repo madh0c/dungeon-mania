@@ -14,10 +14,10 @@ public class GoalOr implements GoalNode{
 		hasCompleted = false;
 	}
 
-	// @Override
-	// public Boolean evaluate() {
-	// 	return (goal1.evaluate() || goal2.evaluate());
-	// }
+	@Override
+	public Boolean evaluate(Dungeon dungeon) {
+		return hasCompleted;
+	}
 
 	@Override
 	public String remainingString() {
