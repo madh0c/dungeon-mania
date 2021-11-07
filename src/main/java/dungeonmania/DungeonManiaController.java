@@ -331,21 +331,6 @@ public class DungeonManiaController {
 			// Move player
 			currentDungeon.getPlayer().move(currentDungeon, movementDirection);
 		}
-		int treasureMapCount = 0;
-		for (Entity entry : currentDungeon.getEntities()) {
-			if (entry.getType().equals("treasure")) {
-				treasureMapCount++;
-			}
-		}
-		//If player has collected all treasures
-
-		if (treasureMapCount == 0) {
-			GoalLeaf treasure = new GoalLeaf("treasure");
-			treasure.sethasCompleted(true);
-			//currentDungeon.setFoundGoals(treasure);
-			//treasure.evaluate(currentDungeon);
-		}
-
 
 		List<MovingEntity> tempEnts = new ArrayList<>();
 
@@ -388,10 +373,9 @@ public class DungeonManiaController {
 			}
 		}
 
-		if(evalGoal(currentDungeon)) {
-			currentDungeon.setGoals("");
-		}
-
+		evalGoal(currentDungeon);
+		
+		
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
@@ -441,8 +425,7 @@ public class DungeonManiaController {
 		
 	}
 
-	public boolean evalGoal(Dungeon currentDungeon) {
-		boolean bool = false;
+	public void evalGoal(Dungeon currentDungeon) {
 		boolean enemies = true;
 		boolean exit = false;
 		boolean treasure = true;
@@ -472,8 +455,48 @@ public class DungeonManiaController {
 		}
 		
 		/* Evaluate the string given enemies, exit, treasure and boulder */
+		GoalLeaf treasureLeaf = new GoalLeaf("treasure");
+		GoalLeaf enemiesLeaf = new GoalLeaf("enemies");
+		GoalLeaf exitLeaf = new GoalLeaf("exit");
+		GoalLeaf bouldersLeaf = new GoalLeaf("boulders");
 
-		return bool;
+		if (treasure) {
+			treasureLeaf.sethasCompleted(true);
+			System.out.println(treasureLeaf.remainingString());
+		}  
+		if (enemies) {
+			enemiesLeaf.sethasCompleted(true);
+		} 
+		if (exit) {
+			exitLeaf.sethasCompleted(true);
+		} 
+		if (boulders) {
+			bouldersLeaf.sethasCompleted(true);
+		}
+		System.out.println(currentDungeon.getFoundGoals().remainingString());
+
+		if (!currentDungeon.getGoals().contains("AND") && !currentDungeon.getGoals().contains("OR")) {
+			System.out.println(currentDungeon.getGoals());
+			if (currentDungeon.getGoals().contains("treasure")) {
+				currentDungeon.setFoundGoals(treasureLeaf);
+			} else if (currentDungeon.getGoals().contains("enemies")) {
+				currentDungeon.setFoundGoals(enemiesLeaf);
+			} else if (currentDungeon.getGoals().contains("exit")) {
+				currentDungeon.setFoundGoals(exitLeaf);
+			} else if (currentDungeon.getGoals().contains("boulders")) {
+				currentDungeon.setFoundGoals(bouldersLeaf);
+			}
+		}
+
+		if (currentDungeon.getGoals().contains("AND")) {
+			GoalAnd andLeaf = new GoalAnd ("AND");
+			List <GoalNode> subCon = andLeaf.getList();
+			for (GoalNode goal : subCon) {
+
+			}
+		}
+
+		return;
 	}
 				
 	

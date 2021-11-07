@@ -3,7 +3,7 @@ package dungeonmania;
 public class GoalLeaf implements GoalNode{
 
 	private String goal;
-	private Boolean hasCompleted;
+	private Boolean hasCompleted = false;
 	public GoalLeaf(String goal) {
 		this.goal = goal;
 	}

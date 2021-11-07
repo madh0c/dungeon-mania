@@ -141,7 +141,7 @@ public class Dungeon {
 	}
 
     public String getGoals() {
-        return goals;
+        return foundGoals.remainingString();
     }
 
 	public GoalNode getFoundGoals() {
