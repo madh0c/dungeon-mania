@@ -59,9 +59,8 @@ public class GameInOut {
 						goals = (String)goalConditions.get("goal");
 					} 
 					JSONObject goalCon = new JSONObject(goalConditions);
-					goals = createGoals(goalCon).remainingString();
 					foundGoals = createGoals(goalCon);
-
+					goals = foundGoals.remainingString();
 				}
 			}
 
@@ -229,7 +228,6 @@ public class GameInOut {
 					}
 				}
 			}
-			
 			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, height, width, foundGoals);
 
 			if (expType.equals("load")) {
@@ -238,7 +236,7 @@ public class GameInOut {
 	
 				Double hisD = (Double)jsonMap.get("historicalEntCount");  
 				int historicalEntCount = hisD.intValue();
-	
+				
 				Map<String, Double> spawnPos = (Map<String, Double>)jsonMap.get("spawnpoint");
 	
 				Double xSD = (Double)spawnPos.get("x");
@@ -248,6 +246,10 @@ public class GameInOut {
 				int xSC = xSD.intValue();
 				int ySC= ySD.intValue();
 				int zSC = zSD.intValue();
+
+				Map<String, Object> goalConditions = (Map<String, Object>)jsonMap.get("goal-condition");
+				JSONObject goalCon = new JSONObject(goalConditions);
+				foundGoals = createGoals(goalCon);
 				
 				Position spawnpoint = new Position(xSC, ySC, zSC);
 				returnDungeon.setId(lastUsedDungeonId);
@@ -258,6 +260,7 @@ public class GameInOut {
 				returnDungeon.setHistoricalEntCount(historicalEntCount);
 				returnDungeon.setTickNumber(tickNumber);
 				returnDungeon.setSpawnpoint(spawnpoint); 
+				returnDungeon.setFoundGoals(foundGoals);
 			}
 
 			return returnDungeon;
