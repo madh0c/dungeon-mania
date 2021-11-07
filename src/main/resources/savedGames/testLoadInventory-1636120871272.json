@@ -135,6 +135,8 @@
       "currentDir": "RIGHT",
       "haveKey": true,
       "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
       "position": {
         "x": 13,
         "y": 0,
@@ -213,5 +215,6 @@
     "y": 0,
     "layer": 0
   },
-  "mode": {}
+  "mode": {},
+  "factory": {}
 }

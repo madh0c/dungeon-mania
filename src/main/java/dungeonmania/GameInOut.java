@@ -64,6 +64,16 @@ public class GameInOut {
 
 			List<Map<String, Object>> parseList = (List<Map<String, Object>>)jsonMap.get("entities"); 
 
+			EntityFactory factory = null;
+			if (playMode.equals("Peaceful")) {
+				factory = new PeacefulFactory();
+			} else if (playMode.equals("Standard")) {
+				factory = new StandardFactory();
+			} else if (playMode.equals("Hard")) {
+				factory = new HardFactory();
+			}
+
+
 			for (int i = 0; i < parseList.size(); i++) {
 
                 Map<String, Object> currentEntity = parseList.get(i);
@@ -104,10 +114,12 @@ public class GameInOut {
 
 				if (entityType.contains("portal")) {
 					String colour = (String)currentEntity.get("colour");
-					Portal portal = new Portal(entityId, exportPos, colour);
+					// Portal portal = new Portal(entityId, exportPos, colour);
+					Portal portal = factory.createPortal(entityId, exportPos, colour);
 					entityList.add(portal);
 				} else if (entityType.contains("player")) {
-					Player player = new Player(entityId, exportPos, playMode);
+					// Player player = new Player(entityId, exportPos, playMode);
+					Player player = factory.createPlayer(entityId, exportPos);
 					if (expType.equals("load")) { 
 						Double healthD = (Double)currentEntity.get("health");
 						int health = healthD.intValue();
@@ -130,7 +142,8 @@ public class GameInOut {
 					} 
 					entityList.add(player);
 				} else {
-					Entity newEntity = EntityFactory.createEntity(entityId, entityType, exportPos);
+					// Entity newEntity = EntityFactory.createEntity(entityId, entityType, exportPos);
+					Entity newEntity = factory.createEntity(entityId, entityType, exportPos);
 					entityList.add(newEntity);
 				}
 

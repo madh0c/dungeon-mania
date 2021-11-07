@@ -368,10 +368,14 @@ public class DungeonManiaController {
 		currentDungeon.getEntities().removeAll(entitiesToBeRemoved);
 
 		// Spawn in new zombietoast after 20 ticks
-		if (currentDungeon.getTickNumber() % currentDungeon.getMode().getZombieTick() == 1 && currentDungeon.getTickNumber() > 1) {
-			for (ZombieToastSpawner spawner : spawners) {
-				spawner.spawnZombie(currentDungeon);
-			}
+		// if (currentDungeon.getTickNumber() % currentDungeon.getMode().getZombieTick() == 1 && currentDungeon.getTickNumber() > 1) {
+		// 	for (ZombieToastSpawner spawner : spawners) {
+		// 		spawner.spawnZombie(currentDungeon);
+		// 	}
+		// }
+
+		for (ZombieToastSpawner spawner : spawners) {
+			spawner.spawnZombie(currentDungeon);
 		}
 
 		return getDungeonInfo(currentDungeon.getId());
@@ -518,7 +522,12 @@ public class DungeonManiaController {
 		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
 		if (buildable.equals("bow")) {
 			int newId = currentDungeon.getHistoricalEntCount();				
-			CollectibleEntity bow = (CollectibleEntity) EntityFactory.createEntity(String.valueOf(newId),"bow", currentDungeon.getPlayerPosition());
+			// CollectibleEntity bow = (CollectibleEntity) EntityFactory.createEntity(String.valueOf(newId),"bow", currentDungeon.getPlayerPosition());
+			
+			// EntityFactory factory = new PeacefulFactory();
+			CollectibleEntity bow = (CollectibleEntity) currentDungeon.getFactory().createEntity(String.valueOf(newId), "bow", currentDungeon.getPlayerPosition()); 
+			
+			
 			currentDungeon.setHistoricalEntCount(newId + 1);
 			currentInventory.add(bow);
 			int counterArrow = 0;
@@ -537,7 +546,12 @@ public class DungeonManiaController {
 			}
 		} else if (buildable.equals("shield")) {
 			int newId = currentDungeon.getHistoricalEntCount();	
-			CollectibleEntity shield = (CollectibleEntity) EntityFactory.createEntity(String.valueOf(newId), "shield", currentDungeon.getPlayerPosition());
+			// CollectibleEntity shield = (CollectibleEntity) EntityFactory.createEntity(String.valueOf(newId), "shield", currentDungeon.getPlayerPosition());
+			
+			// EntityFactory factory = new PeacefulFactory();
+			CollectibleEntity shield = (CollectibleEntity) currentDungeon.getFactory().createEntity(String.valueOf(newId), "shield", currentDungeon.getPlayerPosition());
+			
+
 			currentDungeon.setHistoricalEntCount(newId + 1);
 
 			currentInventory.add(shield);

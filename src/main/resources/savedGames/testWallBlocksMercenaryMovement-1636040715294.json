@@ -10,6 +10,8 @@
       "currentDir": "UP",
       "haveKey": false,
       "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
       "position": {
         "x": 3,
         "y": 0,
@@ -41,7 +43,6 @@
     }
   ],
   "gameMode": "Standard",
-  "goals": "",
   "historicalEntCount": 3,
   "tickNumber": 1,
   "spawnpoint": {
@@ -49,5 +50,6 @@
     "y": 0,
     "layer": 0
   },
-  "mode": {}
+  "mode": {},
+  "factory": {}
 }
