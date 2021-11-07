@@ -1,14 +1,13 @@
 package dungeonmania;
 
 import dungeonmania.allEntities.*;
-import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
-public abstract class MovableEntity extends Entity {
+public abstract class MovingEntity extends Entity {
 	private int health;
 	private int baseAttack;
 
-    public MovableEntity(String id, Position position, String type) {
+    public MovingEntity(String id, Position position, String type) {
         super(id, position, type);
     }
 
@@ -50,14 +49,15 @@ public abstract class MovableEntity extends Entity {
 			return false;
 		} else if (entity instanceof Exit) {
 			return false;
-		} else if (entity instanceof MovableEntity) {
+		} else if (entity instanceof MovingEntity) {
 			return false;
 		} else if (entity instanceof Player) {
 			if (dungeon.getMode().enemyAttack()) {
 				Battle.battle(this, dungeon);
 			}
 			return true;
-		} else if (entity instanceof CollectibleEntity) {
+		}
+		if (entity instanceof CollectableEntity) {
 			return true;
 		}
 		

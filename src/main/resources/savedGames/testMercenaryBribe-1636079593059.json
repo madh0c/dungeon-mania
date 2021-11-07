@@ -1,75 +1,35 @@
 {
   "id": 1,
   "name": "testMercenaryBribe-1636079593059",
-  "inventory": [],
-  "entities": [
+  "inventory": [
     {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
+      "durability": 9,
       "position": {
         "x": 2,
-        "y": 2,
+        "y": 0,
         "layer": 0
       },
-      "type": "mercenary",
-      "id": "7"
+      "type": "armour",
+      "id": "15"
+    }
+  ],
+  "entities": [
+    {
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "1"
     },
     {
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
       "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "8"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "9"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "10"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "11"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "position": {
-        "x": 1,
-        "y": 1,
+        "x": 0,
+        "y": 0,
         "layer": 0
       },
       "type": "mercenary",
@@ -80,33 +40,95 @@
       "health": 30,
       "baseAttack": 5,
       "position": {
-        "x": 1,
-        "y": 1,
+        "x": 2,
+        "y": 0,
         "layer": 0
       },
       "type": "mercenary",
-      "id": "13"
+      "id": "14"
     },
     {
       "isAlly": false,
       "health": 30,
       "baseAttack": 5,
       "position": {
-        "x": 1,
-        "y": 1,
+        "x": 2,
+        "y": 0,
         "layer": 0
       },
       "type": "mercenary",
-      "id": "14"
+      "id": "16"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "17"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "18"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "19"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "20"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "21"
     }
   ],
   "gameMode": "Standard",
-  "historicalEntCount": 15,
-  "tickNumber": 125,
+  "historicalEntCount": 22,
+  "tickNumber": 185,
   "spawnpoint": {
-    "x": 1,
-    "y": 1,
+    "x": 2,
+    "y": 0,
     "layer": 0
   },
-  "mode": {}
+  "mode": {},
+  "height": 50,
+  "width": 50
 }

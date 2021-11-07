@@ -2,7 +2,6 @@ package dungeonmania.allEntities;
 
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;
-import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 

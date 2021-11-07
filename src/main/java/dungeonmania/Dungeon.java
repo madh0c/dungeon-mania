@@ -16,7 +16,7 @@ public class Dungeon {
 
 	private int id;
 	private String name;
-	private List<CollectibleEntity> inventory;
+	private List<CollectableEntity> inventory;
     private List<Entity> entities;
     private String gameMode;
     private String goals;
@@ -24,9 +24,11 @@ public class Dungeon {
 	private int tickNumber;
 	private Position spawnpoint;
 	private Mode mode;
+	private int height;
+	private int width;
 
 
-    public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals) {
+    public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals, int height, int width) {
 		this.id = id;
 		this.name = name;	
 		this.inventory = new ArrayList<>();	
@@ -43,6 +45,8 @@ public class Dungeon {
 		} else if (gameMode.equals("Hard")) {
 			mode = new HardMode();
 		}
+		this.height = height;
+		this.width = width;
     }
 
 	/**
@@ -51,10 +55,10 @@ public class Dungeon {
 	 * @throws InvalidActionException
 	 */
 	public boolean useItem(String itemString) throws InvalidActionException {
-		CollectibleEntity itemUsed = null;
-		for (CollectibleEntity collectible : inventory) {
-			if (collectible.getId().equals(itemString)) {
-				itemUsed = collectible;
+		CollectableEntity itemUsed = null;
+		for (CollectableEntity colllectable : inventory) {
+			if (colllectable.getId().equals(itemString)) {
+				itemUsed = colllectable;
 			}
 		}
 		
@@ -127,7 +131,7 @@ public class Dungeon {
 		return name;
 	}
 
-	public List<CollectibleEntity> getInventory() {
+	public List<CollectableEntity> getInventory() {
 		return inventory;
 	}
 
@@ -154,7 +158,7 @@ public class Dungeon {
 		return null;
 	}
 
-	public void setInventory(List<CollectibleEntity> inventory) {
+	public void setInventory(List<CollectableEntity> inventory) {
 		this.inventory = inventory;
 	}
 
@@ -218,7 +222,7 @@ public class Dungeon {
 		getEntities().remove(entity);
 	}
 
-	public void addItemToInventory(CollectibleEntity entity) {
+	public void addItemToInventory(CollectableEntity entity) {
 		inventory.add(entity);
 	}
 
@@ -313,8 +317,28 @@ public class Dungeon {
 		return result;
 	}
 
+	public boolean validPos(Position pos){
+		int posX = pos.getX();
+		int posY = pos.getY();
+
+		if (posX < 0 || posX > this.getWidth()) {
+			return false;
+		} else if (posY < 0 || posY > this.getHeight()){
+			return false;
+		}
+		return true;
+	}
+
 	public int getHistoricalEntCount() {
 		return this.historicalEntCount;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int getWidth() {
+		return width;
 	}
 
 	public void setHistoricalEntCount(int historicalEntCount) {
@@ -347,6 +371,14 @@ public class Dungeon {
 
 	public void setEntities(List<Entity> entities) {
 		this.entities = entities;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
 

@@ -37,6 +37,7 @@
         "wood": "images/tileset/entities/box_wood.png",
         "arrow": "images/tileset/items/arrow_0.png",
         "bomb": "images/tileset/items/bomb.png",
+        "bomb_static": "images/tileset/items/bomb.png",
         "sword": "images/tileset/items/sword_silver.png",
         "armour": "images/tileset/items/armour.png",
         "one_ring": "images/tileset/items/ring_0_special.png",

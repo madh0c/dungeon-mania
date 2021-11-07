@@ -4,12 +4,12 @@ import java.util.Random;
 
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;
-import dungeonmania.MovableEntity;
+import dungeonmania.MovingEntity;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 
-public class ZombieToast extends MovableEntity {
+public class ZombieToast extends MovingEntity {
 
 	private int randSeed;
 	private Random random;

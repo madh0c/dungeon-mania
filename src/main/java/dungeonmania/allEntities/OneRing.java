@@ -2,11 +2,11 @@ package dungeonmania.allEntities;
 
 import java.util.Random;
 
-import dungeonmania.CollectibleEntity;
+import dungeonmania.CollectableEntity;
 import dungeonmania.util.Position;
 
 
-public class OneRing extends CollectibleEntity {
+public class OneRing extends CollectableEntity {
 
     private Random random;
 

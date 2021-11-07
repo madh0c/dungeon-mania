@@ -6,12 +6,12 @@ import java.util.List;
 import dungeonmania.Battle;
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;
-import dungeonmania.MovableEntity;
+import dungeonmania.MovingEntity;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 
-public class Spider extends MovableEntity {
+public class Spider extends MovingEntity {
 
 	private List<Position> range;
 	// Position of tile in relation to centre, dependent on currTile
@@ -81,7 +81,7 @@ public class Spider extends MovableEntity {
 			}
 		}
 		
-		else if (entity instanceof MovableEntity) {
+		else if (entity instanceof MovingEntity) {
 			return false;
 		}
 		
