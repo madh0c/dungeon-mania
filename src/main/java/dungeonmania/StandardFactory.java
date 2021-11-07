@@ -4,11 +4,6 @@ import dungeonmania.allEntities.*;
 import dungeonmania.util.Position;
 
 public class StandardFactory extends EntityFactory {
-	/**
-	 * @param type
-	 * @param position
-	 * @return a new instance of the entity that should be created
-	 */
 	@Override
 	public Entity createEntity(String id, String type, Position position) {
 		if (type.contains("wall"))

@@ -1523,11 +1523,50 @@
       },
       "type": "mercenary",
       "id": "123"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "124"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "125"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "126"
     }
   ],
   "gameMode": "Standard",
-  "historicalEntCount": 124,
-  "tickNumber": 1305,
+  "historicalEntCount": 127,
+  "tickNumber": 1365,
   "spawnpoint": {
     "x": 1,
     "y": 1,

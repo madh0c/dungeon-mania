@@ -57,7 +57,6 @@ public class Dungeon {
 		}
 		
 		if (itemUsed instanceof HealthPotion) {
-			// getPlayer().setHealth(mode.getHealth());
 			getPlayer().setHealth(getPlayer().getInitialHealth());
 			inventory.remove(itemUsed);
 			return true;
@@ -69,7 +68,6 @@ public class Dungeon {
 		}
 
 		if (itemUsed instanceof InvincibilityPotion) {
-			// getPlayer().setInvincibleTickDuration(mode.getInvincDuration());
 			getPlayer().setInvincibleTickDuration(getPlayer().getInvincibleAmount());
 			inventory.remove(itemUsed);
 			return true;

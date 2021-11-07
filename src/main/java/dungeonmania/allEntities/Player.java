@@ -20,30 +20,11 @@ public class Player extends Entity {
 	private final int initialHealth;
 	private final int invincibleAmount;
 
-    // public Player(String id, Position position, String gameMode) {
-    //     super(id, position, "player");
-	// 	this.attack = 2;
-	// 	// this.health = 100;
-	// 	this.visible = true;
-	// 	this.invincibleTickDuration = 0;
-	// 	if (gameMode.equals("Peaceful") || gameMode.equals("Standard")) {
-	// 		this.health = 100;
-	// 	} else if (gameMode.equals("Hard")) {
-	// 		this.health = 60;
-	// 	}
-    // }
-
 	public Player(String id, Position position, int health, boolean enemyAttack, int invincibleAmount) {
         super(id, position, "player");
 		this.attack = 2;
-		// this.health = 100;
 		this.visible = true;
 		this.invincibleTickDuration = 0;
-		// if (gameMode.equals("Peaceful") || gameMode.equals("Standard")) {
-		// 	this.health = 100;
-		// } else if (gameMode.equals("Hard")) {
-		// 	this.health = 60;
-		// }
 		this.health = health;
 		this.initialHealth = health;
 		this.enemyAttack = enemyAttack;
@@ -193,7 +174,6 @@ public class Player extends Entity {
 			dungeon.addItemToInventory((CollectibleEntity)entity);
 
 		} else if (entity instanceof MovableEntity) {
-			// if (dungeon.getMode().enemyAttack()) {
 			if (enemyAttack()) {
 				Battle.battle(entity, dungeon);
 			}

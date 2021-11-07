@@ -79,7 +79,6 @@ public class Mercenary extends MovableEntity {
 		if (entity instanceof Player) {
 			// If not ally, battle
 			if (!isAlly) {
-				// if (dungeon.getMode().enemyAttack()) {
 				if (enemyAttack()) {
 					Battle.battle(this, dungeon);
 				}

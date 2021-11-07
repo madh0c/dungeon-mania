@@ -114,11 +114,9 @@ public class GameInOut {
 
 				if (entityType.contains("portal")) {
 					String colour = (String)currentEntity.get("colour");
-					// Portal portal = new Portal(entityId, exportPos, colour);
 					Portal portal = factory.createPortal(entityId, exportPos, colour);
 					entityList.add(portal);
 				} else if (entityType.contains("player")) {
-					// Player player = new Player(entityId, exportPos, playMode);
 					Player player = factory.createPlayer(entityId, exportPos);
 					if (expType.equals("load")) { 
 						Double healthD = (Double)currentEntity.get("health");
@@ -142,7 +140,6 @@ public class GameInOut {
 					} 
 					entityList.add(player);
 				} else {
-					// Entity newEntity = EntityFactory.createEntity(entityId, entityType, exportPos);
 					Entity newEntity = factory.createEntity(entityId, entityType, exportPos);
 					entityList.add(newEntity);
 				}

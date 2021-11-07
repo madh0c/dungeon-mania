@@ -59,7 +59,6 @@ public abstract class MovableEntity extends Entity {
 		} else if (entity instanceof MovableEntity) {
 			return false;
 		} else if (entity instanceof Player) {
-			// if (dungeon.getMode().enemyAttack()) {
 			if (enemyAttack()) {
 				Battle.battle(this, dungeon);
 			}
