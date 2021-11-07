@@ -50,31 +50,31 @@ public class BattleTest {
 		assertFalse(dungeon.entityExists("spider", pos));
 	}
 
-	@Test
-	public void testBattleDie() {
-		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testPlayerDies", "Standard"));
+	// @Test
+	// public void testBattleDie() {
+	// 	DungeonManiaController controller = new DungeonManiaController();
+	// 	assertDoesNotThrow(() -> controller.newGame("testPlayerDies", "Standard"));
 
-		// For 20 ticks, wait for zombie to spawn
-		for (int i = 0; i < 21; i++) {
-			controller.tick(null, Direction.NONE);
-		}
+	// 	// For 20 ticks, wait for zombie to spawn
+	// 	for (int i = 0; i < 21; i++) {
+	// 		controller.tick(null, Direction.NONE);
+	// 	}
 
-		// On this tick, zombie spawns on player, and battles him
-		// Mercenary has already battled him twice too
-		controller.tick(null, Direction.NONE);
+	// 	// On this tick, zombie spawns on player, and battles him
+	// 	// Mercenary has already battled him twice too
+	// 	controller.tick(null, Direction.NONE);
 
 
-		assertEquals(50, controller.getDungeon(0).getPlayer().getHealth());
+	// 	assertEquals(50, controller.getDungeon(0).getPlayer().getHealth());
 
-		// Wait 19 ticks, til 40th tick
-		// Mercenary has battled him twice again, 30 health
-		for (int i = 0; i < 18; i++) {
-			controller.tick(null, Direction.NONE);
-		}
+	// 	// Wait 19 ticks, til 40th tick
+	// 	// Mercenary has battled him twice again, 30 health
+	// 	for (int i = 0; i < 18; i++) {
+	// 		controller.tick(null, Direction.NONE);
+	// 	}
 
-		assertEquals(30, controller.getDungeon(0).getPlayer().getHealth());
+	// 	assertEquals(30, controller.getDungeon(0).getPlayer().getHealth());
 
-	}
+	// }
 	
 }

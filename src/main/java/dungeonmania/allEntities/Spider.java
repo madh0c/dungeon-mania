@@ -88,24 +88,79 @@ public class Spider extends MovingEntity {
 		return true;
 	}
 
-	// @Override
-	// public boolean collide(Entity entity) {
-	// 	// If empty space
-	// 	if (entity == null) {
-	// 		return true;
-	// 	}
-		
-	// 	if (entity instanceof Boulder) {
-	// 		return false;
-	// 	} 
-	// 	// else if (entity instanceof Player) {
-	// 	// 	Battle.battle(this, dungeon);
-	// 	// }
-		
-	// 	else if (entity instanceof MovableEntity) {
-	// 		return false;
-	// 	}
-		
-	// 	return true;
-	// }
+	@Override
+	public void move(Dungeon dungeon) {
+		// Find predetermined position
+		if (clockwise) {
+			// If position 0 move up
+			if (currTile == 0) {
+				// Get pos1
+				Position pos1 = range.get(1);
+				// check collide in pos1
+				if (collide(dungeon.getEntity(pos1), dungeon)) {
+					// Move to pos1
+					setPosition(pos1);
+					setCurrTile(1);
+				} else {
+					// Reverse clockwise
+					setClockwise(false);
+				}
+			}// If other positions
+			else {
+				// Get nextPos
+				Position nextPos;
+				int nextTile = 0;
+				// If looped back around, move back to tile 1
+				if (currTile == 8) {
+					nextTile = 1;
+				} else {
+					nextTile = currTile + 1;
+				}
+				nextPos = range.get(nextTile);
+				// Check collide
+				if (collide(dungeon.getEntity(nextPos), dungeon)) {
+					setPosition(nextPos);
+					setCurrTile(nextTile);
+				} else {
+					// If not, reverse and do nothing
+					setClockwise(false);
+				}
+			}
+
+		} else {
+			// If position 0, try to move down
+			if (currTile == 0) {
+				Position pos5 = range.get(5);
+				// Check collide in pos5
+				if (collide(dungeon.getEntity(pos5), dungeon)) {
+					// Move to pos5
+					setPosition(pos5);
+					setCurrTile(5);
+				}
+				setClockwise(true);
+			}
+			// Other positions
+			else {
+				// Get nextPos
+				Position nextPos;
+				int nextTile = 0;
+				// Move anticlockwise, unless reached 1 then move to 8
+				if (currTile == 1) {
+					nextTile = 8;
+				} else {
+					nextTile = currTile - 1;
+				}
+				nextPos = range.get(nextTile);
+
+				// Check collide
+				if (collide(dungeon.getEntity(nextPos), dungeon)) {
+					setPosition(nextPos);
+					setCurrTile(nextTile);
+				} else {
+					// If not, reverse and do nothing
+					setClockwise(false);
+				}
+			}
+		}
+	}
 }

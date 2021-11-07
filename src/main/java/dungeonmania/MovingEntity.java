@@ -1,6 +1,7 @@
 package dungeonmania;
 
 import dungeonmania.allEntities.*;
+import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 public abstract class MovingEntity extends Entity {
@@ -27,7 +28,6 @@ public abstract class MovingEntity extends Entity {
 		this.health = health;
 	}
     
-	// @Override
 	public boolean collide(Entity entity, Dungeon dungeon) {
 		// If empty space
 		if (entity == null) {
@@ -64,5 +64,7 @@ public abstract class MovingEntity extends Entity {
 		
 		return true;
 	}
+
+	public abstract void move(Dungeon dungeon);
 }
 

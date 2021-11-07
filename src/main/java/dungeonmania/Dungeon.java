@@ -211,6 +211,9 @@ public class Dungeon {
 		this.spawnpoint = spawnpoint;
 	}
 
+	/**
+	 * Add 1 to the dungeon's current tick
+	 */
 	public void tickOne() {
 		tickNumber++;
 	}
