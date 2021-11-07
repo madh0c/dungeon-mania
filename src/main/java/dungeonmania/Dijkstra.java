@@ -59,7 +59,7 @@ public interface Dijkstra {
 
 				/* If the cell contains entities the Merc/Assassin cannot coincide with, the current cell will be disregarded */
 				if (!Collections.disjoint(entOnCell, mercIllegal)) {
-					break;
+					continue;
 				} 
 				
 				/* A helper function returns a map with the key of the entries being positions of the adjacent cells 
@@ -98,7 +98,7 @@ public interface Dijkstra {
 
 			/* If the adjacent position is out of bounds, we will disregard it */
 			if (!currentDungeon.validPos(pos)) {
-				break;
+				continue;
 			}
 
 			/* Obtaining a list of entities on the cell, and their types */
@@ -113,7 +113,7 @@ public interface Dijkstra {
 			}
 
 			if (!Collections.disjoint(entTypesAdjCell, mercIllegal)) {
-				break;
+				continue;
 			} outPaths.put(pos, traverseSpeed);
  		} return outPaths;
 	}
