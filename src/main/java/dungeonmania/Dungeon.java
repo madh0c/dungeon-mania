@@ -3,12 +3,7 @@ package dungeonmania;
 import java.util.List;
 import java.util.ArrayList;
 
-import dungeonmania.allEntities.BombItem;
-import dungeonmania.allEntities.BombStatic;
-import dungeonmania.allEntities.HealthPotion;
-import dungeonmania.allEntities.InvincibilityPotion;
-import dungeonmania.allEntities.InvisibilityPotion;
-import dungeonmania.allEntities.Player;
+import dungeonmania.allEntities.*;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.*;
 
@@ -23,7 +18,6 @@ public class Dungeon {
 	private int historicalEntCount;
 	private int tickNumber;
 	private Position spawnpoint;
-	private Mode mode;
 	private EntityFactory factory;
 
 
@@ -36,15 +30,11 @@ public class Dungeon {
         this.goals = goals;
 		this.historicalEntCount = entities.size();
 		// Initialise gamemode
-		mode = new StandardMode();
 		if (gameMode.equals("Peaceful")) {
-			mode = new PeacefulMode();
 			this.factory = new PeacefulFactory();
 		} else if (gameMode.equals("Standard")) {
-			mode = new StandardMode();
 			this.factory = new StandardFactory();
 		} else if (gameMode.equals("Hard")) {
-			mode = new HardMode();
 			this.factory = new HardFactory();
 		}
     }
@@ -63,7 +53,8 @@ public class Dungeon {
 		}
 		
 		if (itemUsed instanceof HealthPotion) {
-			getPlayer().setHealth(mode.getHealth());
+			// getPlayer().setHealth(mode.getHealth());
+			getPlayer().setHealth(getPlayer().getInitialHealth());
 			inventory.remove(itemUsed);
 			return true;
 		}
@@ -74,7 +65,8 @@ public class Dungeon {
 		}
 
 		if (itemUsed instanceof InvincibilityPotion) {
-			getPlayer().setInvincibleTickDuration(mode.getInvincDuration());
+			// getPlayer().setInvincibleTickDuration(mode.getInvincDuration());
+			getPlayer().setInvincibleTickDuration(getPlayer().getInvincibleAmount());
 			inventory.remove(itemUsed);
 			return true;
 		}
@@ -139,10 +131,6 @@ public class Dungeon {
         return gameMode;
     }
 
-	public Mode getMode() {
-		return mode;
-	}
-
     public String getGoals() {
         return goals;
     }
@@ -205,10 +193,6 @@ public class Dungeon {
 
 	public Position getSpawnpoint() {
 		return spawnpoint;
-	}
-
-	public int getSpawnRate() {
-		return mode.getZombieTick();
 	}
 
 	public void setSpawnpoint(Position spawnpoint) {
@@ -343,10 +327,6 @@ public class Dungeon {
 
 	public void setGameMode(String gameMode) {
 		this.gameMode = gameMode;
-	}
-
-	public void setMode(Mode mode) {
-		this.mode = mode;
 	}
 
 	public void setName(String name) {

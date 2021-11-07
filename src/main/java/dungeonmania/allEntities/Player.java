@@ -18,6 +18,7 @@ public class Player extends Entity {
 	private int invincibleTickDuration;
 	private final boolean enemyAttack;
 	private final int initialHealth;
+	private final int invincibleAmount;
 
     // public Player(String id, Position position, String gameMode) {
     //     super(id, position, "player");
@@ -32,7 +33,7 @@ public class Player extends Entity {
 	// 	}
     // }
 
-	public Player(String id, Position position, int health, boolean enemyAttack) {
+	public Player(String id, Position position, int health, boolean enemyAttack, int invincibleAmount) {
         super(id, position, "player");
 		this.attack = 2;
 		// this.health = 100;
@@ -46,6 +47,7 @@ public class Player extends Entity {
 		this.health = health;
 		this.initialHealth = health;
 		this.enemyAttack = enemyAttack;
+		this.invincibleAmount = invincibleAmount;
     }
 
     public void setHealth(int newHealth) {
@@ -70,6 +72,10 @@ public class Player extends Entity {
 
 	public Direction getCurrentDir() {
 		return currentDir;
+	}
+
+	public int getInvincibleAmount() {
+		return invincibleAmount;
 	}
 
     public boolean isVisible() {

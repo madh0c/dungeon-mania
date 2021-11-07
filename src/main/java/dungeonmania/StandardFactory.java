@@ -47,8 +47,6 @@ public class StandardFactory extends EntityFactory {
 			return new BombItem(id, position);
 		else if (type.contains("sword"))
 			return new Sword(id, position);
-		// else if (type.contains("player"))
-		// 	return new Player(id, position);
 		else if (type.contains("bow"))
 			return new Bow(id, position);
 		else if (type.contains("shield"))
@@ -62,7 +60,7 @@ public class StandardFactory extends EntityFactory {
 
 	@Override
 	public Player createPlayer(String id, Position position) {
-		Player player = new Player(id, position, 100, true);
+		Player player = new Player(id, position, 100, true, 8);
 		return player;
 	}
 }

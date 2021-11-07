@@ -12,6 +12,7 @@
       "invincibleTickDuration": 0,
       "enemyAttack": true,
       "initialHealth": 100,
+      "invincibleAmount": 8,
       "position": {
         "x": 3,
         "y": 0,
@@ -51,6 +52,5 @@
     "y": 0,
     "layer": 0
   },
-  "mode": {},
   "factory": {}
 }
