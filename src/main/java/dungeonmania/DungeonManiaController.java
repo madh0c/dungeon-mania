@@ -556,9 +556,9 @@ public class DungeonManiaController {
 		} else if (ent instanceof Mercenary) {
 			Mercenary merc = (Mercenary) ent;
 			merc.bribe(currentDungeon);
-		} else if (ent instanceof Assassin) {
-			Assassin assassin = (Assassin) ent;
-			assassin.bribe(currentDungeon);
+		// } else if (ent instanceof Assassin) {
+		// 	Assassin assassin = (Assassin) ent;
+		// 	assassin.bribe(currentDungeon);
 		} 
 		
 		return getDungeonInfo(currentDungeon.getId());
@@ -582,7 +582,6 @@ public class DungeonManiaController {
 
 		boolean hasGold = false;
 		boolean hasWeapon = false;
-		boolean hasGold = false;
 		boolean hasRing = false;
 
 		for (CollectableEntity item : currentInventory) {
@@ -704,9 +703,17 @@ public class DungeonManiaController {
 		if (!this.getGameModes().contains(gameMode)) {
 			throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard.");
 		}
+		Position startPos = new Position(xStart, yStart);
+		Position endPos = new Position(xEnd, yEnd);
 
-		return new DungeonResponse(null, null, null, null, null, null);
+		currentDungeon = Prims.generateDungeon(startPos, endPos, gameMode, lastUsedDungeonId);
+		games.add(currentDungeon);
+		lastUsedDungeonId++;
+		
+		return getDungeonInfo(currentDungeon.getId());
 	}
+
+	
 
 
 

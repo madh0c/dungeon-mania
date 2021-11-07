@@ -37,12 +37,36 @@
         "layer": 0
       },
       "type": "mercenary",
-      "id": "2"
+      "id": "12"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "13"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "14"
     }
   ],
   "gameMode": "Standard",
-  "historicalEntCount": 7,
-  "tickNumber": 41,
+  "historicalEntCount": 15,
+  "tickNumber": 125,
   "spawnpoint": {
     "x": 2,
     "y": 0,
