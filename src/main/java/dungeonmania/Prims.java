@@ -16,7 +16,6 @@ public class Prims {
 		int xEnd = endPos.getX();
 		int yEnd = endPos.getY();
 
-		Dungeon newDungeon = null;
 		boolean[][] maze = new boolean[50][50];
 
 		maze[xStart][yStart] = true;
