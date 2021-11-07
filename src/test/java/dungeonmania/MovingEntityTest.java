@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Random;
+import java.util.stream.IntStream;
+
 import org.junit.jupiter.api.Test;
 
 import dungeonmania.allEntities.*;
@@ -412,17 +415,36 @@ public class MovingEntityTest {
 	public void testZombieMovement() {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testZombieMovement", "Standard"));
-
-		Position currPos = controller.getDungeon(0).getEntity("0").getPosition();
-		Position prevPos;
-
-		// For all 10 ticks, all movements will be cardinally adjacent
+		ZombieToast zombie = (ZombieToast) controller.getDungeon(0).getEntity("0");
+		int seed = zombie.getSeed();
+		Random random = new Random(seed);
+		
+		// For all 10 ticks, all movements will be random
 		for (int i = 0; i < 10; i++) {
-			controller.tick(null, Direction.NONE);
+			Position prevPos = zombie.getPosition();
+			int num = random.nextInt(4);
 
-			prevPos = currPos;
-			currPos = controller.getDungeon(0).getEntity("0").getPosition();
-			assertTrue(Position.isCardinallyAdjacent(prevPos, currPos));
+			Direction dir = Direction.NONE;
+			switch (num) {
+				case 0:
+					dir = Direction.UP;
+					break;
+				case 1:
+					dir = Direction.DOWN;
+					break;
+				case 2:
+					dir = Direction.LEFT;
+					break;
+				case 3:
+					dir = Direction.RIGHT;
+					break;
+				default:
+					break;
+			}
+			controller.tick(null, Direction.NONE);
+			Position currPos = zombie.getPosition();
+			assertTrue(currPos.equals(prevPos.translateBy(dir)));
+
 		}
 	}
 

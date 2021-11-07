@@ -11,7 +11,7 @@ public class BombStatic extends Entity {
 	 * @param position	where the bomb is located
 	 */
     public BombStatic(String id, Position position) {
-        super(id, position, "bomb");
+        super(id, position, "bomb_static");
     }
 
 }

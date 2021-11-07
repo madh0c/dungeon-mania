@@ -213,5 +213,7 @@
     "y": 0,
     "layer": 0
   },
-  "mode": {}
+  "mode": {},
+  "height": 50,
+  "width": 50
 }

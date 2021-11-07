@@ -1,10 +1,10 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.CollectibleEntity;
+import dungeonmania.CollectableEntity;
 import dungeonmania.util.Position;
 
 
-public class Shield extends CollectibleEntity {
+public class Shield extends CollectableEntity {
     private double damageFactorReduction = 0.2;
     private int durability = 5;
     public Shield(String id, Position position) {

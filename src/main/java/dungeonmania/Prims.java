@@ -76,7 +76,7 @@ public class Prims {
 		int x = position.getX();
 		int y = position.getY();
 
-		if (x >= 0 && x < 50 && y >= 0 && y < 50 && !maze[x][y]) {
+		if (x > 0 && x < 49 && y > 0 && y < 49 && !maze[x][y]) {
 			return true;
 		} return false;
 	}
@@ -112,11 +112,7 @@ public class Prims {
 		entityList.add(exit);
 		historicalEntCount++;
 
-		Dungeon newDungeon = new Dungeon(id, "primsDungeon", entityList, gameMode, ":exit");
-
-		// newDungeon.setHeight(50);
-		// newDungeon.setWidth(50);
-
+		Dungeon newDungeon = new Dungeon(id, "primsDungeon", entityList, gameMode, ":exit", 50, 50);
 		return newDungeon;
 	}
 	

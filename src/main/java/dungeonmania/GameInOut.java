@@ -39,9 +39,11 @@ public class GameInOut {
 
 	public static Dungeon fromJSON(String expType, String path, String feed, int lastUsedDungeonId, String gameMode) throws IOException {
         List<Entity> entityList = new ArrayList<>();
-		List<CollectibleEntity> returnInv = new ArrayList<>();
+		List<CollectableEntity> returnInv = new ArrayList<>();
 		String goals = null;
 		String playMode = null; 
+		int height = 50;
+		int width  = 50;
 
 		try {
             Map<String, Object> jsonMap = new Gson().fromJson(path, Map.class);
@@ -60,7 +62,19 @@ public class GameInOut {
 					goals = createGoals(goalCon).remainingString();
 					goals = createGoals(goalCon).remainingString();
 				}
-			}			
+			}
+
+			Map<String, Object> goalConditions = (Map<String, Object>)jsonMap.get("goal-condition");
+
+			if (jsonMap.get("height") != null) {
+				Double expHeight = (Double)jsonMap.get("height");
+				height = expHeight.intValue(); 
+			}
+
+			if (jsonMap.get("width") != null) {
+				Double expWidth = (Double)jsonMap.get("width");
+				width = expWidth.intValue();  
+			}
 
 			List<Map<String, Object>> parseList = (List<Map<String, Object>>)jsonMap.get("entities"); 
 
@@ -129,6 +143,13 @@ public class GameInOut {
 						player.setInvincibleTickDuration(invincibleTickDuration);
 					} 
 					entityList.add(player);
+				} else if (entityType.contains("swamp_tile")) {
+
+					Double moveFD = (Double)currentEntity.get("movement_factor");
+					int moveF = moveFD.intValue();
+					
+					SwampTile swampT = new SwampTile(entityId, exportPos, moveF);
+					entityList.add(swampT);
 				} else {
 					Entity newEntity = EntityFactory.createEntity(entityId, entityType, exportPos);
 					entityList.add(newEntity);
@@ -210,7 +231,7 @@ public class GameInOut {
 				}
 			}
 			
-			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals);
+			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, height, width);
 
 			if (expType.equals("load")) {
 				Double tickD = (Double)jsonMap.get("tickNumber"); 

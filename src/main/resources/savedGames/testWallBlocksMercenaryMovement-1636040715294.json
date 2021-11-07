@@ -41,7 +41,6 @@
     }
   ],
   "gameMode": "Standard",
-  "goals": "",
   "historicalEntCount": 3,
   "tickNumber": 1,
   "spawnpoint": {
@@ -49,5 +48,7 @@
     "y": 0,
     "layer": 0
   },
-  "mode": {}
+  "mode": {},
+  "height": 50,
+  "width": 50
 }

@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
-
 
 public class DungeonManiaController {
 
@@ -152,8 +150,8 @@ public class DungeonManiaController {
 
 		List<ItemResponse> inventory = new ArrayList<ItemResponse>();
 
-		for (CollectibleEntity collectibleEntity : target.getInventory()) {
-			inventory.add(new ItemResponse(collectibleEntity.getId(), collectibleEntity.getType()));
+		for (CollectableEntity collectableEntity : target.getInventory()) {
+			inventory.add(new ItemResponse(collectableEntity.getId(), collectableEntity.getType()));
 		}
 		
 		return new DungeonResponse(
@@ -320,148 +318,35 @@ public class DungeonManiaController {
 			}
 		}
 
-		Move moveStrategy = null;
 		currentDungeon.tickOne();
-		
-		moveStrategy = new PlayerMove();
-		// Move player
+
+		// Player actions
 		if (currentDungeon.getPlayer() != null) {
 			currentDungeon.getPlayer().setCurrentDir(movementDirection);
 			// make sure invincibility wears off
 			int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
 			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
-			moveStrategy.move(currentDungeon.getPlayer(), currentDungeon, movementDirection);			
+
+			// Move player
+			currentDungeon.getPlayer().move(currentDungeon, movementDirection);
 		}
-		
-		Switch switchFlick = null;
-		boolean switchOn = false;
 
-		// Map<String, Entity> tempEnts = new HashMap<>();
-		// for (Map.Entry<String, Entity> entry : currentDungeon.getEntities().entrySet()) {
-		// 	tempEnts.put(entry.getKey(), entry.getValue());
-		// }
-
-		List<Entity> tempEnts = new ArrayList<>();
+		List<MovingEntity> tempEnts = new ArrayList<>();
 
 		for (Entity entity : currentDungeon.getEntities()) {
-			tempEnts.add(entity);
-		}
-
-		
-		// Move everything else
-		// for (Map.Entry<String, Entity> entry : tempEnts.entrySet()) {
-		// 	Entity currentEntity = entry.getValue();
-		// 	if (currentEntity instanceof Spider) {
-		// 		moveStrategy = new SpiderMove();
-		// 		moveStrategy.move(currentEntity, currentDungeon);
-		// 	} else if (currentEntity instanceof Mercenary) {
-		// 		moveStrategy = new MercenaryMove();
-		// 		moveStrategy.move(currentEntity, currentDungeon);
-		// 	} else if (currentEntity instanceof Boulder) {
-		// 		if (!currentEntity.getPosition().equals(currentDungeon.getPlayerPosition())) {
-		// 			continue;
-		// 		}
-		// 		moveStrategy = new StandardMove();
-		// 		// Get position of switch, layer -1
-		// 		Position prevPos = currentEntity.getPosition();
-		// 		Position prevPosSwitch = new Position(prevPos.getX(), prevPos.getY(), -1);
-		// 		moveStrategy.move(currentEntity, currentDungeon, movementDirection);
-
-		// 		Position currPos = currentEntity.getPosition();
-		// 		Position currPosSwitch = new Position(currPos.getX(), currPos.getY(), -1);
-
-		// 		// Check if switch is being activated
-		// 		if (currentDungeon.entityExists("switch", currPosSwitch)) {
-		// 			switchFlick = (Switch) currentDungeon.getEntity("switch", currPosSwitch);
-		// 			switchOn = true;
-		// 		}
-		// 		// Check if switch is being deactivated
-		// 		if (currentDungeon.entityExists("switch", prevPosSwitch)) {
-		// 			switchFlick = (Switch) currentDungeon.getEntity("switch", prevPosSwitch);
-		// 			switchOn = false;
-		// 		}
-
-		// 	} else if (currentEntity instanceof ZombieToast) {
-		// 		moveStrategy = new StandardMove();
-		// 		Random random = new Random();
-		// 		int dir = random.nextInt(4);
-		// 		Direction currDir = Direction.NONE;
-		// 		switch (dir) {
-		// 			case 0:
-		// 				currDir = Direction.UP;
-		// 				break;
-		// 			case 1:
-		// 				currDir = Direction.DOWN;
-		// 				break;
-		// 			case 2:
-		// 				currDir = Direction.LEFT;
-		// 				break;
-		// 			case 3:
-		// 				currDir = Direction.RIGHT;
-		// 				break;
-		// 		}
-		// 		moveStrategy.move(currentEntity, currentDungeon, currDir);
-		// 	}
-		// }
-
-		for (Entity entity : tempEnts) {
-			if (entity instanceof Spider) {
-				moveStrategy = new SpiderMove();
-				moveStrategy.move(entity, currentDungeon);
-			} else if (entity instanceof Mercenary) {
-				moveStrategy = new MercenaryMove();
-				moveStrategy.move(entity, currentDungeon);
+			if (entity instanceof MovingEntity) {
+				MovingEntity mov = (MovingEntity) entity;
+				tempEnts.add(mov);
 			} else if (entity instanceof Boulder) {
-				if (!entity.getPosition().equals(currentDungeon.getPlayerPosition())) {
-					continue;
-				}
-				moveStrategy = new StandardMove();
-				// Get position of switch, layer -1
-				Position prevPos = entity.getPosition();
-				Position prevPosSwitch = new Position(prevPos.getX(), prevPos.getY(), -1);
-				moveStrategy.move(entity, currentDungeon, movementDirection);
-
-				Position currPos = entity.getPosition();
-				Position currPosSwitch = new Position(currPos.getX(), currPos.getY(), -1);
-
-				// Check if switch is being activated
-				if (currentDungeon.entityExists("switch", currPosSwitch)) {
-					switchFlick = (Switch) currentDungeon.getEntity("switch", currPosSwitch);
-					switchOn = true;
-				}
-				// Check if switch is being deactivated
-				if (currentDungeon.entityExists("switch", prevPosSwitch)) {
-					switchFlick = (Switch) currentDungeon.getEntity("switch", prevPosSwitch);
-					switchOn = false;
-				}
-
-			} else if (entity instanceof ZombieToast) {
-				moveStrategy = new StandardMove();
-				Random random = new Random();
-				int dir = random.nextInt(4);
-				Direction currDir = Direction.NONE;
-				switch (dir) {
-					case 0:
-						currDir = Direction.UP;
-						break;
-					case 1:
-						currDir = Direction.DOWN;
-						break;
-					case 2:
-						currDir = Direction.LEFT;
-						break;
-					case 3:
-						currDir = Direction.RIGHT;
-						break;
-				}
-				moveStrategy.move(entity, currentDungeon, currDir);
+				Boulder boulder = (Boulder) entity;
+				boulder.move(currentDungeon);
 			}
 		}
 
-		if (switchFlick != null) {
-			switchFlick.setStatus(switchOn);
-		}		
-		
+		// Move all Movable Entities
+		for (MovingEntity mov : tempEnts) {
+			mov.move(currentDungeon);
+		}
 		
 		// find all entities that should be blown up	
 		List<Entity> entitiesToBeRemoved = new ArrayList<>();	
@@ -502,9 +387,9 @@ public class DungeonManiaController {
 		
 		boolean itemInInventory = false;
 
-		CollectibleEntity objectUsed = null; 
+		CollectableEntity objectUsed = null; 
 		if (itemUsed != null) {
-			for (CollectibleEntity inv : currentDungeon.getInventory()) {
+			for (CollectableEntity inv : currentDungeon.getInventory()) {
 				if (inv.getId().equals(itemUsed)) {
 					objectUsed = inv;
 					itemInInventory = true;
@@ -630,14 +515,16 @@ public class DungeonManiaController {
 
 		Entity interactEntity = currentDungeon.getEntity(entityId);
 
-		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
-		
-		boolean hasWeapon = false;
+		List<CollectableEntity> currentInventory = currentDungeon.getInventory();
+
 		boolean hasGold = false;
+		boolean hasWeapon = false;
 		boolean hasRing = false;
 
-		for (CollectibleEntity item : currentInventory) {
-			if (item.getType().equals("sword") || item.getType().equals("bow")) {
+		for (CollectableEntity item : currentInventory) {
+			if (item.getType().equals("treasure")) {
+				hasGold = true;
+			} else if (item.getType().equals("sword") || item.getType().equals("bow")) {
 				hasWeapon = true;
 			} else if (item.getType().equals("treasure")) {
 				hasGold = true;
@@ -680,16 +567,16 @@ public class DungeonManiaController {
 	 */
 	public DungeonResponse build(String buildable) throws IllegalArgumentException, InvalidActionException {
 		checkValidBuild(buildable);
-		List<CollectibleEntity> currentInventory = currentDungeon.getInventory();
+		List<CollectableEntity> currentInventory = currentDungeon.getInventory();
 		if (buildable.equals("bow")) {
 			int newId = currentDungeon.getHistoricalEntCount();				
-			CollectibleEntity bow = (CollectibleEntity) EntityFactory.createEntity(String.valueOf(newId),"bow", currentDungeon.getPlayerPosition());
+			CollectableEntity bow = (CollectableEntity) EntityFactory.createEntity(String.valueOf(newId),"bow", currentDungeon.getPlayerPosition());
 			currentDungeon.setHistoricalEntCount(newId + 1);
 			currentInventory.add(bow);
 			int counterArrow = 0;
 			int counterWood = 0;
 			for (int i = 0; i < currentInventory.size(); i++) {
-				CollectibleEntity found = currentInventory.get(i);
+				CollectableEntity found = currentInventory.get(i);
 				if (found.getType().equals("arrow") && counterArrow < 3) {
 					counterArrow++;
 					currentInventory.remove(i);
@@ -702,7 +589,7 @@ public class DungeonManiaController {
 			}
 		} else if (buildable.equals("shield")) {
 			int newId = currentDungeon.getHistoricalEntCount();	
-			CollectibleEntity shield = (CollectibleEntity) EntityFactory.createEntity(String.valueOf(newId), "shield", currentDungeon.getPlayerPosition());
+			CollectableEntity shield = (CollectableEntity) EntityFactory.createEntity(String.valueOf(newId), "shield", currentDungeon.getPlayerPosition());
 			currentDungeon.setHistoricalEntCount(newId + 1);
 
 			currentInventory.add(shield);
@@ -710,7 +597,7 @@ public class DungeonManiaController {
 			int counterKey = 0;
 			int counterWood = 0;
 			for (int i = 0; i < currentInventory.size(); i++) {
-				CollectibleEntity found = currentInventory.get(i);
+				CollectableEntity found = currentInventory.get(i);
 				if (found.getType().equals("wood") && counterWood < 2) {
 					counterWood++;
 					currentInventory.remove(i);

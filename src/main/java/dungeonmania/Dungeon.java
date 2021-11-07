@@ -3,12 +3,7 @@ package dungeonmania;
 import java.util.List;
 import java.util.ArrayList;
 
-import dungeonmania.allEntities.BombItem;
-import dungeonmania.allEntities.BombStatic;
-import dungeonmania.allEntities.HealthPotion;
-import dungeonmania.allEntities.InvincibilityPotion;
-import dungeonmania.allEntities.InvisibilityPotion;
-import dungeonmania.allEntities.Player;
+import dungeonmania.allEntities.*;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.*;
 
@@ -16,7 +11,7 @@ public class Dungeon {
 
 	private int id;
 	private String name;
-	private List<CollectibleEntity> inventory;
+	private List<CollectableEntity> inventory;
     private List<Entity> entities;
     private String gameMode;
     private String goals;
@@ -24,9 +19,11 @@ public class Dungeon {
 	private int tickNumber;
 	private Position spawnpoint;
 	private Mode mode;
+	private int height;
+	private int width;
 
 
-    public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals) {
+    public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals, int height, int width) {
 		this.id = id;
 		this.name = name;	
 		this.inventory = new ArrayList<>();	
@@ -43,6 +40,8 @@ public class Dungeon {
 		} else if (gameMode.equals("Hard")) {
 			mode = new HardMode();
 		}
+		this.height = height;
+		this.width = width;
     }
 
 	/**
@@ -51,10 +50,10 @@ public class Dungeon {
 	 * @throws InvalidActionException
 	 */
 	public boolean useItem(String itemString) throws InvalidActionException {
-		CollectibleEntity itemUsed = null;
-		for (CollectibleEntity collectible : inventory) {
-			if (collectible.getId().equals(itemString)) {
-				itemUsed = collectible;
+		CollectableEntity itemUsed = null;
+		for (CollectableEntity colllectable : inventory) {
+			if (colllectable.getId().equals(itemString)) {
+				itemUsed = colllectable;
 			}
 		}
 		
@@ -96,7 +95,7 @@ public class Dungeon {
 		List<Entity> result = new ArrayList<>();
 		for (Position adjacentPos : centre.getAdjacentPositions()) {
 			for (Entity cellEnt : getEntitiesOnCell(adjacentPos)) {
-				if (cellEnt != null && !(cellEnt instanceof Player)) {
+				if (cellEnt != null && !(cellEnt instanceof Player) && !(cellEnt instanceof Portal)) {
 					result.add(cellEnt);
 				}
 			}	
@@ -127,7 +126,7 @@ public class Dungeon {
 		return name;
 	}
 
-	public List<CollectibleEntity> getInventory() {
+	public List<CollectableEntity> getInventory() {
 		return inventory;
 	}
 
@@ -154,7 +153,7 @@ public class Dungeon {
 		return null;
 	}
 
-	public void setInventory(List<CollectibleEntity> inventory) {
+	public void setInventory(List<CollectableEntity> inventory) {
 		this.inventory = inventory;
 	}
 
@@ -207,6 +206,9 @@ public class Dungeon {
 		this.spawnpoint = spawnpoint;
 	}
 
+	/**
+	 * Add 1 to the dungeon's current tick
+	 */
 	public void tickOne() {
 		tickNumber++;
 	}
@@ -215,7 +217,7 @@ public class Dungeon {
 		getEntities().remove(entity);
 	}
 
-	public void addItemToInventory(CollectibleEntity entity) {
+	public void addItemToInventory(CollectableEntity entity) {
 		inventory.add(entity);
 	}
 
@@ -310,8 +312,28 @@ public class Dungeon {
 		return result;
 	}
 
+	public boolean validPos(Position pos){
+		int posX = pos.getX();
+		int posY = pos.getY();
+
+		if (posX < 0 || posX > this.getWidth()) {
+			return false;
+		} else if (posY < 0 || posY > this.getHeight()){
+			return false;
+		}
+		return true;
+	}
+
 	public int getHistoricalEntCount() {
 		return this.historicalEntCount;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int getWidth() {
+		return width;
 	}
 
 	public void setHistoricalEntCount(int historicalEntCount) {
@@ -344,6 +366,14 @@ public class Dungeon {
 
 	public void setEntities(List<Entity> entities) {
 		this.entities = entities;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
 
