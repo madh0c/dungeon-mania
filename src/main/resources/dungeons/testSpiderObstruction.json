@@ -45,6 +45,11 @@
 			"x": 2,
 			"y": 2,
 			"type": "wall"
+		},
+		{
+			"x": 3,
+			"y": 3,
+			"type": "player"
 		}
     ],
     "width": 4,
