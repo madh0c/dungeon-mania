@@ -506,6 +506,7 @@ public class DungeonManiaController {
 					success++;
 				}
 				if (subgoal instanceof GoalAnd || subgoal instanceof GoalOr) {
+					success = 0;
 					success = evalSubGoals(subgoal, success);
 				}
 			}
@@ -517,14 +518,17 @@ public class DungeonManiaController {
 			int success = 0;
 			for (GoalNode subgoal : headOr.getList()) {
 				if (subgoal.evaluate()) {
+					success++;
 					break;
 				}
-
-				if (subgoal instanceof GoalOr || subgoal instanceof GoalOr) {
+				if (subgoal instanceof GoalAnd || subgoal instanceof GoalOr) {
+					success = 0;
 					success = evalSubGoals(subgoal, success);
+					if (subgoal instanceof GoalAnd && success != 2) {
+						success = 0;
+					}
 				}
 			}
-
 			if (success > 0) {
 				headOr.setHasCompleted(true);
 			}
@@ -532,7 +536,7 @@ public class DungeonManiaController {
 	}
 
 	public int evalSubGoals(GoalNode head, int total) {
-		
+
 		if (head instanceof GoalAnd) {
 			GoalAnd headAnd = (GoalAnd) head;
 			int success = 0;
@@ -558,10 +562,12 @@ public class DungeonManiaController {
 					total++;
 					break;
 				}
-
-				if (subgoal instanceof GoalOr || subgoal instanceof GoalOr) {
+				if (subgoal instanceof GoalAnd || subgoal instanceof GoalOr) {
 					total = total + evalSubGoals(subgoal, total);
 					success = success + evalSubGoals(subgoal, success);
+					if (subgoal instanceof GoalAnd && success != 2) {
+						success = 0;
+					}
 				}
 			}
 			if (success > 0) {

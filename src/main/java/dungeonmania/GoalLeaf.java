@@ -20,10 +20,6 @@ public class GoalLeaf implements GoalNode {
 		}
 		return ":" + this.goal;
 	}
-	
-	public void sethasCompleted(Boolean hasCompleted) {
-		this.hasCompleted = hasCompleted;
-	}
 
 	public String getGoal() {
 		return goal;

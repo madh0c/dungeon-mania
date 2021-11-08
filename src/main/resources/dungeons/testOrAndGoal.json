@@ -1,0 +1,50 @@
+{
+	"width": 5,
+	"height": 5,
+	"entities": [
+		{
+			"x": 0,
+			"y": 0,
+			"type": "player"
+		},
+		{
+			"x": 1,
+			"y": 0,
+			"type": "mercenary"
+		}, 
+		{
+			"x": 2,
+			"y": 0,
+			"type": "boulder"
+		},
+		{
+			"x": 3,
+			"y": 0,
+			"type": "switch"
+		},
+		{
+			"x": 1,
+			"y": 1,
+			"type": "exit"
+		}
+	],
+	"goal-condition": {
+		"goal": "OR",
+		"subgoals": [
+		  {
+			"goal": "boulders"
+		  },
+		  {
+			"goal": "AND",
+			"subgoals": [
+			  {
+				"goal": "exit"
+			  },
+			  {
+				"goal": "enemies"
+			  }
+			]
+		  }
+		]
+	}
+}

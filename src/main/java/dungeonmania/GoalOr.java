@@ -50,8 +50,4 @@ public class GoalOr implements GoalNode{
 		this.hasCompleted = hasCompleted;
 	}
 
-	// public boolean getCompleted() {
-
-	// }
-
 }

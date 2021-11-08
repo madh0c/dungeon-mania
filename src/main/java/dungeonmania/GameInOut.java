@@ -250,6 +250,7 @@ public class GameInOut {
 				Map<String, Object> goalConditions = (Map<String, Object>)jsonMap.get("goal-condition");
 				JSONObject goalCon = new JSONObject(goalConditions);
 				foundGoals = createGoals(goalCon);
+				goals = foundGoals.remainingString();
 				
 				Position spawnpoint = new Position(xSC, ySC, zSC);
 				returnDungeon.setId(lastUsedDungeonId);
