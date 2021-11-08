@@ -452,7 +452,6 @@ public class ControllerTest {
         EntityResponse endE3 = new EntityResponse("16", "mercenary", new Position(20,20), true);
         EntityResponse endE4 = new EntityResponse("17", "wall", new Position(20,21), false);
         EntityResponse endE5 = new EntityResponse("18", "wall", new Position(21,20), false);
-        EntityResponse endE6 = new EntityResponse("19", "mercenary", new Position(3,0), true);
 
         endList.add(endPlayerInfo);
         endList.add(endE1);
@@ -460,7 +459,6 @@ public class ControllerTest {
         endList.add(endE3);
         endList.add(endE4);
         endList.add(endE5);
-        endList.add(endE6);
 
 
         List<ItemResponse> expInvList = new ArrayList<ItemResponse>();

@@ -16,18 +16,19 @@ public class Player extends Entity {
 	private Direction currentDir;
 	private boolean haveKey;
 	private int invincibleTickDuration;
+	private final boolean enemyAttack;
+	private final int initialHealth;
+	private final int invincibleAmount;
 
-    public Player(String id, Position position, String gameMode) {
+	public Player(String id, Position position, int health, boolean enemyAttack, int invincibleAmount) {
         super(id, position, "player");
 		this.attack = 2;
-		// this.health = 100;
 		this.visible = true;
 		this.invincibleTickDuration = 0;
-		if (gameMode.equals("Peaceful") || gameMode.equals("Standard")) {
-			this.health = 100;
-		} else if (gameMode.equals("Hard")) {
-			this.health = 60;
-		}
+		this.health = health;
+		this.initialHealth = health;
+		this.enemyAttack = enemyAttack;
+		this.invincibleAmount = invincibleAmount;
     }
 
     public void setHealth(int newHealth) {
@@ -46,13 +47,25 @@ public class Player extends Entity {
         return health;
     }
 
+	public int getInitialHealth() {
+		return initialHealth;
+	}
+
 	public Direction getCurrentDir() {
 		return currentDir;
+	}
+
+	public int getInvincibleAmount() {
+		return invincibleAmount;
 	}
 
     public boolean isVisible() {
         return visible;
     }
+
+	public boolean enemyAttack() {
+		return enemyAttack;
+	}
 
 	public void setVisibility(boolean canBeSeen) {
 		visible = canBeSeen;
@@ -161,7 +174,7 @@ public class Player extends Entity {
 			dungeon.addItemToInventory((CollectableEntity)entity);
 
 		} else if (entity instanceof MovingEntity) {
-			if (dungeon.getMode().enemyAttack()) {
+			if (enemyAttack()) {
 				Battle.battle(entity, dungeon);
 			}
 		}
@@ -201,19 +214,15 @@ public class Player extends Entity {
 		// Check if the direction is able to be moved into
 		Position newPos = getPosition().translateBy(direction);
 
-		// boolean collideable = true;
 		for (Entity entity : dungeon.getEntitiesOnCell(newPos)) {
 			if (!collide(entity, dungeon)) {
-				// collideable = false;
 				return;
 			}
 		}
 
-		// If can, move
-		// if (collideable) {
 		setPosition(newPos);
 		setCurrentDir(direction);
 		portalMove(dungeon);
-		// }
+
 	}
 }

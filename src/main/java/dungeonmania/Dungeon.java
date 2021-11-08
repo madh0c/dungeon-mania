@@ -21,11 +21,15 @@ public class Dungeon {
 	private int historicalEntCount;
 	private int tickNumber;
 	private Position spawnpoint;
-	private Mode mode;
 	private int height;
 	private int width;
+<<<<<<< HEAD
 	private GoalNode foundGoals;
 	private String goalConditions;
+=======
+	private EntityFactory factory;
+	private int mercSpawnrate;
+>>>>>>> master
 
 
     public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals, int height, int width, GoalNode foundGoals, String goalConditions) {
@@ -39,13 +43,15 @@ public class Dungeon {
 		this.foundGoals = foundGoals;
 		this.goalConditions = goalConditions;
 		// Initialise gamemode
-		mode = new StandardMode();
 		if (gameMode.equals("Peaceful")) {
-			mode = new PeacefulMode();
+			this.factory = new PeacefulFactory();
+			this.mercSpawnrate = 20;
 		} else if (gameMode.equals("Standard")) {
-			mode = new StandardMode();
+			this.factory = new StandardFactory();
+			this.mercSpawnrate = 20;
 		} else if (gameMode.equals("Hard")) {
-			mode = new HardMode();
+			this.factory = new HardFactory();
+			this.mercSpawnrate = 10;
 		}
 		this.height = height;
 		this.width = width;
@@ -65,7 +71,7 @@ public class Dungeon {
 		}
 		
 		if (itemUsed instanceof HealthPotion) {
-			getPlayer().setHealth(mode.getHealth());
+			getPlayer().setHealth(getPlayer().getInitialHealth());
 			inventory.remove(itemUsed);
 			return true;
 		}
@@ -76,7 +82,7 @@ public class Dungeon {
 		}
 
 		if (itemUsed instanceof InvincibilityPotion) {
-			getPlayer().setInvincibleTickDuration(mode.getInvincDuration());
+			getPlayer().setInvincibleTickDuration(getPlayer().getInvincibleAmount());
 			inventory.remove(itemUsed);
 			return true;
 		}
@@ -141,14 +147,11 @@ public class Dungeon {
         return gameMode;
     }
 
-	public Mode getMode() {
-		return mode;
-	}
-
     public String getGoals() {
         return foundGoals.remainingString();
     }
 
+<<<<<<< HEAD
 	public GoalNode getFoundGoals() {
 		return foundGoals;
 	}
@@ -160,6 +163,12 @@ public class Dungeon {
 	public String getGoalConditions() {
 		return this.foundGoals.saveGameJSON().toString();
 	}
+=======
+	public EntityFactory getFactory() {
+		return factory;
+	}
+
+>>>>>>> master
 	public Entity getEntity(String id) {
 		int entId = 0;
 		for (Entity entity : getEntities()) {
@@ -212,12 +221,12 @@ public class Dungeon {
 		return tickNumber;
 	}
 
-	public Position getSpawnpoint() {
-		return spawnpoint;
+	public int getMercSpawnrate() {
+		return mercSpawnrate;
 	}
 
-	public int getSpawnRate() {
-		return mode.getZombieTick();
+	public Position getSpawnpoint() {
+		return spawnpoint;
 	}
 
 	public void setSpawnpoint(Position spawnpoint) {
@@ -372,10 +381,6 @@ public class Dungeon {
 
 	public void setGameMode(String gameMode) {
 		this.gameMode = gameMode;
-	}
-
-	public void setMode(Mode mode) {
-		this.mode = mode;
 	}
 
 	public void setName(String name) {

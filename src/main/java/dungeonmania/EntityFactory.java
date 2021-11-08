@@ -3,59 +3,34 @@ package dungeonmania;
 import dungeonmania.allEntities.*;
 import dungeonmania.util.*;
 
-public class EntityFactory {
+public abstract class EntityFactory {
 	/**
-	 * @param type
-	 * @param position
+	 * Create and return a new Entity, depending on the given type
+	 * @param id		Id of returned Entity
+	 * @param type		Type of returned Entity
+	 * @param position	Position of returned Entity
 	 * @return a new instance of the entity that should be created
 	 */
-	public static Entity createEntity(String id, String type, Position position) {
-		if (type.contains("wall"))
-			return new Wall(id, position);
-		else if (type.contains("exit"))
-			return new Exit(id, position);
-		else if (type.contains("boulder"))
-			return new Boulder(id, position);	
-		else if (type.contains("switch"))
-			return new Switch(id, position);
-		else if (type.contains("door"))
-			return new Door(id, position);
-		else if (type.contains("zombie_toast_spawner"))
-			return new ZombieToastSpawner(id, position);
-		else if (type.contains("spider"))
-			return new Spider(id, position);
-		else if (type.contains("zombie_toast"))
-			return new ZombieToast(id, position);
-		else if (type.contains("mercenary"))
-			return new Mercenary(id, position);
-		else if (type.contains("treasure"))
-			return new Treasure(id, position);
-		else if (type.contains("key"))
-			return new Key(id, position);
-		else if (type.contains("health_potion"))
-			return new HealthPotion(id, position);
-		else if (type.contains("invincibility_potion"))
-			return new InvincibilityPotion(id, position);
-		else if (type.contains("invisibility_potion"))
-			return new InvisibilityPotion(id, position);
-		else if (type.contains("wood"))
-			return new Wood(id, position);
-		else if (type.contains("arrow"))
-			return new Arrow(id, position);
-		else if (type.contains("bomb"))
-			return new BombItem(id, position);
-		else if (type.contains("sword"))
-			return new Sword(id, position);
-		// else if (type.contains("player"))
-		// 	return new Player(id, position);
-		else if (type.contains("bow"))
-			return new Bow(id, position);
-		else if (type.contains("shield"))
-			return new Shield(id, position);
-		else if (type.contains("armour"))
-			return new Armour(id, position);
-		else if (type.contains("one_ring"))
-			return new OneRing(id, position);
-		return null;
+	public abstract Entity createEntity(String id, String type, Position position);
+
+	/**
+	 * Create and return a new player
+	 * @param id		Id of player
+	 * @param position	Position of player
+	 * @return
+	 */
+	public abstract Player createPlayer(String id, Position position);
+
+	/**
+	 * Create and return a new portal
+	 * @param id		Id of portal
+	 * @param position	Position of portal
+	 * @param colour	Colour of portal
+	 * @return
+	 */
+	public Portal createPortal(String id, Position position, String colour) {
+		Portal portal = new Portal(id, position, colour);
+		return portal;
 	}
+
 }

@@ -22,8 +22,8 @@ public class Spider extends MovingEntity {
 
 	private boolean clockwise;
 
-    public Spider(String id, Position position) {
-        super(id, position, "spider");
+    public Spider(String id, Position position, boolean enemyAttack) {
+        super(id, position, "spider", enemyAttack);
 		range = new ArrayList<>();
 		super.setHealth(10);
 		super.setBaseAttack(5);
@@ -76,7 +76,7 @@ public class Spider extends MovingEntity {
 		if (entity instanceof Boulder) {
 			return false;
 		} else if (entity instanceof Player) {
-			if (dungeon.getMode().enemyAttack()) {
+			if (enemyAttack()) {
 				Battle.battle(this, dungeon);
 			}
 		}

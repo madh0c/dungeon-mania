@@ -26,7 +26,7 @@ public class MiscTest {
     @Test
     public void testDurability() {
         DungeonManiaController controller = new DungeonManiaController();
-        assertDoesNotThrow(() -> controller.newGame("testDurability", "Standard"));
+        assertDoesNotThrow(() -> controller.newGame("testDurability", "Hard"));
 
         // Assert correct spawn positions
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
