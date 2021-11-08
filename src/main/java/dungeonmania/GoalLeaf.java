@@ -15,7 +15,7 @@ public class GoalLeaf implements GoalNode {
 
 	@Override 
 	public String remainingString() {
-		if (hasCompleted) {
+		if (hasCompleted || goal.equals("")) {
 			return "";
 		}
 		return ":" + this.goal;
