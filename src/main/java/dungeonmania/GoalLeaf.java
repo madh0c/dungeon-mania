@@ -1,5 +1,7 @@
 package dungeonmania;
 
+import org.json.JSONObject;
+
 public class GoalLeaf implements GoalNode {
 
 	private String goal;
@@ -19,6 +21,13 @@ public class GoalLeaf implements GoalNode {
 			return "";
 		}
 		return ":" + this.goal;
+	}
+
+	@Override
+	public JSONObject saveGameJSON() {
+		JSONObject compositeLeafJSON = new JSONObject();
+        compositeLeafJSON.put("goal", goal);
+		return compositeLeafJSON;
 	}
 
 	public String getGoal() {

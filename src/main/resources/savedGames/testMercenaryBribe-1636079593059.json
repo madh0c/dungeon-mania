@@ -1,35 +1,19 @@
 {
   "id": 1,
-  "name": "testMercenaryBribe.json",
+  "name": "testMercenaryBribe-1636079593059",
   "inventory": [],
   "entities": [
     {
-      "health": 100,
-      "attack": 2,
-      "visible": true,
-      "currentDir": "RIGHT",
-      "haveKey": false,
-      "invincibleTickDuration": 0,
-      "position": {
-        "x": 3,
-        "y": 2,
-        "layer": 0
-      },
-      "type": "player",
-      "id": "0"
-    },
-    {
-      "isAlly": true,
-      "currentDir": "RIGHT",
+      "isAlly": false,
       "health": 30,
       "baseAttack": 5,
       "position": {
-        "x": 3,
+        "x": 2,
         "y": 2,
         "layer": 0
       },
       "type": "mercenary",
-      "id": "18"
+      "id": "7"
     },
     {
       "isAlly": false,
@@ -41,7 +25,7 @@
         "layer": 0
       },
       "type": "mercenary",
-      "id": "19"
+      "id": "8"
     },
     {
       "isAlly": false,
@@ -53,12 +37,25 @@
         "layer": 0
       },
       "type": "mercenary",
-      "id": "20"
+      "id": "9"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "10"
     }
   ],
   "gameMode": "Standard",
-  "historicalEntCount": 21,
-  "tickNumber": 185,
+  "goals": "",
+  "historicalEntCount": 11,
+  "tickNumber": 85,
   "spawnpoint": {
     "x": 1,
     "y": 1,
@@ -68,7 +65,8 @@
   "height": 4,
   "width": 7,
   "foundGoals": {
-    "goal": "goal",
+    "goal": "",
     "hasCompleted": false
-  }
+  },
+  "goalConditions": ""
 }

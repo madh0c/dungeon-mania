@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.lang.String;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,7 +27,6 @@ public class GameInOut {
 
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create(); 
-			
 			Writer writer = new FileWriter(path);
 			gson.toJson(dungeon, writer);
 			writer.flush(); 
@@ -45,12 +44,18 @@ public class GameInOut {
 		int height = 50;
 		int width  = 50;
 		GoalNode foundGoals = new GoalLeaf("");
-		
+		String goalsConvert = "";
 		try {
             Map<String, Object> jsonMap = new Gson().fromJson(path, Map.class);
 			if (expType.equals("load")) {
 				playMode = (String)jsonMap.get("gameMode"); 
 				goals = (String)jsonMap.get("goals"); 
+				String goalConditions = (String)jsonMap.get("goalConditions");
+				if (!goalConditions.equals("")) {
+					JSONObject goalCon = new JSONObject(goalConditions);
+					foundGoals = createGoals(goalCon);
+					goalsConvert = goalCon.toString();
+				}
 			} else if (expType.equals("new")) {
 				playMode = gameMode;
 				Map<String, Object> goalConditions = (Map<String, Object>)jsonMap.get("goal-condition");
@@ -61,6 +66,7 @@ public class GameInOut {
 					JSONObject goalCon = new JSONObject(goalConditions);
 					foundGoals = createGoals(goalCon);
 					goals = foundGoals.remainingString();
+					goalsConvert = goalCon.toString();
 				}
 			}
 
@@ -228,7 +234,7 @@ public class GameInOut {
 					}
 				}
 			}
-			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, height, width, foundGoals);
+			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, height, width, foundGoals, goalsConvert);
 
 			if (expType.equals("load")) {
 				Double tickD = (Double)jsonMap.get("tickNumber"); 
@@ -247,11 +253,6 @@ public class GameInOut {
 				int ySC= ySD.intValue();
 				int zSC = zSD.intValue();
 
-				Map<String, Object> goalConditions = (Map<String, Object>)jsonMap.get("goal-condition");
-				JSONObject goalCon = new JSONObject(goalConditions);
-				foundGoals = createGoals(goalCon);
-				goals = foundGoals.remainingString();
-				
 				Position spawnpoint = new Position(xSC, ySC, zSC);
 				returnDungeon.setId(lastUsedDungeonId);
 				returnDungeon.setName(feed);
@@ -262,6 +263,7 @@ public class GameInOut {
 				returnDungeon.setTickNumber(tickNumber);
 				returnDungeon.setSpawnpoint(spawnpoint); 
 				returnDungeon.setFoundGoals(foundGoals);
+				
 			}
 
 			return returnDungeon;

@@ -1,6 +1,9 @@
 package dungeonmania;
 
 import java.util.List;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import dungeonmania.allEntities.*;
@@ -22,9 +25,10 @@ public class Dungeon {
 	private int height;
 	private int width;
 	private GoalNode foundGoals;
+	private String goalConditions;
 
 
-    public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals, int height, int width, GoalNode foundGoals) {
+    public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals, int height, int width, GoalNode foundGoals, String goalConditions) {
 		this.id = id;
 		this.name = name;	
 		this.inventory = new ArrayList<>();	
@@ -33,6 +37,7 @@ public class Dungeon {
         this.goals = goals;
 		this.historicalEntCount = entities.size();
 		this.foundGoals = foundGoals;
+		this.goalConditions = goalConditions;
 		// Initialise gamemode
 		mode = new StandardMode();
 		if (gameMode.equals("Peaceful")) {
@@ -152,10 +157,9 @@ public class Dungeon {
 		this.foundGoals = foundGoals;
 	}
 
-	// public void setGoals(String goals) {
-	// 	this.goals = goals;
-	// }
-
+	public String getGoalConditions() {
+		return this.foundGoals.saveGameJSON().toString();
+	}
 	public Entity getEntity(String id) {
 		int entId = 0;
 		for (Entity entity : getEntities()) {

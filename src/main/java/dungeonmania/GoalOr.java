@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 
 public class GoalOr implements GoalNode{
 	private List<GoalNode> subGoals = new ArrayList<>();
@@ -31,6 +34,18 @@ public class GoalOr implements GoalNode{
 			return notDoneGoals;
 		}	
 	}
+
+	@Override
+    public JSONObject saveGameJSON() {
+        JSONObject compositeOrJSON = new JSONObject();
+        compositeOrJSON.put("goal", operator);
+
+        JSONArray subGoalsJSON = new JSONArray();
+        subGoals.stream().map(GoalNode :: saveGameJSON).forEach(x -> subGoalsJSON.put(x));
+        
+        compositeOrJSON.put("subgoals", subGoalsJSON);
+        return compositeOrJSON;
+    }
 
 	public boolean add(GoalNode goal) {
 		subGoals.add(goal);

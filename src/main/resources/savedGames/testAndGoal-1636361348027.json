@@ -4,30 +4,19 @@
   "inventory": [],
   "entities": [
     {
-      "health": 100,
+      "health": 85,
       "attack": 2,
       "visible": true,
+      "currentDir": "RIGHT",
       "haveKey": false,
       "invincibleTickDuration": 0,
-      "position": {
-        "x": 0,
-        "y": 0,
-        "layer": 0
-      },
-      "type": "player",
-      "id": "0"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
       "position": {
         "x": 1,
         "y": 0,
         "layer": 0
       },
-      "type": "mercenary",
-      "id": "1"
+      "type": "player",
+      "id": "0"
     },
     {
       "position": {
@@ -40,9 +29,14 @@
     }
   ],
   "gameMode": "Standard",
-  "goals": "(:enemies AND :treasure)",
+  "goals": ":treasure",
   "historicalEntCount": 3,
-  "tickNumber": 0,
+  "tickNumber": 1,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
   "mode": {},
   "height": 3,
   "width": 3,
@@ -50,7 +44,7 @@
     "subGoals": [
       {
         "goal": "enemies",
-        "hasCompleted": false
+        "hasCompleted": true
       },
       {
         "goal": "treasure",
@@ -59,5 +53,6 @@
     ],
     "operator": "AND",
     "hasCompleted": false
-  }
+  },
+  "goalConditions": "{\"subgoals\":[{\"goal\":\"enemies\"},{\"goal\":\"treasure\"}],\"goal\":\"AND\"}"
 }
