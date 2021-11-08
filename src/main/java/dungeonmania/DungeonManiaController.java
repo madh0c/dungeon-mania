@@ -375,7 +375,6 @@ public class DungeonManiaController {
 
 		evalGoal(currentDungeon);
 		
-		
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
