@@ -204,7 +204,8 @@
     "y": 0,
     "layer": 0
   },
-  "mode": {},
   "height": 50,
-  "width": 50
+  "width": 50,
+  "factory": {},
+  "mercSpawnrate": 20
 }

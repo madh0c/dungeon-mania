@@ -1,13 +1,13 @@
 {
-  "id": 1,
-  "name": "testWallBlocksMercenaryMovement-1636040715294",
+  "id": 0,
+  "name": "testWallBlocksMercenaryMovement.json",
   "inventory": [],
   "entities": [
     {
       "health": 100,
       "attack": 2,
       "visible": true,
-      "currentDir": "UP",
+      "currentDir": "RIGHT",
       "haveKey": false,
       "invincibleTickDuration": 0,
       "enemyAttack": true,
@@ -52,12 +52,8 @@
     "y": 0,
     "layer": 0
   },
-<<<<<<< HEAD
-  "mode": {},
   "height": 50,
-  "width": 50
-=======
+  "width": 50,
   "factory": {},
   "mercSpawnrate": 20
->>>>>>> refactor
 }
