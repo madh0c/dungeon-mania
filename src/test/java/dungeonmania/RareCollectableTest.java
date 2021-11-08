@@ -12,18 +12,6 @@ import dungeonmania.allEntities.Player;
 import dungeonmania.util.Direction;
 
 public class RareCollectableTest {
-    // @Test
-    // public void testRareAppearing() {
-	// 	DungeonManiaController controller = new DungeonManiaController();
-	// 	controller.newGame("testDroppingRing", "Standard");
-	// 	DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
-	// 	controller.tick(null, Direction.RIGHT);
-	// 	//Fights mercenary
-	// 	Player player = controller.getDungeon(0).getPlayer();
-	// 	assertEquals(85, player.getHealth());	
-	// 	dungeonInfo = controller.getDungeonInfo(0);
-	// 	//assertEquals(Arrays.asList(new ItemResponse("2", "one_ring")), dungeonInfo.getInventory());
-    // }
 
 	@Test
 	public void testRevive() {
@@ -37,7 +25,7 @@ public class RareCollectableTest {
 			controller.tick(null, Direction.LEFT);
 		}
 		Player player = controller.getDungeon(0).getPlayer();
-		assertEquals(100, player.getHealth());
+		assertEquals(40, player.getHealth());
 	}
 
 	@Test
