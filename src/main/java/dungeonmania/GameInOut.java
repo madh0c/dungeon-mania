@@ -282,8 +282,8 @@ public class GameInOut {
 			return new GoalExit(current);
 		} else if (current.equals("treasure")) {
 			return new GoalTreasure(current);
-		} else if (current.equals("boulder")) {
-			return new GoalBoulder(current);
+		} else if (current.equals("boulders")) {
+			return new GoalBoulders(current);
 		} else if (current.equals("AND")) {
 			GoalAnd andGoal = new GoalAnd(current);
 			JSONArray subGoals = goal.getJSONArray("subgoals");
