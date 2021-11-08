@@ -14,8 +14,8 @@ public class ZombieToast extends MovingEntity {
 	private int randSeed;
 	private Random random;
 
-    public ZombieToast(String id, Position position) {
-        super(id, position, "zombie_toast");
+    public ZombieToast(String id, Position position, boolean enemyAttack) {
+        super(id, position, "zombie_toast", enemyAttack);
         super.setHealth(20);
         super.setBaseAttack(10);
 		Random rand = new Random();

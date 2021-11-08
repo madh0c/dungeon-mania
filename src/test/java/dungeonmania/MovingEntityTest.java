@@ -381,7 +381,7 @@ public class MovingEntityTest {
 		}
 
 		// Assert that zombie spawned cardinally adjacent
-		zombiePos = controller.getDungeon(0).getEntity("4").getPosition();
+		zombiePos = controller.getDungeon(0).getEntity("3").getPosition();
 		assertTrue(Position.isCardinallyAdjacent(zombiePos, spawnerPos));
 	}
 
@@ -454,7 +454,7 @@ public class MovingEntityTest {
 	@Test
 	public void testMercenarySpawn() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testMercenarySpawn", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testMercenarySpawn", "Hard"));
 
 		// Get player out of the way so mercenary can spawn
 		controller.tick(null, Direction.RIGHT);
