@@ -10,7 +10,7 @@ import dungeonmania.util.Position;
 
 public class ZombieToastSpawner extends Entity {
 
-	private int tickrate;
+	private final int tickrate;
 
     public ZombieToastSpawner(String id, Position position, int tickrate) {
         super(id, position, "zombie_toast_spawner");
