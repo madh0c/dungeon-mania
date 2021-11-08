@@ -242,8 +242,11 @@ public class GameInOut {
 						newShield.setDurability(durability);
 						returnInv.add(newShield);
 					}
+
 				}
+
 			}
+			
 			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, height, width, foundGoals, goalsConvert);
 
 			if (expType.equals("load")) {
