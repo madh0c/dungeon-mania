@@ -18,6 +18,7 @@
         "wall": "images/tileset/walls/wooden/wood_bottom.png",
         "exit": "images/tileset/entities/stairs_down.png",
         "boulder": "images/tileset/entities/boulder_00.png",
+        "boulders": "images/tileset/entities/boulder_00.png",
         "switch": "images/tileset/floor_switch.png",
         "door": "images/tileset/walls/wooden/door_locked_silver.png",
         "door_unlocked": "images/tileset/walls/wooden/door_unlocked.png",

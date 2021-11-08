@@ -1,8 +1,8 @@
 package dungeonmania;
 
-public class GoalBoulder extends GoalLeaf{
+public class GoalBoulders extends GoalLeaf{
 
-	public GoalBoulder(String goal) {
+	public GoalBoulders(String goal) {
 		super(goal);
 		//TODO Auto-generated constructor stub
 	}

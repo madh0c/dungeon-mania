@@ -49,6 +49,11 @@
             "x": 5,
             "y": 1,
             "type": "exit"
+        },
+        {
+            "x": 6,
+            "y": 0,
+            "type": "player"
         }
     ],
     "width": 6,
