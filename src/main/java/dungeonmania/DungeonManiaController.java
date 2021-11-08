@@ -372,10 +372,6 @@ public class DungeonManiaController {
 			}
 		}
 
-		if(evalGoal(currentDungeon)) {
-			currentDungeon.setGoals("");
-		}
-
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
@@ -423,41 +419,6 @@ public class DungeonManiaController {
 			"Invincibility Potion, Invisibility Potion or null");
 		}
 		
-	}
-
-	public boolean evalGoal(Dungeon currentDungeon) {
-		boolean bool = false;
-		boolean enemies = true;
-		boolean exit = false;
-		boolean treasure = true;
-		boolean boulders = true;
-
-		for (Entity ent: currentDungeon.getEntities()) {
-			if (ent instanceof MovingEntity) {
-				enemies = false;
-				continue;
-			} else if (ent instanceof Exit) {
-				Position playerPos = currentDungeon.getPlayerPosition();
-				Position exitPos = ent.getPosition();
-				if (playerPos.coincides(exitPos)) {
-					exit = true;
-					continue;
-				} 
-			} else if (ent instanceof Treasure) {
-				treasure = false;
-				continue;
-			} else if (ent instanceof Switch) {
-				Switch swtch = (Switch) ent;
-				if (!swtch.getStatus()) {
-					boulders = false;
-					continue;
-				}
-			}
-		}
-		
-		/* Evaluate the string given enemies, exit, treasure and boulder */
-
-		return bool;
 	}
 				
 	
