@@ -429,7 +429,7 @@ public class DungeonManiaController {
 		boolean boulders = true;
 
 		for (Entity ent: currentDungeon.getEntities()) {
-			if (ent instanceof MovingEntity) {
+			if (ent instanceof MovingEntity || ent instanceof ZombieToastSpawner) {
 				enemies = false;
 				continue;
 			} else if (ent instanceof Exit) {
