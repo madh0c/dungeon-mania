@@ -23,13 +23,10 @@ public class Dungeon {
 	private Position spawnpoint;
 	private int height;
 	private int width;
-<<<<<<< HEAD
 	private GoalNode foundGoals;
 	private String goalConditions;
-=======
 	private EntityFactory factory;
 	private int mercSpawnrate;
->>>>>>> master
 
 
     public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals, int height, int width, GoalNode foundGoals, String goalConditions) {
@@ -151,7 +148,6 @@ public class Dungeon {
         return foundGoals.remainingString();
     }
 
-<<<<<<< HEAD
 	public GoalNode getFoundGoals() {
 		return foundGoals;
 	}
@@ -163,12 +159,10 @@ public class Dungeon {
 	public String getGoalConditions() {
 		return this.foundGoals.saveGameJSON().toString();
 	}
-=======
 	public EntityFactory getFactory() {
 		return factory;
 	}
 
->>>>>>> master
 	public Entity getEntity(String id) {
 		int entId = 0;
 		for (Entity entity : getEntities()) {
