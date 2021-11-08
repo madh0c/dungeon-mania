@@ -232,7 +232,18 @@ public class DungeonManiaController {
 			currentDungeon = GameInOut.fromJSON("load", path, feed, lastUsedDungeonId, null);
 			setLastUsedDungeonId(getLastUsedDungeonId() + 1);
 			games.add(currentDungeon);
-
+			for (Entity ent : currentDungeon.getEntities()) {
+				if (ent instanceof Switch) {
+					Position entityPos = ent.getPosition();
+					List<Entity> entOnCell = currentDungeon.getEntitiesOnCell(entityPos);
+					for (Entity entCell : entOnCell) {
+						if (entCell instanceof Boulder) {
+							Switch entSwitch = (Switch) ent;
+							entSwitch.setStatus(true);
+						}
+					}
+				}
+			}
 			return getDungeonInfo(currentDungeon.getId());
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -1,0 +1,111 @@
+{
+  "id": 2,
+  "name": "testComplicatedGoal-1636374445935",
+  "inventory": [
+    {
+      "position": {
+        "x": 2,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "treasure",
+      "id": "4"
+    }
+  ],
+  "entities": [
+    {
+      "health": 85,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "DOWN",
+      "haveKey": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "position": {
+        "x": 2,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "boulder",
+      "id": "2"
+    },
+    {
+      "isActivated": false,
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": -1
+      },
+      "type": "switch",
+      "id": "3"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "exit",
+      "id": "5"
+    }
+  ],
+  "gameMode": "Standard",
+  "goals": "(:exit OR :boulders)",
+  "historicalEntCount": 6,
+  "tickNumber": 19,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "height": 5,
+  "width": 5,
+  "foundGoals": {
+    "subGoals": [
+      {
+        "goal": "enemies",
+        "hasCompleted": true
+      },
+      {
+        "subGoals": [
+          {
+            "goal": "exit",
+            "hasCompleted": false
+          },
+          {
+            "subGoals": [
+              {
+                "goal": "treasure",
+                "hasCompleted": true
+              },
+              {
+                "goal": "boulders",
+                "hasCompleted": false
+              }
+            ],
+            "operator": "AND",
+            "hasCompleted": false
+          }
+        ],
+        "hasCompleted": false,
+        "operator": "OR"
+      }
+    ],
+    "operator": "AND",
+    "hasCompleted": false
+  },
+  "goalConditions": "{\"goal\":\"AND\",\"subgoals\":[{\"goal\":\"enemies\"},{\"goal\":\"OR\",\"subgoals\":[{\"goal\":\"exit\"},{\"goal\":\"AND\",\"subgoals\":[{\"goal\":\"treasure\"},{\"goal\":\"boulders\"}]}]}]}",
+  "factory": {},
+  "mercSpawnrate": 20
+}
