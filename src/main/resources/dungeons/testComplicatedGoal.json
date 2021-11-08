@@ -1,0 +1,63 @@
+{
+	"width": 5,
+	"height": 5,
+	"entities": [
+		{
+			"x": 0,
+			"y": 0,
+			"type": "player"
+		},
+		{
+			"x": 1,
+			"y": 0,
+			"type": "mercenary"
+		}, 
+		{
+			"x": 2,
+			"y": 0,
+			"type": "boulder"
+		},
+		{
+			"x": 3,
+			"y": 0,
+			"type": "switch"
+		},
+		{
+			"x": 2,
+			"y": 1,
+			"type": "treasure"
+		},
+		{
+			"x": 1,
+			"y": 1,
+			"type": "exit"
+		}
+	],
+	"goal-condition": {
+		"goal": "AND",
+		"subgoals": [
+		  {
+			"goal": "enemies"
+		  },
+		  {
+			"goal": "OR",
+			"subgoals": [
+			  {
+				"goal": "exit"
+			  },
+			  {
+				"goal": "AND",
+				"subgoals": [
+					{
+					  "goal": "treasure"
+					},
+					{
+					  "goal": "boulders"
+					}
+				]
+			  }
+			]
+		  }
+		]
+	}
+}

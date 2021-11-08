@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class DungeonManiaController {
 
@@ -370,6 +371,8 @@ public class DungeonManiaController {
 			spawner.spawnZombie(currentDungeon);
 		}
 
+		evalGoal(currentDungeon);
+		
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
@@ -417,6 +420,158 @@ public class DungeonManiaController {
 			"Invincibility Potion, Invisibility Potion or null");
 		}
 		
+	}
+
+	public void evalGoal(Dungeon currentDungeon) {
+		boolean enemies = true;
+		boolean exit = false;
+		boolean treasure = true;
+		boolean boulders = true;
+
+		for (Entity ent: currentDungeon.getEntities()) {
+			if (ent instanceof MovingEntity || ent instanceof ZombieToastSpawner) {
+				enemies = false;
+				continue;
+			} else if (ent instanceof Exit) {
+				Position playerPos = currentDungeon.getPlayerPosition();
+				Position exitPos = ent.getPosition();
+				if (playerPos.coincides(exitPos)) {
+					exit = true;
+					continue;
+				} 
+			} else if (ent instanceof Treasure) {
+				treasure = false;
+				continue;
+			} else if (ent instanceof Switch) {
+				Switch swtch = (Switch) ent;
+				if (!swtch.getStatus()) {
+					boulders = false;
+					continue;
+				}
+			}
+		}
+
+		List<String> currAchieved = new ArrayList<>();
+
+		if (enemies) {
+			currAchieved.add("enemies");
+		}
+		if (exit) {
+			currAchieved.add("exit");
+		}
+		if (treasure) {
+			currAchieved.add("treasure");
+		}
+		if (boulders) {
+			currAchieved.add("boulders");
+		}
+
+		evalLeafs(currAchieved, currentDungeon.getFoundGoals());
+
+		evalNodes(currentDungeon.getFoundGoals());
+
+		currentDungeon.setGoals(currentDungeon.getFoundGoals().remainingString());
+	}
+
+	public void evalLeafs(List<String> currAchieved, GoalNode head) {
+		if (head instanceof GoalAnd) {
+			GoalAnd headAnd = (GoalAnd) head;
+			for (GoalNode subgoal : headAnd.getList()) {
+				evalLeafs(currAchieved, subgoal);
+			}
+		} else if (head instanceof GoalOr) {
+			GoalOr headOr = (GoalOr) head;
+			for (GoalNode subgoal : headOr.getList()) {
+				evalLeafs(currAchieved, subgoal);
+			}
+		} else {
+			GoalLeaf leaf = (GoalLeaf) head;
+			if (currAchieved.contains(leaf.getGoal())) {
+				leaf.setHasCompleted(true);
+			} else {
+				leaf.setHasCompleted(false);
+			}
+		} 
+	}
+
+	public void evalNodes(GoalNode head) {
+		if (head instanceof GoalAnd) {
+			GoalAnd headAnd = (GoalAnd) head;
+			int success = 0;
+			for (GoalNode subgoal : headAnd.getList()) {
+				if (subgoal.evaluate()) {
+					success++;
+				}
+				if (subgoal instanceof GoalAnd || subgoal instanceof GoalOr) {
+					success = 0;
+					success = evalSubGoals(subgoal, success);
+				}
+			}
+			if (success == headAnd.getList().size()) {
+				headAnd.setHasCompleted(true);
+			}
+		} else if (head instanceof GoalOr) {
+			GoalOr headOr = (GoalOr) head;
+			int success = 0;
+			for (GoalNode subgoal : headOr.getList()) {
+				if (subgoal.evaluate()) {
+					success++;
+					break;
+				}
+				if (subgoal instanceof GoalAnd || subgoal instanceof GoalOr) {
+					success = 0;
+					success = evalSubGoals(subgoal, success);
+					if (subgoal instanceof GoalAnd && success != 2) {
+						success = 0;
+					}
+				}
+			}
+			if (success > 0) {
+				headOr.setHasCompleted(true);
+			}
+		}
+	}
+
+	public int evalSubGoals(GoalNode head, int total) {
+
+		if (head instanceof GoalAnd) {
+			GoalAnd headAnd = (GoalAnd) head;
+			int success = 0;
+			for (GoalNode subgoal : headAnd.getList()) {
+				if (subgoal.evaluate()) {
+					success++;
+					total++;
+				}
+				if (subgoal instanceof GoalAnd || subgoal instanceof GoalOr) {
+					total = evalSubGoals(subgoal, total);
+					success = evalSubGoals(subgoal, success);
+				}
+			}
+			if (success == headAnd.getList().size()) {
+				headAnd.setHasCompleted(true);
+			}
+		} else if (head instanceof GoalOr) {
+			GoalOr headOr = (GoalOr) head;
+			int success = 0;
+			for (GoalNode subgoal : headOr.getList()) {
+				if (subgoal.evaluate()) {
+					success++;
+					total++;
+					break;
+				}
+				if (subgoal instanceof GoalAnd || subgoal instanceof GoalOr) {
+					total = total + evalSubGoals(subgoal, total);
+					success = success + evalSubGoals(subgoal, success);
+					if (subgoal instanceof GoalAnd && success != 2) {
+						success = 0;
+					}
+				}
+			}
+			if (success > 0) {
+				headOr.setHasCompleted(true);
+			}
+		}
+		return total;
 	}
 				
 	
@@ -586,19 +741,19 @@ public class DungeonManiaController {
 		return new DungeonResponse(null, null, null, null, null, null);
 	}
 
-	public DungeonResponse generateDungeon(int xStart, int yStart, int xEnd, int yEnd, String gameMode) throws IllegalArgumentException {
-		if (!this.getGameModes().contains(gameMode)) {
-			throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard.");
-		}
-		Position startPos = new Position(xStart, yStart);
-		Position endPos = new Position(xEnd, yEnd);
+	// public DungeonResponse generateDungeon(int xStart, int yStart, int xEnd, int yEnd, String gameMode) throws IllegalArgumentException {
+	// 	if (!this.getGameModes().contains(gameMode)) {
+	// 		throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard.");
+	// 	}
+	// 	Position startPos = new Position(xStart, yStart);
+	// 	Position endPos = new Position(xEnd, yEnd);
 
-		currentDungeon = Prims.generateDungeon(startPos, endPos, gameMode, lastUsedDungeonId);
-		games.add(currentDungeon);
-		lastUsedDungeonId++;
+	// 	currentDungeon = Prims.generateDungeon(startPos, endPos, gameMode, lastUsedDungeonId);
+	// 	games.add(currentDungeon);
+	// 	lastUsedDungeonId++;
 		
-		return getDungeonInfo(currentDungeon.getId());
-	}
+	// 	return getDungeonInfo(currentDungeon.getId());
+	// }
 
 	
 

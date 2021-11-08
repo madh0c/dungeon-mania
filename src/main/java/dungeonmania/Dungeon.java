@@ -1,6 +1,9 @@
 package dungeonmania;
 
 import java.util.List;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import dungeonmania.allEntities.*;
@@ -20,11 +23,13 @@ public class Dungeon {
 	private Position spawnpoint;
 	private int height;
 	private int width;
+	private GoalNode foundGoals;
+	private String goalConditions;
 	private EntityFactory factory;
 	private int mercSpawnrate;
 
 
-    public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals, int height, int width) {
+    public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals, int height, int width, GoalNode foundGoals, String goalConditions) {
 		this.id = id;
 		this.name = name;	
 		this.inventory = new ArrayList<>();	
@@ -32,6 +37,8 @@ public class Dungeon {
         this.gameMode = gameMode;
         this.goals = goals;
 		this.historicalEntCount = entities.size();
+		this.foundGoals = foundGoals;
+		this.goalConditions = goalConditions;
 		// Initialise gamemode
 		if (gameMode.equals("Peaceful")) {
 			this.factory = new PeacefulFactory();
@@ -138,9 +145,20 @@ public class Dungeon {
     }
 
     public String getGoals() {
-        return goals;
+        return foundGoals.remainingString();
     }
 
+	public GoalNode getFoundGoals() {
+		return foundGoals;
+	}
+
+	public void setFoundGoals(GoalNode foundGoals) {
+		this.foundGoals = foundGoals;
+	}
+
+	public String getGoalConditions() {
+		return this.foundGoals.saveGameJSON().toString();
+	}
 	public EntityFactory getFactory() {
 		return factory;
 	}

@@ -94,6 +94,19 @@ public class ControllerTest {
     }
 
 	@Test
+	public void testSaveGameGoals() {
+		DungeonManiaController controller = new DungeonManiaController();
+		controller.newGame("testAndGoal", "Standard");
+		assertEquals(controller.getDungeon(0).getGoals(), "(:enemies AND :treasure)");
+		controller.tick(null, Direction.RIGHT);
+		assertEquals(controller.getDungeon(0).getGoals(), ":treasure");
+		DungeonResponse dREnd = controller.getDungeonInfo(0);
+		String gameName = "testAndGoal-1636361348027";
+		assertEquals(dREnd, controller.saveGame(gameName));
+		assertDoesNotThrow(() -> controller.loadGame(gameName));
+	}
+
+	@Test
     public void tickTestInvalidItemUsed() {
         DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testKeyOpensDoor", "Standard"));
@@ -493,7 +506,7 @@ public class ControllerTest {
         assertEquals(new ArrayList<AnimationQueue>(), dRLoad.getAnimations());
         assertEquals("testLoadInventory.json", dRLoad.getDungeonName());
         assertEquals(new ArrayList<String>(), dRLoad.getBuildables());
-        assertEquals(null, dRLoad.getGoals());
+        assertEquals("", dRLoad.getGoals());
         assertEquals("0", dRLoad.getDungeonId());
     }
 

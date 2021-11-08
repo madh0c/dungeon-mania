@@ -122,7 +122,7 @@ public class Prims {
 		entityList.add(exit);
 		historicalEntCount++;
 
-		Dungeon newDungeon = new Dungeon(id, "primsDungeon", entityList, gameMode, ":exit", 50, 50);
+		Dungeon newDungeon = new Dungeon(id, "primsDungeon", entityList, gameMode, ":exit", 50, 50, new GoalLeaf("exit"), "exit");
 		return newDungeon;
 	}
 	

@@ -1,25 +1,10 @@
 {
   "id": 1,
   "name": "testMercenaryBribe-1636079593059",
-  "inventory": [
-    {
-      "random": {
-        "seed": 133265673512208,
-        "nextNextGaussian": 0.0,
-        "haveNextNextGaussian": false
-      },
-      "position": {
-        "x": 2,
-        "y": 2,
-        "layer": 0
-      },
-      "type": "one_ring",
-      "id": "26"
-    }
-  ],
+  "inventory": [],
   "entities": [
     {
-      "health": 71,
+      "health": 70,
       "attack": 2,
       "visible": true,
       "currentDir": "RIGHT",
@@ -38,8 +23,9 @@
     }
   ],
   "gameMode": "Standard",
-  "historicalEntCount": 27,
-  "tickNumber": 265,
+  "goals": "",
+  "historicalEntCount": 4,
+  "tickNumber": 25,
   "spawnpoint": {
     "x": 1,
     "y": 1,
@@ -47,6 +33,11 @@
   },
   "height": 4,
   "width": 7,
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
   "factory": {},
   "mercSpawnrate": 20
 }

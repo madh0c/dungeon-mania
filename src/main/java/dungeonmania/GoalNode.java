@@ -1,11 +1,11 @@
 package dungeonmania;
 
-// import java.util.Map;
+import org.json.JSONObject;
 
 public interface GoalNode {
 	
-	//public Boolean evaluate();
+	public Boolean evaluate();
 	public String remainingString();
-	//public Boolean isCompleted;
+	public abstract JSONObject saveGameJSON();
 }
 

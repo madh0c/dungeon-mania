@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.lang.String;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,7 +27,6 @@ public class GameInOut {
 
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create(); 
-			
 			Writer writer = new FileWriter(path);
 			gson.toJson(dungeon, writer);
 			writer.flush(); 
@@ -44,27 +43,32 @@ public class GameInOut {
 		String playMode = null; 
 		int height = 50;
 		int width  = 50;
-
+		GoalNode foundGoals = new GoalLeaf("");
+		String goalsConvert = "";
 		try {
             Map<String, Object> jsonMap = new Gson().fromJson(path, Map.class);
 			if (expType.equals("load")) {
 				playMode = (String)jsonMap.get("gameMode"); 
 				goals = (String)jsonMap.get("goals"); 
+				String goalConditions = (String)jsonMap.get("goalConditions");
+				if (!goalConditions.equals("")) {
+					JSONObject goalCon = new JSONObject(goalConditions);
+					foundGoals = createGoals(goalCon);
+					goalsConvert = goalCon.toString();
+				}
 			} else if (expType.equals("new")) {
 				playMode = gameMode;
 				Map<String, Object> goalConditions = (Map<String, Object>)jsonMap.get("goal-condition");
-				
 				if (goalConditions != null) {
 					if (!goalConditions.get("goal").equals("AND") && !goalConditions.get("goal").equals("OR")) {	
 						goals = (String)goalConditions.get("goal");
 					} 
 					JSONObject goalCon = new JSONObject(goalConditions);
-					goals = createGoals(goalCon).remainingString();
-					goals = createGoals(goalCon).remainingString();
+					foundGoals = createGoals(goalCon);
+					goals = foundGoals.remainingString();
+					goalsConvert = goalCon.toString();
 				}
 			}
-
-			Map<String, Object> goalConditions = (Map<String, Object>)jsonMap.get("goal-condition");
 
 			if (jsonMap.get("height") != null) {
 				Double expHeight = (Double)jsonMap.get("height");
@@ -240,8 +244,7 @@ public class GameInOut {
 					}
 				}
 			}
-			
-			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, height, width);
+			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, height, width, foundGoals, goalsConvert);
 
 			if (expType.equals("load")) {
 				Double tickD = (Double)jsonMap.get("tickNumber"); 
@@ -249,7 +252,7 @@ public class GameInOut {
 	
 				Double hisD = (Double)jsonMap.get("historicalEntCount");  
 				int historicalEntCount = hisD.intValue();
-	
+				
 				Map<String, Double> spawnPos = (Map<String, Double>)jsonMap.get("spawnpoint");
 	
 				Double xSD = (Double)spawnPos.get("x");
@@ -259,7 +262,7 @@ public class GameInOut {
 				int xSC = xSD.intValue();
 				int ySC= ySD.intValue();
 				int zSC = zSD.intValue();
-				
+
 				Position spawnpoint = new Position(xSC, ySC, zSC);
 				returnDungeon.setId(lastUsedDungeonId);
 				returnDungeon.setName(feed);
@@ -269,6 +272,8 @@ public class GameInOut {
 				returnDungeon.setHistoricalEntCount(historicalEntCount);
 				returnDungeon.setTickNumber(tickNumber);
 				returnDungeon.setSpawnpoint(spawnpoint); 
+				returnDungeon.setFoundGoals(foundGoals);
+				
 			}
 
 			return returnDungeon;
