@@ -1,0 +1,51 @@
+{
+    "width": 10,
+    "height": 10,
+    "entities": [
+        {
+            "x": 0,
+            "y": 0,
+            "type": "player"
+        },
+        {
+            "x": 1,
+            "y": 0,
+            "type": "arrow"
+        },
+        {
+            "x": 2,
+            "y": 0,
+            "type": "treasure"
+        },
+        {
+            "x": 3,
+            "y": 0,
+            "type": "sun_stone"
+        },
+        {
+            "x": 0,
+            "y": 2,
+            "type": "arrow"
+        }, 
+        {
+            "x": 0,
+            "y": 3, 
+            "type": "key"
+        },
+        {
+            "x": 0,
+            "y": 4,
+            "type": "arrow"
+        },
+        {
+            "x": 0,
+            "y": 5,
+            "type": "sun_stone"
+        }, 
+		{
+			"x": 4,
+			"y": 4,
+			"type": "wood"
+		}
+    ]
+}

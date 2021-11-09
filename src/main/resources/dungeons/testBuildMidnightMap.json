@@ -1,0 +1,26 @@
+{
+    "width": 10,
+    "height": 10,
+    "entities": [
+        {
+            "x": 0,
+            "y": 0,
+            "type": "player"
+        },
+        {
+            "x": 1,
+            "y": 0,
+            "type": "armour"
+        },
+        {
+            "x": 2,
+            "y": 0,
+            "type": "sun_stone"
+        },
+        {
+            "x": 5,
+            "y": 5,
+            "type": "zombie_toast_spawner"
+        }
+    ]
+}

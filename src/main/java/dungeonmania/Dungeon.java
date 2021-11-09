@@ -303,6 +303,8 @@ public class Dungeon {
 		int arrow = 0;
 		int treasure = 0;
 		int key = 0;
+		int sunStone = 0;
+		int armour = 0;
 
 		for (Entity item : inventory) {
 			if (item.getType().equals("wood")) {
@@ -320,6 +322,14 @@ public class Dungeon {
 			if (item.getType().equals("key")) {
 				key++;
 			}
+
+			if (item.getType().equals("sun_stone")) {
+				sunStone++;
+			}
+
+			if (item.getType().equals("armour")) {
+				armour++;
+			}
 		}
 
 		if (wood >= 1 && arrow >= 3) {
@@ -328,6 +338,19 @@ public class Dungeon {
 
 		if (wood >= 2 && (treasure >= 1 || key >= 1)) {
 			result.add("shield");
+		}
+
+		if ((wood >= 1 || arrow >= 2) && (key >= 1 || treasure >= 1) && (sunStone >= 1)) {
+			result.add("sceptre");
+		} 
+		Boolean zombie = false;
+		for (Entity ent : getEntities()) {
+			if (ent instanceof ZombieToast) {
+				zombie = true;
+			}
+		}
+		if (armour >= 1 && sunStone >= 1 && zombie == false) {
+			result.add("midnight_armour");
 		}
 
 		return result;
