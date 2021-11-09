@@ -389,8 +389,6 @@ public class DungeonManiaController {
 		for (ZombieToastSpawner spawner : spawners) {
 			spawner.spawnZombie(currentDungeon);
 		}
-
-		evalGoal(currentDungeon);
 		
 		return getDungeonInfo(currentDungeon.getId());
 	}
@@ -454,7 +452,10 @@ public class DungeonManiaController {
 			} else if (ent instanceof Exit) {
 				Position playerPos = currentDungeon.getPlayerPosition();
 				Position exitPos = ent.getPosition();
-				if (playerPos.coincides(exitPos)) {
+				System.out.println(playerPos);
+				if(playerPos == null ) {
+					continue;
+				}else if (playerPos.equals(exitPos)) {
 					exit = true;
 					continue;
 				} 
