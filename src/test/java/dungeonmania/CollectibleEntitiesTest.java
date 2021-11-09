@@ -13,6 +13,7 @@ import java.util.Arrays;
 import dungeonmania.exceptions.*;
 
 import dungeonmania.allEntities.Armour;
+import dungeonmania.allEntities.Mercenary;
 import dungeonmania.allEntities.Player;
 import dungeonmania.allEntities.Sword;
 import dungeonmania.response.models.DungeonResponse;
@@ -84,6 +85,74 @@ public class CollectibleEntitiesTest {
         assertEquals(controller.getDungeon(0).getPlayerPosition(), new Position(3, 0));       
 
     }
+
+    @Test
+    public void testSunStoneAsKey() {
+        DungeonManiaController controller = new DungeonManiaController();
+
+        // create a new game and move the player right
+        assertDoesNotThrow(() -> controller.newGame("testCollectiblesSunKey", "Peaceful"));        
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
+
+        // grab the info of dungeon
+        DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+        assertEquals(Arrays.asList(new ItemResponse("1", "key")), dungeonInfo.getInventory());
+
+        // move player right again, should encounter sun stone
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
+
+        // update dungeon response
+        dungeonInfo = controller.getDungeonInfo(0);
+
+        assertEquals(Arrays.asList(new ItemResponse("1", "key"), new ItemResponse("2", "sun_stone")), dungeonInfo.getInventory());
+
+        // move player right again, should encounter door
+        assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
+
+        // update dungeon response
+        dungeonInfo = controller.getDungeonInfo(0);
+
+        // get actual dungeon and check the player can move onto the door
+        assertEquals(controller.getDungeon(0).getPlayerPosition(), new Position(3, 0));  
+        
+        // check that sun stone is used to open door ie both items are still in inv
+        assertEquals(Arrays.asList(new ItemResponse("1", "key"), new ItemResponse("2", "sun_stone")), dungeonInfo.getInventory());
+
+    }
+
+    @Test
+	public void testSunStoneAsGold() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testCollectiblesSunBribe", "Standard"));
+	
+		// Pick up gold to right of player
+		controller.tick(null, Direction.RIGHT);
+
+		// interact with mercenary
+		assertDoesNotThrow(() -> controller.interact("1"));
+
+		// cast into merc, check if ally
+		Mercenary merc = (Mercenary) controller.getDungeon(0).getEntity("1");
+		assertTrue(merc.getIsAlly());
+
+        // player stil should have sunstone
+        assertTrue(controller.getDungeon(0).getPlayer().getSunstoneStatus());
+        DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+        assertEquals(Arrays.asList(new ItemResponse("2", "sun_stone")), dungeonInfo.getInventory());
+
+		// wait for merc to move into player
+		controller.tick(null, Direction.NONE);
+		controller.tick(null, Direction.NONE);
+
+		// Now merc is on player, check he moves around with player
+		controller.tick(null, Direction.DOWN);
+		Position player = controller.getDungeon(0).getEntity("0").getPosition();
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", player));
+
+		controller.tick(null, Direction.RIGHT);
+		player = controller.getDungeon(0).getEntity("0").getPosition();
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", player));
+	}
 
     @Test
     public void testPotions() {
@@ -184,7 +253,6 @@ public class CollectibleEntitiesTest {
         Armour armour = (Armour) controller.getDungeon(0).getInventory().get(1);
         assertNotEquals(10, armour.getDurability()); 
 
-        // TODO: find what the health should be (100 IS WRONG)
         Player player = controller.getDungeon(0).getPlayer();
         assertEquals(94, player.getHealth());
     }
@@ -217,8 +285,5 @@ public class CollectibleEntitiesTest {
 
         // both objects should be in the inventory
         assertEquals(Arrays.asList(new ItemResponse("1", "treasure"), new ItemResponse("2", "wood")), dungeonInfo.getInventory());
-
-
-
     }
 }

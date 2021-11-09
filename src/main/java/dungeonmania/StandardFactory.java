@@ -50,6 +50,10 @@ public class StandardFactory extends EntityFactory {
 			return new Armour(id, position);
 		else if (type.contains("one_ring"))
 			return new OneRing(id, position);
+		else if (type.contains("anduril"))
+			return new Anduril(id, position);
+		else if (type.contains("sun_stone"))
+			return new SunStone(id, position);
 		return null;
 	}
 

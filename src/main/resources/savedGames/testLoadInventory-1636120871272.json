@@ -76,7 +76,7 @@
     },
     {
       "durability": 10,
-      "extraDamage": 5,
+      "extraDamage": 2,
       "position": {
         "x": 9,
         "y": 0,
@@ -134,10 +134,12 @@
       "visible": true,
       "currentDir": "RIGHT",
       "haveKey": true,
+      "hasSunStone": false,
       "invincibleTickDuration": 0,
       "enemyAttack": true,
       "initialHealth": 100,
       "invincibleAmount": 8,
+      "initialAttack": 2,
       "position": {
         "x": 13,
         "y": 0,

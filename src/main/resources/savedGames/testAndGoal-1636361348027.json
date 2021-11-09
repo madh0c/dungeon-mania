@@ -1,7 +1,18 @@
 {
   "id": 0,
   "name": "testAndGoal.json",
-  "inventory": [],
+  "inventory": [
+    {
+      "durability": 10,
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "3"
+    }
+  ],
   "entities": [
     {
       "health": 85,
@@ -9,10 +20,12 @@
       "visible": true,
       "currentDir": "RIGHT",
       "haveKey": false,
+      "hasSunStone": false,
       "invincibleTickDuration": 0,
       "enemyAttack": true,
       "initialHealth": 100,
       "invincibleAmount": 8,
+      "initialAttack": 2,
       "position": {
         "x": 1,
         "y": 0,
@@ -33,7 +46,7 @@
   ],
   "gameMode": "Standard",
   "goals": ":treasure",
-  "historicalEntCount": 3,
+  "historicalEntCount": 4,
   "tickNumber": 1,
   "spawnpoint": {
     "x": 0,

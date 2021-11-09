@@ -51,12 +51,16 @@ public class HardFactory extends EntityFactory {
 			return new Armour(id, position);
 		else if (type.contains("one_ring"))
 			return new OneRing(id, position);
+		else if (type.contains("anduril"))
+			return new Anduril(id, position);
+		else if (type.contains("sun_stone"))
+			return new SunStone(id, position);
 		return null;
 	}
 
 	@Override
 	public Player createPlayer(String id, Position position) {
-		Player player = new Player(id, position, 60, true, 8);
+		Player player = new Player(id, position, 60, true, 0);
 		return player;
 	}
 }

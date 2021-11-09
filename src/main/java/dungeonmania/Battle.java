@@ -32,8 +32,7 @@ public class Battle {
 			int playerAtk = dungeon.getPlayer().getAttack();
 			int enemyAtk = enemy.getBaseAttack();
 			List<CollectableEntity> toBeRemoved = new ArrayList<CollectableEntity>();
-
-			
+		
 			for (CollectableEntity item : dungeon.getInventory()) {
 				if (item instanceof Sword) {						
 					Sword sword = (Sword) item;
@@ -43,6 +42,16 @@ public class Battle {
 					}
 					playerAtk += sword.getExtraDamage();
 					sword.setDurability(sword.getDurability() - 1);						
+				}
+
+				if (item instanceof Anduril) {						
+					Anduril anduril = (Anduril) item;
+					if (anduril.getDurability() == 0) {
+						dungeon.getPlayer().setAttack(dungeon.getPlayer().getInitialAttack());		
+						toBeRemoved.add(item);
+						continue;
+					}
+					anduril.setDurability(anduril.getDurability() - 1);						
 				}
 
 				if (item instanceof Bow) {
@@ -98,9 +107,10 @@ public class Battle {
 				}
 				if (dungeon.getPlayer().getHealth() <= 0) {
 					dungeon.removeEntity(dungeon.getPlayer());	
-					break;				
+					return;				
 				}			
 			} 
+
 
 			if (enemy.getHealth() <= 0) {
 				// drop armour 
@@ -114,13 +124,14 @@ public class Battle {
 
 				}
 
-				//drop one ring
+				// drop one ring
 				OneRing ring = new OneRing(String.valueOf(dungeon.getHistoricalEntCount()), dungeon.getPlayerPosition());
 				if (ring.doesSpawn()) {
 					int check = 0;
 					for (CollectableEntity item : dungeon.getInventory()) {
 						if (item instanceof OneRing) {
 							check = 1;
+							break;
 						}
 					}
 					if (check == 0) {
