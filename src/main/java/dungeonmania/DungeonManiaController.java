@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class DungeonManiaController {
 
@@ -316,8 +317,15 @@ public class DungeonManiaController {
 			if (currentDungeon.getSpawnpoint() != null) {
 				// Merc spawn every 10 ticks
 				int newId = currentDungeon.getHistoricalEntCount();
-				Entity merc = currentDungeon.getFactory().createEntity(String.valueOf(newId), "mercenary", currentDungeon.getSpawnpoint());
-				currentDungeon.addEntity(merc);
+				Random rand = new Random();
+				int random = rand.nextInt(10);
+				if (random < 2) {
+					Entity assassin = currentDungeon.getFactory().createEntity(String.valueOf(newId), "assassin", currentDungeon.getSpawnpoint());
+					currentDungeon.addEntity(assassin);
+				} else {
+					Entity merc = currentDungeon.getFactory().createEntity(String.valueOf(newId), "mercenary", currentDungeon.getSpawnpoint());
+					currentDungeon.addEntity(merc);
+				}				
 			}
 		}
 
@@ -381,8 +389,6 @@ public class DungeonManiaController {
 		for (ZombieToastSpawner spawner : spawners) {
 			spawner.spawnZombie(currentDungeon);
 		}
-
-		evalGoal(currentDungeon);
 		
 		return getDungeonInfo(currentDungeon.getId());
 	}
@@ -446,7 +452,10 @@ public class DungeonManiaController {
 			} else if (ent instanceof Exit) {
 				Position playerPos = currentDungeon.getPlayerPosition();
 				Position exitPos = ent.getPosition();
-				if (playerPos.coincides(exitPos)) {
+				System.out.println(playerPos);
+				if(playerPos == null ) {
+					continue;
+				}else if (playerPos.equals(exitPos)) {
 					exit = true;
 					continue;
 				} 
@@ -605,12 +614,7 @@ public class DungeonManiaController {
 		} else if (ent instanceof Mercenary) {
 			Mercenary merc = (Mercenary) ent;
 			merc.bribe(currentDungeon);
-		// } else if (ent instanceof Assassin) {
-		// 	Assassin assassin = (Assassin) ent;
-		// 	assassin.bribe(currentDungeon);
-		} 
-		
-		return getDungeonInfo(currentDungeon.getId());
+		} return getDungeonInfo(currentDungeon.getId());
 	}
 
 
@@ -634,13 +638,11 @@ public class DungeonManiaController {
 		boolean hasRing = false;
 
 		for (CollectableEntity item : currentInventory) {
-			if (item.getType().equals("treasure")) {
+			if (item instanceof Treasure || item instanceof SunStone) {
 				hasGold = true;
-			} else if (item.getType().equals("sword") || item.getType().equals("bow")) {
+			} else if (item instanceof Sword || item instanceof Bow) {
 				hasWeapon = true;
-			} else if (item.getType().equals("treasure")) {
-				hasGold = true;
-			} else if (item.getType().equals("one_ring")) {
+			} else if (item instanceof OneRing) {
 				hasRing = true;
 			}  
 		}
@@ -664,7 +666,7 @@ public class DungeonManiaController {
 		} else if (interactEntity.getType().equals("assassin")) {
 			if (!Position.inBribingRange(playerPosition, entityPosition)) {
 				throw new InvalidActionException("Player Out Of Bribing Range Of Assassin");
-			} else if (!hasRing) {
+			} else if (!hasRing || !hasGold) {
 				throw new InvalidActionException("Player Does Not Have Sufficient Resources To Bribe Assassin");
 			}
 		}

@@ -15,14 +15,16 @@ public class Player extends Entity {
     private boolean visible;
 	private Direction currentDir;
 	private boolean haveKey;
+	private boolean hasSunStone;
 	private int invincibleTickDuration;
 	private final boolean enemyAttack;
 	private final int initialHealth;
 	private final int invincibleAmount;
+	private final int initialAttack = 2;
 
 	public Player(String id, Position position, int health, boolean enemyAttack, int invincibleAmount) {
         super(id, position, "player");
-		this.attack = 2;
+		this.attack = initialAttack;
 		this.visible = true;
 		this.invincibleTickDuration = 0;
 		this.health = health;
@@ -87,6 +89,14 @@ public class Player extends Entity {
 		this.haveKey = haveKey;
 	}
 
+	public boolean getSunstoneStatus() {
+		return hasSunStone;
+	}
+
+	public int getInitialAttack() {
+		return initialAttack;
+	}
+
 	/**
 	 * Check if the player is able to collide with entity<p>
 	 * Collide means if they are able to be on the same square<p>
@@ -110,7 +120,7 @@ public class Player extends Entity {
 			return false;
 		} else if (entity instanceof Door) {
 			Door door = (Door) entity;
-			if (door.isOpen()) {
+			if (door.isOpen() || hasSunStone) {
 				return true;
 			}
 			if (haveKey) {
@@ -126,6 +136,7 @@ public class Player extends Entity {
 				door.unlock();
 				return true;
 			}
+
 			return false;
 			
 		} else if (entity instanceof Boulder) {
@@ -167,8 +178,13 @@ public class Player extends Entity {
 						return true;
 					}
 				}	
-			} 
-			// Remove entity
+			} else if (entity instanceof SunStone) {
+				hasSunStone = true;
+			} else if (entity instanceof Anduril) {
+				Anduril anduril = (Anduril) entity;
+				attack *= anduril.getDmgMultiplier();
+			}
+			// Remove entity from map
 			dungeon.removeEntity(entity);
 			// Add to player inv
 			dungeon.addItemToInventory((CollectableEntity)entity);

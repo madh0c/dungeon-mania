@@ -465,7 +465,7 @@ public class MovingEntityTest {
 			assertFalse(controller.getDungeon(0).entityExists("mercenary"));
 			controller.tick(null, Direction.LEFT);
 		}
-		assertTrue(controller.getDungeon(0).entityExists("mercenary"));
+		assertTrue(controller.getDungeon(0).entityExists("mercenary") || controller.getDungeon(0).entityExists("assassin"));
 
 	}
 
@@ -629,6 +629,38 @@ public class MovingEntityTest {
 		controller.tick(null, Direction.RIGHT);
 		player = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", player));
+	}
+
+
+	@Test
+	public void testAssassinBribe() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testAssassinBribe", "Standard"));
+	
+		// Pick up gold and one ring to right of player
+		controller.tick(null, Direction.RIGHT);
+
+		// interact with mercenary
+		assertDoesNotThrow(() -> controller.interact("1"));
+
+		// cast into merc, check if ally
+		Assassin ass = (Assassin) controller.getDungeon(0).getEntity("1");
+		assertTrue(ass.getIsAlly());
+
+		assertTrue(controller.getDungeonInfo(0).getInventory().isEmpty());
+
+		// wait for merc to move into player
+		controller.tick(null, Direction.NONE);
+		controller.tick(null, Direction.NONE);
+
+		// Now merc is on player, check he moves around with player
+		controller.tick(null, Direction.DOWN);
+		Position player = controller.getDungeon(0).getEntity("0").getPosition();
+		assertTrue(controller.getDungeon(0).entityExists("assassin", player));
+
+		controller.tick(null, Direction.RIGHT);
+		player = controller.getDungeon(0).getEntity("0").getPosition();
+		assertTrue(controller.getDungeon(0).entityExists("assassin", player));
 	}
 
 	@Test

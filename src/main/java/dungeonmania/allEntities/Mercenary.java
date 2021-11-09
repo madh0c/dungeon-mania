@@ -27,6 +27,10 @@ public class Mercenary extends MovingEntity {
 		return this.isAlly;
 	}
 
+	public void setAlly(boolean isAlly) {
+		this.isAlly = isAlly;
+	}
+	
 	public Direction getCurrentDir() {
 		return currentDir;
 	}
@@ -106,20 +110,21 @@ public class Mercenary extends MovingEntity {
 	 * @param dungeon	Current dungeon of mercenary
 	 */
 	public void bribe(Dungeon dungeon) {
-
-		Treasure gold = null;
-		// Remove the first gold
-		// Integer goldPos = 0;
-		for (CollectableEntity ent : dungeon.getInventory()) {
-			if (ent instanceof Treasure) {
-				// goldPos = Integer.parseInt(ent.getId());
-				// break;
-				gold = (Treasure) ent;			
+		this.isAlly = true;	
+		
+		// Remove the first gold if player doesnt have sunstone
+		if (!dungeon.getPlayer().getSunstoneStatus()) {
+			Treasure gold = null;
+		
+			for (CollectableEntity ent : dungeon.getInventory()) {
+				if (ent instanceof Treasure) {
+					gold = (Treasure) ent;
+					break;			
+				}
 			}
-		}
-		// dungeon.getInventory().remove(goldPos);
-		dungeon.getInventory().remove(gold);
-		this.isAlly = true;
+
+			dungeon.getInventory().remove(gold);
+		}		
 	}
 
 	/**
