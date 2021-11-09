@@ -614,10 +614,10 @@ public class DungeonManiaController {
 		} else if (ent instanceof Mercenary) {
 			Mercenary merc = (Mercenary) ent;
 			merc.bribe(currentDungeon);
-		// } else if (ent instanceof Assassin) {
-		// 	Assassin assassin = (Assassin) ent;
-		// 	assassin.bribe(currentDungeon);
-		} 
+		} else if (ent instanceof Assassin) {
+			Assassin assassin = (Assassin) ent;
+			assassin.bribe(currentDungeon);
+		}
 		
 		return getDungeonInfo(currentDungeon.getId());
 	}

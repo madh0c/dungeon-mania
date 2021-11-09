@@ -644,8 +644,8 @@ public class MovingEntityTest {
 		assertDoesNotThrow(() -> controller.interact("1"));
 
 		// cast into merc, check if ally
-		Assassin merc = (Assassin) controller.getDungeon(0).getEntity("1");
-		assertTrue(merc.getIsAlly());
+		Assassin ass = (Assassin) controller.getDungeon(0).getEntity("1");
+		assertTrue(ass.getIsAlly());
 
 		assertTrue(controller.getDungeonInfo(0).getInventory().isEmpty());
 

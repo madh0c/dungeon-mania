@@ -40,7 +40,7 @@ public abstract class Entity {
 	}
 
     public boolean isInteractable() {
-        return (type == "player" || type == "zombie_toast_spawner" || type == "mercenary");
+        return (type == "player" || type == "zombie_toast_spawner" || type == "mercenary" || type == "assassin");
     }
 
 
