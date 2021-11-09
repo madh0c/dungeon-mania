@@ -131,6 +131,7 @@ public class Battle {
 					for (CollectableEntity item : dungeon.getInventory()) {
 						if (item instanceof OneRing) {
 							check = 1;
+							break;
 						}
 					}
 					if (check == 0) {

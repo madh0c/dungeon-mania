@@ -76,7 +76,7 @@
     },
     {
       "durability": 10,
-      "extraDamage": 5,
+      "extraDamage": 2,
       "position": {
         "x": 9,
         "y": 0,

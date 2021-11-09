@@ -7,7 +7,7 @@ import dungeonmania.util.Position;
 public class Sword extends CollectableEntity {
 
     private int durability;
-    private int extraDamage = 5;
+    private int extraDamage = 2;
 
     
     public Sword(String id, Position position) {
