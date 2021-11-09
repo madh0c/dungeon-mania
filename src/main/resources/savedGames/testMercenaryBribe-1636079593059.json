@@ -1,78 +1,44 @@
 {
   "id": 1,
   "name": "testMercenaryBribe-1636079593059",
-  "inventory": [],
-  "entities": [
+  "inventory": [
     {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
+      "durability": 8,
       "position": {
-        "x": 2,
+        "x": 1,
         "y": 2,
         "layer": 0
       },
-      "type": "mercenary",
-      "id": "5"
-    },
+      "type": "armour",
+      "id": "4"
+    }
+  ],
+  "entities": [
     {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
+      "health": 64,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
       "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
       "position": {
-        "x": 1,
-        "y": 1,
+        "x": 3,
+        "y": 2,
         "layer": 0
       },
-      "type": "mercenary",
-      "id": "6"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "7"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "8"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "9"
+      "type": "player",
+      "id": "0"
     }
   ],
   "gameMode": "Standard",
   "goals": "",
-  "historicalEntCount": 10,
-  "tickNumber": 145,
+  "historicalEntCount": 6,
+  "tickNumber": 45,
   "spawnpoint": {
     "x": 1,
     "y": 1,

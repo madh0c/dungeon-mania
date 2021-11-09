@@ -389,7 +389,7 @@ public class DungeonManiaController {
 		for (ZombieToastSpawner spawner : spawners) {
 			spawner.spawnZombie(currentDungeon);
 		}
-		
+		evalGoal(currentDungeon);
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
