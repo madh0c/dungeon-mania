@@ -9,10 +9,12 @@
       "visible": true,
       "currentDir": "UP",
       "haveKey": false,
+      "hasSunStone": false,
       "invincibleTickDuration": 0,
       "enemyAttack": true,
       "initialHealth": 100,
       "invincibleAmount": 8,
+      "initialAttack": 2,
       "position": {
         "x": 3,
         "y": 0,

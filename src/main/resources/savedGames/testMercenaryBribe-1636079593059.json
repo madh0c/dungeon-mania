@@ -4,15 +4,17 @@
   "inventory": [],
   "entities": [
     {
-      "health": 70,
+      "health": 6,
       "attack": 2,
       "visible": true,
       "currentDir": "RIGHT",
       "haveKey": false,
+      "hasSunStone": false,
       "invincibleTickDuration": 0,
       "enemyAttack": true,
       "initialHealth": 100,
       "invincibleAmount": 8,
+      "initialAttack": 2,
       "position": {
         "x": 3,
         "y": 2,
@@ -24,8 +26,8 @@
   ],
   "gameMode": "Standard",
   "goals": "",
-  "historicalEntCount": 4,
-  "tickNumber": 25,
+  "historicalEntCount": 7,
+  "tickNumber": 85,
   "spawnpoint": {
     "x": 1,
     "y": 1,

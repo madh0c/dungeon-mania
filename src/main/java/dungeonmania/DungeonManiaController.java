@@ -634,13 +634,11 @@ public class DungeonManiaController {
 		boolean hasRing = false;
 
 		for (CollectableEntity item : currentInventory) {
-			if (item.getType().equals("treasure")) {
+			if (item instanceof Treasure || item instanceof SunStone) {
 				hasGold = true;
-			} else if (item.getType().equals("sword") || item.getType().equals("bow")) {
+			} else if (item instanceof Sword || item instanceof Bow) {
 				hasWeapon = true;
-			} else if (item.getType().equals("treasure")) {
-				hasGold = true;
-			} else if (item.getType().equals("one_ring")) {
+			} else if (item instanceof OneRing) {
 				hasRing = true;
 			}  
 		}
