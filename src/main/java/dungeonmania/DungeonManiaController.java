@@ -452,7 +452,6 @@ public class DungeonManiaController {
 			} else if (ent instanceof Exit) {
 				Position playerPos = currentDungeon.getPlayerPosition();
 				Position exitPos = ent.getPosition();
-				System.out.println(playerPos);
 				if(playerPos == null ) {
 					continue;
 				}else if (playerPos.equals(exitPos)) {
