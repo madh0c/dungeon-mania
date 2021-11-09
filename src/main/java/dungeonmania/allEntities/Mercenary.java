@@ -27,6 +27,10 @@ public class Mercenary extends MovingEntity {
 		return this.isAlly;
 	}
 
+	public void setAlly(boolean isAlly) {
+		this.isAlly = isAlly;
+	}
+	
 	public Direction getCurrentDir() {
 		return currentDir;
 	}
