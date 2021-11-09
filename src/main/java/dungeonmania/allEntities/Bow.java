@@ -1,6 +1,9 @@
 package dungeonmania.allEntities;
 
+import java.util.List;
+
 import dungeonmania.CollectableEntity;
+import dungeonmania.Dungeon;
 import dungeonmania.util.Position;
 
 
@@ -21,6 +24,24 @@ public class Bow extends CollectableEntity {
 	}
 	public void setDurability(int durability) {
 		this.durability = durability;
+	}
+
+	public void build(Dungeon currentDungeon) {
+		List <CollectableEntity> currentInventory = currentDungeon.getInventory();
+		int counterArrow = 0;
+		int counterWood = 0;
+		for (int i = 0; i < currentInventory.size(); i++) {
+			CollectableEntity found = currentInventory.get(i);
+			if (found.getType().equals("arrow") && counterArrow < 3) {
+				counterArrow++;
+				currentInventory.remove(i);
+				i--;
+			} else if (found.getType().equals("wood") && counterWood < 1) {
+				counterWood++;
+				currentInventory.remove(i);
+				i--;
+			}
+		}
 	}
 
 }

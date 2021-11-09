@@ -47,6 +47,8 @@ public class HardFactory extends EntityFactory {
 			return new Bow(id, position);
 		else if (type.contains("shield"))
 			return new Shield(id, position);
+		else if (type.contains("midnight_armour"))
+			return new MidnightArmour(id, position);
 		else if (type.contains("armour"))
 			return new Armour(id, position);
 		else if (type.contains("one_ring"))
@@ -57,6 +59,8 @@ public class HardFactory extends EntityFactory {
 			return new SunStone(id, position);
 		else if (type.contains("assassin"))
 			return new Assassin(id, position);
+		else if (type.contains("sceptre"))
+			return new Sceptre(id, position);
 		return null;
 	}
 

@@ -682,53 +682,32 @@ public class DungeonManiaController {
 	public DungeonResponse build(String buildable) throws IllegalArgumentException, InvalidActionException {
 		checkValidBuild(buildable);
 		List<CollectableEntity> currentInventory = currentDungeon.getInventory();
+		int newId = currentDungeon.getHistoricalEntCount();				
 		if (buildable.equals("bow")) {
-			int newId = currentDungeon.getHistoricalEntCount();				
-
-			CollectableEntity bow = (CollectableEntity) currentDungeon.getFactory().createEntity(String.valueOf(newId), "bow", currentDungeon.getPlayerPosition()); 			
-			
+			CollectableEntity bow = (CollectableEntity) currentDungeon.getFactory().createEntity(String.valueOf(newId), "bow", currentDungeon.getPlayerPosition()); 
 			currentDungeon.setHistoricalEntCount(newId + 1);
 			currentInventory.add(bow);
-			int counterArrow = 0;
-			int counterWood = 0;
-			for (int i = 0; i < currentInventory.size(); i++) {
-				CollectableEntity found = currentInventory.get(i);
-				if (found.getType().equals("arrow") && counterArrow < 3) {
-					counterArrow++;
-					currentInventory.remove(i);
-					i--;
-				} else if (found.getType().equals("wood") && counterWood < 1) {
-					counterWood++;
-					currentInventory.remove(i);
-					i--;
-				}
-			}
-		} else if (buildable.equals("shield")) {
-			int newId = currentDungeon.getHistoricalEntCount();	
-			
+			Bow bowBuilt = (Bow) bow;
+			bowBuilt.build(currentDungeon);			
+		} else if (buildable.equals("shield")) {			
 			CollectableEntity shield = (CollectableEntity) currentDungeon.getFactory().createEntity(String.valueOf(newId), "shield", currentDungeon.getPlayerPosition());
-
 			currentDungeon.setHistoricalEntCount(newId + 1);
-
 			currentInventory.add(shield);
-			int counterTreasure = 0;
-			int counterKey = 0;
-			int counterWood = 0;
-			for (int i = 0; i < currentInventory.size(); i++) {
-				CollectableEntity found = currentInventory.get(i);
-				if (found.getType().equals("wood") && counterWood < 2) {
-					counterWood++;
-					currentInventory.remove(i);
-					i--;
-				} else if ((found.getType().equals("treasure") && counterTreasure < 1) || (found.getType().equals("key") && counterKey < 1)) {
-					counterTreasure++;
-					counterKey++;
-					currentInventory.remove(i);
-					i--;
-				}
-			}
+			Shield shieldBuilt = (Shield) shield;
+			shieldBuilt.build(currentDungeon);		
+		} else if (buildable.equals("sceptre")) {
+			CollectableEntity sceptre = (CollectableEntity) currentDungeon.getFactory().createEntity(String.valueOf(newId), "sceptre", currentDungeon.getPlayerPosition());
+			currentDungeon.setHistoricalEntCount(newId + 1);
+			currentInventory.add(sceptre);
+			Sceptre sceptreBuilt = (Sceptre) sceptre;
+			sceptreBuilt.build(currentDungeon);
+		} else if (buildable.equals("midnight_armour")) {
+			CollectableEntity midnightArmour = (CollectableEntity) currentDungeon.getFactory().createEntity(String.valueOf(newId), "midnight_armour", currentDungeon.getPlayerPosition());
+			currentDungeon.setHistoricalEntCount(newId + 1);
+			currentInventory.add(midnightArmour);
+			MidnightArmour midnightArmourBuilt = (MidnightArmour) midnightArmour;
+			midnightArmourBuilt.build(currentDungeon);
 		}
-
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
@@ -736,9 +715,11 @@ public class DungeonManiaController {
 		List<String> permittedBuild = new ArrayList<String>();
 		permittedBuild.add("bow");
 		permittedBuild.add("shield");
+		permittedBuild.add("sceptre");
+		permittedBuild.add("midnight_armour");
 
 		if (!permittedBuild.contains(buildable)) {
-			throw new IllegalArgumentException("Cannot Build The Desired Item; Only Bows and Shields Can Be Built");
+			throw new IllegalArgumentException("Cannot Build The Desired Item; Only Bows, Shields, Sceptres and Midnight Armours Can Be Built");
 		}
 
 		List<String> currentBuildable = currentDungeon.getBuildables();
