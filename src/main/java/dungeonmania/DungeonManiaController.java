@@ -670,7 +670,7 @@ public class DungeonManiaController {
 		} else if (interactEntity.getType().equals("assassin")) {
 			if (!Position.inBribingRange(playerPosition, entityPosition)) {
 				throw new InvalidActionException("Player Out Of Bribing Range Of Assassin");
-			} else if (!hasRing) {
+			} else if (!hasRing || !hasGold) {
 				throw new InvalidActionException("Player Does Not Have Sufficient Resources To Bribe Assassin");
 			}
 		}
