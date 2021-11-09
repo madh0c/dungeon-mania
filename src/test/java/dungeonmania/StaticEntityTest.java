@@ -11,6 +11,7 @@ import dungeonmania.util.Position;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1238,29 +1239,8 @@ public class StaticEntityTest {
 			controller.tick(null, Direction.RIGHT);
 		}
 
-        List<EntityResponse> endList = new ArrayList<EntityResponse>();
-
-        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(6,0), true);
-        EntityResponse endSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), true);
-        EntityResponse endWall1Info = new EntityResponse("2", "wall", new Position(1,0), false);
-        EntityResponse endBoulder1Info = new EntityResponse("3", "boulder", new Position(1,2), false);
-        EntityResponse endBoulder2Info = new EntityResponse("4", "boulder", new Position(2,1), false);
-        EntityResponse endWall2Info = new EntityResponse("5", "wall", new Position(7,0), false);
-        EntityResponse endMercInfo = new EntityResponse("6", "mercenary", new Position(6,0), true);
-        EntityResponse endZombInfo = new EntityResponse("7", "zombie_toast", new Position(0,1), false);
-
-        endList.add(endPlayerInfo);
-        endList.add(endSpawnerInfo);
-        endList.add(endWall1Info);
-        endList.add(endBoulder1Info);
-        endList.add(endBoulder2Info);
-        endList.add(endWall2Info);
-        endList.add(endMercInfo);
-        endList.add(endZombInfo);
-
-        // A zombie should be spawned in the only elegible square
-        DungeonResponse dREnd = controller.getDungeonInfo(0);
-        assertEquals(endList, dREnd.getEntities());
+        
+        assertTrue(controller.getDungeon(0).entityExists("zombie_toast"));
     }
 
     /**

@@ -55,6 +55,8 @@ public class HardFactory extends EntityFactory {
 			return new Anduril(id, position);
 		else if (type.contains("sun_stone"))
 			return new SunStone(id, position);
+		else if (type.contains("assassin"))
+			return new Assassin(id, position);
 		return null;
 	}
 

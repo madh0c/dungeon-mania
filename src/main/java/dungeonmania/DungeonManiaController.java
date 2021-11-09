@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class DungeonManiaController {
 
@@ -316,8 +317,15 @@ public class DungeonManiaController {
 			if (currentDungeon.getSpawnpoint() != null) {
 				// Merc spawn every 10 ticks
 				int newId = currentDungeon.getHistoricalEntCount();
-				Entity merc = currentDungeon.getFactory().createEntity(String.valueOf(newId), "mercenary", currentDungeon.getSpawnpoint());
-				currentDungeon.addEntity(merc);
+				Random rand = new Random();
+				int random = rand.nextInt(10);
+				if (random < 2) {
+					Entity assassin = currentDungeon.getFactory().createEntity(String.valueOf(newId), "assassin", currentDungeon.getSpawnpoint());
+					currentDungeon.addEntity(assassin);
+				} else {
+					Entity merc = currentDungeon.getFactory().createEntity(String.valueOf(newId), "mercenary", currentDungeon.getSpawnpoint());
+					currentDungeon.addEntity(merc);
+				}				
 			}
 		}
 
