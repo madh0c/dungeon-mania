@@ -47,7 +47,7 @@ public class Battle {
 				if (item instanceof Anduril) {						
 					Anduril anduril = (Anduril) item;
 					if (anduril.getDurability() == 0) {
-						dungeon.getPlayer().setAttack(dungeon.getPlayer().getInitialAttack());						
+						dungeon.getPlayer().setAttack(dungeon.getPlayer().getInitialAttack());		
 						toBeRemoved.add(item);
 						continue;
 					}
@@ -98,16 +98,19 @@ public class Battle {
 				for (CollectableEntity item : dungeon.getInventory()) {
 					if (item instanceof OneRing) {
 						dungeon.getPlayer().setHealth(dungeon.getPlayer().getInitialHealth());
+
 						ringDelete.add(item);
-						break;
 					}
-				}				
-				dungeon.getInventory().remove(ringDelete.get(0));
-				
+				}
+				if (ringDelete.size() == 1) {
+					dungeon.getInventory().remove(ringDelete.get(0));
+				}
 				if (dungeon.getPlayer().getHealth() <= 0) {
-					dungeon.removeEntity(dungeon.getPlayer());					
+					dungeon.removeEntity(dungeon.getPlayer());	
+					return;				
 				}			
 			} 
+
 
 			if (enemy.getHealth() <= 0) {
 				// drop armour 
