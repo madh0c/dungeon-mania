@@ -329,15 +329,6 @@ public class DungeonManiaController {
 			}
 		}
 
-		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
-
-		for (Entity entity : currentDungeon.getEntities()) {
-			if (entity.getType().equals("zombie_toast_spawner")) {
-				ZombieToastSpawner foundSpawner = (ZombieToastSpawner)entity;
-				spawners.add(foundSpawner);
-			}
-		}
-
 		currentDungeon.tickOne();
 
 		// Player actions
@@ -368,27 +359,35 @@ public class DungeonManiaController {
 			mov.move(currentDungeon);
 		}
 		
-		// find all entities that should be blown up	
-		List<Entity> entitiesToBeRemoved = new ArrayList<>();	
-		
+		// Explode all valid bombs
+		List<Entity> toRemove = new ArrayList<>();
 		for (Entity entity : currentDungeon.getEntities()) {
 			if (entity instanceof BombStatic) {
-				for (Position cardinal : entity.getPosition().getCardinallyAdjPositions()) {
-					Switch sw = (Switch)currentDungeon.getEntity("switch", cardinal);
-					if (sw != null) {
-						if (sw.getStatus()) {
-							entitiesToBeRemoved.addAll(currentDungeon.toBeDetonated(entity.getPosition()));							
-						}
-					}
-				}
+				BombStatic bomb = (BombStatic)entity;
+				toRemove.addAll(bomb.explode(currentDungeon));
 			}
 		}
-		currentDungeon.getEntities().removeAll(entitiesToBeRemoved);
 
+		if (toRemove.size() != 0) {
+			currentDungeon.getEntities().removeAll(toRemove);
+		}
+
+
+		// Spawn in zombies if appropriate
+		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
+
+		for (Entity entity : currentDungeon.getEntities()) {
+			if (entity.getType().equals("zombie_toast_spawner")) {
+				ZombieToastSpawner foundSpawner = (ZombieToastSpawner)entity;
+				spawners.add(foundSpawner);
+			}
+		}
 		// Spawn in new zombietoast after 20 ticks (20 ticks checked inside method)
 		for (ZombieToastSpawner spawner : spawners) {
 			spawner.spawnZombie(currentDungeon);
 		}
+
+		
 		evalGoal(currentDungeon);
 		return getDungeonInfo(currentDungeon.getId());
 	}
@@ -431,10 +430,12 @@ public class DungeonManiaController {
 		permittedItems.add("health_potion");
 		permittedItems.add("invincibility_potion");
 		permittedItems.add("invisibility_potion");
+		permittedItems.add("sceptre");
+
 		
 		if (!permittedItems.contains(itemType) && itemType != null) {
 			throw new IllegalArgumentException("Cannot Use Requested Item; Ensure Item Is Either a Bomb, Health Potion, " +
-			"Invincibility Potion, Invisibility Potion or null");
+			"Invincibility Potion, Invisibility Potion, Sceptre or null");
 		}
 		
 	}

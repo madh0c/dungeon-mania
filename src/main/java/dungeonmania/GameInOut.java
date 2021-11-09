@@ -15,7 +15,6 @@ import org.json.JSONObject;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.lang.String;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -143,9 +142,10 @@ public class GameInOut {
 						Double attackD = (Double)currentEntity.get("attack");
 						int attack = attackD.intValue();
 	
-						boolean visible = (boolean)currentEntity.get("visible");
-						boolean haveKey = (boolean)currentEntity.get("haveKey");
-	
+						String stringVis = (String)currentEntity.get("visible");
+						boolean visible = Boolean.parseBoolean(stringVis);
+						String stringKey = (String)currentEntity.get("haveKey");
+						boolean haveKey = Boolean.parseBoolean(stringKey);	
 						Double invinceD = (Double)currentEntity.get("invincibleTickDuration");
 						int invincibleTickDuration = invinceD.intValue();
 	
@@ -164,6 +164,35 @@ public class GameInOut {
 					
 					SwampTile swampT = new SwampTile(entityId, exportPos, moveF);
 					entityList.add(swampT);
+				} else if (entityType.contains("mercenary")) {
+
+					boolean enemyAttack = true;
+					if (playMode.equals("Peaceful")) {
+						enemyAttack = false;
+					}
+
+					Entity newEntity = factory.createEntity(entityId, entityType, exportPos);
+					// boolean isAlly = (boolean)currentEntity.get("isAlly");
+					String stringAlly = (String)currentEntity.get("isAlly");
+					boolean isAlly = Boolean.parseBoolean(stringAlly);
+					Mercenary newMerc = (Mercenary)newEntity;
+					newMerc.setEnemyAttack(enemyAttack);
+					newMerc.setAlly(isAlly);
+					entityList.add(newMerc);
+				} else if (entityType.contains("assassin")) {
+					boolean enemyAttack = true;
+					if (playMode.equals("Peaceful")) {
+						enemyAttack = false;
+					}
+
+					Entity newEntity = factory.createEntity(entityId, entityType, exportPos);
+					// boolean isAlly = (boolean)currentEntity.get("isAlly");
+					String stringAlly = (String)currentEntity.get("isAlly");
+					boolean isAlly = Boolean.parseBoolean(stringAlly);
+					Assassin newAssassin = (Assassin)newEntity;
+					newAssassin.setEnemyAttack(enemyAttack);
+					newAssassin.setAlly(isAlly);
+					entityList.add(newAssassin);
 				} else {
 					Entity newEntity = factory.createEntity(entityId, entityType, exportPos);
 					entityList.add(newEntity);
@@ -241,6 +270,24 @@ public class GameInOut {
 						Shield newShield = new Shield(itemId, itemPos);
 						newShield.setDurability(durability);
 						returnInv.add(newShield);
+					} else if (itemType.equals("sun_stone")){
+						SunStone newStone = new SunStone(itemId, itemPos);
+						returnInv.add(newStone);
+					} else if (itemType.equals("anduril")){
+						Double durabilityD = (Double)currentItem.get("durability");
+						int durability = durabilityD.intValue();
+						Anduril newAnduril = new Anduril(itemId, itemPos);
+						newAnduril.setDurability(durability);
+						returnInv.add(newAnduril);
+					}  else if (itemType.equals("sceptre")){
+						Sceptre newSceptre = new Sceptre(itemId, itemPos);
+						returnInv.add(newSceptre);
+					} else if (itemType.equals("midnight_armour")){
+						Double durabilityD = (Double)currentItem.get("durability");
+						int durability = durabilityD.intValue();
+						MidnightArmour newMidArm = new MidnightArmour(itemId, itemPos);
+						newMidArm.setDurability(durability);
+						returnInv.add(newMidArm);
 					}
 
 				}

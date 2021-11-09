@@ -6,7 +6,7 @@ import dungeonmania.util.Position;
 public abstract class MovingEntity extends Entity {
 	private int health;
 	private int baseAttack;
-	private final boolean enemyAttack;
+	private boolean enemyAttack;
 
     public MovingEntity(String id, Position position, String type, boolean enemyAttack) {
         super(id, position, type);
@@ -31,6 +31,10 @@ public abstract class MovingEntity extends Entity {
 
 	public void setHealth(int health) {
 		this.health = health;
+	}
+
+	public void setEnemyAttack(boolean enemyAttack) {
+		this.enemyAttack = enemyAttack;
 	}
     
 	public boolean collide(Entity entity, Dungeon dungeon) {

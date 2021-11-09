@@ -1,5 +1,8 @@
 package dungeonmania;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dungeonmania.util.Position;
 
 
@@ -40,7 +43,14 @@ public abstract class Entity {
 	}
 
     public boolean isInteractable() {
-        return (type == "player" || type == "zombie_toast_spawner" || type == "mercenary" || type == "assassin");
+		List <String> interactableTypes = new ArrayList<>();
+		interactableTypes.add("player");
+		interactableTypes.add("zombie_toast_spawner");
+		interactableTypes.add("mercenary");
+		interactableTypes.add("assassin");
+		interactableTypes.add("sceptre");
+
+        return (interactableTypes.contains(type));
     }
 
 
