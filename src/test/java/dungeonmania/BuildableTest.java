@@ -162,4 +162,70 @@ public class BuildableTest {
 		assertEquals(4, shield.getDurability()); 
 
     }
+	@Test
+	public void testInvalidBuildSceptre() {
+		DungeonManiaController controller = new DungeonManiaController();
+		controller.newGame("testBuildSceptreMap", "Standard");
+		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+		controller.tick(null, Direction.RIGHT);
+		//Picks up 1 arrow
+        assertThrows(InvalidActionException.class, () -> controller.build("sceptre"));
+		controller.tick(null, Direction.RIGHT);
+		//Picks up 1 treasure
+		assertThrows(InvalidActionException.class, () -> controller.build("sceptre"));
+		controller.tick(null, Direction.RIGHT);
+		//Picks up 1 sunstone
+		assertThrows(InvalidActionException.class, () -> controller.build("sceptre"));
+	}
+
+	@Test
+	public void testBuildSceptre() {
+		DungeonManiaController controller = new DungeonManiaController();
+		controller.newGame("testBuildSceptreMap", "Standard");
+		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+		controller.tick(null, Direction.DOWN);
+		controller.tick(null, Direction.DOWN);
+		//Picks up 1 arrow
+        assertThrows(InvalidActionException.class, () -> controller.build("sceptre"));
+		controller.tick(null, Direction.DOWN);
+		//Picks up 1 key
+		assertThrows(InvalidActionException.class, () -> controller.build("sceptre"));
+		controller.tick(null, Direction.DOWN);
+		//Picks up 1 arrow
+		assertThrows(InvalidActionException.class, () -> controller.build("sceptre"));
+		controller.tick(null, Direction.DOWN);
+		//Picks up 1 sunstone 
+		assertDoesNotThrow(() -> controller.build("sceptre"));
+	}
+
+	@Test
+	public void testInvalidBuildMidnight() {
+		DungeonManiaController controller = new DungeonManiaController();
+		controller.newGame("testBuildMidnightMap", "Hard");
+		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+		controller.tick(null, Direction.RIGHT);
+		//Picks up armour
+		assertThrows(InvalidActionException.class, () -> controller.build("midnight_armour"));
+		//Zombie spawning
+		for (int i = 0; i < 15; i++) {
+			controller.tick(null, Direction.NONE);
+
+		}
+		controller.tick(null, Direction.RIGHT);
+		//Picks up sun stone
+		assertThrows(InvalidActionException.class, () -> controller.build("midnight_armour"));
+	}
+
+	@Test
+	public void testBuildMidnight() {
+		DungeonManiaController controller = new DungeonManiaController();
+		controller.newGame("testBuildMidnightMap", "Standard");
+		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+		controller.tick(null, Direction.RIGHT);
+		//Picks up armour
+		assertThrows(InvalidActionException.class, () -> controller.build("midnight_armour"));
+		controller.tick(null, Direction.RIGHT);
+		//Picks up sun stone
+		assertDoesNotThrow(() -> controller.build("midnight_armour"));
+	}
 }
