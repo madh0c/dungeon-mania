@@ -174,18 +174,21 @@ public class Mercenary extends MovingEntity {
 		// setPosition(getPosition().translateBy(direction));
 
 		// portalMove(dungeon);
+		System.out.println(dungeon.getPlayerPosition());
+		System.out.println(dungeon.getPlayer().getCurrentDir());
 
 		Position currPos = getPosition();
 		Map<Position, Position> mapPos = Dijkstra.move(currPos, dungeon);
-
-		Position nextPos = null;
 		
-		nextPos = nextPos(dungeon.getPlayerPosition(), getPosition(), mapPos, nextPos);
-		System.out.println(nextPos);
-
-		if (nextPos != null) {
-			setPosition(nextPos);
-		} portalMove(dungeon);
+		if (mapPos != null) {
+			Position nextPos = null;
+			nextPos = nextPos(dungeon.getPlayerPosition(), getPosition(), mapPos, nextPos);
+	
+			if (nextPos != null) {
+				setPosition(nextPos);
+			} portalMove(dungeon);
+		}
+		
 
 		return true;
 	}
@@ -198,13 +201,14 @@ public class Mercenary extends MovingEntity {
 	 * @return
 	*/
 	public static Position nextPos(Position currPos, Position source, Map<Position, Position> mapPos, Position newPosition) {
-		System.out.println("currPos: " + currPos);
-		
-		if (!mapPos.get(currPos).equals(source)) {
-			nextPos(mapPos.get(currPos), source, mapPos, newPosition);
-		} else {
+		while (!mapPos.get(currPos).equals(source)) {
+			currPos = mapPos.get(currPos);
+		} if (mapPos.get(currPos).equals(source)) {
 			newPosition = currPos;
-		} return newPosition;
+			return newPosition;
+		} else {
+			return null;
+		}
 	}
 
 	/**

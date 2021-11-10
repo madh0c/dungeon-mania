@@ -236,6 +236,10 @@ public class Player extends Entity {
 			}
 		}
 
+		if (!dungeon.validPos(newPos)) {
+			return;
+		}
+
 		setPosition(newPos);
 		setCurrentDir(direction);
 		portalMove(dungeon);
