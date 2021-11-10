@@ -13,6 +13,7 @@ import dungeonmania.allEntities.Bow;
 import dungeonmania.allEntities.Mercenary;
 import dungeonmania.allEntities.MidnightArmour;
 import dungeonmania.allEntities.Player;
+import dungeonmania.allEntities.Sceptre;
 import dungeonmania.allEntities.Shield;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.DungeonResponse;
@@ -211,7 +212,9 @@ public class BuildableTest {
 		controller.tick(null, Direction.RIGHT);
 		controller.tick(null, Direction.RIGHT);
 		assertDoesNotThrow(() -> controller.build("sceptre"));
+		assertEquals("sceptre", controller.getDungeon(0).getInventory().get(0).getType());
 		assertDoesNotThrow(() -> controller.interact("4"));
+		assertTrue(controller.getDungeon(0).getInventory().isEmpty());
 		Mercenary merc = (Mercenary) controller.getDungeon(0).getEntity("4");
 		assertTrue(merc.getIsAlly());
 		//Merc moves into player

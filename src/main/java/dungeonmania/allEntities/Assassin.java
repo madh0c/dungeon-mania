@@ -14,25 +14,37 @@ public class Assassin extends Mercenary {
 
 	@Override 
 	public void bribe(Dungeon dungeon) {		
-		// Remove the first gold OR one ring if player doesnt have sunstone
-		CollectableEntity gold = null;
-		CollectableEntity ring = null;
-
-		for (CollectableEntity ent : dungeon.getInventory()) {
-			if (ent instanceof Treasure) {
-				gold = ent;			
-			}
-			if (ent instanceof OneRing) {
-				ring = ent;			
+		boolean sceptreStatus = false;
+		CollectableEntity sceptre = null;
+		for (CollectableEntity collect : dungeon.getInventory()) {
+			if (collect instanceof Sceptre) {
+				sceptreStatus = true;
+				sceptre = collect;
 			}
 		}
+		if (sceptreStatus) {
+			dungeon.getInventory().remove(sceptre);
+			dungeon.getPlayer().getControlled().add(getId());
+			dungeon.getPlayer().setSceptreTickDuration(10);
+		} else {
+			// Remove the first gold OR one ring if player doesnt have sunstone
+			CollectableEntity gold = null;
+			CollectableEntity ring = null;
+			for (CollectableEntity ent : dungeon.getInventory()) {
+				if (ent instanceof Treasure) {
+					gold = ent;			
+				}
+				if (ent instanceof OneRing) {
+					ring = ent;			
+				}
+			}
 
-		dungeon.getInventory().remove(ring);
-		
-		if (!dungeon.getPlayer().getSunstoneStatus()) {			
-			dungeon.getInventory().remove(gold);
-		} 
-		
+			dungeon.getInventory().remove(ring);
+			
+			if (!dungeon.getPlayer().getSunstoneStatus()) {			
+				dungeon.getInventory().remove(gold);
+			} 
+		}
 		super.setAlly(true);
 	}
 

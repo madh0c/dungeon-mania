@@ -1,24 +1,25 @@
 package dungeonmania.allEntities;
 
 import java.util.List;
+import java.util.Set;
 
 import dungeonmania.*;
 import dungeonmania.util.Position;
 
 public class Sceptre extends CollectableEntity {
 
-	private int durability;
+	private String mercenaryId;
 
 	public Sceptre (String id, Position position) {
 		super(id, position, "sceptre");
-		this.durability = 1;
 	}
 
-	public int getDurability () {
-		return durability;
+	public String getMercenaryId () {
+		return mercenaryId;
 	}
-	public void setDurability(int durability) {
-		this.durability = durability;
+
+	public void setMercenaryId(String mercenaryId) {
+		this.mercenaryId = mercenaryId;
 	}
 
 	public void build (Dungeon currentDungeon) {

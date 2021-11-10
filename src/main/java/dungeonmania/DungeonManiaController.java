@@ -346,7 +346,20 @@ public class DungeonManiaController {
 			// make sure invincibility wears off
 			int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
 			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
-
+			// sceptre tick wearing off
+			int sceptreTicksLeft = currentDungeon.getPlayer().getSceptreTick();
+			currentDungeon.getPlayer().setSceptreTickDuration(sceptreTicksLeft - 1);
+			List<String> controlledIds = currentDungeon.getPlayer().getControlled();
+			if (sceptreTicksLeft == 0 && !controlledIds.isEmpty()) {
+				String releaseId = controlledIds.get(0);
+				for (Entity ent : currentDungeon.getEntities()) {
+					if (releaseId.equals(ent.getId()) && ent instanceof Mercenary) {
+						Mercenary merc = (Mercenary) ent;
+						merc.setAlly(false);
+					}
+				}
+				controlledIds.remove(releaseId);
+			}
 			// Move player
 			currentDungeon.getPlayer().move(currentDungeon, movementDirection);
 		}
@@ -636,6 +649,7 @@ public class DungeonManiaController {
 		boolean hasGold = false;
 		boolean hasWeapon = false;
 		boolean hasRing = false;
+		boolean hasSceptre = false;
 
 		for (CollectableEntity item : currentInventory) {
 			if (item instanceof Treasure || item instanceof SunStone) {
@@ -644,7 +658,9 @@ public class DungeonManiaController {
 				hasWeapon = true;
 			} else if (item instanceof OneRing) {
 				hasRing = true;
-			}  
+			} else if (item instanceof Sceptre) {
+				hasSceptre = true;
+			}
 		}
 
 		Position playerPosition = currentDungeon.getPlayerPosition();
@@ -660,13 +676,13 @@ public class DungeonManiaController {
 		} else if (interactEntity.getType().equals("mercenary")) {
 			if (!Position.inBribingRange(playerPosition, entityPosition)) {
 				throw new InvalidActionException("Player Out Of Bribing Range Of Mercenary");
-			} else if (!hasGold) {
+			} else if (!hasGold && !hasSceptre) {
 				throw new InvalidActionException("Player Does Not Have Sufficient Gold To Bribe Mercenary");
 			}
 		} else if (interactEntity.getType().equals("assassin")) {
 			if (!Position.inBribingRange(playerPosition, entityPosition)) {
 				throw new InvalidActionException("Player Out Of Bribing Range Of Assassin");
-			} else if (!hasRing || !hasGold) {
+			} else if (!hasSceptre && (!hasRing || !hasGold)) {
 				throw new InvalidActionException("Player Does Not Have Sufficient Resources To Bribe Assassin");
 			}
 		}

@@ -1,5 +1,8 @@
 package dungeonmania.allEntities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dungeonmania.Battle;
 import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
@@ -21,6 +24,8 @@ public class Player extends Entity {
 	private final int initialHealth;
 	private final int invincibleAmount;
 	private final int initialAttack = 2;
+	private int sceptreTickDuration;
+	private List<String> controlled = new ArrayList<> ();
 
 	public Player(String id, Position position, int health, boolean enemyAttack, int invincibleAmount) {
         super(id, position, "player");
@@ -95,6 +100,18 @@ public class Player extends Entity {
 
 	public int getInitialAttack() {
 		return initialAttack;
+	}
+
+	public int getSceptreTick() {
+		return sceptreTickDuration;
+	}
+
+	public void setSceptreTickDuration(int durationTicks) {
+		sceptreTickDuration = (durationTicks >= 0) ? durationTicks : 0; 
+	}
+
+	public List<String> getControlled() {
+		return controlled;
 	}
 
 	/**

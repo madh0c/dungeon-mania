@@ -110,21 +110,32 @@ public class Mercenary extends MovingEntity {
 	 * @param dungeon	Current dungeon of mercenary
 	 */
 	public void bribe(Dungeon dungeon) {
+		boolean sceptreStatus = false;
+		CollectableEntity sceptre = null;
 		this.isAlly = true;	
-		
-		// Remove the first gold if player doesnt have sunstone
-		if (!dungeon.getPlayer().getSunstoneStatus()) {
-			Treasure gold = null;
-		
-			for (CollectableEntity ent : dungeon.getInventory()) {
-				if (ent instanceof Treasure) {
-					gold = (Treasure) ent;
-					break;			
-				}
+		for (CollectableEntity collect : dungeon.getInventory()) {
+			if (collect instanceof Sceptre) {
+				sceptreStatus = true;
+				sceptre = collect;
 			}
-
-			dungeon.getInventory().remove(gold);
-		}		
+		}
+		if (sceptreStatus) {
+			dungeon.getInventory().remove(sceptre);
+			dungeon.getPlayer().getControlled().add(getId());
+			dungeon.getPlayer().setSceptreTickDuration(10);
+		} else {
+			// Remove the first gold if player doesnt have sunstone
+			if (!dungeon.getPlayer().getSunstoneStatus()) {
+				Treasure gold = null;
+				for (CollectableEntity ent : dungeon.getInventory()) {
+					if (ent instanceof Treasure) {
+						gold = (Treasure) ent;
+						break;			
+					}
+				}
+				dungeon.getInventory().remove(gold);
+			}	
+		}	
 	}
 
 	/**
