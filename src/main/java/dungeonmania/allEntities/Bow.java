@@ -10,7 +10,7 @@ import dungeonmania.util.Position;
 public class Bow extends CollectableEntity {
 
 	private int durability;
-	private int extraDamage = 5;
+	private int extraDamage = 3;
    
     public Bow(String id, Position position) {
         super(id, position, "bow");

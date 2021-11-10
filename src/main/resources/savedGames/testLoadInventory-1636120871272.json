@@ -106,7 +106,7 @@
     },
     {
       "durability": 5,
-      "extraDamage": 5,
+      "extraDamage": 3,
       "position": {
         "x": 12,
         "y": 0,

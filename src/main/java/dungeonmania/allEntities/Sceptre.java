@@ -7,8 +7,18 @@ import dungeonmania.util.Position;
 
 public class Sceptre extends CollectableEntity {
 
+	private int durability;
+
 	public Sceptre (String id, Position position) {
 		super(id, position, "sceptre");
+		this.durability = 1;
+	}
+
+	public int getDurability () {
+		return durability;
+	}
+	public void setDurability(int durability) {
+		this.durability = durability;
 	}
 
 	public void build (Dungeon currentDungeon) {
