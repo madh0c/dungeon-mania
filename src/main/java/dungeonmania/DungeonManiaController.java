@@ -153,6 +153,8 @@ public class DungeonManiaController {
 		for (CollectableEntity collectableEntity : target.getInventory()) {
 			inventory.add(new ItemResponse(collectableEntity.getId(), collectableEntity.getType()));
 		}
+
+		evalGoal(currentDungeon);
 		
 		return new DungeonResponse(
 			String.valueOf(target.getId()), 
