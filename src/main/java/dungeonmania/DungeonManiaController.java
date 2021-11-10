@@ -244,6 +244,7 @@ public class DungeonManiaController {
 					}
 				}
 			}
+			evalGoal(currentDungeon);
 			return getDungeonInfo(currentDungeon.getId());
 		} catch (IOException e) {
 			e.printStackTrace();
