@@ -149,7 +149,13 @@ public class Mercenary extends MovingEntity {
 					}
 				}
 			}
-			setPosition(posPortal2.translateBy(getCurrentDir()));
+			
+			Position potPos = posPortal2.translateBy(getCurrentDir());
+			if (dungeon.validPos(potPos)) {
+				setPosition(posPortal2.translateBy(getCurrentDir()));
+			} else {
+				setPosition(getPosition());
+			}
 		}
 	}
 
