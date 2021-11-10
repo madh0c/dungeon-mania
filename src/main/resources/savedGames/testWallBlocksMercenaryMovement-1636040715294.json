@@ -47,6 +47,7 @@
     }
   ],
   "gameMode": "Standard",
+  "goals": "",
   "historicalEntCount": 3,
   "tickNumber": 1,
   "spawnpoint": {

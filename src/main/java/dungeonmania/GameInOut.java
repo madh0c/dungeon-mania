@@ -15,7 +15,6 @@ import org.json.JSONObject;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.lang.String;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -51,10 +50,12 @@ public class GameInOut {
 				playMode = (String)jsonMap.get("gameMode"); 
 				goals = (String)jsonMap.get("goals"); 
 				String goalConditions = (String)jsonMap.get("goalConditions");
+
 				if (!goalConditions.equals("")) {
 					JSONObject goalCon = new JSONObject(goalConditions);
 					foundGoals = createGoals(goalCon);
 					goalsConvert = goalCon.toString();
+
 				}
 			} else if (expType.equals("new")) {
 				playMode = gameMode;
@@ -93,7 +94,6 @@ public class GameInOut {
 
 
 			for (int i = 0; i < parseList.size(); i++) {
-
                 Map<String, Object> currentEntity = parseList.get(i);
 				
 				String entityType = (String)currentEntity.get("type");
@@ -125,9 +125,7 @@ public class GameInOut {
 					int zCoord = 0;
 					if (entityType.contains("switch")) {
 						zCoord = -1;
-					}
-
-					exportPos = new Position(xCoord, yCoord, zCoord);
+					} exportPos = new Position(xCoord, yCoord, zCoord);
 				}
 
 				if (entityType.contains("portal")) {
@@ -139,24 +137,20 @@ public class GameInOut {
 					if (expType.equals("load")) { 
 						Double healthD = (Double)currentEntity.get("health");
 						int health = healthD.intValue();
-	
 						Double attackD = (Double)currentEntity.get("attack");
 						int attack = attackD.intValue();
-	
 						boolean visible = (boolean)currentEntity.get("visible");
-						boolean haveKey = (boolean)currentEntity.get("haveKey");
-	
+						boolean haveKey = (boolean)currentEntity.get("haveKey");	
 						Double invinceD = (Double)currentEntity.get("invincibleTickDuration");
 						int invincibleTickDuration = invinceD.intValue();
-	
+
 						player.setHealth(health);
 						player.setAttack(attack);
-						player.setVisibility(visible);
 						player.setCurrentDir(Direction.UP);
+						player.setVisibility(visible);
 						player.setHaveKey(haveKey);
 						player.setInvincibleTickDuration(invincibleTickDuration);
-					} 
-					entityList.add(player);
+					} entityList.add(player);
 				} else if (entityType.contains("swamp_tile")) {
 
 					Double moveFD = (Double)currentEntity.get("movement_factor");
@@ -164,11 +158,45 @@ public class GameInOut {
 					
 					SwampTile swampT = new SwampTile(entityId, exportPos, moveF);
 					entityList.add(swampT);
+				} else if (entityType.contains("mercenary")) {
+
+					boolean enemyAttack = true;
+					if (playMode.equals("Peaceful")) {
+						enemyAttack = false;
+					}
+
+					Entity newEntity = factory.createEntity(entityId, entityType, exportPos);
+					Mercenary newMerc = (Mercenary)newEntity;
+					newMerc.setEnemyAttack(enemyAttack);
+
+					if (expType.equals("load")) {
+						boolean isAlly = (boolean)currentEntity.get("isAlly");
+						newMerc.setAlly(isAlly);
+					}
+
+					entityList.add(newMerc);
+				} else if (entityType.contains("assassin")) {
+					boolean enemyAttack = true;
+
+					if (playMode.equals("Peaceful")) {
+						enemyAttack = false;
+					}
+
+					Entity newEntity = factory.createEntity(entityId, entityType, exportPos);
+					Assassin newAssassin = (Assassin)newEntity;
+					newAssassin.setEnemyAttack(enemyAttack);
+
+					if (expType.equals("load")) {
+						boolean isAlly = (boolean)currentEntity.get("isAlly");
+						newAssassin.setAlly(isAlly);
+					}
+
+					entityList.add(newAssassin);
 				} else {
 					Entity newEntity = factory.createEntity(entityId, entityType, exportPos);
 					entityList.add(newEntity);
-				}
 
+				}
 			}
 
 			if (expType.equals("load")) {
@@ -241,10 +269,26 @@ public class GameInOut {
 						Shield newShield = new Shield(itemId, itemPos);
 						newShield.setDurability(durability);
 						returnInv.add(newShield);
+					} else if (itemType.equals("sun_stone")){
+						SunStone newStone = new SunStone(itemId, itemPos);
+						returnInv.add(newStone);
+					} else if (itemType.equals("anduril")){
+						Double durabilityD = (Double)currentItem.get("durability");
+						int durability = durabilityD.intValue();
+						Anduril newAnduril = new Anduril(itemId, itemPos);
+						newAnduril.setDurability(durability);
+						returnInv.add(newAnduril);
+					}  else if (itemType.equals("sceptre")){
+						Sceptre newSceptre = new Sceptre(itemId, itemPos);
+						returnInv.add(newSceptre);
+					} else if (itemType.equals("midnight_armour")){
+						Double durabilityD = (Double)currentItem.get("durability");
+						int durability = durabilityD.intValue();
+						MidnightArmour newMidArm = new MidnightArmour(itemId, itemPos);
+						newMidArm.setDurability(durability);
+						returnInv.add(newMidArm);
 					}
-
 				}
-
 			}
 			
 			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, height, width, foundGoals, goalsConvert);
@@ -276,7 +320,6 @@ public class GameInOut {
 				returnDungeon.setTickNumber(tickNumber);
 				returnDungeon.setSpawnpoint(spawnpoint); 
 				returnDungeon.setFoundGoals(foundGoals);
-				
 			}
 
 			return returnDungeon;

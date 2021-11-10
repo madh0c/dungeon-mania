@@ -5,8 +5,8 @@ import dungeonmania.util.Position;
 
 public class Assassin extends Mercenary {
 
-	public Assassin (String id, Position position) {
-		super(id, position, true);
+	public Assassin (String id, Position position, boolean enemyAttack) {
+		super(id, position, enemyAttack);
 		super.setType("assassin");
 		super.setHealth(30);
 		super.setBaseAttack(20);
