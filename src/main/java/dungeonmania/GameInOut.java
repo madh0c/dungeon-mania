@@ -50,10 +50,12 @@ public class GameInOut {
 				playMode = (String)jsonMap.get("gameMode"); 
 				goals = (String)jsonMap.get("goals"); 
 				String goalConditions = (String)jsonMap.get("goalConditions");
+
 				if (!goalConditions.equals("")) {
 					JSONObject goalCon = new JSONObject(goalConditions);
 					foundGoals = createGoals(goalCon);
 					goalsConvert = goalCon.toString();
+
 				}
 			} else if (expType.equals("new")) {
 				playMode = gameMode;
@@ -92,7 +94,6 @@ public class GameInOut {
 
 
 			for (int i = 0; i < parseList.size(); i++) {
-
                 Map<String, Object> currentEntity = parseList.get(i);
 				
 				String entityType = (String)currentEntity.get("type");
@@ -124,9 +125,7 @@ public class GameInOut {
 					int zCoord = 0;
 					if (entityType.contains("switch")) {
 						zCoord = -1;
-					}
-
-					exportPos = new Position(xCoord, yCoord, zCoord);
+					} exportPos = new Position(xCoord, yCoord, zCoord);
 				}
 
 				if (entityType.contains("portal")) {
@@ -138,25 +137,20 @@ public class GameInOut {
 					if (expType.equals("load")) { 
 						Double healthD = (Double)currentEntity.get("health");
 						int health = healthD.intValue();
-	
 						Double attackD = (Double)currentEntity.get("attack");
 						int attack = attackD.intValue();
-	
-						String stringVis = (String)currentEntity.get("visible");
-						boolean visible = Boolean.parseBoolean(stringVis);
-						String stringKey = (String)currentEntity.get("haveKey");
-						boolean haveKey = Boolean.parseBoolean(stringKey);	
+						boolean visible = (boolean)currentEntity.get("visible");
+						boolean haveKey = (boolean)currentEntity.get("haveKey");	
 						Double invinceD = (Double)currentEntity.get("invincibleTickDuration");
 						int invincibleTickDuration = invinceD.intValue();
-	
+
 						player.setHealth(health);
 						player.setAttack(attack);
-						player.setVisibility(visible);
 						player.setCurrentDir(Direction.UP);
+						player.setVisibility(visible);
 						player.setHaveKey(haveKey);
 						player.setInvincibleTickDuration(invincibleTickDuration);
-					} 
-					entityList.add(player);
+					} entityList.add(player);
 				} else if (entityType.contains("swamp_tile")) {
 
 					Double moveFD = (Double)currentEntity.get("movement_factor");
@@ -172,32 +166,37 @@ public class GameInOut {
 					}
 
 					Entity newEntity = factory.createEntity(entityId, entityType, exportPos);
-					// boolean isAlly = (boolean)currentEntity.get("isAlly");
-					String stringAlly = (String)currentEntity.get("isAlly");
-					boolean isAlly = Boolean.parseBoolean(stringAlly);
 					Mercenary newMerc = (Mercenary)newEntity;
 					newMerc.setEnemyAttack(enemyAttack);
-					newMerc.setAlly(isAlly);
+
+					if (expType.equals("load")) {
+						boolean isAlly = (boolean)currentEntity.get("isAlly");
+						newMerc.setAlly(isAlly);
+					}
+
 					entityList.add(newMerc);
 				} else if (entityType.contains("assassin")) {
 					boolean enemyAttack = true;
+
 					if (playMode.equals("Peaceful")) {
 						enemyAttack = false;
 					}
 
 					Entity newEntity = factory.createEntity(entityId, entityType, exportPos);
-					// boolean isAlly = (boolean)currentEntity.get("isAlly");
-					String stringAlly = (String)currentEntity.get("isAlly");
-					boolean isAlly = Boolean.parseBoolean(stringAlly);
 					Assassin newAssassin = (Assassin)newEntity;
 					newAssassin.setEnemyAttack(enemyAttack);
-					newAssassin.setAlly(isAlly);
+
+					if (expType.equals("load")) {
+						boolean isAlly = (boolean)currentEntity.get("isAlly");
+						newAssassin.setAlly(isAlly);
+					}
+
 					entityList.add(newAssassin);
 				} else {
 					Entity newEntity = factory.createEntity(entityId, entityType, exportPos);
 					entityList.add(newEntity);
-				}
 
+				}
 			}
 
 			if (expType.equals("load")) {
@@ -289,9 +288,7 @@ public class GameInOut {
 						newMidArm.setDurability(durability);
 						returnInv.add(newMidArm);
 					}
-
 				}
-
 			}
 			
 			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, height, width, foundGoals, goalsConvert);
@@ -323,7 +320,6 @@ public class GameInOut {
 				returnDungeon.setTickNumber(tickNumber);
 				returnDungeon.setSpawnpoint(spawnpoint); 
 				returnDungeon.setFoundGoals(foundGoals);
-				
 			}
 
 			return returnDungeon;

@@ -126,8 +126,6 @@ public class DungeonManiaController {
 			currentDungeon.getGoals() 
 		);
 
-		
-
 		return result;
 	}
 		
@@ -233,6 +231,7 @@ public class DungeonManiaController {
 			currentDungeon = GameInOut.fromJSON("load", path, feed, lastUsedDungeonId, null);
 			setLastUsedDungeonId(getLastUsedDungeonId() + 1);
 			games.add(currentDungeon);
+			
 			for (Entity ent : currentDungeon.getEntities()) {
 				if (ent instanceof Switch) {
 					Position entityPos = ent.getPosition();
