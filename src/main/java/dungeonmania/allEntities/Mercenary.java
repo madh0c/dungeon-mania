@@ -1,5 +1,7 @@
 package dungeonmania.allEntities;
 
+import java.util.Map;
+
 import dungeonmania.Battle;
 import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
@@ -160,24 +162,49 @@ public class Mercenary extends MovingEntity {
 	 */
 	public boolean mercMove(Direction direction, Dungeon dungeon) {
 		// Check if collidable with next entity
-		Position pos = getPosition();
-		Entity ent = dungeon.getEntity(pos.translateBy(direction));
-		Direction prevDir = getCurrentDir();
-		setCurrentDir(direction);
-		if (ent != null && !collide(ent, dungeon)) {
-			setCurrentDir(prevDir);
-			return false;
-		}
+		// Position pos = getPosition();
+		// Entity ent = dungeon.getEntity(pos.translateBy(direction));
+		// Direction prevDir = getCurrentDir();
+		// setCurrentDir(direction);
+		// if (ent != null && !collide(ent, dungeon)) {
+		// 	setCurrentDir(prevDir);
+		// 	return false;
+		// }
 
-		setPosition(getPosition().translateBy(direction));
+		// setPosition(getPosition().translateBy(direction));
 
-		portalMove(dungeon);
-
-		// Position currPos = getPosition();
-		// setPosition(Dijkstra.move(currPos, dungeon));
 		// portalMove(dungeon);
 
+		Position currPos = getPosition();
+		Map<Position, Position> mapPos = Dijkstra.move(currPos, dungeon);
+
+		Position nextPos = null;
+		
+		nextPos = nextPos(dungeon.getPlayerPosition(), getPosition(), mapPos, nextPos);
+		System.out.println(nextPos);
+
+		if (nextPos != null) {
+			setPosition(nextPos);
+		} portalMove(dungeon);
+
 		return true;
+	}
+
+	/**
+	 * A recursive helper function that ensures the most optimal next position for the Merc/Assassin is returned.
+	 * @param currPos
+	 * @param source
+	 * @param prev
+	 * @return
+	*/
+	public static Position nextPos(Position currPos, Position source, Map<Position, Position> mapPos, Position newPosition) {
+		System.out.println("currPos: " + currPos);
+		
+		if (!mapPos.get(currPos).equals(source)) {
+			nextPos(mapPos.get(currPos), source, mapPos, newPosition);
+		} else {
+			newPosition = currPos;
+		} return newPosition;
 	}
 
 	/**

@@ -16,7 +16,7 @@ import dungeonmania.util.Position;
  */
 public interface Dijkstra {
 
-	public static Position move(Position source, Dungeon currentDungeon) {
+	public static Map<Position, Position> move(Position source, Dungeon currentDungeon) {
 		Map<Position, Map<Position, Integer>> dungeonMap = createGraph(currentDungeon);
 		
 		int dungeonHeight = currentDungeon.getHeight();
@@ -130,7 +130,7 @@ public interface Dijkstra {
 	 * @param dungeonMap
 	 * @return
 	 */
-	public static Position traverse(int height, int width, Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap) {
+	public static Map<Position, Position> traverse(int height, int width, Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap) {
 		Map<Position, Double> dist = new HashMap<>();
 		Map<Position, Position> prev = new HashMap<>();
 
@@ -142,49 +142,46 @@ public interface Dijkstra {
 			}
 		} dist.put(source, 0.0);
 
-		Queue<Position> dijkstraQueue = new PriorityQueue<>();
+		Map<Position, Double> dijkstraQueue = new HashMap<>();
 
 		for (Position entry : dungeonMap.keySet()) {
-			dijkstraQueue.add(entry);
+			dijkstraQueue.put(entry, dist.get(entry));
 		}
 
 		while (!dijkstraQueue.isEmpty()) {
 			Position u = null;
 			double min = Double.POSITIVE_INFINITY;
 
-			for (Position entry : dist.keySet()) {
-				if (dist.get(entry) < min);
-				min = dist.get(entry);
-				u = entry;
+			for (Position entry : dijkstraQueue.keySet()) {
+				if (dist.get(entry) < min) {
+					min = dist.get(entry);
+					u = entry;
+				}
 			} 
+
+			if (u == null) {
+				break;
+			}
 			
 			dijkstraQueue.remove(u);
 			
 			Map<Position, Integer> compPos = dungeonMap.get(u);
 			
-			for (Map.Entry<Position,Integer> entry : compPos.entrySet()) {
-				if (dist.get(u) +  entry.getValue() < dist.get(entry.getKey())) {
-					dist.put(entry.getKey(), dist.get(u) +  entry.getValue());
-					prev.put(entry.getKey(), u);
+			for (Map.Entry<Position, Integer> entry : compPos.entrySet()) {
+				Double v = Double.valueOf(entry.getValue());
+
+				if (dist.get(entry.getKey()) != null) {
+					if (dist.get(u) + v < dist.get(entry.getKey())) {	
+						dist.put(entry.getKey(), dist.get(u) +  v);
+						prev.put(entry.getKey(), u);
+					}
 				}
 			}
 		}
+		
 		if (dist.get(destination) != 0.0) {
-			return nextPos(destination, source, prev);
-		} return null; 
-	}
-
-	/**
-	 * A recursive helper function that ensures the most optimal next position for the Merc/Assassin is returned.
-	 * @param currPos
-	 * @param source
-	 * @param prev
-	 * @return
-	*/
-	public static Position nextPos(Position currPos, Position source, Map<Position, Position> prev) {
-		if (!prev.get(currPos).equals(source)) {
-			nextPos(prev.get(currPos), source, prev);
-		} return currPos;
+			return prev; 		
+		} return null;
 	}
 	
 }
