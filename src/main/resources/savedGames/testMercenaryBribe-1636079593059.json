@@ -4,7 +4,7 @@
   "inventory": [],
   "entities": [
     {
-      "health": 70,
+      "health": 85,
       "attack": 2,
       "visible": true,
       "currentDir": "RIGHT",
@@ -40,8 +40,8 @@
   ],
   "gameMode": "Standard",
   "goals": "",
-  "historicalEntCount": 5,
-  "tickNumber": 45,
+  "historicalEntCount": 4,
+  "tickNumber": 25,
   "spawnpoint": {
     "x": 1,
     "y": 1,

@@ -1,22 +1,7 @@
 {
   "id": 0,
   "name": "testAndGoal.json",
-  "inventory": [
-    {
-      "random": {
-        "seed": 265467132649111,
-        "nextNextGaussian": 0.0,
-        "haveNextNextGaussian": false
-      },
-      "position": {
-        "x": 0,
-        "y": 0,
-        "layer": 0
-      },
-      "type": "one_ring",
-      "id": "3"
-    }
-  ],
+  "inventory": [],
   "entities": [
     {
       "health": 85,
@@ -50,7 +35,7 @@
   ],
   "gameMode": "Standard",
   "goals": ":treasure",
-  "historicalEntCount": 4,
+  "historicalEntCount": 3,
   "tickNumber": 1,
   "spawnpoint": {
     "x": 0,
