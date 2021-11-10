@@ -219,7 +219,7 @@ public class BuildableTest {
 		assertTrue(merc.getIsAlly());
 		//Merc moves into player
 		//1 tick
-		controller.tick(null, Direction.NONE);
+		controller.tick(null, Direction.RIGHT);
 		//Mercenary still exists
 		controller.tick(null, Direction.DOWN);
 		Position player = controller.getDungeon(0).getEntity("0").getPosition();
