@@ -72,12 +72,26 @@
       },
       "type": "assassin",
       "id": "9"
+    },
+    {
+      "isAlly": false,
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "10"
     }
   ],
   "gameMode": "Standard",
   "goals": "",
-  "historicalEntCount": 10,
-  "tickNumber": 145,
+  "historicalEntCount": 11,
+  "tickNumber": 165,
   "spawnpoint": {
     "x": 1,
     "y": 1,

@@ -28,13 +28,12 @@ public class RareCollectableTest {
 		//Loses Health
 		assertEquals(42, player.getHealth());
 		controller.tick(null, Direction.DOWN);
-		assertEquals(18, player.getHealth());
 		controller.tick(null, Direction.DOWN);
-		//Player gets revived
-		assertEquals(49, player.getHealth());
+		//Player gets revived, will have higher than 42 health, considering there could be armour dropped
+		assertTrue(player.getHealth() > 42);
 		dungeonInfo = controller.getDungeonInfo(0);
 		//Inventory should be empty after one ring is consumed
-		assertTrue(dungeonInfo.getInventory().isEmpty());
+		assertFalse(dungeonInfo.getInventory().contains(new ItemResponse ("1", "one_ring")));
 	}
 
 	@Test
