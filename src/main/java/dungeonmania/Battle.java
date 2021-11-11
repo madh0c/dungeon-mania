@@ -99,6 +99,7 @@ public class Battle {
 			dungeon.getPlayer().setHealth(playerHp - ((enemyHp * enemyAtk) / 10));
 
 			// Check if hydra or not
+			// fix
 			if ((enemy instanceof Hydra)) {
 				// If chance of two heads
 				if (chanceTwoHeads) {
@@ -116,6 +117,7 @@ public class Battle {
 			} else {
 				enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
 			}
+			// enemy.attack(Player player);
 			// enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
 
 			if (dungeon.getPlayer().getHealth() <= 0) {
