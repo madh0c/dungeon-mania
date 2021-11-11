@@ -86,12 +86,54 @@
       },
       "type": "mercenary",
       "id": "10"
+    },
+    {
+      "isAlly": false,
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "11"
+    },
+    {
+      "isAlly": false,
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "12"
+    },
+    {
+      "isAlly": false,
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "13"
     }
   ],
   "gameMode": "Standard",
   "goals": "",
-  "historicalEntCount": 11,
-  "tickNumber": 165,
+  "historicalEntCount": 14,
+  "tickNumber": 225,
   "spawnpoint": {
     "x": 1,
     "y": 1,
