@@ -18,11 +18,8 @@ public interface Dijkstra {
 
 	public static Position move(Position source, Dungeon currentDungeon) {
 		Map<Position, Map<Position, Integer>> dungeonMap = createGraph(currentDungeon);
-		
-		int dungeonHeight = currentDungeon.getHeight();
-		int dungeonWidth = currentDungeon.getHeight();
 
-		return traverse(dungeonHeight, dungeonWidth, source, currentDungeon.getPlayerPosition(), dungeonMap);
+		return traverse(currentDungeon, source, currentDungeon.getPlayerPosition(), dungeonMap);
 	}
 
 	/**
@@ -125,12 +122,12 @@ public interface Dijkstra {
 	 * @param dungeonMap
 	 * @return
 	 */
-	public static Position traverse(int height, int width, Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap) {
+	public static Position traverse(Dungeon currentDungeon, Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap) {
 		Map<Position, Double> dist = new HashMap<>();
 		Map<Position, Position> prev = new HashMap<>();
 
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
+		for (int x = currentDungeon.getMinX(); x < currentDungeon.getMaxX(); x++) {
+			for (int y = currentDungeon.getMinY(); x < currentDungeon.getMaxY(); y++) {
 				Position pos = new Position(x, y);
 				dist.put(pos, Double.POSITIVE_INFINITY);
 				prev.put(pos, null);
