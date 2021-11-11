@@ -70,7 +70,7 @@ public class StaticEntityTest {
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
         EntityResponse expectedWallInfo = new EntityResponse("1", "wall", new Position(1,0), false);
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,1), true);
 
         expectedList.add(expectedPlayerInfo);
         expectedList.add(expectedWallInfo);
@@ -134,6 +134,7 @@ public class StaticEntityTest {
         EntityResponse endBoulder1Info = new EntityResponse("4", "boulder", new Position(1,2), false);
         EntityResponse endBoulder2Info = new EntityResponse("5", "boulder", new Position(2,1), false);
         EntityResponse endWall3Info = new EntityResponse("6", "wall", new Position(7,0), false);
+        EntityResponse endMercInfo = new EntityResponse("7", "mercenary", new Position(6,1), true);
 
         endList.add(endPlayerInfo);
         endList.add(endSpawnerInfo);
@@ -142,6 +143,7 @@ public class StaticEntityTest {
         endList.add(endBoulder1Info);
         endList.add(endBoulder2Info);
         endList.add(endWall3Info);
+        endList.add(endMercInfo);
 
 
         // There should be no change from the start after 22 ticks apart from two mercenaries spawning as the player 
@@ -780,7 +782,7 @@ public class StaticEntityTest {
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
         EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(1,0), false);
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,1), true);
 
         endList.add(expectedPlayerInfo);
         endList.add(expectedDoorInfo);

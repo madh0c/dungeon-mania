@@ -176,7 +176,7 @@ public interface Dijkstra {
 			}
 		}
 		
-		if (dist.get(destination) != 0.0) {
+		if (dist.get(destination) != Double.POSITIVE_INFINITY) {
 			return nextPos(destination, source, prev, destination); 		
 		} return null;
 	}

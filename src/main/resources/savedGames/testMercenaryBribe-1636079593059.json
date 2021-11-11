@@ -1,10 +1,10 @@
 {
-  "id": 1,
-  "name": "testMercenaryBribe-1636079593059",
+  "id": 0,
+  "name": "testWallBlocksMercenaryMovement.json",
   "inventory": [],
   "entities": [
     {
-      "health": 85,
+      "health": 100,
       "attack": 2,
       "visible": true,
       "currentDir": "RIGHT",
@@ -17,38 +17,46 @@
       "initialAttack": 2,
       "position": {
         "x": 3,
-        "y": 2,
+        "y": 0,
         "layer": 0
       },
       "type": "player",
       "id": "0"
     },
     {
-      "isAlly": true,
-      "currentDir": "RIGHT",
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "1"
+    },
+    {
+      "isAlly": false,
       "health": 30,
       "baseAttack": 5,
       "enemyAttack": true,
       "position": {
-        "x": 3,
-        "y": 2,
+        "x": 0,
+        "y": 1,
         "layer": 0
       },
       "type": "mercenary",
-      "id": "1"
+      "id": "2"
     }
   ],
   "gameMode": "Standard",
   "goals": "",
-  "historicalEntCount": 4,
-  "tickNumber": 25,
+  "historicalEntCount": 3,
+  "tickNumber": 1,
   "spawnpoint": {
-    "x": 1,
-    "y": 1,
+    "x": 2,
+    "y": 0,
     "layer": 0
   },
-  "height": 4,
-  "width": 7,
+  "height": 50,
+  "width": 50,
   "foundGoals": {
     "goal": "",
     "hasCompleted": false
