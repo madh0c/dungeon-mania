@@ -47,7 +47,7 @@ public class Prims {
 			potentialNeighbours.addAll(next.getPositionsTwoTilesAway());
 			
 			for (Position potNeigh : potentialNeighbours) {
-				if (validPotNeigh(potNeigh, maze)) {
+				if (validPotNeigh(potNeigh, maze) && !neighbours.contains(potNeigh)) {
 					neighbours.add(potNeigh);
 				} 
 			} potentialNeighbours.clear();
@@ -59,32 +59,18 @@ public class Prims {
 				Position neighbour = options.get(randomInd);
 	
 				Position between = Position.calculateMedianPosition(next, neighbour);
-				
-				System.out.println("next X " + next.getX());
-				System.out.println("next Y " + next.getY());
-	
-				System.out.println("neighbour X " + neighbour.getX());
-				System.out.println("neighbour Y " + neighbour.getY());
-	
-	
-	
-				System.out.println(between.getX());
-				System.out.println(between.getY());
-	
+
 				maze[between.getX()][between.getY()] = true;
 				maze[neighbour.getX()][neighbour.getY()] = true;
 	
 				potentialNeighbours.addAll(neighbour.getPositionsTwoTilesAway());
 				
 				for (Position potNeigh : potentialNeighbours) {
-					if (validPotNeigh(potNeigh, maze)) {
+					if (isValid(potNeigh, maze) && !neighbours.contains(potNeigh)) {
 						neighbours.add(potNeigh);
 					} 
 				} 
-				
-				potentialNeighbours.clear();
 				options.addAll(neighbours);
-				neighbours.clear();
 			}
 		} 
 		
