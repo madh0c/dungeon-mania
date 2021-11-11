@@ -50,12 +50,25 @@
       },
       "type": "mercenary",
       "id": "6"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 20,
+      "enemyAttack": true,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "assassin",
+      "id": "7"
     }
   ],
   "gameMode": "Standard",
   "goals": "",
-  "historicalEntCount": 7,
-  "tickNumber": 81,
+  "historicalEntCount": 8,
+  "tickNumber": 101,
   "spawnpoint": {
     "x": 2,
     "y": 0,
