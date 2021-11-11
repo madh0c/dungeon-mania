@@ -46,8 +46,8 @@ public interface Dijkstra {
 		mercIllegal.add("bomb_static");
 
 		/* iterating through the current dungeon to check if each cell should be able traversed by the Merc/Assasin */
-		for (int x = 0; x < currentDungeon.getWidth(); x++) {
-			for (int y = 0; y < currentDungeon.getHeight(); y++) {
+		for (int x = currentDungeon.getMinX(); x < currentDungeon.getMaxX(); x++) {
+			for (int y = currentDungeon.getMinY(); x < currentDungeon.getMaxY(); y++) {
 				Position currPos = new Position(x, y);
 
 				List<Entity> entOnCell = currentDungeon.getEntitiesOnCell(currPos);
@@ -95,11 +95,6 @@ public interface Dijkstra {
 		/* Iterating through the list of positions that adjacent to the current cell */
 		for (Position pos : adjPos) {
 			int traverseSpeed = 2;
-
-			/* If the adjacent position is out of bounds, we will disregard it */
-			if (!currentDungeon.validPos(pos)) {
-				continue;
-			}
 
 			/* Obtaining a list of entities on the cell, and their types */
 			List<Entity> entCell = currentDungeon.getEntitiesOnCell(pos);

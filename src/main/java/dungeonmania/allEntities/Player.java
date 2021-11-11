@@ -156,10 +156,6 @@ public class Player extends Entity {
 				if (!currEnt.getId().equals(portal1.getId())) {
 					Portal portal2 = (Portal) currEnt;
 					if (portal1.getColour().equals(portal2.getColour())) {
-						Position potPos = portal2.getPosition().translateBy(getCurrentDir());
-						if (!dungeon.validPos(potPos)) {
-						return false;						
-						} 
 						Entity nextTo = dungeon.getEntity(portal2.getPosition().translateBy(currentDir));
 						return collide(nextTo, dungeon);
 					}
@@ -218,14 +214,7 @@ public class Player extends Entity {
 						break;
 					}
 				}
-			}
-			Position potPos = posPortal2.translateBy(getCurrentDir());
-			if (dungeon.validPos(potPos)) {
-				setPosition(posPortal2.translateBy(getCurrentDir()));
-			} else {
-				setPosition(getPosition());
-
-			}
+			} setPosition(posPortal2.translateBy(getCurrentDir()));
 		}
 	}
 
@@ -242,10 +231,6 @@ public class Player extends Entity {
 			if (!collide(entity, dungeon)) {
 				return;
 			}
-		}
-
-		if (!dungeon.validPos(newPos)) {
-			return;
 		}
 
 		setPosition(newPos);

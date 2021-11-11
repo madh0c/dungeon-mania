@@ -200,6 +200,42 @@ public class Dungeon {
 		return spawnpoint;
 	}
 
+	public int getMinX() {
+		int retInt = 1000;
+		for (Entity ent : getEntities()) {
+			if (ent.getPosition().getX() < retInt) {
+				retInt = ent.getPosition().getX();
+			}
+		} return retInt;
+	}
+
+	public int getMaxX() {
+		int retInt = -1000;
+		for (Entity ent : getEntities()) {
+			if (ent.getPosition().getX() > retInt) {
+				retInt = ent.getPosition().getX();
+			}
+		} return retInt;
+	}
+
+	public int getMinY() {
+		int retInt = 1000;
+		for (Entity ent : getEntities()) {
+			if (ent.getPosition().getY() < retInt) {
+				retInt = ent.getPosition().getY();
+			}
+		} return retInt;
+	}
+
+	public int getMaxY() {
+		int retInt = -1000;
+		for (Entity ent : getEntities()) {
+			if (ent.getPosition().getY() > retInt) {
+				retInt = ent.getPosition().getY();
+			}
+		} return retInt;
+	}
+
 	public void setSpawnpoint(Position spawnpoint) {
 		this.spawnpoint = spawnpoint;
 	}
@@ -331,18 +367,6 @@ public class Dungeon {
 		}
 
 		return result;
-	}
-
-	public boolean validPos(Position pos){
-		int posX = pos.getX();
-		int posY = pos.getY();
-
-		if (posX < 0 || posX > this.getWidth()) {
-			return false;
-		} else if (posY < 0 || posY > this.getHeight()){
-			return false;
-		}
-		return true;
 	}
 
 	public int getHistoricalEntCount() {
