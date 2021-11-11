@@ -87,7 +87,6 @@ public class ControllerTest {
 
         // Assert that the Save Game Method Works
         assertEquals(dREnd, controller.saveGame(gameName));
-        System.out.println(controller.allGames());
 
         assertDoesNotThrow(() -> controller.loadGame(gameName));
         controller.saveGame(gameName);

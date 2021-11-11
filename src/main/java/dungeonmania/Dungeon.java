@@ -95,29 +95,6 @@ public class Dungeon {
 		}	
 		return false;
 	}
-	/**
-	 * returns a list of entity IDs surrounding an activated bomb which should be removed
-	 * @param centre
-	 * @return
-	 */
-	public List<Entity> toBeDetonated(Position centre) {
-
-		List<Entity> result = new ArrayList<>();
-		for (Position adjacentPos : centre.getAdjacentPositions()) {
-			for (Entity cellEnt : getEntitiesOnCell(adjacentPos)) {
-				if (cellEnt != null && !(cellEnt instanceof Player) && !(cellEnt instanceof Portal)) {
-					result.add(cellEnt);
-				}
-			}	
-		}
-		
-		for (Entity cellEnt : getEntitiesOnCell(centre)) {
-			if (cellEnt != null && !(cellEnt instanceof Player)) {
-				result.add(cellEnt);
-			}
-		}
-		return result; 
-	}
 	
     public List<Entity> getEntities() {
         return entities;

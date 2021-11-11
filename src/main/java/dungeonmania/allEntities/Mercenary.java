@@ -38,7 +38,7 @@ public class Mercenary extends MovingEntity {
 	public void setCurrentDir(Direction currentDir) {
 		this.currentDir = currentDir;
 	}
-
+	
 	@Override
 	public boolean collide(Entity entity, Dungeon dungeon) {
 		// If empty space

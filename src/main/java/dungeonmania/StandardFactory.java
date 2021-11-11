@@ -57,7 +57,9 @@ public class StandardFactory extends EntityFactory {
 		else if (type.contains("sun_stone"))
 			return new SunStone(id, position);
 		else if (type.contains("assassin"))
-			return new Assassin(id, position);
+			return new Assassin(id, position, true);
+			else if (type.contains("hydra"))
+			return new Hydra(id, position, true);
 		else if (type.contains("sceptre"))
 			return new Sceptre(id, position);
 		return null;

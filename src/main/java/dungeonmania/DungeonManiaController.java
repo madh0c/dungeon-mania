@@ -126,8 +126,6 @@ public class DungeonManiaController {
 			currentDungeon.getGoals() 
 		);
 
-		
-
 		return result;
 	}
 		
@@ -155,6 +153,8 @@ public class DungeonManiaController {
 		for (CollectableEntity collectableEntity : target.getInventory()) {
 			inventory.add(new ItemResponse(collectableEntity.getId(), collectableEntity.getType()));
 		}
+
+		evalGoal(currentDungeon);
 		
 		return new DungeonResponse(
 			String.valueOf(target.getId()), 
@@ -233,6 +233,7 @@ public class DungeonManiaController {
 			currentDungeon = GameInOut.fromJSON("load", path, feed, lastUsedDungeonId, null);
 			setLastUsedDungeonId(getLastUsedDungeonId() + 1);
 			games.add(currentDungeon);
+			
 			for (Entity ent : currentDungeon.getEntities()) {
 				if (ent instanceof Switch) {
 					Position entityPos = ent.getPosition();
@@ -245,6 +246,7 @@ public class DungeonManiaController {
 					}
 				}
 			}
+			evalGoal(currentDungeon);
 			return getDungeonInfo(currentDungeon.getId());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -315,7 +317,7 @@ public class DungeonManiaController {
 		if (currentDungeon.getTickNumber() % currentDungeon.getMercSpawnrate() == 0 && currentDungeon.getTickNumber() > 0) {	
 			// If there is a spawnpoint
 			if (currentDungeon.getSpawnpoint() != null) {
-				// Merc spawn every 10 ticks
+				// Merc spawn every 10/20 ticks
 				int newId = currentDungeon.getHistoricalEntCount();
 				Random rand = new Random();
 				int random = rand.nextInt(10);
@@ -326,15 +328,6 @@ public class DungeonManiaController {
 					Entity merc = currentDungeon.getFactory().createEntity(String.valueOf(newId), "mercenary", currentDungeon.getSpawnpoint());
 					currentDungeon.addEntity(merc);
 				}				
-			}
-		}
-
-		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
-
-		for (Entity entity : currentDungeon.getEntities()) {
-			if (entity.getType().equals("zombie_toast_spawner")) {
-				ZombieToastSpawner foundSpawner = (ZombieToastSpawner)entity;
-				spawners.add(foundSpawner);
 			}
 		}
 
@@ -364,6 +357,7 @@ public class DungeonManiaController {
 			currentDungeon.getPlayer().move(currentDungeon, movementDirection);
 		}
 
+		// Create a list of temp MovingEntities, to avoid Concurrent modifier exception
 		List<MovingEntity> tempEnts = new ArrayList<>();
 
 		for (Entity entity : currentDungeon.getEntities()) {
@@ -381,27 +375,35 @@ public class DungeonManiaController {
 			mov.move(currentDungeon);
 		}
 		
-		// find all entities that should be blown up	
-		List<Entity> entitiesToBeRemoved = new ArrayList<>();	
-		
+		// Explode all valid bombs
+		List<Entity> toRemove = new ArrayList<>();
 		for (Entity entity : currentDungeon.getEntities()) {
 			if (entity instanceof BombStatic) {
-				for (Position cardinal : entity.getPosition().getCardinallyAdjPositions()) {
-					Switch sw = (Switch)currentDungeon.getEntity("switch", cardinal);
-					if (sw != null) {
-						if (sw.getStatus()) {
-							entitiesToBeRemoved.addAll(currentDungeon.toBeDetonated(entity.getPosition()));							
-						}
-					}
-				}
+				BombStatic bomb = (BombStatic)entity;
+				toRemove.addAll(bomb.explode(currentDungeon));
 			}
 		}
-		currentDungeon.getEntities().removeAll(entitiesToBeRemoved);
 
+		if (toRemove.size() != 0) {
+			currentDungeon.getEntities().removeAll(toRemove);
+		}
+
+
+		// Spawn in zombies if appropriate
+		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
+
+		for (Entity entity : currentDungeon.getEntities()) {
+			if (entity.getType().equals("zombie_toast_spawner")) {
+				ZombieToastSpawner foundSpawner = (ZombieToastSpawner)entity;
+				spawners.add(foundSpawner);
+			}
+		}
 		// Spawn in new zombietoast after 20 ticks (20 ticks checked inside method)
 		for (ZombieToastSpawner spawner : spawners) {
 			spawner.spawnZombie(currentDungeon);
 		}
+
+		
 		evalGoal(currentDungeon);
 		return getDungeonInfo(currentDungeon.getId());
 	}
@@ -444,10 +446,12 @@ public class DungeonManiaController {
 		permittedItems.add("health_potion");
 		permittedItems.add("invincibility_potion");
 		permittedItems.add("invisibility_potion");
+		permittedItems.add("sceptre");
+
 		
 		if (!permittedItems.contains(itemType) && itemType != null) {
 			throw new IllegalArgumentException("Cannot Use Requested Item; Ensure Item Is Either a Bomb, Health Potion, " +
-			"Invincibility Potion, Invisibility Potion or null");
+			"Invincibility Potion, Invisibility Potion, Sceptre or null");
 		}
 		
 	}
@@ -465,7 +469,6 @@ public class DungeonManiaController {
 			} else if (ent instanceof Exit) {
 				Position playerPos = currentDungeon.getPlayerPosition();
 				Position exitPos = ent.getPosition();
-				System.out.println(playerPos);
 				if(playerPos == null ) {
 					continue;
 				}else if (playerPos.equals(exitPos)) {
