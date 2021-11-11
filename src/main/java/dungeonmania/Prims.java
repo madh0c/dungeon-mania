@@ -26,10 +26,9 @@ public class Prims {
 		List<Position> initialNeighbours = new ArrayList<>();
 		
 		initialNeighbours.addAll(startPos.getPositionsTwoTilesAway());
-		initialNeighbours.addAll(endPos.getPositionsTwoTilesAway());
 
 		for (Position neighPos : initialNeighbours) {
-			if (isValid(neighPos, maze)) {
+			if (isValidWall(neighPos, maze)) {
 				options.add(neighPos);
 			}
 		}
@@ -47,7 +46,7 @@ public class Prims {
 			potentialNeighbours.addAll(next.getPositionsTwoTilesAway());
 			
 			for (Position potNeigh : potentialNeighbours) {
-				if (validPotNeigh(potNeigh, maze) && !neighbours.contains(potNeigh)) {
+				if (isValidNotWall(potNeigh, maze)) {
 					neighbours.add(potNeigh);
 				} 
 			} potentialNeighbours.clear();
@@ -56,21 +55,22 @@ public class Prims {
 
 			if (!neighbours.isEmpty()) {
 				int randomInd = random.nextInt(neighbours.size());
-				Position neighbour = options.get(randomInd);
-	
+
+				Position neighbour = neighbours.get(randomInd);
 				Position between = Position.calculateMedianPosition(next, neighbour);
 
 				maze[between.getX()][between.getY()] = true;
 				maze[neighbour.getX()][neighbour.getY()] = true;
-	
-				potentialNeighbours.addAll(neighbour.getPositionsTwoTilesAway());
+				
+				List<Position> wallNeighbours = new ArrayList<>();
+				potentialNeighbours.addAll(next.getPositionsTwoTilesAway());
 				
 				for (Position potNeigh : potentialNeighbours) {
-					if (isValid(potNeigh, maze) && !neighbours.contains(potNeigh)) {
-						neighbours.add(potNeigh);
+					if (isValidWall(potNeigh, maze)) {
+						wallNeighbours.add(potNeigh);
 					} 
 				} 
-				options.addAll(neighbours);
+				options.addAll(wallNeighbours);
 			}
 		} 
 		
@@ -81,7 +81,7 @@ public class Prims {
 		List<Position> neighbours = endPos.getCardinallyAdjPositions();
 
 		for (Position neighPos : neighbours) {
-			if (isValid(neighPos, maze) || validPotNeigh(neighPos, maze)) {
+			if (isValidWall(neighPos, maze) || isValidNotWall(neighPos, maze)) {
 				maze[neighPos.getX()][neighPos.getY()] = true;
 			} break;
 		}
@@ -89,16 +89,16 @@ public class Prims {
 		return createDungeon(startPos, endPos, maze, gameMode, lastUsedDungeonId);
 	}
 
-	static boolean isValid(Position position, boolean[][] maze) {
+	static boolean isValidWall(Position position, boolean[][] maze) {
 		int x = position.getX();
 		int y = position.getY();
 
-		if (x > 0 && x < 49 && y > 0 && y < 49 && !maze[x][y]) {
+		if (x > 0 && x < 50 && y > 0 && y < 50 && !maze[x][y]) {
 			return true;
 		} return false;
 	}
 
-	static boolean  validPotNeigh(Position position, boolean[][] maze) {
+	static boolean isValidNotWall(Position position, boolean[][] maze) {
 		int x = position.getX();
 		int y = position.getY();
 
