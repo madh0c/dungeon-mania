@@ -156,8 +156,10 @@ public class Player extends Entity {
 				if (!currEnt.getId().equals(portal1.getId())) {
 					Portal portal2 = (Portal) currEnt;
 					if (portal1.getColour().equals(portal2.getColour())) {
-						// Find position of p2
-						// Move in direciton of currDir
+						Position potPos = portal2.getPosition().translateBy(getCurrentDir());
+						if (!dungeon.validPos(potPos)) {
+						return false;						
+						} 
 						Entity nextTo = dungeon.getEntity(portal2.getPosition().translateBy(currentDir));
 						return collide(nextTo, dungeon);
 					}

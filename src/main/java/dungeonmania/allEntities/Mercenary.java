@@ -71,6 +71,10 @@ public class Mercenary extends MovingEntity {
 					}
 					Portal portal2 = (Portal) currEnt;
 					if (portal1.getColour().equals((portal2).getColour())) {
+						Position potPos = portal2.getPosition().translateBy(getCurrentDir());
+						if (!dungeon.validPos(potPos)) {
+						return false;						
+						} 
 						// Find position of p2
 						// Move in direciton of currDir
 						Entity nextTo = dungeon.getEntity(portal2.getPosition().translateBy(currentDir));
