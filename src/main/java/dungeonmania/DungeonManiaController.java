@@ -737,19 +737,19 @@ public class DungeonManiaController {
 		return new DungeonResponse(null, null, null, null, null, null);
 	}
 
-	// public DungeonResponse generateDungeon(int xStart, int yStart, int xEnd, int yEnd, String gameMode) throws IllegalArgumentException {
-	// 	if (!this.getGameModes().contains(gameMode)) {
-	// 		throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard.");
-	// 	}
-	// 	Position startPos = new Position(xStart, yStart);
-	// 	Position endPos = new Position(xEnd, yEnd);
+	public DungeonResponse generateDungeon(int xStart, int yStart, int xEnd, int yEnd, String gameMode) throws IllegalArgumentException {
+		if (!this.getGameModes().contains(gameMode)) {
+			throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard.");
+		}
+		Position startPos = new Position(xStart, yStart);
+		Position endPos = new Position(xEnd, yEnd);
 
-	// 	currentDungeon = Prims.generateDungeon(startPos, endPos, gameMode, lastUsedDungeonId);
-	// 	games.add(currentDungeon);
-	// 	lastUsedDungeonId++;
+		currentDungeon = Prims.generateDungeon(startPos, endPos, gameMode, lastUsedDungeonId);
+		games.add(currentDungeon);
+		lastUsedDungeonId++;
 		
-	// 	return getDungeonInfo(currentDungeon.getId());
-	// }
+		return getDungeonInfo(currentDungeon.getId());
+	}
 
 	
 

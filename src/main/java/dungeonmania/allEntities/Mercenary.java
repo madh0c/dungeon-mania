@@ -188,38 +188,17 @@ public class Mercenary extends MovingEntity {
 		System.out.println(dungeon.getPlayer().getCurrentDir());
 
 		Position currPos = getPosition();
-		Map<Position, Position> mapPos = Dijkstra.move(currPos, dungeon);
 		
-		if (mapPos != null) {
-			Position nextPos = null;
-			nextPos = nextPos(dungeon.getPlayerPosition(), getPosition(), mapPos, nextPos);
-	
-			if (nextPos != null) {
-				setPosition(nextPos);
-			} portalMove(dungeon);
-		}
-		
+		Position nextPos = null;
+		nextPos = Dijkstra.move(currPos, dungeon);
+
+		if (nextPos != null) {
+			setPosition(nextPos);
+		} portalMove(dungeon);
 
 		return true;
 	}
 
-	/**
-	 * A recursive helper function that ensures the most optimal next position for the Merc/Assassin is returned.
-	 * @param currPos
-	 * @param source
-	 * @param prev
-	 * @return
-	*/
-	public static Position nextPos(Position currPos, Position source, Map<Position, Position> mapPos, Position newPosition) {
-		while (!mapPos.get(currPos).equals(source)) {
-			currPos = mapPos.get(currPos);
-		} if (mapPos.get(currPos).equals(source)) {
-			newPosition = currPos;
-			return newPosition;
-		} else {
-			return null;
-		}
-	}
 
 	/**
 	 * Move the mercenary towards the player<p>

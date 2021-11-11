@@ -16,7 +16,7 @@ import dungeonmania.util.Position;
  */
 public interface Dijkstra {
 
-	public static Map<Position, Position> move(Position source, Dungeon currentDungeon) {
+	public static Position move(Position source, Dungeon currentDungeon) {
 		Map<Position, Map<Position, Integer>> dungeonMap = createGraph(currentDungeon);
 		
 		int dungeonHeight = currentDungeon.getHeight();
@@ -130,7 +130,7 @@ public interface Dijkstra {
 	 * @param dungeonMap
 	 * @return
 	 */
-	public static Map<Position, Position> traverse(int height, int width, Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap) {
+	public static Position traverse(int height, int width, Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap) {
 		Map<Position, Double> dist = new HashMap<>();
 		Map<Position, Position> prev = new HashMap<>();
 
@@ -180,8 +180,25 @@ public interface Dijkstra {
 		}
 		
 		if (dist.get(destination) != 0.0) {
-			return prev; 		
+			return nextPos(destination, source, prev, destination); 		
 		} return null;
 	}
 	
+	/**
+	 * A recursive helper function that ensures the most optimal next position for the Merc/Assassin is returned.
+	 * @param currPos
+	 * @param source
+	 * @param prev
+	 * @return
+	*/
+	public static Position nextPos(Position currPos, Position source, Map<Position, Position> prev, Position returnPos) {
+		while (!prev.get(currPos).equals(source)) {
+			currPos = prev.get(currPos);
+		} if (prev.get(currPos).equals(source)) {
+			returnPos = currPos;
+			return returnPos;
+		} else {
+			return null;
+		}
+	}
 }
