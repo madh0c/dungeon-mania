@@ -84,8 +84,23 @@ public class Prims {
 				
 				potentialNeighbours.clear();
 				options.addAll(neighbours);
+				neighbours.clear();
 			}
-		} return createDungeon(startPos, endPos, maze, gameMode, lastUsedDungeonId);
+		} 
+		
+		if (!maze[endPos.getX()][endPos.getY()]) {
+			maze[endPos.getX()][endPos.getY()] = true;
+		}
+
+		List<Position> neighbours = endPos.getCardinallyAdjPositions();
+
+		for (Position neighPos : neighbours) {
+			if (isValid(neighPos, maze) || validPotNeigh(neighPos, maze)) {
+				maze[neighPos.getX()][neighPos.getY()] = true;
+			} break;
+		}
+
+		return createDungeon(startPos, endPos, maze, gameMode, lastUsedDungeonId);
 	}
 
 	static boolean isValid(Position position, boolean[][] maze) {
@@ -101,7 +116,7 @@ public class Prims {
 		int x = position.getX();
 		int y = position.getY();
 
-		if (x > 0 && x < 49 && y > 0 && y < 49 && !maze[x][y]) {
+		if (x > 0 && x < 49 && y > 0 && y < 49 && maze[x][y]) {
 			return true;
 		} return false;
 	}

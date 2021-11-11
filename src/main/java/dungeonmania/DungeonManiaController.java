@@ -301,7 +301,6 @@ public class DungeonManiaController {
 	 */
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
-
 		// Use item
 		currentDungeon.useItem(itemUsed);
 		
