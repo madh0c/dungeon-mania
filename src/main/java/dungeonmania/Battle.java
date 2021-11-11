@@ -89,6 +89,17 @@ public class Battle {
 					enemyAtk /= 5;
 					shield.setDurability(shield.getDurability() - 1);
 				}
+
+				if (item instanceof MidnightArmour) {
+					MidnightArmour midnightArmour = (MidnightArmour) item;
+					if (midnightArmour.getDurability() == 0) {
+						toBeRemoved.add(item);
+						continue;
+					}
+					playerAtk += midnightArmour.getExtraDamage();
+					enemyAtk /= 3;
+					midnightArmour.setDurability(midnightArmour.getDurability() - 1);
+				}
 			}
 
 			// remove items w/ no durability

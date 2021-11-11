@@ -5,12 +5,23 @@ import java.util.List;
 import dungeonmania.*;
 import dungeonmania.util.Position;
 
-public class MidnightArmour extends Armour {
+public class MidnightArmour extends CollectableEntity {
 
+	private int extraDamage = 2;
+	private int durability;
 	public MidnightArmour (String id, Position position) {
-		super(id, position);
-		super.setType("midnight_armour");
-		super.setDurability(20);
+		super(id, position, "midnight_armour");
+		this.durability = 5;
+	}
+
+	public int getExtraDamage() {
+        return extraDamage;
+    }
+	public int getDurability () {
+		return durability;
+	}
+	public void setDurability(int durability) {
+		this.durability = durability;
 	}
 
 	public void build (Dungeon currentDungeon) {

@@ -3,18 +3,23 @@ package dungeonmania;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import dungeonmania.allEntities.Bow;
+import dungeonmania.allEntities.Mercenary;
+import dungeonmania.allEntities.MidnightArmour;
 import dungeonmania.allEntities.Player;
+import dungeonmania.allEntities.Sceptre;
 import dungeonmania.allEntities.Shield;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.DungeonResponse;
 import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
+import dungeonmania.util.Position;
 
 public class BuildableTest {
     @Test 
@@ -166,7 +171,6 @@ public class BuildableTest {
 	public void testInvalidBuildSceptre() {
 		DungeonManiaController controller = new DungeonManiaController();
 		controller.newGame("testBuildSceptreMap", "Standard");
-		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
 		controller.tick(null, Direction.RIGHT);
 		//Picks up 1 arrow
         assertThrows(InvalidActionException.class, () -> controller.build("sceptre"));
@@ -196,13 +200,60 @@ public class BuildableTest {
 		controller.tick(null, Direction.DOWN);
 		//Picks up 1 sunstone 
 		assertDoesNotThrow(() -> controller.build("sceptre"));
+		dungeonInfo = controller.getDungeonInfo(0);
+		assertEquals(Arrays.asList(new ItemResponse("9", "sceptre")), dungeonInfo.getInventory());        
+	}
+
+	@Test
+	public void testSceptreControlMerc() {
+		DungeonManiaController controller = new DungeonManiaController();
+		controller.newGame("testSceptreControlMerc", "Standard");
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		assertDoesNotThrow(() -> controller.build("sceptre"));
+		assertEquals("sceptre", controller.getDungeon(0).getInventory().get(0).getType());
+		assertDoesNotThrow(() -> controller.interact("4"));
+		assertTrue(controller.getDungeon(0).getInventory().isEmpty());
+		Mercenary merc = (Mercenary) controller.getDungeon(0).getEntity("4");
+		assertTrue(merc.getIsAlly());
+		//Merc moves into player
+		//1 tick
+		controller.tick(null, Direction.RIGHT);
+		//Mercenary still exists
+		controller.tick(null, Direction.DOWN);
+		Position player = controller.getDungeon(0).getEntity("0").getPosition();
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", player));
+	}
+
+	@Test
+	public void testSceptreControlDuration() {
+		DungeonManiaController controller = new DungeonManiaController();
+		controller.newGame("testSceptreControlMerc", "Standard");
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		assertDoesNotThrow(() -> controller.build("sceptre"));
+		assertDoesNotThrow(() -> controller.interact("4"));
+		Mercenary merc = (Mercenary) controller.getDungeon(0).getEntity("4");
+		assertTrue(merc.getIsAlly());
+		for (int i = 0; i < 10; i++) {
+			controller.tick(null, Direction.DOWN);
+		}
+		assertTrue(merc.getIsAlly());
+		controller.tick(null, Direction.LEFT);
+		//Mercenary isn't an ally any longer
+		assertTrue(!merc.getIsAlly());
+		//Can fight mercenary now
+		controller.tick(null, Direction.RIGHT);
+		Player player = controller.getDungeon(0).getPlayer();
+		assertEquals(85 ,player.getHealth());
 	}
 
 	@Test
 	public void testInvalidBuildMidnight() {
 		DungeonManiaController controller = new DungeonManiaController();
 		controller.newGame("testBuildMidnightMap", "Hard");
-		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
 		controller.tick(null, Direction.RIGHT);
 		//Picks up armour
 		assertThrows(InvalidActionException.class, () -> controller.build("midnight_armour"));
@@ -221,11 +272,32 @@ public class BuildableTest {
 		DungeonManiaController controller = new DungeonManiaController();
 		controller.newGame("testBuildMidnightMap", "Standard");
 		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+		controller.tick(null, Direction.DOWN);
+		controller.tick(null, Direction.UP);
 		controller.tick(null, Direction.RIGHT);
 		//Picks up armour
 		assertThrows(InvalidActionException.class, () -> controller.build("midnight_armour"));
 		controller.tick(null, Direction.RIGHT);
 		//Picks up sun stone
 		assertDoesNotThrow(() -> controller.build("midnight_armour"));
+		dungeonInfo = controller.getDungeonInfo(0);
+		assertEquals(Arrays.asList(new ItemResponse("1", "armour"), new ItemResponse("5", "midnight_armour")), dungeonInfo.getInventory()); 
+	}
+
+	@Test
+	public void testMidnightAttackDefence() {
+		DungeonManiaController controller = new DungeonManiaController();
+		controller.newGame("testMidnightAttackDefence", "Standard");
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		//Build midnight_armour
+		assertDoesNotThrow(() -> controller.build("midnight_armour"));
+		//Fights mercenary
+		controller.tick(null, Direction.RIGHT);
+		Player player = controller.getDungeon(0).getPlayer();
+		//Get health of player after fight to see midnight armour protection
+		MidnightArmour midnightArmour = (MidnightArmour) controller.getDungeon(0).getInventory().get(0);
+		assertEquals(97, player.getHealth());
+		assertEquals(4, midnightArmour.getDurability()); 
 	}
 }

@@ -106,7 +106,7 @@
     },
     {
       "durability": 5,
-      "extraDamage": 5,
+      "extraDamage": 3,
       "position": {
         "x": 12,
         "y": 0,
@@ -140,6 +140,8 @@
       "initialHealth": 100,
       "invincibleAmount": 8,
       "initialAttack": 2,
+      "sceptreTickDuration": 0,
+      "controlled": [],
       "position": {
         "x": 13,
         "y": 0,
