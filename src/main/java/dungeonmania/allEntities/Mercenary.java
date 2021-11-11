@@ -164,20 +164,6 @@ public class Mercenary extends MovingEntity {
 			}
 			controlledIds.remove(this.getId());
 		}
-		
-		// int sceptreTicksLeft = currentDungeon.getPlayer().getSceptreTick();
-		// 	currentDungeon.getPlayer().setSceptreTickDuration(sceptreTicksLeft - 1);
-		// 	List<String> controlledIds = currentDungeon.getPlayer().getControlled();
-		// 	if (sceptreTicksLeft == 0 && !controlledIds.isEmpty()) {
-		// 		String releaseId = controlledIds.get(0);
-		// 		for (Entity ent : currentDungeon.getEntities()) {
-		// 			if (releaseId.equals(ent.getId()) && ent instanceof Mercenary) {
-		// 				Mercenary merc = (Mercenary) ent;
-		// 				merc.setAlly(false);
-		// 			}
-		// 		}
-		// 		controlledIds.remove(releaseId);
-		// 	}
 	}
 
 	/**
