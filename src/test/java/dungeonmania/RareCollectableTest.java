@@ -1,10 +1,7 @@
 package dungeonmania;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-<<<<<<< HEAD
-=======
 import static org.junit.jupiter.api.Assertions.assertFalse;
->>>>>>> master
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;

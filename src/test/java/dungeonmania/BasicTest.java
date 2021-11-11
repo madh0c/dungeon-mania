@@ -60,7 +60,7 @@ public class BasicTest {
             entityListCheck, 
             new ArrayList<ItemResponse>(),
             new ArrayList<String>(), 
-            ""
+            "(:enemies AND (:treasure OR (:exit AND (:exit OR :boulders))))"
         );
 
         assertEquals(expected, controller.getDungeonInfo(0));
