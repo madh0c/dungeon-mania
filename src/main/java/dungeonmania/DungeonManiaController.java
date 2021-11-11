@@ -317,7 +317,7 @@ public class DungeonManiaController {
 		if (currentDungeon.getTickNumber() % currentDungeon.getMercSpawnrate() == 0 && currentDungeon.getTickNumber() > 0) {	
 			// If there is a spawnpoint
 			if (currentDungeon.getSpawnpoint() != null) {
-				// Merc spawn every 10 ticks
+				// Merc spawn every 10/20 ticks
 				int newId = currentDungeon.getHistoricalEntCount();
 				Random rand = new Random();
 				int random = rand.nextInt(10);
@@ -344,6 +344,7 @@ public class DungeonManiaController {
 			currentDungeon.getPlayer().move(currentDungeon, movementDirection);
 		}
 
+		// Create a list of temp MovingEntities, to avoid Concurrent modifier exception
 		List<MovingEntity> tempEnts = new ArrayList<>();
 
 		for (Entity entity : currentDungeon.getEntities()) {

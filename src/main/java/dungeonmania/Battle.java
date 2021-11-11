@@ -32,6 +32,9 @@ public class Battle {
 			int playerAtk = dungeon.getPlayer().getAttack();
 			int enemyAtk = enemy.getBaseAttack();
 			List<CollectableEntity> toBeRemoved = new ArrayList<CollectableEntity>();
+
+			// Chance of hydra spawning head
+			boolean chanceTwoHeads = true;
 		
 			for (CollectableEntity item : dungeon.getInventory()) {
 				if (item instanceof Sword) {						
@@ -51,6 +54,9 @@ public class Battle {
 						toBeRemoved.add(item);
 						continue;
 					}
+					// Change chance of hydra head spawning
+					chanceTwoHeads = false;
+
 					anduril.setDurability(anduril.getDurability() - 1);						
 				}
 
@@ -91,7 +97,26 @@ public class Battle {
 			// Character Health = Character Health - ((Enemy Health * Enemy Attack Damage) / 10)
 			// Enemy Health = Enemy Health - ((Character Health * Character Attack Damage) / 5)
 			dungeon.getPlayer().setHealth(playerHp - ((enemyHp * enemyAtk) / 10));
-			enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
+
+			// Check if hydra or not
+			if ((enemy instanceof Hydra)) {
+				// If chance of two heads
+				if (chanceTwoHeads) {
+					Random rand = new Random();
+					// 50% chance gaining health
+					if (rand.nextInt(2) == 0) {
+						enemy.setHealth(enemyHp + ((playerHp * playerAtk) / 5));
+					} else { // 50% chance lose health
+						enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
+					}
+				} else {
+					// No chance of gaining health
+					enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
+				}
+			} else {
+				enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
+			}
+			// enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
 
 			if (dungeon.getPlayer().getHealth() <= 0) {
 				List<CollectableEntity> ringDelete = new ArrayList<> ();
@@ -116,8 +141,10 @@ public class Battle {
 				// drop armour 
 				if (enemy instanceof Mercenary || enemy instanceof ZombieToast) {
 					Random rand = new Random();
-					if (rand.nextInt(20) % 20 == 1) {
-						Armour armour = new Armour(String.valueOf(dungeon.getHistoricalEntCount()), enemy.getPosition());
+					if (rand.nextInt(20) == 1) {
+						// Armour armour = new Armour(String.valueOf(dungeon.getHistoricalEntCount()), enemy.getPosition());
+						Entity armo = dungeon.getFactory().createEntity(String.valueOf(dungeon.getHistoricalEntCount()), "armour", enemy.getPosition());
+						Armour armour = (Armour) armo;
 						dungeon.addItemToInventory(armour);
 						dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);
 					}
