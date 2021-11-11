@@ -15,7 +15,6 @@
       "initialHealth": 100,
       "invincibleAmount": 8,
       "initialAttack": 2,
-      "sceptreTickDuration": 0,
       "controlled": [],
       "position": {
         "x": 3,
@@ -36,6 +35,7 @@
     },
     {
       "isAlly": false,
+      "sceptreTickDuration": 0,
       "health": 30,
       "baseAttack": 5,
       "enemyAttack": true,

@@ -15,7 +15,6 @@
       "initialHealth": 100,
       "invincibleAmount": 8,
       "initialAttack": 2,
-      "sceptreTickDuration": 0,
       "controlled": [],
       "position": {
         "x": 1,

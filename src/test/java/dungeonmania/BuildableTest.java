@@ -2,6 +2,7 @@ package dungeonmania;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -9,6 +10,7 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import dungeonmania.allEntities.Assassin;
 import dungeonmania.allEntities.Bow;
 import dungeonmania.allEntities.Mercenary;
 import dungeonmania.allEntities.MidnightArmour;
@@ -234,7 +236,13 @@ public class BuildableTest {
 		controller.tick(null, Direction.RIGHT);
 		controller.tick(null, Direction.RIGHT);
 		assertDoesNotThrow(() -> controller.build("sceptre"));
+		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+		//Sceptre built is added to inventory
+		assertEquals(Arrays.asList(new ItemResponse("5", "sceptre")), dungeonInfo.getInventory());        
 		assertDoesNotThrow(() -> controller.interact("4"));
+		dungeonInfo = controller.getDungeonInfo(0);
+		//After interaction, sceptre is removed from inventory
+		assertFalse(dungeonInfo.getInventory().contains(new ItemResponse("5", "sceptre")));        
 		Mercenary merc = (Mercenary) controller.getDungeon(0).getEntity("4");
 		assertTrue(merc.getIsAlly());
 		for (int i = 0; i < 10; i++) {
@@ -248,6 +256,54 @@ public class BuildableTest {
 		controller.tick(null, Direction.RIGHT);
 		Player player = controller.getDungeon(0).getPlayer();
 		assertEquals(85 ,player.getHealth());
+	}
+
+	@Test 
+	public void testMultipleSceptreControlDuration() {
+		DungeonManiaController controller = new DungeonManiaController();
+		controller.newGame("testMultipleSceptreDuration", "Standard");
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		//Makes the first sceptre
+		assertDoesNotThrow(() -> controller.build("sceptre"));
+		assertDoesNotThrow(() -> controller.interact("4"));
+		Mercenary merc = (Mercenary) controller.getDungeon(0).getEntity("4");
+		assertTrue(merc.getIsAlly());
+		controller.tick(null, Direction.DOWN);
+		controller.tick(null, Direction.DOWN);
+		controller.tick(null, Direction.DOWN);
+		//Makes the second sceptre
+		assertDoesNotThrow(() -> controller.build("sceptre"));
+		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+		//Sceptre built is added to the inventory
+		assertEquals(Arrays.asList(new ItemResponse("10", "sceptre")), dungeonInfo.getInventory());        
+		assertDoesNotThrow(() -> controller.interact("8"));
+		dungeonInfo = controller.getDungeonInfo(0);
+		//After interaciton with assassin, sceptre is removed from inventory
+		assertFalse(dungeonInfo.getInventory().contains(new ItemResponse("10", "sceptre"))); 
+		Assassin assassin = (Assassin) controller.getDungeon(0).getEntity("8");
+		assertTrue(assassin.getIsAlly());
+		for (int i = 0; i < 7; i++) {
+			controller.tick(null, Direction.LEFT);
+		}
+		//Merc1 on last tick for sceptre
+		assertTrue(merc.getIsAlly());
+		controller.tick(null, Direction.LEFT);
+		//Merc1 no longer an ally
+		assertTrue(!merc.getIsAlly());
+		//Kill the merc since no longer an ally, the friendly assassin is on player
+		controller.tick(null, Direction.RIGHT);
+		assertEquals(85, controller.getDungeon(0).getPlayer().getHealth());
+		controller.tick(null, Direction.LEFT);
+		//Assassin on last tick for sceptre
+		assertTrue(assassin.getIsAlly());
+		controller.tick(null, Direction.LEFT);
+		//Assassin no longer an ally
+		assertTrue(!assassin.getIsAlly());
+		controller.tick(null, Direction.LEFT);
+		//Fights Assassin
+		assertEquals(25, controller.getDungeon(0).getPlayer().getHealth());
 	}
 
 	@Test
