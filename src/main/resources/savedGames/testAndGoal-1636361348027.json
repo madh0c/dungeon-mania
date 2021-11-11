@@ -15,6 +15,7 @@
       "initialHealth": 100,
       "invincibleAmount": 8,
       "initialAttack": 2,
+      "controlled": [],
       "position": {
         "x": 1,
         "y": 0,

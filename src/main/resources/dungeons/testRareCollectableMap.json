@@ -1,91 +1,31 @@
 {
     "width": 3,
-	"height": 6,
+	"height": 10,
 	"entities": [
 		{
 			"x": 0,
 			"y": 0,
-			"type": "wall"
-		}, 
-		{
-			"x": 0,
-			"y": 1,
-			"type": "wall"
-		},
-		{	
-			"x": 0,
-			"y": 2,
-			"type": "wall"
-		}, 
-		{
-			"x": 1,
-			"y": 0,
-			"type": "wall"
-		}, 
-		{
-			"x": 1,
-			"y": 1,
 			"type": "player"
 		}, 
 		{
-			"x": 1,
-			"y": 2,
-			"type": "wall"
-		},
-		{
-			"x": 2,
-			"y": 0,
-			"type": "wall"
-		},  
-		{
-			"x": 2,
+			"x": 0,
 			"y": 1,
 			"type": "one_ring"
-		},
-		{
-			"x": 2,
-			"y": 2,
-			"type": "wall"
-		},
-		{
-			"x": 3,
-			"y": 0,
-			"type": "wall"
-		},
-		{
-			"x": 3,
-			"y": 2,
-			"type": "wall"
+		}, 
+		{	
+			"x": 0,
+			"y": 3,
+			"type": "mercenary"
 		}, 
 		{
-			"x": 4,
-			"y": 0,
-			"type": "wall"
+			"x": 0,
+			"y": 5,
+			"type": "mercenary"
 		}, 
 		{
-			"x": 4,
-			"y": 1,
-			"type": "zombie_toast_spawner"
-		}, 
-		{
-			"x": 4,
-			"y": 2,
-			"type": "wall"
-		}, 
-		{
-			"x": 5,
-			"y": 0,
-			"type": "wall"
-		},
-		{
-			"x": 5,
-			"y": 1,
-			"type": "wall"
-		},
-		{
-			"x": 5,
-			"y": 2,
-			"type": "wall"
-		} 
+			"x": 0,
+			"y": 7,
+			"type": "mercenary"
+		}
 	]
 }

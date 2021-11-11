@@ -1,6 +1,7 @@
 package dungeonmania.allEntities;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import dungeonmania.Battle;
 import dungeonmania.CollectableEntity;
@@ -17,6 +18,7 @@ public class Mercenary extends MovingEntity {
 
 	private boolean isAlly;
 	private Direction currentDir;
+	private int sceptreTickDuration;
 
     public Mercenary(String id, Position position, boolean enemyAttack) {
         super(id, position, "mercenary", enemyAttack);
@@ -39,6 +41,14 @@ public class Mercenary extends MovingEntity {
 
 	public void setCurrentDir(Direction currentDir) {
 		this.currentDir = currentDir;
+	}
+
+	public int getSceptreTick() {
+		return sceptreTickDuration;
+	}
+
+	public void setSceptreTickDuration(int durationTicks) {
+		sceptreTickDuration = (durationTicks >= 0) ? durationTicks : -1; 
 	}
 	
 	@Override
@@ -112,21 +122,48 @@ public class Mercenary extends MovingEntity {
 	 * @param dungeon	Current dungeon of mercenary
 	 */
 	public void bribe(Dungeon dungeon) {
+		boolean sceptreStatus = false;
+		CollectableEntity sceptre = null;
 		this.isAlly = true;	
-		
-		// Remove the first gold if player doesnt have sunstone
-		if (!dungeon.getPlayer().getSunstoneStatus()) {
-			Treasure gold = null;
-		
-			for (CollectableEntity ent : dungeon.getInventory()) {
-				if (ent instanceof Treasure) {
-					gold = (Treasure) ent;
-					break;			
+		for (CollectableEntity collect : dungeon.getInventory()) {
+			if (collect instanceof Sceptre) {
+				sceptreStatus = true;
+				sceptre = collect;
+			}
+		}
+		if (sceptreStatus) {
+			dungeon.getInventory().remove(sceptre);
+			dungeon.getPlayer().getControlled().add(getId());
+			this.setSceptreTickDuration(10);
+		} else {
+			// Remove the first gold if player doesnt have sunstone
+			if (!dungeon.getPlayer().getSunstoneStatus()) {
+				Treasure gold = null;
+				for (CollectableEntity ent : dungeon.getInventory()) {
+					if (ent instanceof Treasure) {
+						gold = (Treasure) ent;
+						break;			
+					}
+				}
+				dungeon.getInventory().remove(gold);
+			}	
+		}	
+	}
+
+	public void sceptreTick(Dungeon dungeon) {
+		this.setSceptreTickDuration(this.getSceptreTick() - 1);
+		List<String> controlledIds = dungeon.getPlayer().getControlled();
+		List<String> releaseId = new ArrayList<>();
+		if (this.getSceptreTick() == -1) {
+			for (String mercId : controlledIds) {
+				//Found merc that is controlled and now turn back to enemy
+				if (this.getId().equals(mercId)) {
+					releaseId.add(this.getId());
+					this.setAlly(false);
 				}
 			}
-
-			dungeon.getInventory().remove(gold);
-		}		
+			controlledIds.remove(this.getId());
+		}
 	}
 
 	/**

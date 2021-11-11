@@ -1,0 +1,51 @@
+{
+    "width": 30,
+    "height": 30,
+    "entities": [
+        {
+            "x": 0,
+            "y": 0,
+            "type": "player"
+        },
+        {
+            "x": 1,
+            "y": 0,
+            "type": "wood"
+        },
+        {
+            "x": 2,
+            "y": 0,
+            "type": "treasure"
+        },
+        {
+            "x": 3,
+            "y": 0,
+            "type": "sun_stone"
+        },
+        {
+			"x": 8,
+			"y": 0,
+			"type": "mercenary"
+		},
+		{
+			"x": 3,
+            "y": 1,
+            "type": "sun_stone"
+		},
+		{
+			"x": 3,
+            "y": 2,
+            "type": "key"
+		},
+		{
+			"x": 3,
+            "y": 3,
+            "type": "wood"
+		},
+		{
+			"x": 3,
+			"y": 11,
+			"type": "assassin"
+		}
+    ]
+}
