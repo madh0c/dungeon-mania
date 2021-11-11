@@ -62,6 +62,8 @@ public class StandardFactory extends EntityFactory {
 			return new Hydra(id, position, true);
 		else if (type.contains("sceptre"))
 			return new Sceptre(id, position);
+		else if (type.contains("time_turner"))
+			return new TimeTurner(id, position);
 		return null;
 	}
 

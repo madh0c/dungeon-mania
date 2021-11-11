@@ -11,7 +11,6 @@ import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.*;
 
 public class Dungeon {
-
 	private int id;
 	private String name;
 	private List<CollectableEntity> inventory;

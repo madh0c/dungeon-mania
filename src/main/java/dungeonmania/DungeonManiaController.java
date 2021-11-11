@@ -24,6 +24,7 @@ public class DungeonManiaController {
 	 * ArrayList games: each game is stored as a map of existing entities, with their unique id as the key (stored as an int).
 	 */
 	private List<Dungeon> games =  new ArrayList<>();
+	private List<List<Dungeon>> gameStates = new ArrayList<>();
 	private int lastUsedDungeonId = 0;
 
 	private Dungeon currentDungeon;
@@ -101,6 +102,7 @@ public class DungeonManiaController {
 		int currentId = currentDungeon.getId();
 		lastUsedDungeonId++;
 		games.add(currentDungeon);
+		gameStates.add(new ArrayList<Dungeon>());
 
 				
 		List<EntityResponse> entitiyResponses = getDungeonInfo(currentId).getEntities();
@@ -301,6 +303,23 @@ public class DungeonManiaController {
 	 */
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
+
+		Dungeon gameState = new Dungeon(
+			currentDungeon.getId(), 
+			currentDungeon.getName(), 
+			currentDungeon.getEntities(), 
+			currentDungeon.getGameMode(), 
+			currentDungeon.getGoals(), 
+			currentDungeon.getHeight(), 
+			currentDungeon.getWidth(), 
+			currentDungeon.getFoundGoals(), 
+			currentDungeon.getGoalConditions()
+		);
+
+		gameState.setHistoricalEntCount(currentDungeon.getHistoricalEntCount());
+		gameState.getPlayer().setPosition(currentDungeon.getPlayerPosition());
+		gameStates.get(currentDungeon.getId()).add(gameState);
+		
 
 		// Use item
 		currentDungeon.useItem(itemUsed);
@@ -751,7 +770,41 @@ public class DungeonManiaController {
 		if (ticks <= 0) {
 			throw new IllegalArgumentException("Invalid Ticks Passed; Ticks Strictly <= 0.");
 		}
-		return new DungeonResponse(null, null, null, null, null, null);
+
+		int dungeonId = currentDungeon.getId();
+
+		int rewindedTick = gameStates.get(dungeonId).size() - 1 - ticks;
+		Player actualPlayer = currentDungeon.getPlayer();
+		List<CollectableEntity> playerInv = currentDungeon.getInventory();
+
+
+		for (Dungeon d : gameStates.get(dungeonId)) {
+			System.out.println("state: " + d + ", pos: " + d.getPlayerPosition().getX());
+		}
+		
+		Dungeon pastDungeon = gameStates.get(dungeonId).get(rewindedTick);
+
+		Entity olderPlayer = null;
+		for (Entity entity : pastDungeon.getEntities()) {
+			if (entity instanceof Player) {
+				olderPlayer = entity;
+				String playMode = pastDungeon.getGameMode();
+				if (playMode.equals("Peaceful")) { 
+					pastDungeon.addEntity(new OldPlayer(String.valueOf(pastDungeon.getHistoricalEntCount()), entity.getPosition(), false));
+				} else if (playMode.equals("Standard") || playMode.equals("Hard")) {
+					pastDungeon.addEntity(new OldPlayer(String.valueOf(pastDungeon.getHistoricalEntCount()), entity.getPosition(), true));
+				}
+				break;
+			}			
+		}
+
+		pastDungeon.addEntity(actualPlayer);
+		pastDungeon.setInventory(playerInv);
+		pastDungeon.removeEntity(olderPlayer);
+
+		currentDungeon = pastDungeon;
+
+		return getDungeonInfo(currentDungeon.getId());
 	}
 
 	// public DungeonResponse generateDungeon(int xStart, int yStart, int xEnd, int yEnd, String gameMode) throws IllegalArgumentException {
