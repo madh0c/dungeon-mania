@@ -223,7 +223,7 @@ public class Player extends Entity {
 	 * @param dungeon	Current dungeon of player
 	 * @param direction	Desired direction of movement of player
 	 */
-	public void move (Dungeon dungeon, Direction direction) {
+	public void move(Dungeon dungeon, Direction direction) {
 		// Check if the direction is able to be moved into
 		Position newPos = getPosition().translateBy(direction);
 
@@ -232,7 +232,6 @@ public class Player extends Entity {
 				return;
 			}
 		}
-
 		setPosition(newPos);
 		setCurrentDir(direction);
 		portalMove(dungeon);

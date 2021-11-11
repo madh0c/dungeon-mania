@@ -17,9 +17,14 @@ import dungeonmania.util.Position;
 public interface Dijkstra {
 
 	public static Position move(Position source, Dungeon currentDungeon) {
-		Map<Position, Map<Position, Integer>> dungeonMap = createGraph(currentDungeon);
+		int minX = currentDungeon.getMinX() - 1;
+		int maxX = currentDungeon.getMaxX() + 1;
+		int minY = currentDungeon.getMinY() - 1;
+		int maxY = currentDungeon.getMaxY() + 1;
 
-		return traverse(currentDungeon, source, currentDungeon.getPlayerPosition(), dungeonMap);
+		Map<Position, Map<Position, Integer>> dungeonMap = createGraph(currentDungeon, minX, minY, maxX, maxY);
+
+		return traverse(source, currentDungeon.getPlayerPosition(), dungeonMap, minX, minY, maxX, maxY);
 	}
 
 	/**
@@ -30,7 +35,7 @@ public interface Dijkstra {
 	 * @param currentDungeon
 	 * @return
 	 */
-	public static Map<Position, Map<Position, Integer>> createGraph(Dungeon currentDungeon) {
+	public static Map<Position, Map<Position, Integer>> createGraph(Dungeon currentDungeon, int minX, int minY, int maxX, int maxY) {
 		Map<Position, Map<Position, Integer>> dungeonMap = new HashMap<>();
 		
 		/*A list of entity types Mercenary/Assasins cannot coincide with. If at least one of these entities exist on a cell,
@@ -43,8 +48,8 @@ public interface Dijkstra {
 		mercIllegal.add("bomb_static");
 
 		/* iterating through the current dungeon to check if each cell should be able traversed by the Merc/Assasin */
-		for (int x = currentDungeon.getMinX(); x < currentDungeon.getMaxX(); x++) {
-			for (int y = currentDungeon.getMinY(); x < currentDungeon.getMaxY(); y++) {
+		for (int x = minX; x <= maxX; x++) {
+			for (int y = minY; y <= maxY; y++) {
 				Position currPos = new Position(x, y);
 
 				List<Entity> entOnCell = currentDungeon.getEntitiesOnCell(currPos);
@@ -122,12 +127,12 @@ public interface Dijkstra {
 	 * @param dungeonMap
 	 * @return
 	 */
-	public static Position traverse(Dungeon currentDungeon, Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap) {
+	public static Position traverse(Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap, int minX, int minY, int maxX, int maxY) {
 		Map<Position, Double> dist = new HashMap<>();
 		Map<Position, Position> prev = new HashMap<>();
 
-		for (int x = currentDungeon.getMinX(); x < currentDungeon.getMaxX(); x++) {
-			for (int y = currentDungeon.getMinY(); x < currentDungeon.getMaxY(); y++) {
+		for (int x = minX; x <= maxX; x++) {
+			for (int y = minY; y <= maxY; y++) {
 				Position pos = new Position(x, y);
 				dist.put(pos, Double.POSITIVE_INFINITY);
 				prev.put(pos, null);
