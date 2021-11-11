@@ -25,7 +25,7 @@ public class Assassin extends Mercenary {
 		if (sceptreStatus) {
 			dungeon.getInventory().remove(sceptre);
 			dungeon.getPlayer().getControlled().add(getId());
-			dungeon.getPlayer().setSceptreTickDuration(10);
+			this.setSceptreTickDuration(10);
 		} else {
 			// Remove the first gold OR one ring if player doesnt have sunstone
 			CollectableEntity gold = null;

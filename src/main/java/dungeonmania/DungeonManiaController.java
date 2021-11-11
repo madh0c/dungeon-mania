@@ -340,18 +340,15 @@ public class DungeonManiaController {
 			int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
 			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
 			// sceptre tick wearing off
-			int sceptreTicksLeft = currentDungeon.getPlayer().getSceptreTick();
-			currentDungeon.getPlayer().setSceptreTickDuration(sceptreTicksLeft - 1);
 			List<String> controlledIds = currentDungeon.getPlayer().getControlled();
-			if (sceptreTicksLeft == 0 && !controlledIds.isEmpty()) {
-				String releaseId = controlledIds.get(0);
+			// If there are mercs being controlled
+			if (!controlledIds.isEmpty()) {
 				for (Entity ent : currentDungeon.getEntities()) {
-					if (releaseId.equals(ent.getId()) && ent instanceof Mercenary) {
+					if (ent instanceof Mercenary) {
 						Mercenary merc = (Mercenary) ent;
-						merc.setAlly(false);
+						merc.sceptreTick(currentDungeon);
 					}
 				}
-				controlledIds.remove(releaseId);
 			}
 			// Move player
 			currentDungeon.getPlayer().move(currentDungeon, movementDirection);

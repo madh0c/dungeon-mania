@@ -250,6 +250,46 @@ public class BuildableTest {
 		assertEquals(85 ,player.getHealth());
 	}
 
+	@Test 
+	public void testMultipleSceptreControlDuration() {
+		DungeonManiaController controller = new DungeonManiaController();
+		controller.newGame("testMultipleSceptreDuration", "Standard");
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		assertDoesNotThrow(() -> controller.build("sceptre"));
+		assertDoesNotThrow(() -> controller.interact("4"));
+		Mercenary merc1 = (Mercenary) controller.getDungeon(0).getEntity("4");
+		assertTrue(merc1.getIsAlly());
+		controller.tick(null, Direction.DOWN);
+		controller.tick(null, Direction.DOWN);
+		controller.tick(null, Direction.DOWN);
+		assertDoesNotThrow(() -> controller.build("sceptre"));
+		assertDoesNotThrow(() -> controller.interact("8"));
+		Mercenary merc2 = (Mercenary) controller.getDungeon(0).getEntity("8");
+		assertTrue(merc2.getIsAlly());
+		for (int i = 0; i < 7; i++) {
+			controller.tick(null, Direction.LEFT);
+		}
+		//Merc1 on last tick for sceptre
+		assertTrue(merc1.getIsAlly());
+		controller.tick(null, Direction.LEFT);
+		//Merc1 no longer an ally
+		assertTrue(!merc1.getIsAlly());
+		//Kill the merc1 since not an ally
+		controller.tick(null, Direction.RIGHT);
+		assertEquals(85, controller.getDungeon(0).getPlayer().getHealth());
+		controller.tick(null, Direction.LEFT);
+		//Merc 2 on last tick for sceptre
+		assertTrue(merc2.getIsAlly());
+		controller.tick(null, Direction.LEFT);
+		//Merc 2 no longer an ally
+		assertTrue(!merc2.getIsAlly());
+		controller.tick(null, Direction.LEFT);
+		//Fights 2nd merc
+		assertEquals(70, controller.getDungeon(0).getPlayer().getHealth());
+	}
+
 	@Test
 	public void testInvalidBuildMidnight() {
 		DungeonManiaController controller = new DungeonManiaController();
