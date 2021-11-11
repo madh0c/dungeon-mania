@@ -49,26 +49,42 @@ public class Prims {
 			for (Position potNeigh : potentialNeighbours) {
 				if (validPotNeigh(potNeigh, maze)) {
 					neighbours.add(potNeigh);
-				} potentialNeighbours.remove(potNeigh);
-			}
+				} 
+			} potentialNeighbours.clear();
 
 			Random random = new Random();
-			int randomInd = random.nextInt(neighbours.size());
-			Position neighbour = options.get(randomInd);
 
-			Position between = Position.calculatePositionBetween(next, neighbour);
-
-			maze[between.getX()][between.getY()] = true;
-			maze[neighbour.getX()][neighbour.getY()] = true;
-
-			potentialNeighbours.addAll(neighbour.getPositionsTwoTilesAway());
-			
-			for (Position potNeigh : potentialNeighbours) {
-				if (isValid(potNeigh, maze)) {
-					neighbours.add(potNeigh);
-				} potentialNeighbours.remove(potNeigh);
-			} options.addAll(neighbours);
-
+			if (!neighbours.isEmpty()) {
+				int randomInd = random.nextInt(neighbours.size());
+				Position neighbour = options.get(randomInd);
+	
+				Position between = Position.calculateMedianPosition(next, neighbour);
+				
+				System.out.println("next X " + next.getX());
+				System.out.println("next Y " + next.getY());
+	
+				System.out.println("neighbour X " + neighbour.getX());
+				System.out.println("neighbour Y " + neighbour.getY());
+	
+	
+	
+				System.out.println(between.getX());
+				System.out.println(between.getY());
+	
+				maze[between.getX()][between.getY()] = true;
+				maze[neighbour.getX()][neighbour.getY()] = true;
+	
+				potentialNeighbours.addAll(neighbour.getPositionsTwoTilesAway());
+				
+				for (Position potNeigh : potentialNeighbours) {
+					if (validPotNeigh(potNeigh, maze)) {
+						neighbours.add(potNeigh);
+					} 
+				} 
+				
+				potentialNeighbours.clear();
+				options.addAll(neighbours);
+			}
 		} return createDungeon(startPos, endPos, maze, gameMode, lastUsedDungeonId);
 	}
 
@@ -85,7 +101,7 @@ public class Prims {
 		int x = position.getX();
 		int y = position.getY();
 
-		if (x != 0 && x != 49 && y != 0 && y != 49 && !maze[x][y]) {
+		if (x > 0 && x < 49 && y > 0 && y < 49 && !maze[x][y]) {
 			return true;
 		} return false;
 	}
