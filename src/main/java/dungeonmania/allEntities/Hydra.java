@@ -7,6 +7,7 @@ public class Hydra extends ZombieToast {
 
 	public Hydra (String id, Position position, boolean enemyAttack) {
 		super(id, position, enemyAttack);
+		super.setType("hydra");
 		super.setHealth(30);
 		super.setBaseAttack(5);
 	}
