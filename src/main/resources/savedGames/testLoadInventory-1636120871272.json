@@ -168,6 +168,7 @@
     },
     {
       "isAlly": false,
+      "currentDir": "NONE",
       "health": 30,
       "baseAttack": 5,
       "enemyAttack": true,

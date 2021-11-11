@@ -1,28 +1,8 @@
 {
-  "id": 0,
-  "name": "testWallBlocksMercenaryMovement.json",
+  "id": 1,
+  "name": "testMercenaryBribe-1636079593059",
   "inventory": [],
   "entities": [
-    {
-      "health": 100,
-      "attack": 2,
-      "visible": true,
-      "currentDir": "RIGHT",
-      "haveKey": false,
-      "hasSunStone": false,
-      "invincibleTickDuration": 0,
-      "enemyAttack": true,
-      "initialHealth": 100,
-      "invincibleAmount": 8,
-      "initialAttack": 2,
-      "position": {
-        "x": 3,
-        "y": 0,
-        "layer": 0
-      },
-      "type": "player",
-      "id": "0"
-    },
     {
       "position": {
         "x": 1,
@@ -38,18 +18,44 @@
       "baseAttack": 5,
       "enemyAttack": true,
       "position": {
-        "x": 0,
-        "y": 1,
+        "x": 3,
+        "y": 0,
         "layer": 0
       },
       "type": "mercenary",
-      "id": "2"
+      "id": "4"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 20,
+      "enemyAttack": true,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "assassin",
+      "id": "5"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "6"
     }
   ],
   "gameMode": "Standard",
   "goals": "",
-  "historicalEntCount": 3,
-  "tickNumber": 1,
+  "historicalEntCount": 7,
+  "tickNumber": 81,
   "spawnpoint": {
     "x": 2,
     "y": 0,

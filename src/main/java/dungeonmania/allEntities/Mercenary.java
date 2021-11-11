@@ -134,7 +134,7 @@ public class Mercenary extends MovingEntity {
 	 * If collideable then mercenary will move through the portal onto that square.
 	 * @param dungeon	Current dungeon of mercenary
 	 */
-	public void portalMove(Dungeon dungeon) {
+	public void portalMove(Dungeon dungeon, Position currPos) {
 		Position pos = getPosition();
 		Portal portal1 = (Portal) dungeon.getEntity("portal", pos);
 		Position posPortal2 = new Position(0, 0);
@@ -148,7 +148,15 @@ public class Mercenary extends MovingEntity {
 						break;
 					}
 				}
-			} setPosition(posPortal2.translateBy(getCurrentDir()));
+			}
+
+			Entity ent = dungeon.getEntity(posPortal2.translateBy(currentDir));
+			if (ent != null && !collide(ent, dungeon)) {
+				setPosition(currPos);
+			} else {
+				setPosition(posPortal2.translateBy(getCurrentDir()));
+			}
+			
 		}
 	}
 
@@ -173,17 +181,32 @@ public class Mercenary extends MovingEntity {
 		// setPosition(getPosition().translateBy(direction));
 
 		// portalMove(dungeon);
-		System.out.println(dungeon.getPlayerPosition());
-		System.out.println(dungeon.getPlayer().getCurrentDir());
-
 		Position currPos = getPosition();
 		
 		Position nextPos = null;
 		nextPos = Dijkstra.move(currPos, dungeon);
 
+		if (currPos.translateBy(Direction.UP).equals(nextPos)) {
+			setCurrentDir(Direction.UP);
+		} else if (currPos.translateBy(Direction.DOWN).equals(nextPos)) {
+			setCurrentDir(Direction.DOWN);
+		} else if (currPos.translateBy(Direction.LEFT).equals(nextPos)) {
+			setCurrentDir(Direction.LEFT);
+		} else if (currPos.translateBy(Direction.RIGHT).equals(nextPos)) {
+			setCurrentDir(Direction.RIGHT);
+		} else {
+			setCurrentDir(Direction.NONE);
+		}
+
 		if (nextPos != null) {
 			setPosition(nextPos);
-		} portalMove(dungeon);
+		} portalMove(dungeon, currPos);
+
+		if (getPosition().coincides(dungeon.getPlayerPosition())) {
+			if (!isAlly) {
+				Battle.battle(this, dungeon);
+			}
+		}
 
 		return true;
 	}
