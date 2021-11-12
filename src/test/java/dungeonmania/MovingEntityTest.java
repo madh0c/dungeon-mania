@@ -600,7 +600,7 @@ public class MovingEntityTest {
 
 	// Test bribe with 1 gold
 	@Test
-	public void testMercenaryBribe() {
+	public void testMercenaryBribeSpace() {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testMercenaryBribe", "Standard"));
 	
@@ -613,7 +613,7 @@ public class MovingEntityTest {
 		// cast into merc, check if ally
 		Mercenary merc = (Mercenary) controller.getDungeon(0).getEntity("1");
 		assertTrue(merc.getIsAlly());
-;
+
 
 		// wait for merc to move into player
 		controller.tick(null, Direction.NONE);
@@ -667,6 +667,7 @@ public class MovingEntityTest {
 	public void testMercenaryBribeFar() {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testMercenaryBribeFar", "Standard"));
+		controller.tick(null, Direction.LEFT);
 
 		assertThrows(InvalidActionException.class, () -> controller.interact("0"));
 	}
@@ -682,4 +683,18 @@ public class MovingEntityTest {
 		controller.tick(null, Direction.RIGHT);
 		assertThrows(InvalidActionException.class, () -> controller.interact("1"));
 	}
+
+	@Test
+	public void testMercenaryBribeAdjacent() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryBribeAdjacent", "Standard"));
+		controller.tick(null, Direction.RIGHT);
+		assertDoesNotThrow(() -> controller.interact("1"));
+		Mercenary merc = (Mercenary) controller.getDungeon(0).getEntity("1");
+		assertTrue(merc.getIsAlly());
+		controller.tick(null, Direction.RIGHT);
+		Position player = controller.getDungeon(0).getEntity("0").getPosition();
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", player));
+	}
+	
 }

@@ -99,7 +99,6 @@ public class GameInOut {
 
 			List<Map<String, Object>> parseList = (List<Map<String, Object>>)jsonMap.get("entities"); 
 
-
 			EntityFactory factory = null;
 			if (playMode.equals("Peaceful")) {
 				factory = new PeacefulFactory();
@@ -115,7 +114,6 @@ public class GameInOut {
 				String entityType = (String)currentEntity.get("type");
 				String entityId = null;
 				Position exportPos = null;
-
 
 				if (expType.equals("load") || expType.equals("rewind")) {
 
@@ -163,7 +161,6 @@ public class GameInOut {
 						int invincibleTickDuration = invinceD.intValue();
 
 						List<Direction> trackingList = new ArrayList<>();
-
 						List<Object> traceList = (List<Object>)currentEntity.get("traceList");
 
 						if (traceList != null) {

@@ -494,12 +494,10 @@ public class DungeonManiaController {
 		permittedItems.add("health_potion");
 		permittedItems.add("invincibility_potion");
 		permittedItems.add("invisibility_potion");
-		permittedItems.add("sceptre");
-
 		
 		if (!permittedItems.contains(itemType) && itemType != null) {
 			throw new IllegalArgumentException("Cannot Use Requested Item; Ensure Item Is Either a Bomb, Health Potion, " +
-			"Invincibility Potion, Invisibility Potion, Sceptre or null");
+			"Invincibility Potion, Invisibility Potion or null");
 		}
 		
 	}

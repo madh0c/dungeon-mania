@@ -210,7 +210,15 @@ public class Player extends Entity {
 			dungeon.addItemToInventory((CollectableEntity)entity);
 
 		} else if (entity instanceof MovingEntity) {
-			if (enemyAttack()) {
+			int check = 0;
+			if (entity instanceof Mercenary) {
+				Mercenary merc = (Mercenary) entity;
+				//Should not fight mercenary;
+				if (merc.getIsAlly()) {
+					check = 1;
+				}
+			}
+			if (enemyAttack() && check == 0) {
 				Battle.battle(entity, dungeon);
 			}
 		} else if (entity instanceof TimeTravellingPortal) {
