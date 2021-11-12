@@ -219,7 +219,7 @@ public class MiscTest {
         EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,1), true);
 
         DungeonResponse dREnd = controller.getDungeonInfo(0);
-        assertNotEquals(expectedMercenaryInfo, dREnd.getEntities().get(2));
+        assertEquals(expectedMercenaryInfo, dREnd.getEntities().get(2));
     }
 
     /**
