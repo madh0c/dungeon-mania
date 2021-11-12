@@ -169,6 +169,7 @@
     },
     {
       "isAlly": false,
+      "currentDir": "NONE",
       "sceptreTickDuration": 0,
       "health": 30,
       "baseAttack": 5,

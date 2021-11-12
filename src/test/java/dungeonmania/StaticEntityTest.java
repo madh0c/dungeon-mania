@@ -70,7 +70,7 @@ public class StaticEntityTest {
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
         EntityResponse expectedWallInfo = new EntityResponse("1", "wall", new Position(1,0), false);
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,1), true);
 
         expectedList.add(expectedPlayerInfo);
         expectedList.add(expectedWallInfo);
@@ -83,7 +83,6 @@ public class StaticEntityTest {
 	/**
 	 * A zombie toast spawner is created with four walls cardinally adjacent to it. The player will tick 21 times and 
 	 * there should be no zombie toast being spawned as here are walls in the cardinally positions adjacent to the spawner
-     * TODO: Battle NOT IMPLEMENTED: Mercenaries should not exist once battle implemented
 	 */
 	@Test
     public void testWallBlocksZombieToastSpawn() {
@@ -780,7 +779,7 @@ public class StaticEntityTest {
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
         EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(1,0), false);
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,1), true);
 
         endList.add(expectedPlayerInfo);
         endList.add(expectedDoorInfo);

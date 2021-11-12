@@ -74,7 +74,7 @@ public class ControllerTest {
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
         EntityResponse expectedWallInfo = new EntityResponse("1", "wall", new Position(1,0), false);
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,1), true);
 
         expectedList.add(expectedPlayerInfo);
         expectedList.add(expectedWallInfo);
@@ -284,7 +284,7 @@ public class ControllerTest {
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
         EntityResponse expectedWallInfo = new EntityResponse("1", "wall", new Position(1,0), false);
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,1), true);
 
         expectedList.add(expectedPlayerInfo);
         expectedList.add(expectedWallInfo);
@@ -361,7 +361,7 @@ public class ControllerTest {
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
         EntityResponse expectedWallInfo = new EntityResponse("1", "wall", new Position(1,0), false);
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,1), true);
 
         expectedList.add(expectedPlayerInfo);
         expectedList.add(expectedWallInfo);
