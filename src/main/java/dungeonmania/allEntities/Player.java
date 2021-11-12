@@ -178,8 +178,6 @@ public class Player extends Entity {
 				if (!currEnt.getId().equals(portal1.getId())) {
 					Portal portal2 = (Portal) currEnt;
 					if (portal1.getColour().equals(portal2.getColour())) {
-						// Find position of p2
-						// Move in direciton of currDir
 						Entity nextTo = dungeon.getEntity(portal2.getPosition().translateBy(currentDir));
 						return collide(nextTo, dungeon);
 					}
@@ -249,8 +247,7 @@ public class Player extends Entity {
 						break;
 					}
 				}
-			}
-			setPosition(posPortal2.translateBy(getCurrentDir()));
+			} setPosition(posPortal2.translateBy(getCurrentDir()));
 		}
 	}
 
@@ -259,7 +256,7 @@ public class Player extends Entity {
 	 * @param dungeon	Current dungeon of player
 	 * @param direction	Desired direction of movement of player
 	 */
-	public void move (Dungeon dungeon, Direction direction) {
+	public void move(Dungeon dungeon, Direction direction) {
 		// Check if the direction is able to be moved into
 		Position newPos = getPosition().translateBy(direction);
 

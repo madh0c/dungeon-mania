@@ -1,0 +1,87 @@
+{
+  "id": 0,
+  "name": "testBuildMidnightMap.json",
+  "inventory": [
+    {
+      "durability": 10,
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "1"
+    }
+  ],
+  "entities": [
+    {
+      "health": 60,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "NONE",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 60,
+      "invincibleAmount": 0,
+      "initialAttack": 2,
+      "controlled": [],
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "sun_stone",
+      "id": "2"
+    },
+    {
+      "durability": 10,
+      "position": {
+        "x": 0,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "3"
+    },
+    {
+      "tickrate": 15,
+      "position": {
+        "x": 5,
+        "y": 5,
+        "layer": 0
+      },
+      "type": "zombie_toast_spawner",
+      "id": "4"
+    }
+  ],
+  "gameMode": "Hard",
+  "goals": "",
+  "historicalEntCount": 5,
+  "tickNumber": 8,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "height": 10,
+  "width": 10,
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 10,
+  "rewindPath": "/rewind/1636713427116/"
+}

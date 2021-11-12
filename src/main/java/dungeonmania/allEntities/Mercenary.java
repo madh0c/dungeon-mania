@@ -171,7 +171,7 @@ public class Mercenary extends MovingEntity {
 	 * If collideable then mercenary will move through the portal onto that square.
 	 * @param dungeon	Current dungeon of mercenary
 	 */
-	public void portalMove(Dungeon dungeon) {
+	public void portalMove(Dungeon dungeon, Position currPos) {
 		Position pos = getPosition();
 		Portal portal1 = (Portal) dungeon.getEntity("portal", pos);
 		Position posPortal2 = new Position(0, 0);
@@ -186,7 +186,14 @@ public class Mercenary extends MovingEntity {
 					}
 				}
 			}
-			setPosition(posPortal2.translateBy(getCurrentDir()));
+
+			Entity ent = dungeon.getEntity(posPortal2.translateBy(currentDir));
+			if (ent != null && !collide(ent, dungeon)) {
+				setPosition(currPos);
+			} else {
+				setPosition(posPortal2.translateBy(getCurrentDir()));
+			}
+			
 		}
 	}
 
@@ -199,25 +206,48 @@ public class Mercenary extends MovingEntity {
 	 */
 	public boolean mercMove(Direction direction, Dungeon dungeon) {
 		// Check if collidable with next entity
-		Position pos = getPosition();
-		Entity ent = dungeon.getEntity(pos.translateBy(direction));
-		Direction prevDir = getCurrentDir();
-		setCurrentDir(direction);
-		if (ent != null && !collide(ent, dungeon)) {
-			setCurrentDir(prevDir);
-			return false;
+		// Position pos = getPosition();
+		// Entity ent = dungeon.getEntity(pos.translateBy(direction));
+		// Direction prevDir = getCurrentDir();
+		// setCurrentDir(direction);
+		// if (ent != null && !collide(ent, dungeon)) {
+		// 	setCurrentDir(prevDir);
+		// 	return false;
+		// }
+
+		// setPosition(getPosition().translateBy(direction));
+
+		// portalMove(dungeon);
+		Position currPos = getPosition();
+		
+		Position nextPos = null;
+		nextPos = Dijkstra.move(currPos, dungeon);
+
+		if (currPos.translateBy(Direction.UP).equals(nextPos)) {
+			setCurrentDir(Direction.UP);
+		} else if (currPos.translateBy(Direction.DOWN).equals(nextPos)) {
+			setCurrentDir(Direction.DOWN);
+		} else if (currPos.translateBy(Direction.LEFT).equals(nextPos)) {
+			setCurrentDir(Direction.LEFT);
+		} else if (currPos.translateBy(Direction.RIGHT).equals(nextPos)) {
+			setCurrentDir(Direction.RIGHT);
+		} else {
+			setCurrentDir(Direction.NONE);
 		}
 
-		setPosition(getPosition().translateBy(direction));
+		if (nextPos != null) {
+			setPosition(nextPos);
+		} portalMove(dungeon, currPos);
 
-		portalMove(dungeon);
-
-		// Position currPos = getPosition();
-		// setPosition(Dijkstra.move(currPos, dungeon));
-		// portalMove(dungeon);
+		if (getPosition().coincides(dungeon.getPlayerPosition())) {
+			if (!isAlly) {
+				Battle.battle(this, dungeon);
+			}
+		}
 
 		return true;
 	}
+
 
 	/**
 	 * Move the mercenary towards the player<p>

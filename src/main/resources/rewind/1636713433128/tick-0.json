@@ -1,0 +1,87 @@
+{
+  "id": 0,
+  "name": "testPreActiveSwitch.json",
+  "inventory": [],
+  "entities": [
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "bomb",
+      "id": "1"
+    },
+    {
+      "isActivated": true,
+      "position": {
+        "x": 3,
+        "y": 1,
+        "layer": -1
+      },
+      "type": "switch",
+      "id": "2"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "boulder",
+      "id": "3"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "4"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "5"
+    }
+  ],
+  "gameMode": "Standard",
+  "goals": "",
+  "historicalEntCount": 6,
+  "tickNumber": 0,
+  "height": 50,
+  "width": 50,
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636713433128/"
+}

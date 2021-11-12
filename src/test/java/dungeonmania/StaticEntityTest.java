@@ -70,7 +70,7 @@ public class StaticEntityTest {
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
         EntityResponse expectedWallInfo = new EntityResponse("1", "wall", new Position(1,0), false);
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,1), true);
 
         expectedList.add(expectedPlayerInfo);
         expectedList.add(expectedWallInfo);
@@ -779,7 +779,7 @@ public class StaticEntityTest {
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
         EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(1,0), false);
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,1), true);
 
         endList.add(expectedPlayerInfo);
         endList.add(expectedDoorInfo);

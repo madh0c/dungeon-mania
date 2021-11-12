@@ -126,9 +126,9 @@ public class App {
             return callUsingSessionAndArgument(request, (dmc) -> dmc.rewind(Integer.valueOf(request.queryParams(("ticks")))));
         }, gson::toJson);
 
-        // Spark.post("/api/game/new/generate", "application/json", (request, response) -> {
-        //     return callUsingSessionAndArgument(request, (dmc) -> dmc.generateDungeon(Integer.valueOf(request.queryParams(("xStart"))), Integer.valueOf(request.queryParams(("yStart"))), Integer.valueOf(request.queryParams(("xEnd"))), Integer.valueOf(request.queryParams(("yEnd"))), request.queryParams("gameMode")));
-        // }, gson::toJson);
+        Spark.post("/api/game/new/generate/", "application/json", (request, response) -> {
+            return callUsingSessionAndArgument(request, (dmc) -> dmc.generateDungeon(Integer.valueOf(request.queryParams(("xStart"))), Integer.valueOf(request.queryParams(("yStart"))), Integer.valueOf(request.queryParams(("xEnd"))), Integer.valueOf(request.queryParams(("yEnd"))), request.queryParams("gameMode")));
+        }, gson::toJson);
 
         Scintilla.start();
     }

@@ -26,10 +26,9 @@ public class Prims {
 		List<Position> initialNeighbours = new ArrayList<>();
 		
 		initialNeighbours.addAll(startPos.getPositionsTwoTilesAway());
-		initialNeighbours.addAll(endPos.getPositionsTwoTilesAway());
 
 		for (Position neighPos : initialNeighbours) {
-			if (isValid(neighPos, maze)) {
+			if (isValidWall(neighPos, maze)) {
 				options.add(neighPos);
 			}
 		}
@@ -47,32 +46,50 @@ public class Prims {
 			potentialNeighbours.addAll(next.getPositionsTwoTilesAway());
 			
 			for (Position potNeigh : potentialNeighbours) {
-				if (validPotNeigh(potNeigh, maze)) {
+				if (isValidNotWall(potNeigh, maze)) {
 					neighbours.add(potNeigh);
-				} potentialNeighbours.remove(potNeigh);
-			}
+				} 
+			} potentialNeighbours.clear();
 
 			Random random = new Random();
-			int randomInd = random.nextInt(neighbours.size());
-			Position neighbour = options.get(randomInd);
 
-			Position between = Position.calculatePositionBetween(next, neighbour);
+			if (!neighbours.isEmpty()) {
+				int randomInd = random.nextInt(neighbours.size());
 
-			maze[between.getX()][between.getY()] = true;
-			maze[neighbour.getX()][neighbour.getY()] = true;
+				Position neighbour = neighbours.get(randomInd);
+				Position between = Position.calculateMedianPosition(next, neighbour);
 
-			potentialNeighbours.addAll(neighbour.getPositionsTwoTilesAway());
-			
-			for (Position potNeigh : potentialNeighbours) {
-				if (isValid(potNeigh, maze)) {
-					neighbours.add(potNeigh);
-				} potentialNeighbours.remove(potNeigh);
-			} options.addAll(neighbours);
+				maze[between.getX()][between.getY()] = true;
+				maze[neighbour.getX()][neighbour.getY()] = true;
+				
+				List<Position> wallNeighbours = new ArrayList<>();
+				potentialNeighbours.addAll(next.getPositionsTwoTilesAway());
+				
+				for (Position potNeigh : potentialNeighbours) {
+					if (isValidWall(potNeigh, maze)) {
+						wallNeighbours.add(potNeigh);
+					} 
+				} 
+				options.addAll(wallNeighbours);
+			}
+		} 
+		
+		if (!maze[endPos.getX()][endPos.getY()]) {
+			maze[endPos.getX()][endPos.getY()] = true;
+		}
 
-		} return createDungeon(startPos, endPos, maze, gameMode, lastUsedDungeonId);
+		List<Position> neighbours = endPos.getCardinallyAdjPositions();
+
+		for (Position neighPos : neighbours) {
+			if (isValidWall(neighPos, maze) || isValidNotWall(neighPos, maze)) {
+				maze[neighPos.getX()][neighPos.getY()] = true;
+			} break;
+		}
+
+		return createDungeon(startPos, endPos, maze, gameMode, lastUsedDungeonId);
 	}
 
-	static boolean isValid(Position position, boolean[][] maze) {
+	static boolean isValidWall(Position position, boolean[][] maze) {
 		int x = position.getX();
 		int y = position.getY();
 
@@ -81,11 +98,11 @@ public class Prims {
 		} return false;
 	}
 
-	static boolean  validPotNeigh(Position position, boolean[][] maze) {
+	static boolean isValidNotWall(Position position, boolean[][] maze) {
 		int x = position.getX();
 		int y = position.getY();
 
-		if (x != 0 && x != 49 && y != 0 && y != 49 && !maze[x][y]) {
+		if (x > 0 && x < 49 && y > 0 && y < 49 && maze[x][y]) {
 			return true;
 		} return false;
 	}

@@ -1,0 +1,35 @@
+{
+    "entities": [
+        {
+            "x": 2,
+            "y": 2,
+            "type": "player"
+        },
+        {
+            "x": 2,
+            "y": 1,
+			"movement_factor": 10,
+            "type": "swamp_tile"
+        },
+		{
+            "x": 1,
+            "y": 1,
+            "type": "zombie_toast_spawner"
+        },
+		{
+            "x": 0,
+            "y": 1,
+            "type": "wall"
+        },
+		{
+            "x": 1,
+            "y": 0,
+            "type": "wall"
+        },
+		{
+            "x": 1,
+            "y": 2,
+            "type": "wall"
+        }
+    ]
+}
