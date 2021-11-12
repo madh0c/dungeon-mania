@@ -4,8 +4,8 @@ import dungeonmania.Dungeon;
 import dungeonmania.MovingEntity;
 import dungeonmania.util.Position;
 
-public class OldPlayer extends MovingEntity {
-    public OldPlayer (String id, Position position, boolean enemyAttack) {
+public class OlderPlayer extends MovingEntity {
+    public OlderPlayer (String id, Position position, boolean enemyAttack) {
         super(id, position, "older_player", enemyAttack);
     }
 
