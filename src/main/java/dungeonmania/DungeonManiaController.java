@@ -331,16 +331,8 @@ public class DungeonManiaController {
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-		//saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
-=======
-		// UNCOMMENT
-=======
 		// TODO UNCOMMENT
->>>>>>> master
 		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
->>>>>>> 040ea5187a6e3edf4e666b5286a7621bfe50d872
 	
 		// Use item
 		currentDungeon.useItem(itemUsed);
