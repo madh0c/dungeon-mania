@@ -413,6 +413,11 @@ public class ControllerTest {
         EntityResponse startE16 = new EntityResponse("16", "mercenary", new Position(20,20), true);
         EntityResponse startE17 = new EntityResponse("17", "wall", new Position(20,21), false);
         EntityResponse startE18 = new EntityResponse("18", "wall", new Position(21,20), false);
+		EntityResponse startE19 = new EntityResponse("19", "sun_stone", new Position(14,0), false);
+		EntityResponse startE20 = new EntityResponse("20", "anduril", new Position(15,0), false);
+		EntityResponse startE21 = new EntityResponse("21", "sceptre", new Position(16,0), true);
+		EntityResponse startE22 = new EntityResponse("22", "midnight_armour", new Position(17,0), false);
+
 
         startList.add(startPlayerInfo);
         startList.add(startE1);
@@ -433,19 +438,24 @@ public class ControllerTest {
         startList.add(startE16);
         startList.add(startE17);
         startList.add(startE18);
+		startList.add(startE19);
+		startList.add(startE20);
+		startList.add(startE21);
+		startList.add(startE22);
+
 
         DungeonResponse dRStart = controller.getDungeonInfo(0);
         assertEquals(startList, dRStart.getEntities());
 
 		// Move player away from the mercenary.
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < 17; i++) {
             controller.tick(null, Direction.RIGHT);
         }
 
 		// Assert the mercenary has not moved from spawn
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
-        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(13,0), true);
+        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(17,0), true);
         EntityResponse endE1 = new EntityResponse("14", "wall", new Position(19,20), false);
         EntityResponse endE2 = new EntityResponse("15", "wall", new Position(20,19), false);
         EntityResponse endE3 = new EntityResponse("16", "mercenary", new Position(20,20), true);
@@ -475,6 +485,11 @@ public class ControllerTest {
         ItemResponse i11 = new ItemResponse("11", "one_ring");
         ItemResponse i12 = new ItemResponse("12", "bow");
         ItemResponse i13 = new ItemResponse("13", "shield");
+		ItemResponse i14 = new ItemResponse("19", "sun_stone");
+		ItemResponse i15 = new ItemResponse("20", "anduril");
+		ItemResponse i16 = new ItemResponse("21", "sceptre");
+		ItemResponse i17 = new ItemResponse("22", "midnight_armour");
+
 
         expInvList.add(i1);
         expInvList.add(i2);
@@ -489,6 +504,14 @@ public class ControllerTest {
         expInvList.add(i11);
         expInvList.add(i12);
         expInvList.add(i13);
+		expInvList.add(i14);
+		expInvList.add(i15);
+		expInvList.add(i16);
+		expInvList.add(i17);
+
+		List<String> BuildList = new ArrayList<String>();
+		BuildList.add("sceptre");
+		BuildList.add("midnight_armour");
 
         DungeonResponse dREnd = controller.getDungeonInfo(0);
         assertEquals(endList, dREnd.getEntities());
@@ -504,7 +527,7 @@ public class ControllerTest {
 
         assertEquals(new ArrayList<AnimationQueue>(), dRLoad.getAnimations());
         assertEquals("testLoadInventory.json", dRLoad.getDungeonName());
-        assertEquals(new ArrayList<String>(), dRLoad.getBuildables());
+        assertEquals(BuildList, dRLoad.getBuildables());
         assertEquals("", dRLoad.getGoals());
         assertEquals("0", dRLoad.getDungeonId());
     }
@@ -534,6 +557,26 @@ public class ControllerTest {
         assertDoesNotThrow(() -> controller.saveGame("testMercenaryBribe-1636079593059"));
 	}
 
+	@Test
+	public void testSaveActiveSwitch() {
+		DungeonManiaController controller = new DungeonManiaController();
+		controller.newGame("testAndAndGoal", "Peaceful");
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		assertDoesNotThrow(() -> controller.saveGame("saveActiveSwitch"));
+		assertDoesNotThrow(() -> controller.loadGame("saveActiveSwitch"));
+	}
+
+	@Test
+	public void testSaveEnemyPeaceful() {
+		DungeonManiaController controller = new DungeonManiaController();
+		controller.newGame("testAssassinFar", "Peaceful");
+		controller.tick(null, Direction.NONE);
+		assertDoesNotThrow(() -> controller.saveGame("saveEnemyPeaceful"));
+		assertDoesNotThrow(() -> controller.loadGame("saveEnemyPeaceful"));
+	}
+
+	
     @Test
     public void testPeacefulFactory() {
         DungeonManiaController controller = new DungeonManiaController();

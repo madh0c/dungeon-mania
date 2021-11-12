@@ -71,7 +71,7 @@
 			"x": 13,
 			"y": 0,
 			"type": "shield"
-		},
+		}, 
 		{
 			"x": 19,
 			"y": 20,
@@ -96,6 +96,26 @@
 			"x": 21,
 			"y": 20,
 			"type": "wall"
+		},
+		{
+			"x": 14,
+			"y": 0,
+			"type": "sun_stone"
+		},
+		{
+			"x": 15,
+			"y": 0,
+			"type": "anduril"
+		},
+		{
+			"x": 16,
+			"y": 0,
+			"type": "sceptre"
+		},
+		{
+			"x": 17,
+			"y": 0,
+			"type": "midnight_armour"
 		}
 
     ]
