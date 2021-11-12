@@ -1,0 +1,119 @@
+{
+  "id": 0,
+  "name": "portals.json",
+  "inventory": [],
+  "entities": [
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "DOWN",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT",
+        "LEFT",
+        "UP",
+        "RIGHT",
+        "DOWN",
+        "UP",
+        "RIGHT",
+        "DOWN",
+        "LEFT",
+        "RIGHT",
+        "DOWN",
+        "LEFT",
+        "UP",
+        "DOWN",
+        "LEFT",
+        "UP",
+        "RIGHT",
+        "LEFT",
+        "RIGHT",
+        "UP",
+        "LEFT",
+        "DOWN",
+        "UP",
+        "DOWN",
+        "DOWN"
+      ],
+      "position": {
+        "x": 1,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "colour": "BLUE",
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "portal",
+      "id": "1"
+    },
+    {
+      "colour": "BLUE",
+      "position": {
+        "x": 4,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "portal",
+      "id": "2"
+    },
+    {
+      "isAlly": false,
+      "currentDir": "DOWN",
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 2,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "3"
+    }
+  ],
+  "gameMode": "Standard",
+  "goals": "",
+  "historicalEntCount": 4,
+  "tickNumber": 25,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "height": 5,
+  "width": 5,
+  "foundGoals": {
+    "subGoals": [
+      {
+        "goal": "enemies",
+        "hasCompleted": false
+      },
+      {
+        "goal": "treasure",
+        "hasCompleted": true
+      }
+    ],
+    "operator": "AND",
+    "hasCompleted": true
+  },
+  "goalConditions": "{\"subgoals\":[{\"goal\":\"enemies\"},{\"goal\":\"treasure\"}],\"goal\":\"AND\"}",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636723894516/"
+}

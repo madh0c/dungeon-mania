@@ -66,6 +66,13 @@ public abstract class EntityFactory {
 			return createAssassin(id, position);
 		else if (type.contains("sceptre"))
 			return createSceptre(id, position);
+		else if (type.contains("hydra"))
+			return createHydra(id, position);
+		else if (type.contains("older_player"))
+			return createOlderPlayer(id, position);
+		else if (type.contains("time_turner"))
+			return createTimeTurner(id, position);
+
 		return null;
 	}
 
@@ -347,5 +354,31 @@ public abstract class EntityFactory {
 	 */
 	public Sceptre createSceptre(String id, Position position) {
 		return new Sceptre(id, position);
+	}
+
+	/**
+	 * Creates an instance of Hydra object
+	 * @param id		Id of hydra
+	 * @param position	Position of hydra
+	 * @return Hydra
+	 */
+	public abstract Hydra createHydra(String id, Position position);
+
+	/**
+	 * Creates an instance of OlderPlayer object
+	 * @param id		Id of older_player
+	 * @param position	Position of older_player
+	 * @return OlderPlayer
+	 */
+	public abstract OlderPlayer createOlderPlayer(String id, Position position);
+
+	/**
+	 * Creates an instance of TimeTurner object
+	 * @param id		Id of time_turner
+	 * @param position	Position of time_turner
+	 * @return TimeTurner
+	 */
+	public TimeTurner createTimeTurner(String id, Position position) {
+		return new TimeTurner(id, position);
 	}
 }

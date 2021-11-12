@@ -34,4 +34,14 @@ public class StandardFactory extends EntityFactory {
 	public Assassin createAssassin(String id, Position position) {
 		return new Assassin(id, position, true);
 	}
+
+	@Override
+	public Hydra createHydra(String id, Position position) {
+		return new Hydra(id, position, true);
+	}
+
+	@Override
+	public OlderPlayer createOlderPlayer(String id, Position position) {
+		return new OlderPlayer(id, position, true);
+	}
 }

@@ -17,25 +17,20 @@
       "initialAttack": 2,
       "position": {
         "x": 3,
-        "y": 2,
+        "y": 0,
         "layer": 0
       },
       "type": "player",
       "id": "0"
     },
     {
-      "isAlly": true,
-      "currentDir": "RIGHT",
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
       "position": {
-        "x": 3,
-        "y": 2,
+        "x": 1,
+        "y": 0,
         "layer": 0
       },
-      "type": "mercenary",
-      "id": "11"
+      "type": "wall",
+      "id": "1"
     },
     {
       "isAlly": false,
@@ -43,129 +38,25 @@
       "baseAttack": 5,
       "enemyAttack": true,
       "position": {
-        "x": 1,
-        "y": 1,
+        "x": 0,
+        "y": 0,
         "layer": 0
       },
       "type": "mercenary",
-      "id": "12"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "13"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "14"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "15"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 20,
-      "enemyAttack": true,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "assassin",
-      "id": "16"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "17"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 20,
-      "enemyAttack": true,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "assassin",
-      "id": "18"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "19"
-    },
-    {
-      "isAlly": false,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "20"
+      "id": "2"
     }
   ],
   "gameMode": "Standard",
   "goals": "",
-  "historicalEntCount": 21,
-  "tickNumber": 345,
+  "historicalEntCount": 4,
+  "tickNumber": 21,
   "spawnpoint": {
-    "x": 1,
-    "y": 1,
+    "x": 2,
+    "y": 0,
     "layer": 0
   },
-  "height": 4,
-  "width": 7,
+  "height": 50,
+  "width": 50,
   "foundGoals": {
     "goal": "",
     "hasCompleted": false

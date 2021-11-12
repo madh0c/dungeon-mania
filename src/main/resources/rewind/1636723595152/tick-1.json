@@ -1,0 +1,101 @@
+{
+  "id": 0,
+  "name": "testMercenaryFourWalls.json",
+  "inventory": [],
+  "entities": [
+    {
+      "isAlly": false,
+      "currentDir": "NONE",
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "1"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "2"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "3"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "4"
+    },
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "NONE",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "NONE"
+      ],
+      "position": {
+        "x": 2,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "5"
+    }
+  ],
+  "gameMode": "Standard",
+  "goals": "",
+  "historicalEntCount": 6,
+  "tickNumber": 1,
+  "spawnpoint": {
+    "x": 2,
+    "y": 2,
+    "layer": 0
+  },
+  "height": 4,
+  "width": 4,
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636723595152/"
+}

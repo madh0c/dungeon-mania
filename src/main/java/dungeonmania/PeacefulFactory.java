@@ -34,4 +34,14 @@ public class PeacefulFactory extends EntityFactory {
 	public Assassin createAssassin(String id, Position position) {
 		return new Assassin(id, position, false);
 	}
+
+	@Override
+	public Hydra createHydra(String id, Position position) {
+		return new Hydra(id, position, false);
+	}
+
+	@Override
+	public OlderPlayer createOlderPlayer(String id, Position position) {
+		return new OlderPlayer(id, position, false);
+	}
 }
