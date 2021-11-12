@@ -1,0 +1,79 @@
+{
+  "id": 0,
+  "name": "testCollectiblesSunKey.json",
+  "inventory": [
+    {
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "key",
+      "id": "1"
+    }
+  ],
+  "entities": [
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": true,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": false,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT"
+      ],
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "sun_stone",
+      "id": "2"
+    },
+    {
+      "isOpen": false,
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "door",
+      "id": "3"
+    }
+  ],
+  "gameMode": "Peaceful",
+  "goals": "",
+  "historicalEntCount": 4,
+  "tickNumber": 1,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "height": 5,
+  "width": 5,
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636714378119/"
+}

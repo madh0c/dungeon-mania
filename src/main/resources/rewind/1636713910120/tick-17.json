@@ -1,0 +1,81 @@
+{
+  "id": 0,
+  "name": "testMultipleSceptreDuration.json",
+  "inventory": [
+    {
+      "random": {
+        "seed": 189002304726736,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "position": {
+        "x": -6,
+        "y": 3,
+        "layer": 0
+      },
+      "type": "one_ring",
+      "id": "11"
+    }
+  ],
+  "entities": [
+    {
+      "health": 25,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "LEFT",
+      "haveKey": true,
+      "hasSunStone": true,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "DOWN",
+        "DOWN",
+        "DOWN",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "RIGHT",
+        "LEFT",
+        "LEFT"
+      ],
+      "position": {
+        "x": -6,
+        "y": 3,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    }
+  ],
+  "gameMode": "Standard",
+  "goals": "",
+  "historicalEntCount": 12,
+  "tickNumber": 17,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "height": 30,
+  "width": 30,
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636713910120/"
+}

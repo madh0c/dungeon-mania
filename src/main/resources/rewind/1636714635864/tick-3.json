@@ -1,0 +1,74 @@
+{
+  "id": 0,
+  "name": "testCollectiblesSword.json",
+  "inventory": [
+    {
+      "durability": 9,
+      "extraDamage": 2,
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "sword",
+      "id": "1"
+    },
+    {
+      "durability": 9,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "2"
+    }
+  ],
+  "entities": [
+    {
+      "health": 94,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT",
+        "RIGHT",
+        "RIGHT"
+      ],
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    }
+  ],
+  "gameMode": "Standard",
+  "goals": "",
+  "historicalEntCount": 4,
+  "tickNumber": 3,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "height": 5,
+  "width": 10,
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636714635864/"
+}

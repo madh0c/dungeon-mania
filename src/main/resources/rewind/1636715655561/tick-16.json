@@ -1,0 +1,118 @@
+{
+  "id": 0,
+  "name": "testDurability.json",
+  "inventory": [
+    {
+      "durability": 9,
+      "extraDamage": 2,
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "sword",
+      "id": "1"
+    },
+    {
+      "durability": 9,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "2"
+    },
+    {
+      "durability": 4,
+      "extraDamage": 3,
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "bow",
+      "id": "3"
+    },
+    {
+      "damageFactorReduction": 0.2,
+      "durability": 4,
+      "position": {
+        "x": 4,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "shield",
+      "id": "4"
+    }
+  ],
+  "entities": [
+    {
+      "health": 60,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 60,
+      "invincibleAmount": 0,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT"
+      ],
+      "position": {
+        "x": 4,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "5"
+    }
+  ],
+  "gameMode": "Hard",
+  "goals": "",
+  "historicalEntCount": 7,
+  "tickNumber": 16,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "height": 50,
+  "width": 50,
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 10,
+  "rewindPath": "/rewind/1636715655561/"
+}

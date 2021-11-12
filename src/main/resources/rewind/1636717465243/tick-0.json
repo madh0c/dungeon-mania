@@ -1,0 +1,76 @@
+{
+  "id": 0,
+  "name": "testMercenaryPortal.json",
+  "inventory": [],
+  "entities": [
+    {
+      "isAlly": false,
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "0"
+    },
+    {
+      "colour": "BLUE",
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "portal",
+      "id": "1"
+    },
+    {
+      "colour": "BLUE",
+      "position": {
+        "x": 4,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "portal",
+      "id": "2"
+    },
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [],
+      "position": {
+        "x": 1,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "3"
+    }
+  ],
+  "gameMode": "Standard",
+  "goals": "",
+  "historicalEntCount": 4,
+  "tickNumber": 0,
+  "height": 4,
+  "width": 7,
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636717465243/"
+}

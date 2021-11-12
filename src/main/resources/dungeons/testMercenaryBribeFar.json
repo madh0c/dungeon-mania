@@ -6,9 +6,14 @@
             "type": "mercenary"
         },
         {
-			"x": 4,
+			"x": 6,
 			"y": 1,
 			"type": "player"
+		},
+		{
+			"x": 5,
+			"y": 1,
+			"type": "treasure"
 		}
     ],
     "width": 6,

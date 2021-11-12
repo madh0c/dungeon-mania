@@ -1,0 +1,51 @@
+{
+  "id": 0,
+  "name": "testPlayerOnExitCompletesGame.json",
+  "inventory": [],
+  "entities": [
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [],
+      "position": {
+        "x": 0,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "exit",
+      "id": "1"
+    }
+  ],
+  "gameMode": "Standard",
+  "goals": ":exit",
+  "historicalEntCount": 2,
+  "tickNumber": 0,
+  "height": 50,
+  "width": 50,
+  "foundGoals": {
+    "goal": "exit",
+    "hasCompleted": false
+  },
+  "goalConditions": "{\"goal\":\"exit\"}",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636714184987/"
+}
