@@ -105,18 +105,18 @@ public class DungeonManiaController {
 
 		Date date = new Date();
 		// UNCOMMENT
-		// long currTime = date.getTime();
-		// String rewindTime = Long.toString(currTime);
-		// String rewindPath = "/rewind/" + rewindTime + "/";
-		// currentDungeon.setRewindPath(rewindPath);
+		long currTime = date.getTime();
+		String rewindTime = Long.toString(currTime);
+		String rewindPath = "/rewind/" + rewindTime + "/";
+		currentDungeon.setRewindPath(rewindPath);
 
-		// try {
-		// 	Path path = Paths.get("src/main/resources" + rewindPath);
-		// 	Files.createDirectories(path);
+		try {
+			Path path = Paths.get("src/main/resources" + rewindPath);
+			Files.createDirectories(path);
 		
-		// } catch (IOException e) {
-		// 	System.err.println("Failed to create directory!" + e.getMessage());
-		// }
+		} catch (IOException e) {
+			System.err.println("Failed to create directory!" + e.getMessage());
+		}
 
 		int currentId = currentDungeon.getId();
 		lastUsedDungeonId++;
@@ -332,7 +332,7 @@ public class DungeonManiaController {
 		checkValidTick(itemUsed);
 
 		// UNCOMMENT
-		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
+		saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 	
 		// Use item
 		currentDungeon.useItem(itemUsed);
@@ -399,7 +399,6 @@ public class DungeonManiaController {
 			}
 		}
 
-		System.out.println(currentDungeon.getPlayer().getInvincibleTickDuration());
 		// Move all Movable Entities
 		for (MovingEntity mov : tempEnts) {			
 			if (currentDungeon.getPlayer().getInvincibleTickDuration() == 0) {
