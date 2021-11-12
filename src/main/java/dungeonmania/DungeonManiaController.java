@@ -18,7 +18,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Date;
 
@@ -162,6 +161,14 @@ public class DungeonManiaController {
 				target = dungeon;
 			}
 		}
+
+		for (Entity ent: target.getEntities()) {
+			System.out.println(ent.getType() + " has id" + ent.getId());
+
+		}
+
+
+
 		
 		List<EntityResponse> listER = new ArrayList<EntityResponse>();
 		for (Entity entity : target.getEntities()) {
@@ -802,6 +809,8 @@ public class DungeonManiaController {
 				}
 			}
 			Player actualPlayer = currentDungeon.getPlayer();
+			String aPId = String.valueOf(currentDungeon.getHistoricalEntCount());
+			actualPlayer.setId(aPId);
 			rewindDungeon.addEntity(actualPlayer);
 			rewindDungeon.setInventory(currentDungeon.getInventory());
 

@@ -1,7 +1,28 @@
 {
-  "id": 0,
+  "id": 2,
   "name": "timeTravel.json",
-  "inventory": [],
+  "inventory": [
+    {
+      "durability": 10,
+      "extraDamage": 2,
+      "position": {
+        "x": 6,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "sword",
+      "id": "20"
+    },
+    {
+      "position": {
+        "x": 13,
+        "y": 4,
+        "layer": 0
+      },
+      "type": "time_turner",
+      "id": "40"
+    }
+  ],
   "entities": [
     {
       "position": {
@@ -175,37 +196,16 @@
       "id": "18"
     },
     {
-      "health": 100,
-      "attack": 2,
-      "visible": true,
-      "currentDir": "RIGHT",
-      "haveKey": false,
-      "hasSunStone": false,
-      "invincibleTickDuration": 0,
+      "health": 0,
+      "baseAttack": 0,
       "enemyAttack": true,
-      "initialHealth": 100,
-      "invincibleAmount": 8,
-      "initialAttack": 2,
-      "sceptreTickDuration": 0,
-      "controlled": [],
       "position": {
-        "x": 5,
+        "x": 11,
         "y": 1,
         "layer": 0
       },
-      "type": "player",
+      "type": "older_player",
       "id": "19"
-    },
-    {
-      "durability": 10,
-      "extraDamage": 2,
-      "position": {
-        "x": 6,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "sword",
-      "id": "20"
     },
     {
       "position": {
@@ -380,15 +380,6 @@
     },
     {
       "position": {
-        "x": 13,
-        "y": 4,
-        "layer": 0
-      },
-      "type": "time_turner",
-      "id": "40"
-    },
-    {
-      "position": {
         "x": 17,
         "y": 4,
         "layer": 0
@@ -407,13 +398,12 @@
     },
     {
       "isAlly": false,
-      "currentDir": "RIGHT",
       "health": 30,
       "baseAttack": 5,
       "enemyAttack": true,
       "position": {
-        "x": 5,
-        "y": 4,
+        "x": 8,
+        "y": 1,
         "layer": 0
       },
       "type": "mercenary",
@@ -1102,12 +1092,34 @@
       },
       "type": "wall",
       "id": "119"
+    },
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "sceptreTickDuration": 0,
+      "controlled": [],
+      "position": {
+        "x": 13,
+        "y": 4,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "120"
     }
   ],
   "gameMode": "Standard",
   "goals": "(:enemies AND :treasure)",
-  "historicalEntCount": 120,
-  "tickNumber": 4,
+  "historicalEntCount": 121,
+  "tickNumber": 10,
   "spawnpoint": {
     "x": 1,
     "y": 1,
@@ -1129,8 +1141,7 @@
     "operator": "AND",
     "hasCompleted": false
   },
-  "goalConditions": "{\"subgoals\":[{\"goal\":\"enemies\"},{\"goal\":\"treasure\"}],\"goal\":\"AND\"}",
+  "goalConditions": "{\"goal\":\"AND\",\"subgoals\":[{\"goal\":\"enemies\"},{\"goal\":\"treasure\"}]}",
   "factory": {},
-  "mercSpawnrate": 20,
-  "rewindPath": "/rewind/1636692076112/"
+  "mercSpawnrate": 20
 }

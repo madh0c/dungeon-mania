@@ -174,10 +174,10 @@ public class GameInOut {
 						entityList.add(player);
 					} else if (expType.equals("rewind")) {
 						Entity olderPlayer = factory.createEntity(entityId, "older_player", exportPos);
+						System.out.println(olderPlayer);
 						entityList.add(olderPlayer);
 					}
 				} else if (entityType.contains("swamp_tile")) {
-
 					Double moveFD = (Double)currentEntity.get("movement_factor");
 					int moveF = moveFD.intValue();
 					
@@ -217,7 +217,9 @@ public class GameInOut {
 					}
 
 					entityList.add(newAssassin);
-				} else {
+				}  else if (entityType.contains("time_turner") && expType.equals("rewind")) {
+					continue;
+				}else {
 					Entity newEntity = factory.createEntity(entityId, entityType, exportPos);
 					entityList.add(newEntity);
 

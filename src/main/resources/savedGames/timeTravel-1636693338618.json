@@ -1,7 +1,28 @@
 {
-  "id": 0,
+  "id": 1,
   "name": "timeTravel.json",
-  "inventory": [],
+  "inventory": [
+    {
+      "durability": 10,
+      "extraDamage": 2,
+      "position": {
+        "x": 6,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "sword",
+      "id": "20"
+    },
+    {
+      "position": {
+        "x": 13,
+        "y": 4,
+        "layer": 0
+      },
+      "type": "time_turner",
+      "id": "40"
+    }
+  ],
   "entities": [
     {
       "position": {
@@ -189,23 +210,12 @@
       "sceptreTickDuration": 0,
       "controlled": [],
       "position": {
-        "x": 3,
-        "y": 1,
+        "x": 13,
+        "y": 4,
         "layer": 0
       },
       "type": "player",
       "id": "19"
-    },
-    {
-      "durability": 10,
-      "extraDamage": 2,
-      "position": {
-        "x": 6,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "sword",
-      "id": "20"
     },
     {
       "position": {
@@ -380,15 +390,6 @@
     },
     {
       "position": {
-        "x": 13,
-        "y": 4,
-        "layer": 0
-      },
-      "type": "time_turner",
-      "id": "40"
-    },
-    {
-      "position": {
         "x": 17,
         "y": 4,
         "layer": 0
@@ -407,12 +408,12 @@
     },
     {
       "isAlly": false,
-      "currentDir": "UP",
+      "currentDir": "DOWN",
       "health": 30,
       "baseAttack": 5,
       "enemyAttack": true,
       "position": {
-        "x": 3,
+        "x": 10,
         "y": 4,
         "layer": 0
       },
@@ -1107,7 +1108,7 @@
   "gameMode": "Standard",
   "goals": "(:enemies AND :treasure)",
   "historicalEntCount": 120,
-  "tickNumber": 2,
+  "tickNumber": 15,
   "spawnpoint": {
     "x": 1,
     "y": 1,
@@ -1132,5 +1133,5 @@
   "goalConditions": "{\"subgoals\":[{\"goal\":\"enemies\"},{\"goal\":\"treasure\"}],\"goal\":\"AND\"}",
   "factory": {},
   "mercSpawnrate": 20,
-  "rewindPath": "src/main/resources/rewind/1636689992194/"
+  "rewindPath": "/rewind/1636693329312/"
 }

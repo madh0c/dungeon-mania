@@ -64,6 +64,8 @@ public class StandardFactory extends EntityFactory {
 			return new Sceptre(id, position);
 		else if (type.contains("time_turner"))
 			return new TimeTurner(id, position);
+		else if (type.contains("older_player"))
+			return new OlderPlayer(id, position, true);
 		return null;
 	}
 
