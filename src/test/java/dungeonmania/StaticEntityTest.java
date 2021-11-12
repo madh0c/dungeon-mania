@@ -83,7 +83,6 @@ public class StaticEntityTest {
 	/**
 	 * A zombie toast spawner is created with four walls cardinally adjacent to it. The player will tick 21 times and 
 	 * there should be no zombie toast being spawned as here are walls in the cardinally positions adjacent to the spawner
-     * TODO: Battle NOT IMPLEMENTED: Mercenaries should not exist once battle implemented
 	 */
 	@Test
     public void testWallBlocksZombieToastSpawn() {
@@ -1207,7 +1206,6 @@ public class StaticEntityTest {
 
     /**
 	 * A zombie toast spawner spawns a zombie.
-     * TODO: Battle NOT IMPLEMENTED: Mercenaries should not exist once battle implemented
 	 */
 	@Test
     public void testZombieSpawns() {

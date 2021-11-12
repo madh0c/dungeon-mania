@@ -103,7 +103,7 @@ public class MiscTest {
 
         DungeonResponse dREnd = controller.getDungeonInfo(0);
 
-        assertFalse(new ArrayList<ItemResponse>().contains(currentInv));
+        assertFalse(dREnd.getInventory().containsAll(expInvList));
     }
 
     @Test

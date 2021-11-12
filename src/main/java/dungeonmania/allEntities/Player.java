@@ -24,7 +24,8 @@ public class Player extends Entity {
 	private final int initialHealth;
 	private final int invincibleAmount;
 	private final int initialAttack = 2;
-	private List<String> controlled = new ArrayList<> ();
+	private List<String> controlled = new ArrayList<>();
+	private List<Direction> traceList = new ArrayList<>();
 
 	public Player(String id, Position position, int health, boolean enemyAttack, int invincibleAmount) {
         super(id, position, "player");
@@ -103,6 +104,18 @@ public class Player extends Entity {
 
 	public List<String> getControlled() {
 		return controlled;
+	}
+
+	public List<Direction> getTraceList() {
+		return traceList;
+	}
+
+	public void addTrace(Direction direction) {
+		this.traceList.add(direction);
+	}
+
+	public void setTraceList(List<Direction> traceList) {
+		this.traceList = traceList;
 	}
 
 	/**
