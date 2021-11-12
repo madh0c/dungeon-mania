@@ -784,14 +784,12 @@ public class DungeonManiaController {
 
 		int tickNo = (currentDungeon.getTickNumber() - ticks);
 
-		if (tickNo < 0) {
-			tickNo = 0;
+		if (tickNo <= 0) {
+			return getDungeonInfo(currentDungeon.getId());
 		}
 
-		String rewindPath = currentDungeon.getRewindPath() + "tick-" + tickNo + ".json";
-		System.out.println(rewindPath);
-
 		try {
+			String rewindPath = currentDungeon.getRewindPath() + "tick-" + tickNo + ".json";
 			String path = FileLoader.loadResourceFile(rewindPath);
 
 			Dungeon rewindDungeon = GameInOut.fromJSON("rewind", path, currentDungeon.getName(), lastUsedDungeonId, null);
