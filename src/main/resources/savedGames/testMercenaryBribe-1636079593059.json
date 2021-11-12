@@ -4,10 +4,13 @@
   "inventory": [],
   "entities": [
     {
-      "isAlly": true,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 5,
+      "health": 85,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
       "enemyAttack": true,
       "position": {
         "x": 2,
@@ -160,8 +163,8 @@
   ],
   "gameMode": "Standard",
   "goals": "",
-  "historicalEntCount": 16,
-  "tickNumber": 265,
+  "historicalEntCount": 4,
+  "tickNumber": 25,
   "spawnpoint": {
     "x": 1,
     "y": 1,

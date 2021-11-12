@@ -63,6 +63,8 @@ public class HardFactory extends EntityFactory {
 			return new Hydra(id, position, true);
 		else if (type.contains("sceptre"))
 			return new Sceptre(id, position);
+		else if (type.contains("older_player"))
+			return new OlderPlayer(id, position, true);
 		return null;
 	}
 

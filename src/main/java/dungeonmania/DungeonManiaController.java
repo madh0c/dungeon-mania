@@ -12,11 +12,15 @@ import dungeonmania.allEntities.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
+import java.util.Date;
+
 
 public class DungeonManiaController {
 
@@ -24,6 +28,7 @@ public class DungeonManiaController {
 	 * ArrayList games: each game is stored as a map of existing entities, with their unique id as the key (stored as an int).
 	 */
 	private List<Dungeon> games =  new ArrayList<>();
+	private List<List<Dungeon>> gameStates = new ArrayList<>();
 	private int lastUsedDungeonId = 0;
 
 	private Dungeon currentDungeon;
@@ -98,9 +103,24 @@ public class DungeonManiaController {
 			e.printStackTrace();
 		}
 
+		Date date = new Date();
+		long currTime = date.getTime();
+		String rewindTime = Long.toString(currTime);
+		String rewindPath = "/rewind/" + rewindTime + "/";
+		currentDungeon.setRewindPath(rewindPath);
+
+		try {
+			Path path = Paths.get("src/main/resources" + rewindPath);
+			Files.createDirectories(path);
+		
+		} catch (IOException e) {
+			System.err.println("Failed to create directory!" + e.getMessage());
+		}
+
 		int currentId = currentDungeon.getId();
 		lastUsedDungeonId++;
 		games.add(currentDungeon);
+		gameStates.add(new ArrayList<Dungeon>());
 
 				
 		List<EntityResponse> entitiyResponses = getDungeonInfo(currentId).getEntities();
@@ -141,6 +161,14 @@ public class DungeonManiaController {
 				target = dungeon;
 			}
 		}
+
+		for (Entity ent: target.getEntities()) {
+			System.out.println(ent.getType() + " has id" + ent.getId());
+
+		}
+
+
+
 		
 		List<EntityResponse> listER = new ArrayList<EntityResponse>();
 		for (Entity entity : target.getEntities()) {
@@ -302,6 +330,8 @@ public class DungeonManiaController {
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
 
+		saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
+	
 		// Use item
 		currentDungeon.useItem(itemUsed);
 		
@@ -748,7 +778,64 @@ public class DungeonManiaController {
 		if (ticks <= 0) {
 			throw new IllegalArgumentException("Invalid Ticks Passed; Ticks Strictly <= 0.");
 		}
-		return new DungeonResponse(null, null, null, null, null, null);
+
+		int tickNo = (currentDungeon.getTickNumber() - ticks);
+
+		if (tickNo <= 0) {
+			return getDungeonInfo(currentDungeon.getId());
+		}
+
+		try {
+			String rewindPath = currentDungeon.getRewindPath() + "tick-" + tickNo + ".json";
+			String path = FileLoader.loadResourceFile(rewindPath);
+
+			Dungeon rewindDungeon = GameInOut.fromJSON("rewind", path, currentDungeon.getName(), lastUsedDungeonId, null);
+			
+			for (Entity ent : rewindDungeon.getEntities()) {
+				if (ent instanceof Switch) {
+					Position entityPos = ent.getPosition();
+					List<Entity> entOnCell = rewindDungeon.getEntitiesOnCell(entityPos);
+					for (Entity entCell : entOnCell) {
+						if (entCell instanceof Boulder) {
+							Switch entSwitch = (Switch) ent;
+							entSwitch.setStatus(true);
+						}
+					}
+				}
+			}
+			Player actualPlayer = currentDungeon.getPlayer();
+			String aPId = String.valueOf(currentDungeon.getHistoricalEntCount());
+			actualPlayer.setId(aPId);
+			rewindDungeon.addEntity(actualPlayer);
+			rewindDungeon.setInventory(currentDungeon.getInventory());
+
+			currentDungeon = rewindDungeon;
+
+			games.add(currentDungeon);
+
+			evalGoal(currentDungeon);
+
+			return getDungeonInfo(currentDungeon.getId());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} return null;
+	}
+
+	/**
+	 * Save a game into a file in /resources/rewind
+	 * @throws IllegalArgumentException	If the given file name is not a real file
+	 * @return	DungeonResponse
+	 */
+	public void saveRewind(String rewindPath, int tick, Dungeon currentDundeon) throws IllegalArgumentException {
+		String feed = "tick-" + tick;
+
+		String path = (rewindPath + feed + ".json"); 
+
+		try {
+			GameInOut.saveRewind("src/main/resources" + path, currentDungeon);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// public DungeonResponse generateDungeon(int xStart, int yStart, int xEnd, int yEnd, String gameMode) throws IllegalArgumentException {
