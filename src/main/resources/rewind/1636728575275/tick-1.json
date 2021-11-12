@@ -1,0 +1,162 @@
+{
+  "id": 0,
+  "name": "testBuildableMap.json",
+  "inventory": [
+    {
+      "position": {
+        "x": 0,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "treasure",
+      "id": "7"
+    }
+  ],
+  "entities": [
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "DOWN",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "DOWN"
+      ],
+      "position": {
+        "x": 0,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "arrow",
+      "id": "1"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "wood",
+      "id": "2"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "arrow",
+      "id": "3"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "arrow",
+      "id": "4"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "wood",
+      "id": "5"
+    },
+    {
+      "isAlly": false,
+      "currentDir": "DOWN",
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 9,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "6"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "wood",
+      "id": "8"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 3,
+        "layer": 0
+      },
+      "type": "wood",
+      "id": "9"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 4,
+        "layer": 0
+      },
+      "type": "key",
+      "id": "10"
+    },
+    {
+      "isAlly": false,
+      "currentDir": "UP",
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 0,
+        "y": 10,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "11"
+    }
+  ],
+  "gameMode": "Standard",
+  "goals": "",
+  "historicalEntCount": 12,
+  "tickNumber": 1,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "height": 11,
+  "width": 11,
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636728575275/"
+}

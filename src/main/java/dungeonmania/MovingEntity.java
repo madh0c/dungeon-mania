@@ -79,7 +79,8 @@ public abstract class MovingEntity extends Entity {
 
 	public abstract void moveScared(Dungeon dungeon); 
 
-	public void attack(Player player) {
+	public void attack(Dungeon dungeon) {
+		Player player = dungeon.getPlayer();
 		setHealth(getHealth() - ((player.getHealth() * player.getAttack()) / 5));
 	};
 

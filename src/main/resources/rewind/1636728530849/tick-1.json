@@ -1,0 +1,98 @@
+{
+  "id": 0,
+  "name": "testAndOrGoal.json",
+  "inventory": [],
+  "entities": [
+    {
+      "health": 85,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT"
+      ],
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "boulder",
+      "id": "2"
+    },
+    {
+      "isActivated": false,
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": -1
+      },
+      "type": "switch",
+      "id": "3"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "treasure",
+      "id": "4"
+    }
+  ],
+  "gameMode": "Standard",
+  "goals": "(:boulders OR :treasure)",
+  "historicalEntCount": 5,
+  "tickNumber": 1,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "height": 5,
+  "width": 5,
+  "foundGoals": {
+    "subGoals": [
+      {
+        "goal": "enemies",
+        "hasCompleted": true
+      },
+      {
+        "subGoals": [
+          {
+            "goal": "boulders",
+            "hasCompleted": false
+          },
+          {
+            "goal": "treasure",
+            "hasCompleted": false
+          }
+        ],
+        "hasCompleted": false,
+        "operator": "OR"
+      }
+    ],
+    "operator": "AND",
+    "hasCompleted": false
+  },
+  "goalConditions": "{\"subgoals\":[{\"goal\":\"enemies\"},{\"subgoals\":[{\"goal\":\"boulders\"},{\"goal\":\"treasure\"}],\"goal\":\"OR\"}],\"goal\":\"AND\"}",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636728530849/"
+}

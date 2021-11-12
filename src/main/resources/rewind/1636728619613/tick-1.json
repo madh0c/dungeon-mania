@@ -1,0 +1,158 @@
+{
+  "id": 0,
+  "name": "testZombieObstruction.json",
+  "inventory": [],
+  "entities": [
+    {
+      "randSeed": 58,
+      "random": {
+        "seed": 205194411654422,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "0"
+    },
+    {
+      "randSeed": 81,
+      "random": {
+        "seed": 204513609248663,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "position": {
+        "x": 4,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "1"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "2"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "3"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "4"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "5"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "boulder",
+      "id": "6"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "exit",
+      "id": "7"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "boulder",
+      "id": "8"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "exit",
+      "id": "9"
+    },
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "NONE",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "NONE"
+      ],
+      "position": {
+        "x": 6,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "10"
+    }
+  ],
+  "gameMode": "Standard",
+  "goals": "",
+  "historicalEntCount": 11,
+  "tickNumber": 1,
+  "spawnpoint": {
+    "x": 6,
+    "y": 0,
+    "layer": 0
+  },
+  "height": 3,
+  "width": 6,
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636728619613/"
+}

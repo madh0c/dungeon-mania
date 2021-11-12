@@ -111,27 +111,25 @@ public class Battle {
 
 			// Check if hydra or not
 			// fix
-			// if ((enemy instanceof Hydra)) {
-			// 	// If chance of two heads
-			// 	if (chanceTwoHeads) {
-			// 		Random rand = new Random();
-			// 		// 50% chance gaining health
-			// 		if (rand.nextInt(2) == 0) {
-			// 			enemy.setHealth(enemyHp + ((playerHp * playerAtk) / 5));
-			// 		} else { // 50% chance lose health
-			// 			enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
-			// 		}
-			// 	} else {
-			// 		// No chance of gaining health
-			// 		enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
-			// 	}
-			// } else {
-			// 	enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
-			// }
+			if ((enemy instanceof Hydra)) {
+				// If chance of two heads
+				if (chanceTwoHeads) {
+					Random rand = new Random();
+					// 50% chance gaining health
+					if (rand.nextInt(2) == 0) {
+						enemy.setHealth(enemyHp + ((playerHp * playerAtk) / 5));
+					} else { // 50% chance lose health
+						enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
+					}
+				} else {
+					// No chance of gaining health
+					enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
+				}
+			} else {
+				enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
+			}
 
-			enemy.attack(dungeon.getPlayer());
-			// enemy.attack(Player player);
-			// enemy.setHealth(enemyHp - ((playerHp * playerAtk) / 5));
+			// enemy.attack(dungeon);
 
 			if (dungeon.getPlayer().getHealth() <= 0) {
 				List<CollectableEntity> ringDelete = new ArrayList<> ();
