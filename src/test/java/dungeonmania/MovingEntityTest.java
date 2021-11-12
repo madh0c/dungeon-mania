@@ -696,5 +696,46 @@ public class MovingEntityTest {
 		Position player = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", player));
 	}
+
+	@Test
+	public void testAssassinCantBribe() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testAssassinBribe", "Standard"));
+	
+		controller.tick(null, Direction.DOWN);
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.NONE);
+
+		assertThrows(InvalidActionException.class, () -> controller.interact("1"));
+	}
+
+	@Test 
+	public void testAssassinFar() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testAssassinFar", "Standard"));
+	
+		controller.tick(null, Direction.RIGHT);
+
+		assertThrows(InvalidActionException.class, () -> controller.interact("3"));
+	}
+
+	@Test
+	public void testAssassinSavedBribed() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testAssassinFar", "Standard"));
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		assertDoesNotThrow(() -> controller.interact("3"));
+		Dungeon dungeon = controller.getDungeon(0);
+		Entity ent = dungeon.getEntities().get(1);
+		Assassin ass = (Assassin) ent;
+		assertTrue(ass.getIsAlly());
+		assertDoesNotThrow(() -> controller.saveGame("saveAssassinBribed"));
+		assertDoesNotThrow(() -> controller.loadGame("saveAssassinBribed"));
+		Dungeon dungeon1 = controller.getDungeon(0);
+		Entity entity = dungeon1.getEntities().get(1);
+		Assassin assass = (Assassin) entity;
+		assertTrue(assass.getIsAlly());
+	}
 	
 }

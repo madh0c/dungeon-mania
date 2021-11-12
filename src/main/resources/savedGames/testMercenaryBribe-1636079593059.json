@@ -4,7 +4,7 @@
   "inventory": [],
   "entities": [
     {
-      "health": 88,
+      "health": 36,
       "attack": 2,
       "visible": true,
       "currentDir": "RIGHT",
@@ -42,26 +42,6 @@
         "RIGHT",
         "LEFT",
         "RIGHT",
-        "UP",
-        "DOWN",
-        "UP",
-        "DOWN",
-        "UP",
-        "DOWN",
-        "UP",
-        "DOWN",
-        "UP",
-        "DOWN",
-        "UP",
-        "DOWN",
-        "UP",
-        "DOWN",
-        "UP",
-        "DOWN",
-        "UP",
-        "DOWN",
-        "UP",
-        "DOWN",
         "LEFT",
         "RIGHT",
         "LEFT",
@@ -209,8 +189,8 @@
   ],
   "gameMode": "Standard",
   "goals": "",
-  "historicalEntCount": 13,
-  "tickNumber": 165,
+  "historicalEntCount": 11,
+  "tickNumber": 145,
   "spawnpoint": {
     "x": 1,
     "y": 1,
@@ -225,5 +205,5 @@
   "goalConditions": "",
   "factory": {},
   "mercSpawnrate": 20,
-  "rewindPath": "/rewind/1636714637525/"
+  "rewindPath": "/rewind/1636725011445/"
 }

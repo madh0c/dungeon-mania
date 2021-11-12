@@ -125,16 +125,56 @@
       },
       "type": "shield",
       "id": "13"
+    },
+    {
+      "position": {
+        "x": 14,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "sun_stone",
+      "id": "19"
+    },
+    {
+      "durability": 30,
+      "dmgMultiplier": 3,
+      "position": {
+        "x": 15,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "anduril",
+      "id": "20"
+    },
+    {
+      "position": {
+        "x": 16,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "sceptre",
+      "id": "21"
+    },
+    {
+      "extraDamage": 2,
+      "durability": 5,
+      "position": {
+        "x": 17,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "midnight_armour",
+      "id": "22"
     }
   ],
   "entities": [
     {
       "health": 100,
-      "attack": 2,
+      "attack": 6,
       "visible": true,
       "currentDir": "RIGHT",
       "haveKey": true,
-      "hasSunStone": false,
+      "hasSunStone": true,
       "invincibleTickDuration": 0,
       "enemyAttack": true,
       "initialHealth": 100,
@@ -154,10 +194,14 @@
         "RIGHT",
         "RIGHT",
         "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
         "RIGHT"
       ],
       "position": {
-        "x": 13,
+        "x": 17,
         "y": 0,
         "layer": 0
       },
@@ -218,8 +262,8 @@
   ],
   "gameMode": "Standard",
   "goals": "",
-  "historicalEntCount": 19,
-  "tickNumber": 13,
+  "historicalEntCount": 23,
+  "tickNumber": 17,
   "spawnpoint": {
     "x": 0,
     "y": 0,
@@ -234,5 +278,5 @@
   "goalConditions": "",
   "factory": {},
   "mercSpawnrate": 20,
-  "rewindPath": "/rewind/1636720827175/"
+  "rewindPath": "/rewind/1636726433134/"
 }
