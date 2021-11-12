@@ -160,6 +160,30 @@ public class OlderPlayer extends MovingEntity {
             }
 		}
     }
+	@Override
+	public void moveScared(Dungeon dungeon) {
+		Position destination = dungeon.getPlayerPosition();
+        if (destination.getY() != getPosition().getY()) {
+			// If player is to the up of merc
+			if (destination.getY() < getPosition().getY()) {
+                if (oPMove(Direction.DOWN, dungeon)) {
+                    return;
+                }
+			} else {
+				if (oPMove(Direction.UP, dungeon)) {
+                    return;
+                }
+			}
+		} else if (destination.getX() < getPosition().getX()) {
+            if (oPMove(Direction.RIGHT, dungeon)) {
+                return;
+            }
+        } else {
+            if (oPMove(Direction.LEFT, dungeon)) {
+                return;
+            }
+		}
+    }
 
     public int getTraceUntil() {
         return traceUntil;

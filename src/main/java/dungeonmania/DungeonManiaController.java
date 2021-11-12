@@ -397,9 +397,15 @@ public class DungeonManiaController {
 			}
 		}
 
+		System.out.println(currentDungeon.getPlayer().getInvincibleTickDuration());
 		// Move all Movable Entities
-		for (MovingEntity mov : tempEnts) {
-			mov.move(currentDungeon);
+		for (MovingEntity mov : tempEnts) {			
+			if (currentDungeon.getPlayer().getInvincibleTickDuration() == 0) {
+				mov.move(currentDungeon);
+			} else {
+				mov.moveScared(currentDungeon);
+			}
+			
 		}
 		
 		// Explode all valid bombs

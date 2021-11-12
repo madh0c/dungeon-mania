@@ -163,4 +163,44 @@ public class Spider extends MovingEntity {
 			}
 		}
 	}
+
+	@Override
+	public void moveScared(Dungeon dungeon) {
+		// direction
+		Direction dir = Direction.NONE;
+		Player player = dungeon.getPlayer();
+
+		if (player.getPosition().getY() != getPosition().getY()) {
+			// If player is to the up of merc
+			if (player.getPosition().getY() < getPosition().getY()) {
+				dir = Direction.DOWN;				
+			} 
+			// If on down side
+			else {
+				dir = Direction.UP;
+			}
+		}
+
+		// left right movement
+		if (player.getPosition().getX() != getPosition().getX()) {
+			// If player is to the left of merc
+			if (player.getPosition().getX() < getPosition().getX()) {
+				dir = Direction.RIGHT;	
+			} 
+			// If on right side
+			else {
+				dir = Direction.LEFT;	
+			}
+		}
+
+		// Check if collideable with the direciton
+		Position newPos = getPosition().translateBy(dir);
+		for (Entity entity : dungeon.getEntitiesOnCell(newPos)) {
+			if (!collide(entity, dungeon)) {
+				return;
+			}
+		}
+		// If yes, then set pos
+		setPosition(newPos);
+	}
 }
