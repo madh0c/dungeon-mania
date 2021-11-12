@@ -64,5 +64,5 @@
   },
   "goalConditions": "{\"subgoals\":[{\"goal\":\"enemies\"},{\"goal\":\"treasure\"}],\"goal\":\"AND\"}",
   "factory": {},
-  "mercSpawnrate": 20,
+  "mercSpawnrate": 20
 }
