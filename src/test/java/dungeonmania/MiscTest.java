@@ -2,6 +2,7 @@ package dungeonmania;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -102,7 +103,7 @@ public class MiscTest {
 
         DungeonResponse dREnd = controller.getDungeonInfo(0);
 
-        assertEquals(new ArrayList<ItemResponse>(), dREnd.getInventory());
+        assertFalse(new ArrayList<ItemResponse>().contains(currentInv));
     }
 
     @Test
@@ -215,7 +216,7 @@ public class MiscTest {
 		controller.tick(null, Direction.RIGHT);
 
 		// Assert the mercenary has moved from spawn
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,1), true);
 
         DungeonResponse dREnd = controller.getDungeonInfo(0);
         assertNotEquals(expectedMercenaryInfo, dREnd.getEntities().get(2));

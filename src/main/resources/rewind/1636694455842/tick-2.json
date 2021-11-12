@@ -1,0 +1,77 @@
+{
+  "id": 0,
+  "name": "testCollectiblesBomb.json",
+  "inventory": [
+    {
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "bomb",
+      "id": "1"
+    }
+  ],
+  "entities": [
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": false,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "sceptreTickDuration": 0,
+      "controlled": [],
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "boulder",
+      "id": "2"
+    },
+    {
+      "isActivated": true,
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": -1
+      },
+      "type": "switch",
+      "id": "3"
+    }
+  ],
+  "gameMode": "Peaceful",
+  "goals": "",
+  "historicalEntCount": 4,
+  "tickNumber": 2,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "height": 5,
+  "width": 5,
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636694455842/"
+}

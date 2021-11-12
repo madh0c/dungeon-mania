@@ -1,0 +1,86 @@
+{
+  "id": 0,
+  "name": "testDurability.json",
+  "inventory": [
+    {
+      "durability": 3,
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "21"
+    }
+  ],
+  "entities": [
+    {
+      "position": {
+        "x": 5,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "5"
+    },
+    {
+      "isAlly": false,
+      "currentDir": "RIGHT",
+      "health": 26,
+      "baseAttack": 20,
+      "enemyAttack": true,
+      "position": {
+        "x": 4,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "assassin",
+      "id": "23"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "24"
+    },
+    {
+      "isAlly": false,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "25"
+    }
+  ],
+  "gameMode": "Hard",
+  "goals": "",
+  "historicalEntCount": 26,
+  "tickNumber": 168,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "height": 50,
+  "width": 50,
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 10,
+  "rewindPath": "/rewind/1636694555611/"
+}
