@@ -204,20 +204,7 @@ public class Mercenary extends MovingEntity {
 	 * @param dungeon	Current dungeon of mercenary
 	 * @return boolean of whether the mercenary got moved
 	 */
-	public boolean mercMove(Direction direction, Dungeon dungeon) {
-		// Check if collidable with next entity
-		// Position pos = getPosition();
-		// Entity ent = dungeon.getEntity(pos.translateBy(direction));
-		// Direction prevDir = getCurrentDir();
-		// setCurrentDir(direction);
-		// if (ent != null && !collide(ent, dungeon)) {
-		// 	setCurrentDir(prevDir);
-		// 	return false;
-		// }
-
-		// setPosition(getPosition().translateBy(direction));
-
-		// portalMove(dungeon);
+	public boolean mercMove(Direction direction, Dungeon dungeon) {		
 		Position currPos = getPosition();
 		
 		Position nextPos = null;
@@ -247,6 +234,24 @@ public class Mercenary extends MovingEntity {
 
 		return true;
 	}
+	
+	public boolean moveDumb(Direction direction, Dungeon dungeon) {
+		// Check if collidable with next entity
+		Position pos = getPosition();
+		Entity ent = dungeon.getEntity(pos.translateBy(direction));
+		Direction prevDir = getCurrentDir();
+		setCurrentDir(direction);
+		if (ent != null && !collide(ent, dungeon)) {
+			setCurrentDir(prevDir);
+			return false;
+		}
+
+		setPosition(getPosition().translateBy(direction));
+
+		portalMove(dungeon, pos);
+		return true;
+	}
+
 
 
 	/**
@@ -298,4 +303,47 @@ public class Mercenary extends MovingEntity {
 		}
 	}
 	
+	@Override
+	public void moveScared(Dungeon dungeon) {
+		// Find player
+		Player player = dungeon.getPlayer();
+		if (player == null) {
+			return;
+		}
+		
+		// Prioritise up down movement
+		// If not on same y axis
+		if (player.getPosition().getY() != getPosition().getY()) {
+			// If player is to the up of merc
+			if (player.getPosition().getY() < getPosition().getY()) {
+				if(moveDumb(Direction.DOWN, dungeon)) {
+					return;
+				}
+				
+			} 
+			// If on down side
+			else {
+				if (moveDumb(Direction.UP, dungeon)) {
+					return;
+				}
+			}
+		}
+
+		// left right movement
+		if (player.getPosition().getX() != getPosition().getX()) {
+			// If player is to the left of merc
+			if (player.getPosition().getX() < getPosition().getX()) {
+				if (moveDumb(Direction.RIGHT, dungeon)) {
+					return;
+				}
+			} 
+			// If on right side
+			else {
+				if (moveDumb(Direction.LEFT, dungeon)) {
+					return;
+				}
+			}
+		}
+	}
+
 }

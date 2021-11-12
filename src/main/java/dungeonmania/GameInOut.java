@@ -58,8 +58,6 @@ public class GameInOut {
 		GoalNode foundGoals = new GoalLeaf("");
 		String goalsConvert = "";
 
-		System.out.println("1");
-
 		try {
             Map<String, Object> jsonMap = new Gson().fromJson(path, Map.class);
 
@@ -100,7 +98,6 @@ public class GameInOut {
 			}
 
 			List<Map<String, Object>> parseList = (List<Map<String, Object>>)jsonMap.get("entities"); 
-			System.out.println("2");
 
 
 			EntityFactory factory = null;
@@ -113,14 +110,11 @@ public class GameInOut {
 			}
 
 			for (int i = 0; i < parseList.size(); i++) {
-				System.out.println("3");
-
                 Map<String, Object> currentEntity = parseList.get(i);
 				
 				String entityType = (String)currentEntity.get("type");
 				String entityId = null;
 				Position exportPos = null;
-				System.out.println(entityType);
 
 
 				if (expType.equals("load") || expType.equals("rewind")) {
@@ -169,15 +163,11 @@ public class GameInOut {
 						int invincibleTickDuration = invinceD.intValue();
 
 						List<Direction> trackingList = new ArrayList<>();
-						System.out.println("tr3yce");
-						List<Object> traceList = (List<Object>)currentEntity.get("traceList");
-						System.out.println("treyce");
-						System.out.println(traceList.size());
 
+						List<Object> traceList = (List<Object>)currentEntity.get("traceList");
 
 						if (traceList != null) {
 							for (Object traceDir : traceList) {
-								System.out.println(traceDir.getClass());
 								String track = (String) traceDir;
 								if (track.equals("UP")) {
 									trackingList.add(Direction.UP);

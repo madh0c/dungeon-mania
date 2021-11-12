@@ -1,6 +1,7 @@
 package dungeonmania;
 
 import dungeonmania.allEntities.*;
+import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 public abstract class MovingEntity extends Entity {
@@ -75,5 +76,8 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public abstract void move(Dungeon dungeon);
+
+	public abstract void moveScared(Dungeon dungeon); 
+
 }
 
