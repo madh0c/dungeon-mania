@@ -38,6 +38,13 @@ public abstract class MovingEntity extends Entity {
 		this.enemyAttack = enemyAttack;
 	}
     
+	/**
+	 * Checks if the MovingEntity can coincide in the same tile as the given entity
+	 * @param entity	Entity to be coincided with
+	 * @param dungeon	Dungeon of everything
+	 * @return	true if can coincide with entity
+	 * 			<li> false if otherwise
+	 */
 	public boolean collide(Entity entity, Dungeon dungeon) {
 		// If empty space
 		if (entity == null) {
@@ -75,10 +82,27 @@ public abstract class MovingEntity extends Entity {
 		return true;
 	}
 
+	/**
+	 * Move the MovingEntity depending on the type of entity being moved <ul>
+	 * <li>Mercenary, Assassin: Move towards the player in the shortest path
+	 * <li>Spider: Move around the 8 adjacent tiles of the spawning point of the spider
+	 * <li>ZombieToast, Hydra: Move in random directions</ul>
+	 * @param dungeon	Dungeon of MovingEntity
+	 */
 	public abstract void move(Dungeon dungeon);
 
+	/**
+	 * Move away from the player
+	 * @param dungeon	Dungeon of MovingEntity
+	 */
 	public abstract void moveScared(Dungeon dungeon); 
 
+	/**
+	 * Reduce the health of the MovingEntity, depending on the player's health and
+	 * attack damage<p>
+	 * enemyHealth -= (playerHealth * playerAttack) / 5;
+	 * @param dungeon	Dungeon of MovingEntity
+	 */
 	public void attack(Dungeon dungeon) {
 		Player player = dungeon.getPlayer();
 		setHealth(getHealth() - ((player.getHealth() * player.getAttack()) / 5));

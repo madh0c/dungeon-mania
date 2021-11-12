@@ -20,24 +20,40 @@ public class Hydra extends ZombieToast {
 
 	@Override
 	public void attack(Dungeon dungeon) {
-		Player player = dungeon.getPlayer();
-		boolean chance = true;
 		// Check if anduril
-		for (CollectableEntity item : dungeon.getInventory()) {
-			if (item.getType().equals("Anduril")) {
-				chance = false;
-				break;
-			}
-		}
-
-		if (chance) {
+		if (!haveAnduril(dungeon)) {
+			// Chance of gaining health
 			if (rng.nextInt(2) == 0) {
 				// Gain health
-				setHealth(getHealth() + ((player.getHealth() * player.getAttack()) / 5));
+				gainHealth(dungeon);
 				return;
 			}
 		}
 		super.attack(dungeon);
+	}
+
+	/**
+	 * Checks if player currently has an anduril
+	 * @param dungeon	Dungeon of Player
+	 * @return	true if player has an anduril
+	 * 			<li>false if otherwise
+	 */
+	private boolean haveAnduril(Dungeon dungeon) {
+		for (CollectableEntity item : dungeon.getInventory()) {
+			if (item.getType().equals("anduril")) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Gain health instead of losing
+	 * @param dungeon	Dungeon of Hydra
+	 */
+	private void gainHealth(Dungeon dungeon) {
+		Player player = dungeon.getPlayer();
+		setHealth(getHealth() + ((player.getHealth() * player.getAttack()) / 5));
 	}
 		
 }
