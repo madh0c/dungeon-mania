@@ -48,7 +48,7 @@ public class GameInOut {
 		}
 	}
 	
-	public static Dungeon fromJSON(String expType, String path, String feed, int lastUsedDungeonId, String gameMode) throws IOException {
+	public static Dungeon fromJSON(String expType, String path, String feed, int lastUsedDungeonId, String gameMode, int ticks) throws IOException {
         List<Entity> entityList = new ArrayList<>();
 		List<CollectableEntity> returnInv = new ArrayList<>();
 		String goals = null;
@@ -58,6 +58,7 @@ public class GameInOut {
 		GoalNode foundGoals = new GoalLeaf("");
 		String goalsConvert = "";
 
+		System.out.println("1");
 
 		try {
             Map<String, Object> jsonMap = new Gson().fromJson(path, Map.class);
@@ -99,6 +100,7 @@ public class GameInOut {
 			}
 
 			List<Map<String, Object>> parseList = (List<Map<String, Object>>)jsonMap.get("entities"); 
+			System.out.println("2");
 
 
 			EntityFactory factory = null;
@@ -111,11 +113,15 @@ public class GameInOut {
 			}
 
 			for (int i = 0; i < parseList.size(); i++) {
+				System.out.println("3");
+
                 Map<String, Object> currentEntity = parseList.get(i);
 				
 				String entityType = (String)currentEntity.get("type");
 				String entityId = null;
 				Position exportPos = null;
+				System.out.println(entityType);
+
 
 				if (expType.equals("load") || expType.equals("rewind")) {
 
@@ -150,7 +156,7 @@ public class GameInOut {
 					String colour = (String)currentEntity.get("colour");
 					Portal portal = factory.createPortal(entityId, exportPos, colour);
 					entityList.add(portal);
-				} else if (entityType.contains("player")) {
+				} else if (entityType.equals("player")) {
 					if (expType.equals("load")) { 
 						Player player = factory.createPlayer(entityId, exportPos);
 						Double healthD = (Double)currentEntity.get("health");
@@ -162,19 +168,49 @@ public class GameInOut {
 						Double invinceD = (Double)currentEntity.get("invincibleTickDuration");
 						int invincibleTickDuration = invinceD.intValue();
 
+						List<Direction> trackingList = new ArrayList<>();
+						System.out.println("tr3yce");
+						List<Object> traceList = (List<Object>)currentEntity.get("traceList");
+						System.out.println("treyce");
+						System.out.println(traceList.size());
+
+
+						if (traceList != null) {
+							for (Object traceDir : traceList) {
+								System.out.println(traceDir.getClass());
+								String track = (String) traceDir;
+								if (track.equals("UP")) {
+									trackingList.add(Direction.UP);
+								} else if (track.equals("DOWN")) {
+									trackingList.add(Direction.DOWN);
+								} else if (track.equals("LEFT")) {
+									trackingList.add(Direction.LEFT);
+								} else if (track.equals("RIGHT")) {
+									trackingList.add(Direction.RIGHT);
+								} else if (track.equals("NONE")) {
+									trackingList.add(Direction.NONE);
+								}
+							} 
+						}
+
 						player.setHealth(health);
 						player.setAttack(attack);
 						player.setCurrentDir(Direction.UP);
 						player.setVisibility(visible);
 						player.setHaveKey(haveKey);
 						player.setInvincibleTickDuration(invincibleTickDuration);
+						player.setTraceList(trackingList);
+
 						entityList.add(player);
 					} else if (expType.equals("new")) {
 						Player player = factory.createPlayer(entityId, exportPos);
 						entityList.add(player);
 					} else if (expType.equals("rewind")) {
 						Entity olderPlayer = factory.createEntity(entityId, "older_player", exportPos);
-						System.out.println(olderPlayer);
+						OlderPlayer oP = (OlderPlayer) olderPlayer;
+						Double tickD = (Double)jsonMap.get("tickNumber"); 
+						int traceUntil = tickD.intValue() + ticks;
+						oP.setTraceUntil(traceUntil);
 						entityList.add(olderPlayer);
 					}
 				} else if (entityType.contains("swamp_tile")) {
@@ -219,7 +255,15 @@ public class GameInOut {
 					entityList.add(newAssassin);
 				}  else if (entityType.contains("time_turner") && expType.equals("rewind")) {
 					continue;
-				}else {
+				} else if (entityType.equals("older_player")) {
+					Entity olderPlayer = factory.createEntity(entityId, entityType, exportPos);
+						OlderPlayer oP = (OlderPlayer) olderPlayer;
+						Double tick = (Double)currentEntity.get("traceUntil"); 
+						int traceUntil = tick.intValue();
+						oP.setTraceUntil(traceUntil);
+						entityList.add(olderPlayer);
+
+				} else {
 					Entity newEntity = factory.createEntity(entityId, entityType, exportPos);
 					entityList.add(newEntity);
 
@@ -351,7 +395,7 @@ public class GameInOut {
 				returnDungeon.setFoundGoals(foundGoals);
 			}
 
-			if (expType.equals("rewind")) {
+			if (expType.equals("rewind") || expType.equals("load")) {
 				String rewindPath = (String)jsonMap.get("rewindPath"); 
 				returnDungeon.setRewindPath(rewindPath);
 

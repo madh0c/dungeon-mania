@@ -98,7 +98,7 @@ public class DungeonManiaController {
 
 		try {
 			String path = FileLoader.loadResourceFile("/dungeons/" + fileName);
-			currentDungeon = GameInOut.fromJSON("new", path, fileName, lastUsedDungeonId, gameMode);
+			currentDungeon = GameInOut.fromJSON("new", path, fileName, lastUsedDungeonId, gameMode, 0);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -162,14 +162,6 @@ public class DungeonManiaController {
 			}
 		}
 
-		for (Entity ent: target.getEntities()) {
-			System.out.println(ent.getType() + " has id" + ent.getId());
-
-		}
-
-
-
-		
 		List<EntityResponse> listER = new ArrayList<EntityResponse>();
 		for (Entity entity : target.getEntities()) {
 			EntityResponse eR = new EntityResponse(entity.getId(), entity.getType(), entity.getPosition(), entity.isInteractable());
@@ -258,7 +250,7 @@ public class DungeonManiaController {
 
 		try {
 			String path = FileLoader.loadResourceFile("/savedGames/" + fileName);
-			currentDungeon = GameInOut.fromJSON("load", path, feed, lastUsedDungeonId, null);
+			currentDungeon = GameInOut.fromJSON("load", path, feed, lastUsedDungeonId, null, 0);
 			setLastUsedDungeonId(getLastUsedDungeonId() + 1);
 			games.add(currentDungeon);
 			
@@ -274,6 +266,14 @@ public class DungeonManiaController {
 					}
 				}
 			}
+			for (Entity ent : currentDungeon.getEntities()) {
+				if (ent instanceof OlderPlayer) {
+					OlderPlayer oP = (OlderPlayer) ent;
+					Player currentPlayer = currentDungeon.getPlayer();
+					oP.setTrackingList(currentPlayer.getTraceList());
+				}
+			}
+
 			evalGoal(currentDungeon);
 			return getDungeonInfo(currentDungeon.getId());
 		} catch (IOException e) {
@@ -430,8 +430,23 @@ public class DungeonManiaController {
 			spawner.spawnZombie(currentDungeon);
 		}
 
+		Player player = currentDungeon.getPlayer();
+		player.addTrace(player.getCurrentDir());
 		
 		evalGoal(currentDungeon);
+
+		Player currPlayer = currentDungeon.getPlayer();
+		Position currPlayerPos = currPlayer.getPosition();
+		List<Entity> entOnPlayerCell = currentDungeon.getEntitiesOnCell(currPlayerPos);
+
+		for (Entity ent: entOnPlayerCell) {
+			if (ent instanceof TimeTravellingPortal) {
+				Direction currDir = currPlayer.getCurrentDir();
+				currPlayer.setPosition(currPlayerPos.translateBy(currDir));
+				this.rewind(30);
+			}
+		}
+
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
@@ -789,7 +804,7 @@ public class DungeonManiaController {
 			String rewindPath = currentDungeon.getRewindPath() + "tick-" + tickNo + ".json";
 			String path = FileLoader.loadResourceFile(rewindPath);
 
-			Dungeon rewindDungeon = GameInOut.fromJSON("rewind", path, currentDungeon.getName(), lastUsedDungeonId, null);
+			Dungeon rewindDungeon = GameInOut.fromJSON("rewind", path, currentDungeon.getName(), lastUsedDungeonId, null, ticks);
 			
 			for (Entity ent : rewindDungeon.getEntities()) {
 				if (ent instanceof Switch) {
@@ -809,10 +824,15 @@ public class DungeonManiaController {
 			rewindDungeon.addEntity(actualPlayer);
 			rewindDungeon.setInventory(currentDungeon.getInventory());
 
+			for (Entity ent : rewindDungeon.getEntities()) {
+				if (ent instanceof OlderPlayer) {
+					OlderPlayer oP = (OlderPlayer) ent;
+					oP.setTrackingList(actualPlayer.getTraceList());
+				}
+			}
+
 			currentDungeon = rewindDungeon;
-
 			games.add(currentDungeon);
-
 			evalGoal(currentDungeon);
 
 			return getDungeonInfo(currentDungeon.getId());

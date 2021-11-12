@@ -97,7 +97,7 @@ public class MiscTest {
         Shield shieldInv = (Shield) currentInv.get(3);
         assertEquals(3, shieldInv.getDurability());
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 50; i++) {
             controller.tick(null, Direction.RIGHT);
         }
 

@@ -1206,7 +1206,6 @@ public class StaticEntityTest {
 
     /**
 	 * A zombie toast spawner spawns a zombie.
-     * TODO: Battle NOT IMPLEMENTED: Mercenaries should not exist once battle implemented
 	 */
 	@Test
     public void testZombieSpawns() {

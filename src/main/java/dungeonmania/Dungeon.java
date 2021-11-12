@@ -389,6 +389,14 @@ public class Dungeon {
 		return width;
 	}
 
+	public boolean getMidnightStatus() {
+		for (Entity ent : getInventory()) {
+			if (ent instanceof MidnightArmour) {
+				return true;
+			}
+		} return false;
+	}
+
 	public void setHistoricalEntCount(int historicalEntCount) {
 		this.historicalEntCount = historicalEntCount;
 	}
