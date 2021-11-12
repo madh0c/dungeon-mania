@@ -29,6 +29,11 @@
 			"x": 3,
 			"y": 2,
 			"type": "boulder"
+		},
+		{
+			"x": 5,
+			"y": 3,
+			"type": "player"
 		}
     ],
     "width": 6,

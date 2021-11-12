@@ -16,6 +16,9 @@
       "invincibleAmount": 8,
       "initialAttack": 2,
       "controlled": [],
+      "traceList": [
+        "RIGHT"
+      ],
       "position": {
         "x": 3,
         "y": 0,
@@ -65,5 +68,6 @@
   },
   "goalConditions": "",
   "factory": {},
-  "mercSpawnrate": 20
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636711763066/"
 }
