@@ -1,10 +1,14 @@
 {
   "id": 1,
-  "name": "testMercenaryBribe-1636079593059",
+  "name": "testMercenaryBribe.json",
   "inventory": [],
   "entities": [
     {
+<<<<<<< HEAD
       "health": 36,
+=======
+      "health": 100,
+>>>>>>> 040ea5187a6e3edf4e666b5286a7621bfe50d872
       "attack": 2,
       "visible": true,
       "currentDir": "RIGHT",
@@ -21,6 +25,7 @@
         "NONE",
         "NONE",
         "DOWN",
+<<<<<<< HEAD
         "RIGHT",
         "LEFT",
         "RIGHT",
@@ -161,6 +166,8 @@
         "LEFT",
         "RIGHT",
         "LEFT",
+=======
+>>>>>>> 040ea5187a6e3edf4e666b5286a7621bfe50d872
         "RIGHT"
       ],
       "position": {
@@ -189,8 +196,13 @@
   ],
   "gameMode": "Standard",
   "goals": "",
+<<<<<<< HEAD
   "historicalEntCount": 11,
   "tickNumber": 145,
+=======
+  "historicalEntCount": 3,
+  "tickNumber": 5,
+>>>>>>> 040ea5187a6e3edf4e666b5286a7621bfe50d872
   "spawnpoint": {
     "x": 1,
     "y": 1,
@@ -204,6 +216,10 @@
   },
   "goalConditions": "",
   "factory": {},
+<<<<<<< HEAD
   "mercSpawnrate": 20,
   "rewindPath": "/rewind/1636725011445/"
+=======
+  "mercSpawnrate": 20
+>>>>>>> 040ea5187a6e3edf4e666b5286a7621bfe50d872
 }

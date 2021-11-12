@@ -277,6 +277,10 @@
   },
   "goalConditions": "",
   "factory": {},
+<<<<<<< HEAD
   "mercSpawnrate": 20,
   "rewindPath": "/rewind/1636726433134/"
+=======
+  "mercSpawnrate": 20
+>>>>>>> 040ea5187a6e3edf4e666b5286a7621bfe50d872
 }
