@@ -59,8 +59,6 @@ public class MiscTest {
 
         EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(4,0), true);
         EntityResponse midE1 = new EntityResponse("5", "wall", new Position(5,0), false);
-        EntityResponse midE2 = new EntityResponse("6", "mercenary", new Position(4,0), true);
-        EntityResponse midE3 = new EntityResponse("7", "mercenary", new Position(4,0), true);
 
         midList.add(midPlayerInfo);
         midList.add(midE1);
@@ -105,11 +103,7 @@ public class MiscTest {
 
         DungeonResponse dREnd = controller.getDungeonInfo(0);
 
-<<<<<<< HEAD
         assertFalse(dREnd.getInventory().containsAll(expInvList));
-=======
-        assertFalse(new ArrayList<ItemResponse>().contains(currentInv));
->>>>>>> master
     }
 
     @Test
