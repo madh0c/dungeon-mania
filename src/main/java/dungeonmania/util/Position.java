@@ -77,6 +77,15 @@ public final class Position {
         return new Position(b.x - a.x, b.y - a.y);
     }
 
+    /**
+     * Calculates the position vector of b relative to a (ie. the direction from a
+     * to b)
+     * @return The relative position vector
+     */
+    public static final Position calculateMedianPosition(Position a, Position b) {
+        return new Position((b.x + a.x)/2, (b.y + a.y)/2);
+    }
+
     public  static final boolean isAdjacent(Position a, Position b) {
         int x = a.x - b.x;
         int y = a.y - b.y;

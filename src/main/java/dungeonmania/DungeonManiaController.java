@@ -845,7 +845,8 @@ public class DungeonManiaController {
 		Position startPos = new Position(xStart, yStart);
 		Position endPos = new Position(xEnd, yEnd);
 
-		currentDungeon = Prims.generateDungeon(startPos, endPos, gameMode, lastUsedDungeonId);
+		Dungeon primsDungeon = Prims.generateDungeon(startPos, endPos, gameMode, lastUsedDungeonId);
+		currentDungeon = primsDungeon;
 		games.add(currentDungeon);
 		lastUsedDungeonId++;
 		
