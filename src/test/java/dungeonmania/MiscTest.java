@@ -105,7 +105,11 @@ public class MiscTest {
 
         DungeonResponse dREnd = controller.getDungeonInfo(0);
 
+<<<<<<< HEAD
         assertFalse(dREnd.getInventory().containsAll(expInvList));
+=======
+        assertFalse(new ArrayList<ItemResponse>().contains(currentInv));
+>>>>>>> master
     }
 
     @Test
@@ -218,7 +222,7 @@ public class MiscTest {
 		controller.tick(null, Direction.RIGHT);
 
 		// Assert the mercenary has moved from spawn
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,1), true);
 
         DungeonResponse dREnd = controller.getDungeonInfo(0);
         assertNotEquals(expectedMercenaryInfo, dREnd.getEntities().get(2));
