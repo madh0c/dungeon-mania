@@ -349,16 +349,11 @@ public class GameInOut {
 				returnDungeon.setTickNumber(tickNumber);
 				returnDungeon.setSpawnpoint(spawnpoint); 
 				returnDungeon.setFoundGoals(foundGoals);
+			}
 
-				System.out.println("lastUsedDungeonId: " + lastUsedDungeonId);
-				System.out.println("feed: " + feed);
-				System.out.println("returnInv: " + returnInv.size());
-				System.out.println("entityList: " + entityList.size());
-				System.out.println("goals: " + goals);
-				System.out.println("historicalEntCount: " + historicalEntCount);
-				System.out.println("tickNumber: " + tickNumber);
-				System.out.println("spawnpoint: " + spawnpoint);
-				System.out.println("foundGoals: " + foundGoals);
+			if (expType.equals("rewind")) {
+				String rewindPath = (String)jsonMap.get("rewindPath"); 
+				returnDungeon.setRewindPath(rewindPath);
 
 			}
 
