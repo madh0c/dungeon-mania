@@ -225,13 +225,12 @@
     "y": 0,
     "layer": 0
   },
-  "height": 50,
-  "width": 50,
   "foundGoals": {
     "goal": "",
     "hasCompleted": false
   },
   "goalConditions": "",
   "factory": {},
-  "mercSpawnrate": 20
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636730538656/"
 }

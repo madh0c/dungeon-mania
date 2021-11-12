@@ -46,8 +46,6 @@
     "y": 0,
     "layer": 0
   },
-  "height": 3,
-  "width": 3,
   "foundGoals": {
     "subGoals": [
       {
@@ -64,5 +62,6 @@
   },
   "goalConditions": "{\"subgoals\":[{\"goal\":\"enemies\"},{\"goal\":\"treasure\"}],\"goal\":\"AND\"}",
   "factory": {},
-  "mercSpawnrate": 20
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636730538549/"
 }

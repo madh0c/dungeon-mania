@@ -104,7 +104,7 @@ public class DungeonManiaController {
 		}
 
 		Date date = new Date();
-		// UNCOMMENT
+		// TODO UNCOMMENT
 		// long currTime = date.getTime();
 		// String rewindTime = Long.toString(currTime);
 		// String rewindPath = "/rewind/" + rewindTime + "/";
@@ -331,7 +331,7 @@ public class DungeonManiaController {
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
 
-		// UNCOMMENT
+		// TODO UNCOMMENT
 		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 	
 		// Use item
@@ -399,7 +399,6 @@ public class DungeonManiaController {
 			}
 		}
 
-		System.out.println(currentDungeon.getPlayer().getInvincibleTickDuration());
 		// Move all Movable Entities
 		for (MovingEntity mov : tempEnts) {			
 			if (currentDungeon.getPlayer().getInvincibleTickDuration() == 0) {

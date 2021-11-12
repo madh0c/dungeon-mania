@@ -193,9 +193,6 @@ public interface Dijkstra {
 			currPos = prev.get(currPos);
 		} if (prev.get(currPos).equals(source)) {
 			returnPos = currPos;
-			return returnPos;
-		} else {
-			return null;
-		}
+		} return returnPos;
 	}
 }
