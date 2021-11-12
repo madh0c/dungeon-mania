@@ -253,7 +253,7 @@ public class BuildableTest {
 		//Mercenary isn't an ally any longer
 		assertTrue(!merc.getIsAlly());
 		//Can fight mercenary now
-		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.UP);
 		Player player = controller.getDungeon(0).getPlayer();
 		assertEquals(85 ,player.getHealth());
 	}
@@ -295,10 +295,10 @@ public class BuildableTest {
 		//Kill the merc since no longer an ally, the friendly assassin is on player
 		controller.tick(null, Direction.RIGHT);
 		assertEquals(85, controller.getDungeon(0).getPlayer().getHealth());
-		controller.tick(null, Direction.LEFT);
+		controller.tick(null, Direction.RIGHT);
 		//Assassin on last tick for sceptre
 		assertTrue(assassin.getIsAlly());
-		controller.tick(null, Direction.LEFT);
+		controller.tick(null, Direction.RIGHT);
 		//Assassin no longer an ally
 		assertTrue(!assassin.getIsAlly());
 		controller.tick(null, Direction.LEFT);
