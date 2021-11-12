@@ -104,7 +104,7 @@ public class DungeonManiaController {
 		}
 
 		Date date = new Date();
-		// UNCOMMENT
+		// TODO UNCOMMENT
 		// long currTime = date.getTime();
 		// String rewindTime = Long.toString(currTime);
 		// String rewindPath = "/rewind/" + rewindTime + "/";
@@ -332,9 +332,13 @@ public class DungeonManiaController {
 		checkValidTick(itemUsed);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		//saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 =======
 		// UNCOMMENT
+=======
+		// TODO UNCOMMENT
+>>>>>>> master
 		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 >>>>>>> 040ea5187a6e3edf4e666b5286a7621bfe50d872
 	
@@ -403,7 +407,6 @@ public class DungeonManiaController {
 			}
 		}
 
-		System.out.println(currentDungeon.getPlayer().getInvincibleTickDuration());
 		// Move all Movable Entities
 		for (MovingEntity mov : tempEnts) {			
 			if (currentDungeon.getPlayer().getInvincibleTickDuration() == 0) {

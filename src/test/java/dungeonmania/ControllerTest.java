@@ -577,6 +577,110 @@ public class ControllerTest {
 	}
 
 	
+    @Test
+    public void testPeacefulFactory() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.newGame("testFactory", "Peaceful"));
+
+        List<EntityResponse> expList = new ArrayList<>();
+
+        EntityResponse exp1 = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse exp2 = new EntityResponse("1", "mercenary", new Position(1,0), true);
+        EntityResponse exp3 = new EntityResponse("2", "assassin", new Position(2,0), true);
+        EntityResponse exp4 = new EntityResponse("3", "zombie_toast_spawner", new Position(3,0), true);
+        EntityResponse exp5 = new EntityResponse("4", "zombie_toast", new Position(4,0), false);
+        EntityResponse exp6 = new EntityResponse("5", "spider", new Position(5,0), false);
+        EntityResponse exp7 = new EntityResponse("6", "older_player", new Position(6,0), false);
+        EntityResponse exp8 = new EntityResponse("7", "hydra", new Position(7,0), false);
+
+        expList.add(exp1);
+        expList.add(exp2);
+        expList.add(exp3);
+        expList.add(exp4);
+        expList.add(exp5);
+        expList.add(exp6);
+        expList.add(exp7);
+        expList.add(exp8);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(expList, dRStart.getEntities());
+
+        assertDoesNotThrow(() -> controller.saveGame("testFactory"));
+        assertDoesNotThrow(() -> controller.loadGame("testFactory"));
+
+        DungeonResponse dREnd = controller.getDungeonInfo(1);
+        assertEquals(expList, dREnd.getEntities());
+	}
+
+    @Test
+    public void testStandardFactory() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.newGame("testFactory", "Standard"));
+
+        List<EntityResponse> expList = new ArrayList<>();
+
+        EntityResponse exp1 = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse exp2 = new EntityResponse("1", "mercenary", new Position(1,0), true);
+        EntityResponse exp3 = new EntityResponse("2", "assassin", new Position(2,0), true);
+        EntityResponse exp4 = new EntityResponse("3", "zombie_toast_spawner", new Position(3,0), true);
+        EntityResponse exp5 = new EntityResponse("4", "zombie_toast", new Position(4,0), false);
+        EntityResponse exp6 = new EntityResponse("5", "spider", new Position(5,0), false);
+        EntityResponse exp7 = new EntityResponse("6", "older_player", new Position(6,0), false);
+        EntityResponse exp8 = new EntityResponse("7", "hydra", new Position(7,0), false);
+
+        expList.add(exp1);
+        expList.add(exp2);
+        expList.add(exp3);
+        expList.add(exp4);
+        expList.add(exp5);
+        expList.add(exp6);
+        expList.add(exp7);
+        expList.add(exp8);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(expList, dRStart.getEntities());
+
+        assertDoesNotThrow(() -> controller.saveGame("testFactory"));
+        assertDoesNotThrow(() -> controller.loadGame("testFactory"));
+
+        DungeonResponse dREnd = controller.getDungeonInfo(1);
+        assertEquals(expList, dREnd.getEntities());
+	}
+
+    @Test
+    public void testHardFactory() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.newGame("testFactory", "Hard"));
+
+        List<EntityResponse> expList = new ArrayList<>();
+
+        EntityResponse exp1 = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse exp2 = new EntityResponse("1", "mercenary", new Position(1,0), true);
+        EntityResponse exp3 = new EntityResponse("2", "assassin", new Position(2,0), true);
+        EntityResponse exp4 = new EntityResponse("3", "zombie_toast_spawner", new Position(3,0), true);
+        EntityResponse exp5 = new EntityResponse("4", "zombie_toast", new Position(4,0), false);
+        EntityResponse exp6 = new EntityResponse("5", "spider", new Position(5,0), false);
+        EntityResponse exp7 = new EntityResponse("6", "older_player", new Position(6,0), false);
+        EntityResponse exp8 = new EntityResponse("7", "hydra", new Position(7,0), false);
+
+        expList.add(exp1);
+        expList.add(exp2);
+        expList.add(exp3);
+        expList.add(exp4);
+        expList.add(exp5);
+        expList.add(exp6);
+        expList.add(exp7);
+        expList.add(exp8);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(expList, dRStart.getEntities());
+
+        assertDoesNotThrow(() -> controller.saveGame("testFactory"));
+        assertDoesNotThrow(() -> controller.loadGame("testFactory"));
+
+        DungeonResponse dREnd = controller.getDungeonInfo(1);
+        assertEquals(expList, dREnd.getEntities());
+	}
 }
 
 
