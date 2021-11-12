@@ -11,7 +11,6 @@ import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.*;
 
 public class Dungeon {
-
 	private int id;
 	private String name;
 	private List<CollectableEntity> inventory;
@@ -27,6 +26,7 @@ public class Dungeon {
 	private String goalConditions;
 	private EntityFactory factory;
 	private int mercSpawnrate;
+	private String rewindPath;
 
 
     public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals, int height, int width, GoalNode foundGoals, String goalConditions) {
@@ -194,6 +194,14 @@ public class Dungeon {
 
 	public int getMercSpawnrate() {
 		return mercSpawnrate;
+	}
+
+	public String getRewindPath() {
+		return rewindPath;
+	}
+
+	public void setRewindPath(String rewindPath) {
+		this.rewindPath = rewindPath;
 	}
 
 	public Position getSpawnpoint() {

@@ -62,6 +62,8 @@ public class PeacefulFactory extends EntityFactory {
 			return new Hydra(id, position, false);
 		else if (type.contains("sceptre"))
 			return new Sceptre(id, position);
+		else if (type.contains("older_player"))
+			return new OlderPlayer(id, position, false);
 		return null;
 	}
 
