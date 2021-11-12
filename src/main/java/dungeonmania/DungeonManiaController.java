@@ -434,6 +434,19 @@ public class DungeonManiaController {
 		player.addTrace(player.getCurrentDir());
 		
 		evalGoal(currentDungeon);
+
+		Player currPlayer = currentDungeon.getPlayer();
+		Position currPlayerPos = currPlayer.getPosition();
+		List<Entity> entOnPlayerCell = currentDungeon.getEntitiesOnCell(currPlayerPos);
+
+		for (Entity ent: entOnPlayerCell) {
+			if (ent instanceof TimeTravellingPortal) {
+				Direction currDir = currPlayer.getCurrentDir();
+				currPlayer.setPosition(currPlayerPos.translateBy(currDir));
+				this.rewind(30);
+			}
+		}
+
 		return getDungeonInfo(currentDungeon.getId());
 	}
 

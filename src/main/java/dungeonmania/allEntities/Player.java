@@ -6,6 +6,7 @@ import java.util.List;
 import dungeonmania.Battle;
 import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
+import dungeonmania.DungeonManiaController;
 import dungeonmania.Entity;
 import dungeonmania.MovingEntity;
 import dungeonmania.util.Direction;
@@ -214,6 +215,17 @@ public class Player extends Entity {
 			if (enemyAttack()) {
 				Battle.battle(entity, dungeon);
 			}
+		} else if (entity instanceof TimeTravellingPortal) {
+			Position landPos = entity.getPosition().translateBy(currentDir);
+			List<Entity> entsNext = dungeon.getEntitiesOnCell(landPos);
+			boolean canLand = true;
+
+			for (Entity ent : entsNext) {
+				if (!collide(ent, dungeon)) {
+					canLand = false;
+					break;
+				}
+			} return canLand;
 		}
 
 		return true;
@@ -256,10 +268,8 @@ public class Player extends Entity {
 				return;
 			}
 		}
-
 		setPosition(newPos);
 		setCurrentDir(direction);
 		portalMove(dungeon);
-
 	}
 }
