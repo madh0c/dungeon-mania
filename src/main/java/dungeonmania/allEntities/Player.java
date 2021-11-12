@@ -1,8 +1,12 @@
 package dungeonmania.allEntities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dungeonmania.Battle;
 import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
+import dungeonmania.DungeonManiaController;
 import dungeonmania.Entity;
 import dungeonmania.MovingEntity;
 import dungeonmania.util.Direction;
@@ -21,6 +25,8 @@ public class Player extends Entity {
 	private final int initialHealth;
 	private final int invincibleAmount;
 	private final int initialAttack = 2;
+	private List<String> controlled = new ArrayList<>();
+	private List<Direction> traceList = new ArrayList<>();
 
 	public Player(String id, Position position, int health, boolean enemyAttack, int invincibleAmount) {
         super(id, position, "player");
@@ -97,6 +103,22 @@ public class Player extends Entity {
 		return initialAttack;
 	}
 
+	public List<String> getControlled() {
+		return controlled;
+	}
+
+	public List<Direction> getTraceList() {
+		return traceList;
+	}
+
+	public void addTrace(Direction direction) {
+		this.traceList.add(direction);
+	}
+
+	public void setTraceList(List<Direction> traceList) {
+		this.traceList = traceList;
+	}
+
 	/**
 	 * Check if the player is able to collide with entity<p>
 	 * Collide means if they are able to be on the same square<p>
@@ -156,8 +178,6 @@ public class Player extends Entity {
 				if (!currEnt.getId().equals(portal1.getId())) {
 					Portal portal2 = (Portal) currEnt;
 					if (portal1.getColour().equals(portal2.getColour())) {
-						// Find position of p2
-						// Move in direciton of currDir
 						Entity nextTo = dungeon.getEntity(portal2.getPosition().translateBy(currentDir));
 						return collide(nextTo, dungeon);
 					}
@@ -190,9 +210,28 @@ public class Player extends Entity {
 			dungeon.addItemToInventory((CollectableEntity)entity);
 
 		} else if (entity instanceof MovingEntity) {
-			if (enemyAttack()) {
+			int check = 0;
+			if (entity instanceof Mercenary) {
+				Mercenary merc = (Mercenary) entity;
+				//Should not fight mercenary;
+				if (merc.getIsAlly()) {
+					check = 1;
+				}
+			}
+			if (enemyAttack() && check == 0) {
 				Battle.battle(entity, dungeon);
 			}
+		} else if (entity instanceof TimeTravellingPortal) {
+			Position landPos = entity.getPosition().translateBy(currentDir);
+			List<Entity> entsNext = dungeon.getEntitiesOnCell(landPos);
+			boolean canLand = true;
+
+			for (Entity ent : entsNext) {
+				if (!collide(ent, dungeon)) {
+					canLand = false;
+					break;
+				}
+			} return canLand;
 		}
 
 		return true;
@@ -216,8 +255,7 @@ public class Player extends Entity {
 						break;
 					}
 				}
-			}
-			setPosition(posPortal2.translateBy(getCurrentDir()));
+			} setPosition(posPortal2.translateBy(getCurrentDir()));
 		}
 	}
 
@@ -226,7 +264,7 @@ public class Player extends Entity {
 	 * @param dungeon	Current dungeon of player
 	 * @param direction	Desired direction of movement of player
 	 */
-	public void move (Dungeon dungeon, Direction direction) {
+	public void move(Dungeon dungeon, Direction direction) {
 		// Check if the direction is able to be moved into
 		Position newPos = getPosition().translateBy(direction);
 
@@ -235,10 +273,8 @@ public class Player extends Entity {
 				return;
 			}
 		}
-
 		setPosition(newPos);
 		setCurrentDir(direction);
 		portalMove(dungeon);
-
 	}
 }

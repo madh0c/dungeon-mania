@@ -2,6 +2,7 @@ package dungeonmania;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -96,13 +97,13 @@ public class MiscTest {
         Shield shieldInv = (Shield) currentInv.get(3);
         assertEquals(3, shieldInv.getDurability());
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 50; i++) {
             controller.tick(null, Direction.RIGHT);
         }
 
         DungeonResponse dREnd = controller.getDungeonInfo(0);
 
-        assertEquals(new ArrayList<ItemResponse>(), dREnd.getInventory());
+        assertFalse(dREnd.getInventory().containsAll(expInvList));
     }
 
     @Test
@@ -215,9 +216,43 @@ public class MiscTest {
 		controller.tick(null, Direction.RIGHT);
 
 		// Assert the mercenary has moved from spawn
-        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,0), true);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,1), true);
 
         DungeonResponse dREnd = controller.getDungeonInfo(0);
-        assertNotEquals(expectedMercenaryInfo, dREnd.getEntities().get(2));
+        assertEquals(expectedMercenaryInfo, dREnd.getEntities().get(2));
+    }
+
+    /**
+	 * A player and a mercenary are spawned with a wall in between them in a collinear fashion. The player will walk 
+	 * away from the wall in a straight light and the mercenary should not fail to move as it should now be able to track 
+     * the player using Dijkstra's algortihm.
+	 */
+	@Test
+    public void testWallDoesntBlockAssassinMovement() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testWallDoesntBlockAssassinMovement", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(2,0), true);
+        EntityResponse startWallInfo = new EntityResponse("1", "wall", new Position(1,0), false);
+        EntityResponse startAssassinInfo = new EntityResponse("2", "assassin", new Position(0,0), true);
+
+        startList.add(startPlayerInfo);
+        startList.add(startWallInfo);
+        startList.add(startAssassinInfo);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Move player away from the assassin.
+		controller.tick(null, Direction.RIGHT);
+
+		// Assert the mercenary has moved from spawn
+        EntityResponse expectedAssassinInfo = new EntityResponse("2", "assassin", new Position(0,0), true);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertNotEquals(expectedAssassinInfo, dREnd.getEntities().get(2));
     }
 }

@@ -17,12 +17,14 @@ import dungeonmania.util.Position;
 public interface Dijkstra {
 
 	public static Position move(Position source, Dungeon currentDungeon) {
-		Map<Position, Map<Position, Integer>> dungeonMap = createGraph(currentDungeon);
-		
-		int dungeonHeight = currentDungeon.getHeight();
-		int dungeonWidth = currentDungeon.getHeight();
+		int minX = currentDungeon.getMinX() - 1;
+		int maxX = currentDungeon.getMaxX() + 1;
+		int minY = currentDungeon.getMinY() - 1;
+		int maxY = currentDungeon.getMaxY() + 1;
 
-		return traverse(dungeonHeight, dungeonWidth, source, currentDungeon.getPlayerPosition(), dungeonMap);
+		Map<Position, Map<Position, Integer>> dungeonMap = createGraph(currentDungeon, minX, minY, maxX, maxY);
+
+		return traverse(source, currentDungeon.getPlayerPosition(), dungeonMap, minX, minY, maxX, maxY);
 	}
 
 	/**
@@ -33,7 +35,7 @@ public interface Dijkstra {
 	 * @param currentDungeon
 	 * @return
 	 */
-	public static Map<Position, Map<Position, Integer>> createGraph(Dungeon currentDungeon) {
+	public static Map<Position, Map<Position, Integer>> createGraph(Dungeon currentDungeon, int minX, int minY, int maxX, int maxY) {
 		Map<Position, Map<Position, Integer>> dungeonMap = new HashMap<>();
 		
 		/*A list of entity types Mercenary/Assasins cannot coincide with. If at least one of these entities exist on a cell,
@@ -46,8 +48,8 @@ public interface Dijkstra {
 		mercIllegal.add("bomb_static");
 
 		/* iterating through the current dungeon to check if each cell should be able traversed by the Merc/Assasin */
-		for (int x = 0; x < currentDungeon.getWidth(); x++) {
-			for (int y = 0; y < currentDungeon.getHeight(); y++) {
+		for (int x = minX; x <= maxX; x++) {
+			for (int y = minY; y <= maxY; y++) {
 				Position currPos = new Position(x, y);
 
 				List<Entity> entOnCell = currentDungeon.getEntitiesOnCell(currPos);
@@ -96,11 +98,6 @@ public interface Dijkstra {
 		for (Position pos : adjPos) {
 			int traverseSpeed = 2;
 
-			/* If the adjacent position is out of bounds, we will disregard it */
-			if (!currentDungeon.validPos(pos)) {
-				continue;
-			}
-
 			/* Obtaining a list of entities on the cell, and their types */
 			List<Entity> entCell = currentDungeon.getEntitiesOnCell(pos);
 			List<String> entTypesAdjCell = new ArrayList<>();
@@ -130,50 +127,60 @@ public interface Dijkstra {
 	 * @param dungeonMap
 	 * @return
 	 */
-	public static Position traverse(int height, int width, Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap) {
+	public static Position traverse(Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap, int minX, int minY, int maxX, int maxY) {
 		Map<Position, Double> dist = new HashMap<>();
 		Map<Position, Position> prev = new HashMap<>();
 
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
+		for (int x = minX; x <= maxX; x++) {
+			for (int y = minY; y <= maxY; y++) {
 				Position pos = new Position(x, y);
 				dist.put(pos, Double.POSITIVE_INFINITY);
 				prev.put(pos, null);
 			}
 		} dist.put(source, 0.0);
 
-		Queue<Position> dijkstraQueue = new PriorityQueue<>();
+		Map<Position, Double> dijkstraQueue = new HashMap<>();
 
 		for (Position entry : dungeonMap.keySet()) {
-			dijkstraQueue.add(entry);
+			dijkstraQueue.put(entry, dist.get(entry));
 		}
 
 		while (!dijkstraQueue.isEmpty()) {
 			Position u = null;
 			double min = Double.POSITIVE_INFINITY;
 
-			for (Position entry : dist.keySet()) {
-				if (dist.get(entry) < min);
-				min = dist.get(entry);
-				u = entry;
+			for (Position entry : dijkstraQueue.keySet()) {
+				if (dist.get(entry) < min) {
+					min = dist.get(entry);
+					u = entry;
+				}
 			} 
+
+			if (u == null) {
+				break;
+			}
 			
 			dijkstraQueue.remove(u);
 			
 			Map<Position, Integer> compPos = dungeonMap.get(u);
 			
-			for (Map.Entry<Position,Integer> entry : compPos.entrySet()) {
-				if (dist.get(u) +  entry.getValue() < dist.get(entry.getKey())) {
-					dist.put(entry.getKey(), dist.get(u) +  entry.getValue());
-					prev.put(entry.getKey(), u);
+			for (Map.Entry<Position, Integer> entry : compPos.entrySet()) {
+				Double v = Double.valueOf(entry.getValue());
+
+				if (dist.get(entry.getKey()) != null) {
+					if (dist.get(u) + v < dist.get(entry.getKey())) {	
+						dist.put(entry.getKey(), dist.get(u) +  v);
+						prev.put(entry.getKey(), u);
+					}
 				}
 			}
 		}
-		if (dist.get(destination) != 0.0) {
-			return nextPos(destination, source, prev);
-		} return null; 
+		
+		if (dist.get(destination) != Double.POSITIVE_INFINITY) {
+			return nextPos(destination, source, prev, destination); 		
+		} return null;
 	}
-
+	
 	/**
 	 * A recursive helper function that ensures the most optimal next position for the Merc/Assassin is returned.
 	 * @param currPos
@@ -181,10 +188,14 @@ public interface Dijkstra {
 	 * @param prev
 	 * @return
 	*/
-	public static Position nextPos(Position currPos, Position source, Map<Position, Position> prev) {
-		if (!prev.get(currPos).equals(source)) {
-			nextPos(prev.get(currPos), source, prev);
-		} return currPos;
+	public static Position nextPos(Position currPos, Position source, Map<Position, Position> prev, Position returnPos) {
+		while (!prev.get(currPos).equals(source)) {
+			currPos = prev.get(currPos);
+		} if (prev.get(currPos).equals(source)) {
+			returnPos = currPos;
+			return returnPos;
+		} else {
+			return null;
+		}
 	}
-	
 }

@@ -12,11 +12,15 @@ import dungeonmania.allEntities.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
+import java.util.Date;
+
 
 public class DungeonManiaController {
 
@@ -24,6 +28,7 @@ public class DungeonManiaController {
 	 * ArrayList games: each game is stored as a map of existing entities, with their unique id as the key (stored as an int).
 	 */
 	private List<Dungeon> games =  new ArrayList<>();
+	private List<List<Dungeon>> gameStates = new ArrayList<>();
 	private int lastUsedDungeonId = 0;
 
 	private Dungeon currentDungeon;
@@ -93,14 +98,29 @@ public class DungeonManiaController {
 
 		try {
 			String path = FileLoader.loadResourceFile("/dungeons/" + fileName);
-			currentDungeon = GameInOut.fromJSON("new", path, fileName, lastUsedDungeonId, gameMode);
+			currentDungeon = GameInOut.fromJSON("new", path, fileName, lastUsedDungeonId, gameMode, 0);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+
+		Date date = new Date();
+		long currTime = date.getTime();
+		String rewindTime = Long.toString(currTime);
+		String rewindPath = "/rewind/" + rewindTime + "/";
+		currentDungeon.setRewindPath(rewindPath);
+
+		try {
+			Path path = Paths.get("src/main/resources" + rewindPath);
+			Files.createDirectories(path);
+		
+		} catch (IOException e) {
+			System.err.println("Failed to create directory!" + e.getMessage());
 		}
 
 		int currentId = currentDungeon.getId();
 		lastUsedDungeonId++;
 		games.add(currentDungeon);
+		gameStates.add(new ArrayList<Dungeon>());
 
 				
 		List<EntityResponse> entitiyResponses = getDungeonInfo(currentId).getEntities();
@@ -141,7 +161,7 @@ public class DungeonManiaController {
 				target = dungeon;
 			}
 		}
-		
+
 		List<EntityResponse> listER = new ArrayList<EntityResponse>();
 		for (Entity entity : target.getEntities()) {
 			EntityResponse eR = new EntityResponse(entity.getId(), entity.getType(), entity.getPosition(), entity.isInteractable());
@@ -230,7 +250,7 @@ public class DungeonManiaController {
 
 		try {
 			String path = FileLoader.loadResourceFile("/savedGames/" + fileName);
-			currentDungeon = GameInOut.fromJSON("load", path, feed, lastUsedDungeonId, null);
+			currentDungeon = GameInOut.fromJSON("load", path, feed, lastUsedDungeonId, null, 0);
 			setLastUsedDungeonId(getLastUsedDungeonId() + 1);
 			games.add(currentDungeon);
 			
@@ -246,6 +266,14 @@ public class DungeonManiaController {
 					}
 				}
 			}
+			for (Entity ent : currentDungeon.getEntities()) {
+				if (ent instanceof OlderPlayer) {
+					OlderPlayer oP = (OlderPlayer) ent;
+					Player currentPlayer = currentDungeon.getPlayer();
+					oP.setTrackingList(currentPlayer.getTraceList());
+				}
+			}
+
 			evalGoal(currentDungeon);
 			return getDungeonInfo(currentDungeon.getId());
 		} catch (IOException e) {
@@ -302,6 +330,8 @@ public class DungeonManiaController {
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
 
+		saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
+	
 		// Use item
 		currentDungeon.useItem(itemUsed);
 		
@@ -339,7 +369,17 @@ public class DungeonManiaController {
 			// make sure invincibility wears off
 			int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
 			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
-
+			// sceptre tick wearing off
+			List<String> controlledIds = currentDungeon.getPlayer().getControlled();
+			// If there are mercs being controlled
+			if (!controlledIds.isEmpty()) {
+				for (Entity ent : currentDungeon.getEntities()) {
+					if (ent instanceof Mercenary) {
+						Mercenary merc = (Mercenary) ent;
+						merc.sceptreTick(currentDungeon);
+					}
+				}
+			}
 			// Move player
 			currentDungeon.getPlayer().move(currentDungeon, movementDirection);
 		}
@@ -357,9 +397,15 @@ public class DungeonManiaController {
 			}
 		}
 
+		System.out.println(currentDungeon.getPlayer().getInvincibleTickDuration());
 		// Move all Movable Entities
-		for (MovingEntity mov : tempEnts) {
-			mov.move(currentDungeon);
+		for (MovingEntity mov : tempEnts) {			
+			if (currentDungeon.getPlayer().getInvincibleTickDuration() == 0) {
+				mov.move(currentDungeon);
+			} else {
+				mov.moveScared(currentDungeon);
+			}
+			
 		}
 		
 		// Explode all valid bombs
@@ -390,8 +436,23 @@ public class DungeonManiaController {
 			spawner.spawnZombie(currentDungeon);
 		}
 
+		Player player = currentDungeon.getPlayer();
+		player.addTrace(player.getCurrentDir());
 		
 		evalGoal(currentDungeon);
+
+		Player currPlayer = currentDungeon.getPlayer();
+		Position currPlayerPos = currPlayer.getPosition();
+		List<Entity> entOnPlayerCell = currentDungeon.getEntitiesOnCell(currPlayerPos);
+
+		for (Entity ent: entOnPlayerCell) {
+			if (ent instanceof TimeTravellingPortal) {
+				Direction currDir = currPlayer.getCurrentDir();
+				currPlayer.setPosition(currPlayerPos.translateBy(currDir));
+				this.rewind(30);
+			}
+		}
+
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
@@ -433,12 +494,10 @@ public class DungeonManiaController {
 		permittedItems.add("health_potion");
 		permittedItems.add("invincibility_potion");
 		permittedItems.add("invisibility_potion");
-		permittedItems.add("sceptre");
-
 		
 		if (!permittedItems.contains(itemType) && itemType != null) {
 			throw new IllegalArgumentException("Cannot Use Requested Item; Ensure Item Is Either a Bomb, Health Potion, " +
-			"Invincibility Potion, Invisibility Potion, Sceptre or null");
+			"Invincibility Potion, Invisibility Potion or null");
 		}
 		
 	}
@@ -639,6 +698,7 @@ public class DungeonManiaController {
 		boolean hasGold = false;
 		boolean hasWeapon = false;
 		boolean hasRing = false;
+		boolean hasSceptre = false;
 
 		for (CollectableEntity item : currentInventory) {
 			if (item instanceof Treasure || item instanceof SunStone) {
@@ -647,7 +707,9 @@ public class DungeonManiaController {
 				hasWeapon = true;
 			} else if (item instanceof OneRing) {
 				hasRing = true;
-			}  
+			} else if (item instanceof Sceptre) {
+				hasSceptre = true;
+			}
 		}
 
 		Position playerPosition = currentDungeon.getPlayerPosition();
@@ -663,13 +725,13 @@ public class DungeonManiaController {
 		} else if (interactEntity.getType().equals("mercenary")) {
 			if (!Position.inBribingRange(playerPosition, entityPosition)) {
 				throw new InvalidActionException("Player Out Of Bribing Range Of Mercenary");
-			} else if (!hasGold) {
+			} else if (!hasGold && !hasSceptre) {
 				throw new InvalidActionException("Player Does Not Have Sufficient Gold To Bribe Mercenary");
 			}
 		} else if (interactEntity.getType().equals("assassin")) {
 			if (!Position.inBribingRange(playerPosition, entityPosition)) {
 				throw new InvalidActionException("Player Out Of Bribing Range Of Assassin");
-			} else if (!hasRing || !hasGold) {
+			} else if (!hasSceptre && (!hasRing || !hasGold)) {
 				throw new InvalidActionException("Player Does Not Have Sufficient Resources To Bribe Assassin");
 			}
 		}
@@ -735,22 +797,85 @@ public class DungeonManiaController {
 		if (ticks <= 0) {
 			throw new IllegalArgumentException("Invalid Ticks Passed; Ticks Strictly <= 0.");
 		}
-		return new DungeonResponse(null, null, null, null, null, null);
+
+		int tickNo = (currentDungeon.getTickNumber() - ticks);
+
+		if (tickNo <= 0) {
+			return getDungeonInfo(currentDungeon.getId());
+		}
+
+		try {
+			String rewindPath = currentDungeon.getRewindPath() + "tick-" + tickNo + ".json";
+			String path = FileLoader.loadResourceFile(rewindPath);
+
+			Dungeon rewindDungeon = GameInOut.fromJSON("rewind", path, currentDungeon.getName(), lastUsedDungeonId, null, ticks);
+			
+			for (Entity ent : rewindDungeon.getEntities()) {
+				if (ent instanceof Switch) {
+					Position entityPos = ent.getPosition();
+					List<Entity> entOnCell = rewindDungeon.getEntitiesOnCell(entityPos);
+					for (Entity entCell : entOnCell) {
+						if (entCell instanceof Boulder) {
+							Switch entSwitch = (Switch) ent;
+							entSwitch.setStatus(true);
+						}
+					}
+				}
+			}
+			Player actualPlayer = currentDungeon.getPlayer();
+			String aPId = String.valueOf(currentDungeon.getHistoricalEntCount());
+			actualPlayer.setId(aPId);
+			rewindDungeon.addEntity(actualPlayer);
+			rewindDungeon.setInventory(currentDungeon.getInventory());
+
+			for (Entity ent : rewindDungeon.getEntities()) {
+				if (ent instanceof OlderPlayer) {
+					OlderPlayer oP = (OlderPlayer) ent;
+					oP.setTrackingList(actualPlayer.getTraceList());
+				}
+			}
+
+			currentDungeon = rewindDungeon;
+			games.add(currentDungeon);
+			evalGoal(currentDungeon);
+
+			return getDungeonInfo(currentDungeon.getId());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} return null;
 	}
 
-	// public DungeonResponse generateDungeon(int xStart, int yStart, int xEnd, int yEnd, String gameMode) throws IllegalArgumentException {
-	// 	if (!this.getGameModes().contains(gameMode)) {
-	// 		throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard.");
-	// 	}
-	// 	Position startPos = new Position(xStart, yStart);
-	// 	Position endPos = new Position(xEnd, yEnd);
+	/**
+	 * Save a game into a file in /resources/rewind
+	 * @throws IllegalArgumentException	If the given file name is not a real file
+	 * @return	DungeonResponse
+	 */
+	public void saveRewind(String rewindPath, int tick, Dungeon currentDundeon) throws IllegalArgumentException {
+		String feed = "tick-" + tick;
 
-	// 	currentDungeon = Prims.generateDungeon(startPos, endPos, gameMode, lastUsedDungeonId);
-	// 	games.add(currentDungeon);
-	// 	lastUsedDungeonId++;
+		String path = (rewindPath + feed + ".json"); 
+
+		try {
+			GameInOut.saveRewind("src/main/resources" + path, currentDungeon);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public DungeonResponse generateDungeon(int xStart, int yStart, int xEnd, int yEnd, String gameMode) throws IllegalArgumentException {
+		if (!this.getGameModes().contains(gameMode)) {
+			throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard.");
+		}
+		Position startPos = new Position(xStart, yStart);
+		Position endPos = new Position(xEnd, yEnd);
+
+		Dungeon primsDungeon = Prims.generateDungeon(startPos, endPos, gameMode, lastUsedDungeonId);
+		currentDungeon = primsDungeon;
+		games.add(currentDungeon);
+		lastUsedDungeonId++;
 		
-	// 	return getDungeonInfo(currentDungeon.getId());
-	// }
+		return getDungeonInfo(currentDungeon.getId());
+	}
 
 	
 

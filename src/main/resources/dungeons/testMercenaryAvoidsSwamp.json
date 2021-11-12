@@ -1,0 +1,20 @@
+{
+    "entities": [
+        {
+            "x": 2,
+            "y": 0,
+            "type": "player"
+        },
+        {
+            "x": 1,
+            "y": 0,
+			"movement_factor": 10,
+            "type": "swamp_tile"
+        },
+		{
+            "x": 0,
+            "y": 0,
+            "type": "mercenary"
+        }
+    ]
+}

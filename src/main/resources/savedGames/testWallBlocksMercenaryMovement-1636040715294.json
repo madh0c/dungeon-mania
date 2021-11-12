@@ -15,6 +15,10 @@
       "initialHealth": 100,
       "invincibleAmount": 8,
       "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT"
+      ],
       "position": {
         "x": 3,
         "y": 0,
@@ -34,6 +38,7 @@
     },
     {
       "isAlly": false,
+      "sceptreTickDuration": 0,
       "health": 30,
       "baseAttack": 5,
       "enemyAttack": true,
@@ -63,5 +68,6 @@
   },
   "goalConditions": "",
   "factory": {},
-  "mercSpawnrate": 20
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636711763066/"
 }

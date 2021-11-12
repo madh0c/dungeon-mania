@@ -11,7 +11,6 @@ import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.*;
 
 public class Dungeon {
-
 	private int id;
 	private String name;
 	private List<CollectableEntity> inventory;
@@ -27,6 +26,7 @@ public class Dungeon {
 	private String goalConditions;
 	private EntityFactory factory;
 	private int mercSpawnrate;
+	private String rewindPath;
 
 
     public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals, int height, int width, GoalNode foundGoals, String goalConditions) {
@@ -196,8 +196,52 @@ public class Dungeon {
 		return mercSpawnrate;
 	}
 
+	public String getRewindPath() {
+		return rewindPath;
+	}
+
+	public void setRewindPath(String rewindPath) {
+		this.rewindPath = rewindPath;
+	}
+
 	public Position getSpawnpoint() {
 		return spawnpoint;
+	}
+
+	public int getMinX() {
+		int retInt = 1000;
+		for (Entity ent : getEntities()) {
+			if (ent.getPosition().getX() < retInt) {
+				retInt = ent.getPosition().getX();
+			}
+		} return retInt;
+	}
+
+	public int getMaxX() {
+		int retInt = -1000;
+		for (Entity ent : getEntities()) {
+			if (ent.getPosition().getX() > retInt) {
+				retInt = ent.getPosition().getX();
+			}
+		} return retInt;
+	}
+
+	public int getMinY() {
+		int retInt = 1000;
+		for (Entity ent : getEntities()) {
+			if (ent.getPosition().getY() < retInt) {
+				retInt = ent.getPosition().getY();
+			}
+		} return retInt;
+	}
+
+	public int getMaxY() {
+		int retInt = -1000;
+		for (Entity ent : getEntities()) {
+			if (ent.getPosition().getY() > retInt) {
+				retInt = ent.getPosition().getY();
+			}
+		} return retInt;
 	}
 
 	public void setSpawnpoint(Position spawnpoint) {
@@ -333,18 +377,6 @@ public class Dungeon {
 		return result;
 	}
 
-	public boolean validPos(Position pos){
-		int posX = pos.getX();
-		int posY = pos.getY();
-
-		if (posX < 0 || posX > this.getWidth()) {
-			return false;
-		} else if (posY < 0 || posY > this.getHeight()){
-			return false;
-		}
-		return true;
-	}
-
 	public int getHistoricalEntCount() {
 		return this.historicalEntCount;
 	}
@@ -355,6 +387,14 @@ public class Dungeon {
 
 	public int getWidth() {
 		return width;
+	}
+
+	public boolean getMidnightStatus() {
+		for (Entity ent : getInventory()) {
+			if (ent instanceof MidnightArmour) {
+				return true;
+			}
+		} return false;
 	}
 
 	public void setHistoricalEntCount(int historicalEntCount) {

@@ -1,5 +1,8 @@
 package dungeonmania.allEntities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dungeonmania.Battle;
 import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
@@ -15,6 +18,7 @@ public class Mercenary extends MovingEntity {
 
 	private boolean isAlly;
 	private Direction currentDir;
+	private int sceptreTickDuration;
 
     public Mercenary(String id, Position position, boolean enemyAttack) {
         super(id, position, "mercenary", enemyAttack);
@@ -37,6 +41,14 @@ public class Mercenary extends MovingEntity {
 
 	public void setCurrentDir(Direction currentDir) {
 		this.currentDir = currentDir;
+	}
+
+	public int getSceptreTick() {
+		return sceptreTickDuration;
+	}
+
+	public void setSceptreTickDuration(int durationTicks) {
+		sceptreTickDuration = (durationTicks >= 0) ? durationTicks : -1; 
 	}
 	
 	@Override
@@ -110,21 +122,48 @@ public class Mercenary extends MovingEntity {
 	 * @param dungeon	Current dungeon of mercenary
 	 */
 	public void bribe(Dungeon dungeon) {
+		boolean sceptreStatus = false;
+		CollectableEntity sceptre = null;
 		this.isAlly = true;	
-		
-		// Remove the first gold if player doesnt have sunstone
-		if (!dungeon.getPlayer().getSunstoneStatus()) {
-			Treasure gold = null;
-		
-			for (CollectableEntity ent : dungeon.getInventory()) {
-				if (ent instanceof Treasure) {
-					gold = (Treasure) ent;
-					break;			
+		for (CollectableEntity collect : dungeon.getInventory()) {
+			if (collect instanceof Sceptre) {
+				sceptreStatus = true;
+				sceptre = collect;
+			}
+		}
+		if (sceptreStatus) {
+			dungeon.getInventory().remove(sceptre);
+			dungeon.getPlayer().getControlled().add(getId());
+			this.setSceptreTickDuration(10);
+		} else {
+			// Remove the first gold if player doesnt have sunstone
+			if (!dungeon.getPlayer().getSunstoneStatus()) {
+				Treasure gold = null;
+				for (CollectableEntity ent : dungeon.getInventory()) {
+					if (ent instanceof Treasure) {
+						gold = (Treasure) ent;
+						break;			
+					}
+				}
+				dungeon.getInventory().remove(gold);
+			}	
+		}	
+	}
+
+	public void sceptreTick(Dungeon dungeon) {
+		this.setSceptreTickDuration(this.getSceptreTick() - 1);
+		List<String> controlledIds = dungeon.getPlayer().getControlled();
+		List<String> releaseId = new ArrayList<>();
+		if (this.getSceptreTick() == -1) {
+			for (String mercId : controlledIds) {
+				//Found merc that is controlled and now turn back to enemy
+				if (this.getId().equals(mercId)) {
+					releaseId.add(this.getId());
+					this.setAlly(false);
 				}
 			}
-
-			dungeon.getInventory().remove(gold);
-		}		
+			controlledIds.remove(this.getId());
+		}
 	}
 
 	/**
@@ -132,7 +171,7 @@ public class Mercenary extends MovingEntity {
 	 * If collideable then mercenary will move through the portal onto that square.
 	 * @param dungeon	Current dungeon of mercenary
 	 */
-	public void portalMove(Dungeon dungeon) {
+	public void portalMove(Dungeon dungeon, Position currPos) {
 		Position pos = getPosition();
 		Portal portal1 = (Portal) dungeon.getEntity("portal", pos);
 		Position posPortal2 = new Position(0, 0);
@@ -147,7 +186,14 @@ public class Mercenary extends MovingEntity {
 					}
 				}
 			}
-			setPosition(posPortal2.translateBy(getCurrentDir()));
+
+			Entity ent = dungeon.getEntity(posPortal2.translateBy(currentDir));
+			if (ent != null && !collide(ent, dungeon)) {
+				setPosition(currPos);
+			} else {
+				setPosition(posPortal2.translateBy(getCurrentDir()));
+			}
+			
 		}
 	}
 
@@ -158,7 +204,38 @@ public class Mercenary extends MovingEntity {
 	 * @param dungeon	Current dungeon of mercenary
 	 * @return boolean of whether the mercenary got moved
 	 */
-	public boolean mercMove(Direction direction, Dungeon dungeon) {
+	public boolean mercMove(Direction direction, Dungeon dungeon) {		
+		Position currPos = getPosition();
+		
+		Position nextPos = null;
+		nextPos = Dijkstra.move(currPos, dungeon);
+
+		if (currPos.translateBy(Direction.UP).equals(nextPos)) {
+			setCurrentDir(Direction.UP);
+		} else if (currPos.translateBy(Direction.DOWN).equals(nextPos)) {
+			setCurrentDir(Direction.DOWN);
+		} else if (currPos.translateBy(Direction.LEFT).equals(nextPos)) {
+			setCurrentDir(Direction.LEFT);
+		} else if (currPos.translateBy(Direction.RIGHT).equals(nextPos)) {
+			setCurrentDir(Direction.RIGHT);
+		} else {
+			setCurrentDir(Direction.NONE);
+		}
+
+		if (nextPos != null) {
+			setPosition(nextPos);
+		} portalMove(dungeon, currPos);
+
+		if (getPosition().coincides(dungeon.getPlayerPosition())) {
+			if (!isAlly) {
+				Battle.battle(this, dungeon);
+			}
+		}
+
+		return true;
+	}
+	
+	public boolean moveDumb(Direction direction, Dungeon dungeon) {
 		// Check if collidable with next entity
 		Position pos = getPosition();
 		Entity ent = dungeon.getEntity(pos.translateBy(direction));
@@ -171,14 +248,11 @@ public class Mercenary extends MovingEntity {
 
 		setPosition(getPosition().translateBy(direction));
 
-		portalMove(dungeon);
-
-		// Position currPos = getPosition();
-		// setPosition(Dijkstra.move(currPos, dungeon));
-		// portalMove(dungeon);
-
+		portalMove(dungeon, pos);
 		return true;
 	}
+
+
 
 	/**
 	 * Move the mercenary towards the player<p>
@@ -229,4 +303,47 @@ public class Mercenary extends MovingEntity {
 		}
 	}
 	
+	@Override
+	public void moveScared(Dungeon dungeon) {
+		// Find player
+		Player player = dungeon.getPlayer();
+		if (player == null) {
+			return;
+		}
+		
+		// Prioritise up down movement
+		// If not on same y axis
+		if (player.getPosition().getY() != getPosition().getY()) {
+			// If player is to the up of merc
+			if (player.getPosition().getY() < getPosition().getY()) {
+				if(moveDumb(Direction.DOWN, dungeon)) {
+					return;
+				}
+				
+			} 
+			// If on down side
+			else {
+				if (moveDumb(Direction.UP, dungeon)) {
+					return;
+				}
+			}
+		}
+
+		// left right movement
+		if (player.getPosition().getX() != getPosition().getX()) {
+			// If player is to the left of merc
+			if (player.getPosition().getX() < getPosition().getX()) {
+				if (moveDumb(Direction.RIGHT, dungeon)) {
+					return;
+				}
+			} 
+			// If on right side
+			else {
+				if (moveDumb(Direction.LEFT, dungeon)) {
+					return;
+				}
+			}
+		}
+	}
+
 }

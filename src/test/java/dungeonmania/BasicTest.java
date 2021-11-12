@@ -32,7 +32,7 @@ public class BasicTest {
             entityListCheck, 
             new ArrayList<ItemResponse>(),
             new ArrayList<String>(), 
-            "(:enemies AND :treasure)"
+            ""
         );
 
         assertEquals(expected, controller.getDungeonInfo(0));
@@ -48,6 +48,11 @@ public class BasicTest {
         entityListCheck.add(new EntityResponse("0", "player", new Position(0, 0), true));
         entityListCheck.add(new EntityResponse("1", "boulder", new Position(2, 1), false));
         entityListCheck.add(new EntityResponse("2", "bomb", new Position(3, 4), false));
+        entityListCheck.add(new EntityResponse("3", "mercenary", new Position(10, 5), true));
+        entityListCheck.add(new EntityResponse("4", "treasure", new Position(4, 8), false));
+        entityListCheck.add(new EntityResponse("5", "switch", new Position(3, 3), false));
+        entityListCheck.add(new EntityResponse("6", "exit", new Position(9, 9), false));
+
 
         DungeonResponse expected = new DungeonResponse (
             "0", 
@@ -74,7 +79,7 @@ public class BasicTest {
             entityListCheck1, 
             new ArrayList<ItemResponse>(),
             new ArrayList<String>(), 
-            "(:enemies AND :treasure)"
+            ""
         );
 
 		assertEquals(expected1, controller.getDungeonInfo(1));

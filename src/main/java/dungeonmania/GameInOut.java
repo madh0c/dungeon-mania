@@ -35,7 +35,20 @@ public class GameInOut {
 		}
 	}
 
-	public static Dungeon fromJSON(String expType, String path, String feed, int lastUsedDungeonId, String gameMode) throws IOException {
+	public static void saveRewind(String path, Dungeon dungeon) throws IOException {
+
+		try {
+			Gson gson = new GsonBuilder().setPrettyPrinting().create(); 
+			Writer writer = new FileWriter(path, false);
+			gson.toJson(dungeon, writer);
+			writer.flush(); 
+        	writer.close();
+		} catch (Exception e) {
+			System.out.println("Game Doesn't Exist");
+		}
+	}
+	
+	public static Dungeon fromJSON(String expType, String path, String feed, int lastUsedDungeonId, String gameMode, int ticks) throws IOException {
         List<Entity> entityList = new ArrayList<>();
 		List<CollectableEntity> returnInv = new ArrayList<>();
 		String goals = null;
@@ -44,12 +57,15 @@ public class GameInOut {
 		int width  = 50;
 		GoalNode foundGoals = new GoalLeaf("");
 		String goalsConvert = "";
+
 		try {
             Map<String, Object> jsonMap = new Gson().fromJson(path, Map.class);
-			if (expType.equals("load")) {
+
+			if (expType.equals("load") || expType.equals("rewind")) {
 				playMode = (String)jsonMap.get("gameMode"); 
 				goals = (String)jsonMap.get("goals"); 
 				String goalConditions = (String)jsonMap.get("goalConditions");
+
 
 				if (!goalConditions.equals("")) {
 					JSONObject goalCon = new JSONObject(goalConditions);
@@ -92,7 +108,6 @@ public class GameInOut {
 				factory = new HardFactory();
 			}
 
-
 			for (int i = 0; i < parseList.size(); i++) {
                 Map<String, Object> currentEntity = parseList.get(i);
 				
@@ -100,7 +115,8 @@ public class GameInOut {
 				String entityId = null;
 				Position exportPos = null;
 
-				if (expType.equals("load")) {
+				if (expType.equals("load") || expType.equals("rewind")) {
+
 					entityId = (String)currentEntity.get("id");
    
 					Map<String, Double> entityPosition = (Map<String, Double>)currentEntity.get("position");
@@ -132,9 +148,9 @@ public class GameInOut {
 					String colour = (String)currentEntity.get("colour");
 					Portal portal = factory.createPortal(entityId, exportPos, colour);
 					entityList.add(portal);
-				} else if (entityType.contains("player")) {
-					Player player = factory.createPlayer(entityId, exportPos);
+				} else if (entityType.equals("player")) {
 					if (expType.equals("load")) { 
+						Player player = factory.createPlayer(entityId, exportPos);
 						Double healthD = (Double)currentEntity.get("health");
 						int health = healthD.intValue();
 						Double attackD = (Double)currentEntity.get("attack");
@@ -144,15 +160,47 @@ public class GameInOut {
 						Double invinceD = (Double)currentEntity.get("invincibleTickDuration");
 						int invincibleTickDuration = invinceD.intValue();
 
+						List<Direction> trackingList = new ArrayList<>();
+						List<Object> traceList = (List<Object>)currentEntity.get("traceList");
+
+						if (traceList != null) {
+							for (Object traceDir : traceList) {
+								String track = (String) traceDir;
+								if (track.equals("UP")) {
+									trackingList.add(Direction.UP);
+								} else if (track.equals("DOWN")) {
+									trackingList.add(Direction.DOWN);
+								} else if (track.equals("LEFT")) {
+									trackingList.add(Direction.LEFT);
+								} else if (track.equals("RIGHT")) {
+									trackingList.add(Direction.RIGHT);
+								} else if (track.equals("NONE")) {
+									trackingList.add(Direction.NONE);
+								}
+							} 
+						}
+
 						player.setHealth(health);
 						player.setAttack(attack);
 						player.setCurrentDir(Direction.UP);
 						player.setVisibility(visible);
 						player.setHaveKey(haveKey);
 						player.setInvincibleTickDuration(invincibleTickDuration);
-					} entityList.add(player);
-				} else if (entityType.contains("swamp_tile")) {
+						player.setTraceList(trackingList);
 
+						entityList.add(player);
+					} else if (expType.equals("new")) {
+						Player player = factory.createPlayer(entityId, exportPos);
+						entityList.add(player);
+					} else if (expType.equals("rewind")) {
+						Entity olderPlayer = factory.createEntity(entityId, "older_player", exportPos);
+						OlderPlayer oP = (OlderPlayer) olderPlayer;
+						Double tickD = (Double)jsonMap.get("tickNumber"); 
+						int traceUntil = tickD.intValue() + ticks;
+						oP.setTraceUntil(traceUntil);
+						entityList.add(olderPlayer);
+					}
+				} else if (entityType.contains("swamp_tile")) {
 					Double moveFD = (Double)currentEntity.get("movement_factor");
 					int moveF = moveFD.intValue();
 					
@@ -169,7 +217,7 @@ public class GameInOut {
 					Mercenary newMerc = (Mercenary)newEntity;
 					newMerc.setEnemyAttack(enemyAttack);
 
-					if (expType.equals("load")) {
+					if (expType.equals("load") || expType.equals("rewind")) {
 						boolean isAlly = (boolean)currentEntity.get("isAlly");
 						newMerc.setAlly(isAlly);
 					}
@@ -186,12 +234,22 @@ public class GameInOut {
 					Assassin newAssassin = (Assassin)newEntity;
 					newAssassin.setEnemyAttack(enemyAttack);
 
-					if (expType.equals("load")) {
+					if (expType.equals("load") || expType.equals("rewind")) {
 						boolean isAlly = (boolean)currentEntity.get("isAlly");
 						newAssassin.setAlly(isAlly);
 					}
 
 					entityList.add(newAssassin);
+				}  else if (entityType.contains("time_turner") && expType.equals("rewind")) {
+					continue;
+				} else if (entityType.equals("older_player")) {
+					Entity olderPlayer = factory.createEntity(entityId, entityType, exportPos);
+						OlderPlayer oP = (OlderPlayer) olderPlayer;
+						Double tick = (Double)currentEntity.get("traceUntil"); 
+						int traceUntil = tick.intValue();
+						oP.setTraceUntil(traceUntil);
+						entityList.add(olderPlayer);
+
 				} else {
 					Entity newEntity = factory.createEntity(entityId, entityType, exportPos);
 					entityList.add(newEntity);
@@ -199,7 +257,8 @@ public class GameInOut {
 				}
 			}
 
-			if (expType.equals("load")) {
+			if (expType.equals("load") || expType.equals("rewind")) {
+
 				List<Map<String,Object>> inventoryList = (List<Map<String,Object>> )jsonMap.get("inventory"); 
 				for (Map<String, Object> currentItem : inventoryList) {
 	
@@ -293,15 +352,16 @@ public class GameInOut {
 			
 			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, height, width, foundGoals, goalsConvert);
 
-			if (expType.equals("load")) {
+			if (expType.equals("load") || expType.equals("rewind")) {
+
 				Double tickD = (Double)jsonMap.get("tickNumber"); 
 				int tickNumber = tickD.intValue();
-	
+
 				Double hisD = (Double)jsonMap.get("historicalEntCount");  
 				int historicalEntCount = hisD.intValue();
-				
+
 				Map<String, Double> spawnPos = (Map<String, Double>)jsonMap.get("spawnpoint");
-	
+
 				Double xSD = (Double)spawnPos.get("x");
 				Double ySD = (Double)spawnPos.get("y");
 				Double zSD = (Double)spawnPos.get("layer");
@@ -320,6 +380,12 @@ public class GameInOut {
 				returnDungeon.setTickNumber(tickNumber);
 				returnDungeon.setSpawnpoint(spawnpoint); 
 				returnDungeon.setFoundGoals(foundGoals);
+			}
+
+			if (expType.equals("rewind") || expType.equals("load")) {
+				String rewindPath = (String)jsonMap.get("rewindPath"); 
+				returnDungeon.setRewindPath(rewindPath);
+
 			}
 
 			return returnDungeon;

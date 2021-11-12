@@ -106,7 +106,7 @@
     },
     {
       "durability": 5,
-      "extraDamage": 5,
+      "extraDamage": 3,
       "position": {
         "x": 12,
         "y": 0,
@@ -140,6 +140,22 @@
       "initialHealth": 100,
       "invincibleAmount": 8,
       "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT"
+      ],
       "position": {
         "x": 13,
         "y": 0,
@@ -168,6 +184,8 @@
     },
     {
       "isAlly": false,
+      "currentDir": "NONE",
+      "sceptreTickDuration": 0,
       "health": 30,
       "baseAttack": 5,
       "enemyAttack": true,
@@ -215,5 +233,6 @@
   },
   "goalConditions": "",
   "factory": {},
-  "mercSpawnrate": 20
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636720827175/"
 }

@@ -1,6 +1,5 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.*;
 import dungeonmania.util.Position;
 
 public class Hydra extends ZombieToast {

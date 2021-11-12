@@ -30,6 +30,10 @@
       "initialHealth": 100,
       "invincibleAmount": 8,
       "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT"
+      ],
       "position": {
         "x": 1,
         "y": 0,
@@ -75,5 +79,6 @@
   },
   "goalConditions": "{\"subgoals\":[{\"goal\":\"enemies\"},{\"goal\":\"treasure\"}],\"goal\":\"AND\"}",
   "factory": {},
-  "mercSpawnrate": 20
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636720827161/"
 }
