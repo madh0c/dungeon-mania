@@ -103,9 +103,9 @@ public abstract class MovingEntity extends Entity {
 	 * enemyHealth -= (playerHealth * playerAttack) / 5;
 	 * @param dungeon	Dungeon of MovingEntity
 	 */
-	public void attack(Dungeon dungeon) {
+	public void attack(Dungeon dungeon, int playerHp) {
 		Player player = dungeon.getPlayer();
-		setHealth(getHealth() - ((player.getHealth() * player.getAttack()) / 5));
+		setHealth(getHealth() - ((playerHp * player.getAttack()) / 5));
 	};
 
 }

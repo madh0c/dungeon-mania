@@ -19,7 +19,7 @@ public class Hydra extends ZombieToast {
 	}
 
 	@Override
-	public void attack(Dungeon dungeon) {
+	public void attack(Dungeon dungeon, int playerHp) {
 		// Check if anduril
 		if (!haveAnduril(dungeon)) {
 			// Chance of gaining health
@@ -29,7 +29,7 @@ public class Hydra extends ZombieToast {
 				return;
 			}
 		}
-		super.attack(dungeon);
+		super.attack(dungeon, playerHp);
 	}
 
 	/**
