@@ -116,6 +116,11 @@
 			"x": 17,
 			"y": 0,
 			"type": "midnight_armour"
+		},
+		{
+			"x": 18,
+			"y": 0,
+			"type": "time_turner"
 		}
 
     ]

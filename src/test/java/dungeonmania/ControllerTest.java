@@ -417,7 +417,7 @@ public class ControllerTest {
 		EntityResponse startE20 = new EntityResponse("20", "anduril", new Position(15,0), false);
 		EntityResponse startE21 = new EntityResponse("21", "sceptre", new Position(16,0), true);
 		EntityResponse startE22 = new EntityResponse("22", "midnight_armour", new Position(17,0), false);
-
+		EntityResponse startE23 = new EntityResponse("23", "time_turner", new Position(18,0), false);
 
         startList.add(startPlayerInfo);
         startList.add(startE1);
@@ -442,20 +442,21 @@ public class ControllerTest {
 		startList.add(startE20);
 		startList.add(startE21);
 		startList.add(startE22);
+        startList.add(startE23);
 
 
         DungeonResponse dRStart = controller.getDungeonInfo(0);
         assertEquals(startList, dRStart.getEntities());
 
 		// Move player away from the mercenary.
-        for (int i = 0; i < 17; i++) {
+        for (int i = 0; i < 18; i++) {
             controller.tick(null, Direction.RIGHT);
         }
 
 		// Assert the mercenary has not moved from spawn
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
-        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(17,0), true);
+        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(18,0), true);
         EntityResponse endE1 = new EntityResponse("14", "wall", new Position(19,20), false);
         EntityResponse endE2 = new EntityResponse("15", "wall", new Position(20,19), false);
         EntityResponse endE3 = new EntityResponse("16", "mercenary", new Position(20,20), true);
@@ -468,7 +469,6 @@ public class ControllerTest {
         endList.add(endE3);
         endList.add(endE4);
         endList.add(endE5);
-
 
         List<ItemResponse> expInvList = new ArrayList<ItemResponse>();
 
@@ -489,7 +489,7 @@ public class ControllerTest {
 		ItemResponse i15 = new ItemResponse("20", "anduril");
 		ItemResponse i16 = new ItemResponse("21", "sceptre");
 		ItemResponse i17 = new ItemResponse("22", "midnight_armour");
-
+        ItemResponse i18 = new ItemResponse("23", "time_turner");
 
         expInvList.add(i1);
         expInvList.add(i2);
@@ -508,6 +508,7 @@ public class ControllerTest {
 		expInvList.add(i15);
 		expInvList.add(i16);
 		expInvList.add(i17);
+        expInvList.add(i18);
 
 		List<String> BuildList = new ArrayList<String>();
 		BuildList.add("sceptre");
@@ -526,7 +527,7 @@ public class ControllerTest {
         assertEquals(expInvList, dRLoad.getInventory());
 
         assertEquals(new ArrayList<AnimationQueue>(), dRLoad.getAnimations());
-        assertEquals("testLoadInventory.json", dRLoad.getDungeonName());
+        assertEquals("testLoadInventory", dRLoad.getDungeonName());
         assertEquals(BuildList, dRLoad.getBuildables());
         assertEquals("", dRLoad.getGoals());
         assertEquals("0", dRLoad.getDungeonId());
