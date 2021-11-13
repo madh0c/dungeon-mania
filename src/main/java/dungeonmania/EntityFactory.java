@@ -103,8 +103,8 @@ public abstract class EntityFactory {
 	 * @param corresponding	Corresponding door String for key
 	 * @return
 	 */
-	public Key createKey(String id, Position position, String corresponding) {
-		Key key = new Key(id, position, corresponding);
+	public Key createKey(String id, Position position, int keyId) {
+		Key key = new Key(id, position, keyId);
 		return key;
 	}
 
@@ -115,8 +115,8 @@ public abstract class EntityFactory {
 	 * @param corresponding	Corresponding key String for door
 	 * @return
 	 */
-	public Door createDoor(String id, Position position, String corresponding) {
-		Door door = new Door(id, position, corresponding);
+	public Door createDoor(String id, Position position, int keyId) {
+		Door door = new Door(id, position, keyId);
 		return door;
 	}
 	
