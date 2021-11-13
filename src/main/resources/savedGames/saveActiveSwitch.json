@@ -1,22 +1,7 @@
 {
   "id": 0,
   "name": "testAndAndGoal.json",
-  "inventory": [
-    {
-      "random": {
-        "seed": 190205486818816,
-        "nextNextGaussian": 0.0,
-        "haveNextNextGaussian": false
-      },
-      "position": {
-        "x": 2,
-        "y": 0,
-        "layer": 0
-      },
-      "type": "one_ring",
-      "id": "5"
-    }
-  ],
+  "inventory": [],
   "entities": [
     {
       "health": 85,
@@ -74,7 +59,7 @@
   ],
   "gameMode": "Peaceful",
   "goals": ":exit",
-  "historicalEntCount": 6,
+  "historicalEntCount": 5,
   "tickNumber": 2,
   "spawnpoint": {
     "x": 0,
