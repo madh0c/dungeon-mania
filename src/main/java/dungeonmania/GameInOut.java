@@ -192,8 +192,8 @@ public class GameInOut {
 					Double moveFD = (Double)currentEntity.get("movement_factor");
 					int moveF = moveFD.intValue();
 					
-					SwampTile swampT = new SwampTile(entityId, exportPos, moveF);
-					entityList.add(swampT);
+					Entity newEntity = factory.createSwampTile(entityId, exportPos, moveF);
+					entityList.add(newEntity);
 				} else if (entityType.contains("mercenary")) {
 
 					boolean enemyAttack = true;

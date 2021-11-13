@@ -381,4 +381,14 @@ public abstract class EntityFactory {
 	public TimeTurner createTimeTurner(String id, Position position) {
 		return new TimeTurner(id, position);
 	}
+
+	/**
+	 * Creates an instance of SwampTile object
+	 * @param id		Id of swamp_tile
+	 * @param position	Position of swamp_tile
+	 * @return SwampTile
+	 */
+	public SwampTile createSwampTile(String id, Position position, int movementFactor) {
+		return new SwampTile(id, position, movementFactor);
+	}
 }
