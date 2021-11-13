@@ -787,5 +787,16 @@ public class MovingEntityTest {
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", new Position(3,3)));
 
 	}
+
+	@Test
+	public void testMercPeaceful() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryPeace", "Peaceful"));
+		List<Entity> allEntities = controller.getCurrentDungeon().getEntities();
+        MovingEntity merc = (MovingEntity) allEntities.get(1);
+        assertFalse(merc.enemyAttack());
+		controller.tick(null, Direction.RIGHT);
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", new Position(1,0)));
+	}
 	
 }

@@ -201,7 +201,9 @@ public class Mercenary extends MovingEntity {
 
 		if (getPosition().coincides(dungeon.getPlayerPosition())) {
 			if (!isAlly) {
-				Battle.battle(this, dungeon);
+				if (enemyAttack()) {
+					Battle.battle(this, dungeon);
+				}
 			}
 		} return true;
 	}
