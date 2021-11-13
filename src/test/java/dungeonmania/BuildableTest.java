@@ -303,7 +303,8 @@ public class BuildableTest {
 		assertTrue(!assassin.getIsAlly());
 		controller.tick(null, Direction.LEFT);
 		//Fights Assassin
-		assertEquals(25, controller.getDungeon(0).getPlayer().getHealth());
+		Position player = controller.getDungeon(0).getEntity("0").getPosition();
+		assertFalse(controller.getDungeon(0).entityExists("assassin", player));
 	}
 
 	@Test

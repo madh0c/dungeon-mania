@@ -1,5 +1,6 @@
 package dungeonmania;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -165,5 +166,16 @@ public class GoalsTest {
 		assertEquals(controller.getDungeon(0).getGoals(), "");
 	}
 	
+	@Test
+	public void saveGoalsAnd() {
+		DungeonManiaController controller = new DungeonManiaController();
+		controller.newGame("testComplicatedGoal", "Standard");
+		assertEquals(controller.getDungeon(0).getGoals(), "(:enemies AND (:exit OR (:treasure AND :boulders)))");
+		controller.tick(null, Direction.RIGHT);
+		assertEquals(controller.getDungeon(0).getGoals(), "((:exit OR (:treasure AND :boulders)))");
+		assertDoesNotThrow(() -> controller.saveGame("saveGoalsAnd"));
+		assertDoesNotThrow(() -> controller.loadGame("saveGoalsAnd"));
+		assertEquals(controller.getDungeon(0).getGoals(), "((:exit OR (:treasure AND :boulders)))");
+	}
 	
 }

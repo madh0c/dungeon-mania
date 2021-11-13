@@ -9,7 +9,7 @@ public class Anduril extends CollectableEntity {
 
 	public Anduril (String id, Position position) {
 		super(id, position, "anduril");
-		this.durability = 30;
+		this.durability = 15;
 	}
 
 	public int getDmgMultiplier() {

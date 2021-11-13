@@ -157,9 +157,6 @@ public class Dungeon {
 		this.foundGoals = foundGoals;
 	}
 
-	public String getGoalConditions() {
-		return this.foundGoals.saveGameJSON().toString();
-	}
 	public EntityFactory getFactory() {
 		return factory;
 	}

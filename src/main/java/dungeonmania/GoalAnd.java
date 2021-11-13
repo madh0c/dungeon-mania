@@ -35,26 +35,21 @@ public class GoalAnd implements GoalNode{
 		}
 	}
 
-	@Override
-    public JSONObject saveGameJSON() {
-        JSONObject compositeAndJSON = new JSONObject();
-        compositeAndJSON.put("goal", operator);
+	// @Override
+    // public JSONObject saveGameJSON() {
+    //     JSONObject compositeAndJSON = new JSONObject();
+    //     compositeAndJSON.put("goal", operator);
 
-        JSONArray subGoalsJSON = new JSONArray();
-        subGoals.stream().map(GoalNode :: saveGameJSON).forEach(x -> subGoalsJSON.put(x));
+    //     JSONArray subGoalsJSON = new JSONArray();
+    //     subGoals.stream().map(GoalNode :: saveGameJSON).forEach(x -> subGoalsJSON.put(x));
         
-        compositeAndJSON.put("subgoals", subGoalsJSON);
-        return compositeAndJSON;
-    }
+    //     compositeAndJSON.put("subgoals", subGoalsJSON);
+    //     return compositeAndJSON;
+    // }
 
 
 	public boolean add(GoalNode goal) {
 		subGoals.add(goal);
-		return true;
-	}
-
-	public boolean remove(GoalNode goal) {
-		subGoals.remove(goal);
 		return true;
 	}
 
