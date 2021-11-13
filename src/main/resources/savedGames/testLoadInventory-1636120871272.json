@@ -1,6 +1,6 @@
 {
   "id": 0,
-  "name": "testLoadInventory.json",
+  "name": "testLoadInventory",
   "inventory": [
     {
       "position": {
@@ -116,7 +116,6 @@
       "id": "12"
     },
     {
-      "damageFactorReduction": 0.2,
       "durability": 5,
       "position": {
         "x": 13,
@@ -125,16 +124,65 @@
       },
       "type": "shield",
       "id": "13"
+    },
+    {
+      "position": {
+        "x": 14,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "sun_stone",
+      "id": "19"
+    },
+    {
+      "durability": 15,
+      "dmgMultiplier": 3,
+      "position": {
+        "x": 15,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "anduril",
+      "id": "20"
+    },
+    {
+      "position": {
+        "x": 16,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "sceptre",
+      "id": "21"
+    },
+    {
+      "extraDamage": 2,
+      "durability": 5,
+      "position": {
+        "x": 17,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "midnight_armour",
+      "id": "22"
+    },
+    {
+      "position": {
+        "x": 18,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "time_turner",
+      "id": "23"
     }
   ],
   "entities": [
     {
       "health": 100,
-      "attack": 2,
+      "attack": 6,
       "visible": true,
       "currentDir": "RIGHT",
       "haveKey": true,
-      "hasSunStone": false,
+      "hasSunStone": true,
       "invincibleTickDuration": 0,
       "enemyAttack": true,
       "initialHealth": 100,
@@ -154,10 +202,15 @@
         "RIGHT",
         "RIGHT",
         "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
         "RIGHT"
       ],
       "position": {
-        "x": 13,
+        "x": 18,
         "y": 0,
         "layer": 0
       },
@@ -189,6 +242,7 @@
       "health": 30,
       "baseAttack": 5,
       "enemyAttack": true,
+      "ticksFrozen": 0,
       "position": {
         "x": 20,
         "y": 20,
@@ -218,15 +272,13 @@
   ],
   "gameMode": "Standard",
   "goals": "",
-  "historicalEntCount": 19,
-  "tickNumber": 13,
+  "historicalEntCount": 24,
+  "tickNumber": 18,
   "spawnpoint": {
     "x": 0,
     "y": 0,
     "layer": 0
   },
-  "height": 50,
-  "width": 50,
   "foundGoals": {
     "goal": "",
     "hasCompleted": false

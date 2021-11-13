@@ -4,8 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
+import dungeonmania.response.models.DungeonResponse;
+import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
@@ -48,6 +52,48 @@ public class BattleTest {
 		pos = dungeon.getPlayerPosition();
 		assertEquals(85, dungeon.getPlayer().getHealth());
 		assertFalse(dungeon.entityExists("spider", pos));
+	}
+
+	@Test
+	public void testItemsLoseDurability() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testItemsLoseDurability", "Standard"));
+		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+		controller.tick(null, Direction.DOWN);
+		dungeonInfo = controller.getDungeonInfo(0);
+		assertEquals(Arrays.asList(new ItemResponse("1", "anduril"), new ItemResponse("2", "sword"), new ItemResponse("3", "shield"), new ItemResponse("4", "midnight_armour"),  new ItemResponse("5", "armour")), dungeonInfo.getInventory());
+		for (int i = 0; i < 50; i++) {
+			controller.tick(null, Direction.NONE);
+		}
+		controller.tick(null, Direction.DOWN);
+		for (int i = 0; i < 50; i++) {
+			controller.tick(null, Direction.NONE);
+		}
+		controller.tick(null, Direction.DOWN);
+		for (int i = 0; i < 50; i++) {
+			controller.tick(null, Direction.NONE);
+		}
+		for (int i = 0; i < 50; i++) {
+			controller.tick(null, Direction.NONE);
+		}
+		controller.tick(null, Direction.DOWN);
+		for (int i = 0; i < 50; i++) {
+			controller.tick(null, Direction.NONE);
+		}
+		controller.tick(null, Direction.DOWN);
+		for (int i = 0; i < 50; i++) {
+			controller.tick(null, Direction.NONE);
+		}
+		controller.tick(null, Direction.DOWN);
+		for (int i = 0; i < 50; i++) {
+			controller.tick(null, Direction.NONE);
+		}
+		dungeonInfo = controller.getDungeonInfo(0);
+		assertFalse(dungeonInfo.getInventory().contains(new ItemResponse("1", "anduril")));
+		assertFalse(dungeonInfo.getInventory().contains(new ItemResponse("2", "sword")));
+		assertFalse(dungeonInfo.getInventory().contains(new ItemResponse("3", "shield")));
+		assertFalse(dungeonInfo.getInventory().contains(new ItemResponse("4", "midnight_armour")));
+		assertFalse(dungeonInfo.getInventory().contains(new ItemResponse("5", "armour")));
 	}
 
 	// @Test

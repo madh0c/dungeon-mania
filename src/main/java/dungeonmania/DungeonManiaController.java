@@ -98,13 +98,13 @@ public class DungeonManiaController {
 
 		try {
 			String path = FileLoader.loadResourceFile("/dungeons/" + fileName);
-			currentDungeon = GameInOut.fromJSON("new", path, fileName, lastUsedDungeonId, gameMode, 0);
+			currentDungeon = GameInOut.fromJSON("new", path, dungeonName, lastUsedDungeonId, gameMode, 0);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		Date date = new Date();
-		// UNCOMMENT
+		// TODO UNCOMMENT
 		// long currTime = date.getTime();
 		// String rewindTime = Long.toString(currTime);
 		// String rewindPath = "/rewind/" + rewindTime + "/";
@@ -331,48 +331,36 @@ public class DungeonManiaController {
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
 
-		// UNCOMMENT
+		// TODO UNCOMMENT
 		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 	
 		// Use item
 		currentDungeon.useItem(itemUsed);
 		
+		Player player = currentDungeon.getPlayer();
 		// First tick of game, some actions to do
 		if (currentDungeon.getTickNumber() == 0) {
 			// If player exists
-			if (currentDungeon.getPlayer() != null) {
+			if (player != null) {
 				currentDungeon.setSpawnpoint(currentDungeon.getPlayerPosition());
 			}
 		}
 
 		// Spawn in new mercenary after amount of ticks, dependent on gamemode
 		if (currentDungeon.getTickNumber() % currentDungeon.getMercSpawnrate() == 0 && currentDungeon.getTickNumber() > 0) {	
-			// If there is a spawnpoint
-			if (currentDungeon.getSpawnpoint() != null) {
-				// Merc spawn every 10/20 ticks
-				int newId = currentDungeon.getHistoricalEntCount();
-				Random rand = new Random();
-				int random = rand.nextInt(10);
-				if (random < 2) {
-					Entity assassin = currentDungeon.getFactory().createEntity(String.valueOf(newId), "assassin", currentDungeon.getSpawnpoint());
-					currentDungeon.addEntity(assassin);
-				} else {
-					Entity merc = currentDungeon.getFactory().createEntity(String.valueOf(newId), "mercenary", currentDungeon.getSpawnpoint());
-					currentDungeon.addEntity(merc);
-				}				
-			}
+			currentDungeon.spawnMerc();
 		}
 
 		currentDungeon.tickOne();
 
 		// Player actions
-		if (currentDungeon.getPlayer() != null) {
-			currentDungeon.getPlayer().setCurrentDir(movementDirection);
+		if (player != null) {
+			player.setCurrentDir(movementDirection);
 			// make sure invincibility wears off
-			int invicibleTicksLeft = currentDungeon.getPlayer().getInvincibleTickDuration();
-			currentDungeon.getPlayer().setInvincibleTickDuration(invicibleTicksLeft - 1);
+			int invicibleTicksLeft = player.getInvincibleTickDuration();
+			player.setInvincibleTickDuration(invicibleTicksLeft - 1);
 			// sceptre tick wearing off
-			List<String> controlledIds = currentDungeon.getPlayer().getControlled();
+			List<String> controlledIds = player.getControlled();
 			// If there are mercs being controlled
 			if (!controlledIds.isEmpty()) {
 				for (Entity ent : currentDungeon.getEntities()) {
@@ -383,7 +371,22 @@ public class DungeonManiaController {
 				}
 			}
 			// Move player
-			currentDungeon.getPlayer().move(currentDungeon, movementDirection);
+			player.move(currentDungeon, movementDirection);
+
+			// trace the player's path, so that olderPlayer can follow
+			player.addTrace(player.getCurrentDir());
+
+			// time travel through portal
+			Position currPlayerPos = player.getPosition();
+			List<Entity> entOnPlayerCell = currentDungeon.getEntitiesOnCell(currPlayerPos);
+
+			for (Entity ent: entOnPlayerCell) {
+				if (ent instanceof TimeTravellingPortal) {
+					Direction currDir = player.getCurrentDir();
+					player.setPosition(currPlayerPos.translateBy(currDir));
+					this.rewind(30);
+				}
+			}
 		}
 
 		// Create a list of temp MovingEntities, to avoid Concurrent modifier exception
@@ -399,10 +402,10 @@ public class DungeonManiaController {
 			}
 		}
 
-		System.out.println(currentDungeon.getPlayer().getInvincibleTickDuration());
 		// Move all Movable Entities
-		for (MovingEntity mov : tempEnts) {			
-			if (currentDungeon.getPlayer().getInvincibleTickDuration() == 0) {
+		for (MovingEntity mov : tempEnts) {
+			if (player == null) break;			
+			if (player.getInvincibleTickDuration() == 0) {
 				mov.move(currentDungeon);
 			} else {
 				mov.moveScared(currentDungeon);
@@ -421,9 +424,8 @@ public class DungeonManiaController {
 
 		if (toRemove.size() != 0) {
 			currentDungeon.getEntities().removeAll(toRemove);
-		}
-
-
+		}		
+		
 		// Spawn in zombies if appropriate
 		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
 
@@ -436,25 +438,11 @@ public class DungeonManiaController {
 		// Spawn in new zombietoast after 20 ticks (20 ticks checked inside method)
 		for (ZombieToastSpawner spawner : spawners) {
 			spawner.spawnZombie(currentDungeon);
-		}
-
-		Player player = currentDungeon.getPlayer();
-		player.addTrace(player.getCurrentDir());
+		}		
 		
 		evalGoal(currentDungeon);
-
-		Player currPlayer = currentDungeon.getPlayer();
-		Position currPlayerPos = currPlayer.getPosition();
-		List<Entity> entOnPlayerCell = currentDungeon.getEntitiesOnCell(currPlayerPos);
-
-		for (Entity ent: entOnPlayerCell) {
-			if (ent instanceof TimeTravellingPortal) {
-				Direction currDir = currPlayer.getCurrentDir();
-				currPlayer.setPosition(currPlayerPos.translateBy(currDir));
-				this.rewind(30);
-			}
-		}
-
+		
+		
 		return getDungeonInfo(currentDungeon.getId());
 	}
 

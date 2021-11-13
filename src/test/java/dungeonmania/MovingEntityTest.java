@@ -1,10 +1,13 @@
 package dungeonmania;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -12,6 +15,8 @@ import org.junit.jupiter.api.Test;
 
 import dungeonmania.allEntities.*;
 import dungeonmania.exceptions.InvalidActionException;
+import dungeonmania.response.models.DungeonResponse;
+import dungeonmania.response.models.EntityResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
@@ -25,13 +30,26 @@ public class MovingEntityTest {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testSpiderSpawn", "Standard"));
 
-		// Check if spider 1 exists
+ 		// Check if spider 1 exists
 		Position spiderPos1 = controller.getDungeon(0).getEntity("0").getPosition();
 		// Should be here
 		Position spiderStart1 = new Position(1,1);
 		// Assert spider spawned in correctly
 		assertTrue(spiderPos1.equals(spiderStart1));
 
+		Spider spid = (Spider) controller.getDungeon(0).getEntity("0");
+		assertEquals(0, spid.getCurrTile());
+		assertEquals(true, spid.getClockwise());
+
+		List<Position> custRange = new ArrayList<>();
+		custRange.add(new Position(0,0));
+		custRange.add(new Position(1,0));
+		custRange.add(new Position(2,0));
+
+		spid.setRange(custRange);
+
+		assertEquals(custRange, spid.getRange());
+		
 		// Check if spider 2 exists
 		Position spiderPos2 = controller.getDungeon(0).getEntity("1").getPosition();
 		// Should be here
@@ -695,6 +713,79 @@ public class MovingEntityTest {
 		controller.tick(null, Direction.RIGHT);
 		Position player = controller.getDungeon(0).getEntity("0").getPosition();
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", player));
+	}
+
+	@Test
+	public void testAssassinCantBribe() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testAssassinBribe", "Standard"));
+	
+		controller.tick(null, Direction.DOWN);
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.NONE);
+
+		assertThrows(InvalidActionException.class, () -> controller.interact("1"));
+	}
+
+	@Test 
+	public void testAssassinFar() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testAssassinFar", "Standard"));
+	
+		controller.tick(null, Direction.RIGHT);
+
+		assertThrows(InvalidActionException.class, () -> controller.interact("3"));
+	}
+
+	@Test
+	public void testAssassinSavedBribed() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testAssassinFar", "Standard"));
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		assertDoesNotThrow(() -> controller.interact("3"));
+		Dungeon dungeon = controller.getDungeon(0);
+		Entity ent = dungeon.getEntities().get(1);
+		Assassin ass = (Assassin) ent;
+		assertTrue(ass.getIsAlly());
+		assertDoesNotThrow(() -> controller.saveGame("saveAssassinBribed"));
+		assertDoesNotThrow(() -> controller.loadGame("saveAssassinBribed"));
+		Dungeon dungeon1 = controller.getDungeon(0);
+		Entity entity = dungeon1.getEntities().get(1);
+		Assassin assass = (Assassin) entity;
+		assertTrue(assass.getIsAlly());
+	}
+	
+	@Test 
+	public void testMercCollide() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryCollide", "Standard"));
+
+	}
+
+	@Test
+	public void testMercDoorOpen() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryCollide", "Standard"));
+		EntityResponse midDoorInfo = new EntityResponse("8", "door", new Position(3,2), false);
+		DungeonResponse dungeon = controller.getDungeonInfo(0);
+		dungeon.getEntities().contains(midDoorInfo);
+		controller.tick(null, Direction.DOWN);
+		controller.tick(null, Direction.DOWN);
+		controller.tick(null, Direction.DOWN);
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		//Unlocks door
+		controller.tick(null, Direction.UP);
+		EntityResponse endDoorInfo = new EntityResponse("8", "door_unlocked", new Position(3,2), false);
+		dungeon = controller.getDungeonInfo(0);
+		dungeon.getEntities().contains(endDoorInfo);
+		controller.tick(null, Direction.DOWN);
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", new Position(3,2)));
+		controller.tick(null, Direction.DOWN);
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", new Position(3,3)));
+
 	}
 	
 }

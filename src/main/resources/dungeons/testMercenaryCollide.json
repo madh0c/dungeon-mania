@@ -1,0 +1,52 @@
+{
+    "entities": [
+        {
+            "x": 0,
+            "y": 0,
+            "type": "player"
+        }, 
+		{
+            "x": 0,
+            "y": 1,
+            "type": "key"
+        }, 
+		{
+			"x": 2,
+			"y": 1,
+			"type": "mercenary"
+		},
+        {
+            "x": 4,
+            "y": 1,
+            "type": "zombie_toast_spawner"
+        }, 
+		{
+            "x": 3,
+            "y": 0,
+            "type": "zombie_toast_spawner"
+        }, 
+        {
+            "x": 1,
+            "y": 1,
+            "type": "boulder"
+        },
+		{
+            "x": 2,
+            "y": 0,
+            "type": "boulder"
+        }, 
+		{
+			"x": 2,
+            "y": 2,
+            "type": "door"
+		},
+		{
+			"x": 3,
+			"y": 2,
+			"type": "door"
+		}
+
+    ],
+    "width": 5,
+    "height": 5
+}

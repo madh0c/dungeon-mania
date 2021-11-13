@@ -33,20 +33,35 @@ public class ZombieToastSpawner extends Entity {
 		List<Position> spawnOrder = this.getPosition().getCardinallyAdjPositions();
 
 		for (Position spawnPoint : spawnOrder) {
-			List<Entity> conflictEntities = currentDungeon.getEntitiesOnCell(spawnPoint);
+			int newId = currentDungeon.getHistoricalEntCount();
+			ZombieToast zombie = (ZombieToast)currentDungeon.getFactory().createEntity(String.valueOf(newId), "zombie_toast", spawnPoint);
 			boolean canSpawn = true;
-			for (Entity conflictE : conflictEntities) {
-				if (conflictE.getType().equals("boulder") || conflictE.getType().equals("wall") || conflictE instanceof MovingEntity) {
+			List<Entity> conflictEntities = currentDungeon.getEntitiesOnCell(spawnPoint);
+			for (Entity entity : conflictEntities) {
+				if (!zombie.collide(entity, currentDungeon)) {
 					canSpawn = false;
-
 				}
 			}
+
 			if (canSpawn) {
-				int newId = currentDungeon.getHistoricalEntCount();				
-				Entity zombie = currentDungeon.getFactory().createEntity(String.valueOf(newId), "zombie_toast", spawnPoint);
 				currentDungeon.addEntity(zombie);
-                break;
 			}
+
+
+			// boolean canSpawn = true;
+			// for (Entity conflictE : conflictEntities) {
+			// 	if (conflictE.getType().equals("boulder") || conflictE.getType().equals("wall") || conflictE instanceof MovingEntity) {
+			// 		canSpawn = false;
+
+			// 	}
+			// }
+			// if (canSpawn) {
+			// 	int newId = currentDungeon.getHistoricalEntCount();				
+			// 	Entity zombie = currentDungeon.getFactory().createEntity(String.valueOf(newId), "zombie_toast", spawnPoint);
+			// 	currentDungeon.addEntity(zombie);
+            //     break;
+			// }
+
 		}
 	}
 }

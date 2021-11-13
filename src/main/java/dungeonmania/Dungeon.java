@@ -1,6 +1,7 @@
 package dungeonmania;
 
 import java.util.List;
+import java.util.Random;
 
 import org.json.JSONObject;
 
@@ -20,8 +21,6 @@ public class Dungeon {
 	private int historicalEntCount;
 	private int tickNumber;
 	private Position spawnpoint;
-	private int height;
-	private int width;
 	private GoalNode foundGoals;
 	private String goalConditions;
 	private EntityFactory factory;
@@ -29,7 +28,7 @@ public class Dungeon {
 	private String rewindPath;
 
 
-    public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals, int height, int width, GoalNode foundGoals, String goalConditions) {
+    public Dungeon(int id, String name, List<Entity> entities, String gameMode, String goals, GoalNode foundGoals, String goalConditions) {
 		this.id = id;
 		this.name = name;	
 		this.inventory = new ArrayList<>();	
@@ -50,9 +49,34 @@ public class Dungeon {
 			this.factory = new HardFactory();
 			this.mercSpawnrate = 10;
 		}
-		this.height = height;
-		this.width = width;
     }
+
+	public boolean spawnMerc() {
+		// If there is a spawnpoint
+		if (getSpawnpoint() != null) {
+			// Merc spawn every 10/20 ticks
+			int newId = getHistoricalEntCount();
+			Mercenary newMerc = (Mercenary)getFactory().createEntity(String.valueOf(newId), "mercenary", getSpawnpoint());
+			
+			for (Entity entity : getEntitiesOnCell(getSpawnpoint())) {
+				if (!newMerc.collide(entity, this)) {
+					return false;
+				}
+			}
+			
+			Random rand = new Random();
+			int random = rand.nextInt(10);
+			
+			if (random < 2) {
+				Entity newAssassin = getFactory().createEntity(String.valueOf(newId), "assassin", getSpawnpoint());
+				addEntity(newAssassin);
+			} else {
+				addEntity(newMerc);
+			}			
+			return true;				
+		}
+		return false;
+	}
 
 	/**
 	 * @param itemString
@@ -133,9 +157,6 @@ public class Dungeon {
 		this.foundGoals = foundGoals;
 	}
 
-	public String getGoalConditions() {
-		return this.foundGoals.saveGameJSON().toString();
-	}
 	public EntityFactory getFactory() {
 		return factory;
 	}
@@ -381,14 +402,6 @@ public class Dungeon {
 		return this.historicalEntCount;
 	}
 
-	public int getHeight() {
-		return height;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
 	public boolean getMidnightStatus() {
 		for (Entity ent : getInventory()) {
 			if (ent instanceof MidnightArmour) {
@@ -423,14 +436,6 @@ public class Dungeon {
 
 	public void setEntities(List<Entity> entities) {
 		this.entities = entities;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
 	}
 
 

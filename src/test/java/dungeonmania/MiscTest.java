@@ -255,4 +255,16 @@ public class MiscTest {
         DungeonResponse dREnd = controller.getDungeonInfo(0);
         assertNotEquals(expectedAssassinInfo, dREnd.getEntities().get(2));
     }
+
+    /**
+	 * Miscellanoues Asserts.
+	 */
+	@Test
+    public void testMisc() {
+		DungeonManiaController controller = new DungeonManiaController();
+
+        assertEquals("default", controller.getSkin());
+        assertEquals("en_US", controller.getLocalisation());
+
+    }
 }

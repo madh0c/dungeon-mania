@@ -53,8 +53,6 @@ public class GameInOut {
 		List<CollectableEntity> returnInv = new ArrayList<>();
 		String goals = null;
 		String playMode = null; 
-		int height = 50;
-		int width  = 50;
 		GoalNode foundGoals = new GoalLeaf("");
 		String goalsConvert = "";
 
@@ -71,8 +69,8 @@ public class GameInOut {
 					JSONObject goalCon = new JSONObject(goalConditions);
 					foundGoals = createGoals(goalCon);
 					goalsConvert = goalCon.toString();
-
 				}
+
 			} else if (expType.equals("new")) {
 				playMode = gameMode;
 				Map<String, Object> goalConditions = (Map<String, Object>)jsonMap.get("goal-condition");
@@ -85,16 +83,6 @@ public class GameInOut {
 					goals = foundGoals.remainingString();
 					goalsConvert = goalCon.toString();
 				}
-			}
-
-			if (jsonMap.get("height") != null) {
-				Double expHeight = (Double)jsonMap.get("height");
-				height = expHeight.intValue(); 
-			}
-
-			if (jsonMap.get("width") != null) {
-				Double expWidth = (Double)jsonMap.get("width");
-				width = expWidth.intValue();  
 			}
 
 			List<Map<String, Object>> parseList = (List<Map<String, Object>>)jsonMap.get("entities"); 
@@ -337,7 +325,7 @@ public class GameInOut {
 						Anduril newAnduril = new Anduril(itemId, itemPos);
 						newAnduril.setDurability(durability);
 						returnInv.add(newAnduril);
-					}  else if (itemType.equals("sceptre")){
+					} else if (itemType.equals("sceptre")){
 						Sceptre newSceptre = new Sceptre(itemId, itemPos);
 						returnInv.add(newSceptre);
 					} else if (itemType.equals("midnight_armour")){
@@ -346,11 +334,14 @@ public class GameInOut {
 						MidnightArmour newMidArm = new MidnightArmour(itemId, itemPos);
 						newMidArm.setDurability(durability);
 						returnInv.add(newMidArm);
-					}
+					} else if (itemType.equals("time_turner")){
+						TimeTurner newTurner = new TimeTurner(itemId, itemPos);
+						returnInv.add(newTurner);
+					} 
 				}
 			}
-			
-			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, height, width, foundGoals, goalsConvert);
+
+			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, foundGoals, goalsConvert);
 
 			if (expType.equals("load") || expType.equals("rewind")) {
 
@@ -361,16 +352,20 @@ public class GameInOut {
 				int historicalEntCount = hisD.intValue();
 
 				Map<String, Double> spawnPos = (Map<String, Double>)jsonMap.get("spawnpoint");
+				
+				Position spawnpoint = new Position(0, 0, 0);
 
-				Double xSD = (Double)spawnPos.get("x");
-				Double ySD = (Double)spawnPos.get("y");
-				Double zSD = (Double)spawnPos.get("layer");
-	
-				int xSC = xSD.intValue();
-				int ySC= ySD.intValue();
-				int zSC = zSD.intValue();
-
-				Position spawnpoint = new Position(xSC, ySC, zSC);
+				if (spawnPos != null) {
+					Double xSD = (Double)spawnPos.get("x");
+					Double ySD = (Double)spawnPos.get("y");
+					Double zSD = (Double)spawnPos.get("layer");
+		
+					int xSC = xSD.intValue();
+					int ySC= ySD.intValue();
+					int zSC = zSD.intValue();
+					spawnpoint = new Position(xSC, ySC, zSC);
+				}
+				
 				returnDungeon.setId(lastUsedDungeonId);
 				returnDungeon.setName(feed);
 				returnDungeon.setInventory(returnInv);
@@ -385,7 +380,6 @@ public class GameInOut {
 			if (expType.equals("rewind") || expType.equals("load")) {
 				String rewindPath = (String)jsonMap.get("rewindPath"); 
 				returnDungeon.setRewindPath(rewindPath);
-
 			}
 
 			return returnDungeon;
@@ -427,8 +421,7 @@ public class GameInOut {
 				orGoal.add(subGoal);
 			}
 			return orGoal;
-		}  
-		return null;
+		} return null;
 	}
 
 }

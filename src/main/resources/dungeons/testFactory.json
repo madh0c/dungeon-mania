@@ -1,0 +1,50 @@
+{
+    "entities": [
+        {
+            "x": 0,
+            "y": 0,
+            "type": "player"
+        },
+        {
+            "x": 1,
+            "y": 0,
+            "type": "mercenary"
+        },
+        {
+            "x": 2,
+            "y": 0,
+            "type": "assassin"
+        },
+        {
+            "x": 3,
+            "y": 0,
+            "type": "zombie_toast_spawner"
+        },
+        {
+            "x": 4,
+            "y": 0,
+            "type": "zombie_toast"
+        },
+        {
+            "x": 5,
+            "y": 0,
+            "type": "spider"
+        },
+        {
+            "traceUntil": 10,
+            "x": 6,
+            "y": 0,
+            "type": "older_player"
+        },
+        {
+            "x": 7,
+            "y": 0,
+            "type": "hydra"
+        }
+
+
+    ],
+    "width": 10,
+    "height": 5,
+    "tickNumber": 15
+}

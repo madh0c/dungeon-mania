@@ -1,6 +1,6 @@
 {
   "id": 0,
-  "name": "testAndGoal.json",
+  "name": "testAndGoal",
   "inventory": [],
   "entities": [
     {
@@ -46,8 +46,6 @@
     "y": 0,
     "layer": 0
   },
-  "height": 3,
-  "width": 3,
   "foundGoals": {
     "subGoals": [
       {

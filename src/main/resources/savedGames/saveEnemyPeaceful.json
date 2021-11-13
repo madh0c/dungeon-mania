@@ -1,26 +1,26 @@
 {
-  "id": 1,
-  "name": "testWallBlocksMercenaryMovement-1636040715294",
+  "id": 0,
+  "name": "testAssassinFar",
   "inventory": [],
   "entities": [
     {
       "health": 100,
       "attack": 2,
       "visible": true,
-      "currentDir": "UP",
+      "currentDir": "NONE",
       "haveKey": false,
       "hasSunStone": false,
       "invincibleTickDuration": 0,
-      "enemyAttack": true,
+      "enemyAttack": false,
       "initialHealth": 100,
       "invincibleAmount": 8,
       "initialAttack": 2,
       "controlled": [],
       "traceList": [
-        "RIGHT"
+        "NONE"
       ],
       "position": {
-        "x": 3,
+        "x": 0,
         "y": 0,
         "layer": 0
       },
@@ -33,31 +33,41 @@
         "y": 0,
         "layer": 0
       },
-      "type": "wall",
+      "type": "treasure",
       "id": "1"
     },
     {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
       "position": {
-        "x": 0,
-        "y": 1,
+        "x": 1,
+        "y": 0,
         "layer": 0
       },
-      "type": "mercenary",
+      "type": "one_ring",
       "id": "2"
+    },
+    {
+      "isAlly": false,
+      "currentDir": "LEFT",
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 20,
+      "enemyAttack": false,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "assassin",
+      "id": "3"
     }
   ],
-  "gameMode": "Standard",
+  "gameMode": "Peaceful",
   "goals": "",
-  "historicalEntCount": 3,
+  "historicalEntCount": 4,
   "tickNumber": 1,
   "spawnpoint": {
-    "x": 2,
+    "x": 0,
     "y": 0,
     "layer": 0
   },
