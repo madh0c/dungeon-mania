@@ -44,7 +44,7 @@ public class GamemodesTest {
         assertEquals(0, player.getInvincibleTickDuration());
 
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 9; i++) {
             assertDoesNotThrow(() ->controller.tick(null, Direction.NONE));
         }
 
@@ -67,7 +67,7 @@ public class GamemodesTest {
         assertDoesNotThrow(() -> controller.newGame("testGamemode", "Hard"));
 
 		Position pos = new Position(2, 1);
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 15; i++) {
 			assertFalse(controller.getDungeon(0).entityExists(pos));
             assertDoesNotThrow(() ->controller.tick(null, Direction.NONE));
         }

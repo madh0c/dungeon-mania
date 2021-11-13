@@ -19,160 +19,50 @@ public class Battle {
 	 */
 	public static void battle(Entity entity, Dungeon dungeon) {
 		MovingEntity enemy = (MovingEntity) entity;
+
+		// Each loop occurrence is a battle occurring
 		while (enemy.getHealth() > 0 && dungeon.getPlayer().getHealth() > 0) {
+			Player player = dungeon.getPlayer();
 			// if player invincible
-			if (dungeon.getPlayer().getInvincibleTickDuration() > 0) {
+			if (player.getInvincibleTickDuration() > 0) {
 				dungeon.removeEntity(entity);
 				break;
 			}
 
-			dungeon.getPlayer().setAttack(dungeon.getPlayer().getInitialAttack());
-			int playerHp = dungeon.getPlayer().getHealth();
+			// PLAYER ATTACKING 
+			player.setAttack(player.getInitialAttack());
 			int enemyHp = enemy.getHealth();
 
-			int playerAtk = dungeon.getPlayer().getAttack();
 			int enemyAtk = enemy.getBaseAttack();
 			List<CollectableEntity> toBeRemoved = new ArrayList<CollectableEntity>();
 
-			// Chance of hydra spawning head
-			boolean chanceTwoHeads = true;
-		
+			// Reduce the durability of the items in the player's inventory
 			for (CollectableEntity item : dungeon.getInventory()) {
-				if (item instanceof Sword) {						
-					Sword sword = (Sword) item;
-					if (sword.getDurability() == 0) {
-						toBeRemoved.add(item);
-						continue;
-					}
-					playerAtk += sword.getExtraDamage();
-					sword.setDurability(sword.getDurability() - 1);						
-				}
-
-				if (item instanceof Anduril) {						
-					Anduril anduril = (Anduril) item;
-					if (anduril.getDurability() == 0) {
-						dungeon.getPlayer().setAttack(dungeon.getPlayer().getInitialAttack());		
-						toBeRemoved.add(item);
-						continue;
-					}
-					anduril.setDurability(anduril.getDurability() - 1);						
-				}
-
-				if (item instanceof Bow) {
-					Bow bow = (Bow) item;
-					if (bow.getDurability() == 0) {
-						toBeRemoved.add(item);
-						continue;
-					}
-					playerAtk += bow.getExtraDamage()*2;
-					bow.setDurability(bow.getDurability() - 1);	
-				}
-
-				if (item instanceof Armour) {						
-					Armour armour = (Armour) item;
-					if (armour.getDurability() == 0) {
-						toBeRemoved.add(item);
-						continue;
-					}
-					enemyAtk /= 2;
-					armour.setDurability(armour.getDurability() - 1);
-				}
-
-				if (item instanceof Shield) {
-					Shield shield = (Shield) item;
-					if (shield.getDurability() == 0) {
-						toBeRemoved.add(item);
-						continue;
-					}
-					enemyAtk /= 5;
-					shield.setDurability(shield.getDurability() - 1);
-				}
-
-				if (item instanceof MidnightArmour) {
-					MidnightArmour midnightArmour = (MidnightArmour) item;
-					if (midnightArmour.getDurability() == 0) {
-						toBeRemoved.add(item);
-						continue;
-					}
-					playerAtk += midnightArmour.getExtraDamage();
-					enemyAtk /= 3;
-					midnightArmour.setDurability(midnightArmour.getDurability() - 1);
+				if (item instanceof UsableEntity) {
+					UsableEntity usable = (UsableEntity) item;
+					enemyAtk = usable.use(dungeon, toBeRemoved, enemyAtk);
 				}
 			}
 
 			// remove items w/ no durability
 			dungeon.getInventory().removeAll(toBeRemoved);
 
+			// Get player's health before any damages
+			int playerHp = player.getHealth();
 			// Character Health = Character Health - ((Enemy Health * Enemy Attack Damage) / 10)
 			// Enemy Health = Enemy Health - ((Character Health * Character Attack Damage) / 5)
-			dungeon.getPlayer().setHealth(playerHp - ((enemyHp * enemyAtk) / 10));
-			
-			// Change player attack
-			dungeon.getPlayer().setAttack(playerAtk);
 
+			player.setHealth(playerHp - ((enemyHp * enemyAtk) / 10));
 
-			// Enemy attacks the players
+			// ENEMIES ATTACK
 			enemy.attack(dungeon, playerHp);
 
-			// If player dies
-			if(Battle.playerDead(dungeon)) return;
+			// POST-BATTLE CHECKS
+			// Check if player is dead
+			if(playerDead(dungeon)) return;
 
-			// if (dungeon.getPlayer().getHealth() <= 0) {
-			// 	List<CollectableEntity> ringDelete = new ArrayList<> ();
-			// 	for (CollectableEntity item : dungeon.getInventory()) {
-			// 		if (item instanceof OneRing) {
-			// 			dungeon.getPlayer().setHealth(dungeon.getPlayer().getInitialHealth());
-
-			// 			ringDelete.add(item);
-			// 		}
-			// 	}
-			// 	if (ringDelete.size() == 1) {
-			// 		dungeon.getInventory().remove(ringDelete.get(0));
-			// 	}
-			// 	if (dungeon.getPlayer().getHealth() <= 0) {
-			// 		dungeon.removeEntity(dungeon.getPlayer());	
-			// 		return;				
-			// 	}			
-			// } 
-
-
-			// If enemy dies
+			// Check if enemy is dead
 			if(enemyDead(dungeon, entity)) continue;
-
-			// if (enemy.getHealth() <= 0) {
-			// 	// drop armour 
-			// 	if (enemy instanceof Mercenary || enemy instanceof ZombieToast) {
-			// 		Random rand = new Random();
-			// 		if (rand.nextInt(20) == 1) {
-			// 			// Armour armour = new Armour(String.valueOf(dungeon.getHistoricalEntCount()), enemy.getPosition());
-			// 			Entity armo = dungeon.getFactory().createEntity(String.valueOf(dungeon.getHistoricalEntCount()), "armour", enemy.getPosition());
-			// 			Armour armour = (Armour) armo;
-			// 			dungeon.addItemToInventory(armour);
-			// 			dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);
-			// 		}
-
-			// 	}
-
-			// 	// drop one ring
-			// 	OneRing ring = new OneRing(String.valueOf(dungeon.getHistoricalEntCount()), dungeon.getPlayerPosition());
-			// 	if (ring.doesSpawn()) {
-			// 		int check = 0;
-			// 		for (CollectableEntity item : dungeon.getInventory()) {
-			// 			if (item instanceof OneRing) {
-			// 				check = 1;
-			// 				break;
-			// 			}
-			// 		}
-			// 		if (check == 0) {
-			// 			dungeon.addItemToInventory(ring);
-			// 			dungeon.setHistoricalEntCount(dungeon.getHistoricalEntCount() + 1);
-			// 		}
-			// 	}
-
-			// 	// remove
-			// 	dungeon.removeEntity(entity);
-			// 	break;
-			// }
 		}
 		
 	}

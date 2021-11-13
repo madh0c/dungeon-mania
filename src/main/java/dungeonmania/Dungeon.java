@@ -39,13 +39,13 @@ public class Dungeon {
 		this.foundGoals = foundGoals;
 		this.goalConditions = goalConditions;
 		// Initialise gamemode
-		if (gameMode.equals("Peaceful")) {
+		if (gameMode.equals("peaceful")) {
 			this.factory = new PeacefulFactory();
 			this.mercSpawnrate = 20;
-		} else if (gameMode.equals("Standard")) {
+		} else if (gameMode.equals("standard")) {
 			this.factory = new StandardFactory();
 			this.mercSpawnrate = 20;
-		} else if (gameMode.equals("Hard")) {
+		} else if (gameMode.equals("hard")) {
 			this.factory = new HardFactory();
 			this.mercSpawnrate = 10;
 		}

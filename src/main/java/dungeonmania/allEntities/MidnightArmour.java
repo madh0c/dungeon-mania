@@ -5,24 +5,18 @@ import java.util.List;
 import dungeonmania.*;
 import dungeonmania.util.Position;
 
-public class MidnightArmour extends CollectableEntity {
+public class MidnightArmour extends UsableEntity {
 
 	private int extraDamage = 2;
-	private int durability;
+
 	public MidnightArmour (String id, Position position) {
-		super(id, position, "midnight_armour");
-		this.durability = 5;
+		super(id, position, "midnight_armour", 5);
 	}
 
 	public int getExtraDamage() {
         return extraDamage;
     }
-	public int getDurability () {
-		return durability;
-	}
-	public void setDurability(int durability) {
-		this.durability = durability;
-	}
+
 
 	public void build (Dungeon currentDungeon) {
 		List <CollectableEntity> currentInventory = currentDungeon.getInventory();
@@ -40,6 +34,18 @@ public class MidnightArmour extends CollectableEntity {
 				i--;
 			}
 		}
+	}
+
+	@Override
+	public int use(Dungeon dungeon, List<CollectableEntity> toBeRemoved, int enemyAtk) {
+		if (getDurability() == 0) {
+			toBeRemoved.add(this);
+			return enemyAtk;
+		}
+		Player player = dungeon.getPlayer();
+		player.setAttack(player.getAttack() + getExtraDamage());
+		useDurability();
+		return enemyAtk/3;
 	}
 
 }

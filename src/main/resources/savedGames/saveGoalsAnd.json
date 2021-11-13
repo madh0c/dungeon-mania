@@ -65,7 +65,7 @@
       "id": "5"
     }
   ],
-  "gameMode": "Standard",
+  "gameMode": "standard",
   "goals": "((:exit OR (:treasure AND :boulders)))",
   "historicalEntCount": 6,
   "tickNumber": 1,

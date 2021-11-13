@@ -117,7 +117,7 @@ public class Milestone3Test {
     @Test
     public void testGenerateDungeonI() {
         DungeonManiaController controller = new DungeonManiaController();
-        assertDoesNotThrow(() -> controller.generateDungeon(0, 0, 25, 25, "Peaceful"));
+        assertDoesNotThrow(() -> controller.generateDungeon(0, 0, 25, 25, "peaceful"));
 
 		assertTrue(controller.getCurrentDungeon().getEntity(new Position(0, 0)) instanceof Player);
 		assertTrue(controller.getCurrentDungeon().getEntity(new Position(25, 25)) instanceof Exit);
@@ -126,7 +126,7 @@ public class Milestone3Test {
     @Test
     public void testGenerateDungeonII() {
         DungeonManiaController controller = new DungeonManiaController();
-        assertDoesNotThrow(() -> controller.generateDungeon(11, 11, 23, 23, "Standard"));
+        assertDoesNotThrow(() -> controller.generateDungeon(11, 11, 23, 23, "standard"));
 
 		String dungeonGoals = controller.getCurrentDungeon().getGoals();
         assertTrue(dungeonGoals.equals(":exit"));
@@ -136,7 +136,7 @@ public class Milestone3Test {
 	@Test
     public void testGenerateDungeonIII() {
         DungeonManiaController controller = new DungeonManiaController();
-        assertDoesNotThrow(() -> controller.generateDungeon(2, 2, 24, 24, "Hard"));
+        assertDoesNotThrow(() -> controller.generateDungeon(2, 2, 24, 24, "hard"));
 
 		assertTrue(controller.getCurrentDungeon().getEntity(new Position(2, 2)) instanceof Player);
 		assertTrue(controller.getCurrentDungeon().getEntity(new Position(24, 24)) instanceof Exit);
@@ -145,7 +145,7 @@ public class Milestone3Test {
 	@Test
     public void testGenerateDungeonIV() {
         DungeonManiaController controller = new DungeonManiaController();
-        assertDoesNotThrow(() -> controller.generateDungeon(8, 8, 11, 11, "Peaceful"));
+        assertDoesNotThrow(() -> controller.generateDungeon(8, 8, 11, 11, "peaceful"));
 		String dungeonGoals = controller.getCurrentDungeon().getGoals();
 		assertTrue(dungeonGoals.equals(":exit"));
     }
@@ -153,7 +153,7 @@ public class Milestone3Test {
     @Test
     public void testGenerateDungeonV() {
         DungeonManiaController controller = new DungeonManiaController();
-        assertDoesNotThrow(() -> controller.generateDungeon(8, 11, 23, 8, "Standard"));
+        assertDoesNotThrow(() -> controller.generateDungeon(8, 11, 23, 8, "standard"));
 		String dungeonGoals = controller.getCurrentDungeon().getGoals();
 		assertTrue(dungeonGoals.equals(":exit"));
     }

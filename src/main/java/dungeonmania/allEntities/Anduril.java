@@ -1,27 +1,31 @@
 package dungeonmania.allEntities;
 
+import java.util.List;
+
 import dungeonmania.*;
 import dungeonmania.util.Position;
 
-public class Anduril extends CollectableEntity {
-	private int durability;
-    private final int dmgMultiplier = 3;
+public class Anduril extends UsableEntity {
+
+	private final int dmgMultiplier = 3;
 
 	public Anduril (String id, Position position) {
-		super(id, position, "anduril");
-		this.durability = 15;
+		super(id, position, "anduril", 15);
 	}
 
 	public int getDmgMultiplier() {
 		return dmgMultiplier;
 	}
 
-	public int getDurability() {
-        return durability;
-    }
-
-    public void setDurability(int durability) {
-        this.durability = durability;
-    }
+	@Override
+	public int use(Dungeon dungeon, List<CollectableEntity> toBeRemoved, int enemyAtk) {
+		if (getDurability() == 0) {
+			dungeon.getPlayer().setAttack(dungeon.getPlayer().getInitialAttack());
+			toBeRemoved.add(this);
+			return enemyAtk;
+		}
+		useDurability();
+		return enemyAtk;
+	}
 
 }
