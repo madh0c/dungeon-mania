@@ -73,7 +73,7 @@
       "id": "4"
     }
   ],
-  "gameMode": "Peaceful",
+  "gameMode": "peaceful",
   "goals": "((:exit AND :enemies))",
   "historicalEntCount": 5,
   "tickNumber": 2,
