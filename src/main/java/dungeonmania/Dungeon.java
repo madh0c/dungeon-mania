@@ -56,15 +56,23 @@ public class Dungeon {
 		if (getSpawnpoint() != null) {
 			// Merc spawn every 10/20 ticks
 			int newId = getHistoricalEntCount();
+			Mercenary newMerc = (Mercenary)getFactory().createEntity(String.valueOf(newId), "mercenary", getSpawnpoint());
+			
+			for (Entity entity : getEntitiesOnCell(getSpawnpoint())) {
+				if (!newMerc.collide(entity, this)) {
+					return false;
+				}
+			}
+			
 			Random rand = new Random();
 			int random = rand.nextInt(10);
+			
 			if (random < 2) {
-				Entity assassin = getFactory().createEntity(String.valueOf(newId), "assassin", getSpawnpoint());
-				addEntity(assassin);
+				Entity newAssassin = getFactory().createEntity(String.valueOf(newId), "assassin", getSpawnpoint());
+				addEntity(newAssassin);
 			} else {
-				Entity merc = getFactory().createEntity(String.valueOf(newId), "mercenary", getSpawnpoint());
-				addEntity(merc);
-			}
+				addEntity(newMerc);
+			}			
 			return true;				
 		}
 		return false;

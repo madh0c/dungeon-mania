@@ -84,8 +84,7 @@ public abstract class MovingEntity extends Entity {
 
 		if (entity instanceof SwampTile) {
 			SwampTile swampTile = (SwampTile) entity;
-			setTicksFrozen(swampTile.getMoveFactor());
-			System.out.println(swampTile.getMoveFactor());
+			setTicksFrozen(swampTile.getMoveFactor() - 1);
 		}
 		
 		return true;

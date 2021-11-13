@@ -359,7 +359,6 @@ public class DungeonManiaController {
 			// make sure invincibility wears off
 			int invicibleTicksLeft = player.getInvincibleTickDuration();
 			player.setInvincibleTickDuration(invicibleTicksLeft - 1);
-			invicibleTicksLeft = player.getInvincibleTickDuration();
 			// sceptre tick wearing off
 			List<String> controlledIds = player.getControlled();
 			// If there are mercs being controlled
