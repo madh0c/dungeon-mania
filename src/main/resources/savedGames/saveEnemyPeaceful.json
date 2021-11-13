@@ -52,6 +52,7 @@
       "health": 30,
       "baseAttack": 20,
       "enemyAttack": false,
+      "ticksFrozen": 0,
       "position": {
         "x": 5,
         "y": 0,
@@ -70,14 +71,11 @@
     "y": 0,
     "layer": 0
   },
-  "height": 50,
-  "width": 50,
   "foundGoals": {
     "goal": "",
     "hasCompleted": false
   },
   "goalConditions": "",
   "factory": {},
-  "mercSpawnrate": 20,
-  "rewindPath": "/rewind/1636726433111/"
+  "mercSpawnrate": 20
 }

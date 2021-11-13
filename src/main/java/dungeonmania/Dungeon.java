@@ -1,6 +1,7 @@
 package dungeonmania;
 
 import java.util.List;
+import java.util.Random;
 
 import org.json.JSONObject;
 
@@ -49,6 +50,33 @@ public class Dungeon {
 			this.mercSpawnrate = 10;
 		}
     }
+
+	public boolean spawnMerc() {
+		// If there is a spawnpoint
+		if (getSpawnpoint() != null) {
+			// Merc spawn every 10/20 ticks
+			int newId = getHistoricalEntCount();
+			Mercenary newMerc = (Mercenary)getFactory().createEntity(String.valueOf(newId), "mercenary", getSpawnpoint());
+			
+			for (Entity entity : getEntitiesOnCell(getSpawnpoint())) {
+				if (!newMerc.collide(entity, this)) {
+					return false;
+				}
+			}
+			
+			Random rand = new Random();
+			int random = rand.nextInt(10);
+			
+			if (random < 2) {
+				Entity newAssassin = getFactory().createEntity(String.valueOf(newId), "assassin", getSpawnpoint());
+				addEntity(newAssassin);
+			} else {
+				addEntity(newMerc);
+			}			
+			return true;				
+		}
+		return false;
+	}
 
 	/**
 	 * @param itemString

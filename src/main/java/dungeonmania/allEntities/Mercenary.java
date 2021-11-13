@@ -262,6 +262,11 @@ public class Mercenary extends MovingEntity {
 	 */
 	@Override
 	public void move(Dungeon dungeon) {
+		// if stuck in swamp
+		if (super.getTicksFrozen() > 0) {
+			super.setTicksFrozen(super.getTicksFrozen() - 1);
+			return;
+		}
 		// Find player
 		Player player = dungeon.getPlayer();
 		if (player == null) {
