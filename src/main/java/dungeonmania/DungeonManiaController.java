@@ -1,6 +1,7 @@
 package dungeonmania;
 
 import dungeonmania.exceptions.InvalidActionException;
+import dungeonmania.response.models.AnimationQueue;
 import dungeonmania.response.models.DungeonResponse;
 import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ItemResponse;
@@ -28,9 +29,7 @@ public class DungeonManiaController {
 	 * ArrayList games: each game is stored as a map of existing entities, with their unique id as the key (stored as an int).
 	 */
 	private List<Dungeon> games =  new ArrayList<>();
-	private List<List<Dungeon>> gameStates = new ArrayList<>();
 	private int lastUsedDungeonId = 0;
-
 	private Dungeon currentDungeon;
 
     public DungeonManiaController() {
@@ -50,6 +49,29 @@ public class DungeonManiaController {
 	public List<String> getGameModes() {
 		return Arrays.asList("standard", "peaceful", "hard");
 	}
+
+	public List<AnimationQueue> getAnimations() {
+		List<AnimationQueue> newAnimation = new ArrayList<>();
+		if (currentDungeon.getPlayer() != null) {
+			int currPlayerHealth = currentDungeon.getPlayer().getHealth();
+			double doubleHP = currPlayerHealth;
+			double healthFrac = doubleHP/100.0;
+			String healthString = Double.toString(healthFrac);
+
+			if (healthFrac > 0.75) {
+				newAnimation.add(new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0x00ff00"), true, -1));
+			} else if (healthFrac > 0.5) {
+				newAnimation.add(new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0xffff00"), true, -1));
+			} else if (healthFrac > 0.2) {
+				newAnimation.add(new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0xffa500"), true, -1));
+			} else {
+				newAnimation.add(new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0xff0000"), true, -1));
+			}
+		} return newAnimation;
+	}
+    
+        
+
 
 	/**
 	 * /dungeons
@@ -122,8 +144,6 @@ public class DungeonManiaController {
 		int currentId = currentDungeon.getId();
 		lastUsedDungeonId++;
 		games.add(currentDungeon);
-		gameStates.add(new ArrayList<Dungeon>());
-
 				
 		List<EntityResponse> entitiyResponses = getDungeonInfo(currentId).getEntities();
 
@@ -145,7 +165,8 @@ public class DungeonManiaController {
 			entitiyResponses, 
 			new ArrayList<ItemResponse>(), 
 			currentDungeon.getBuildables(),             
-			currentDungeon.getGoals() 
+			currentDungeon.getGoals(),
+			this.getAnimations() 
 		);
 
 		return result;
@@ -183,7 +204,8 @@ public class DungeonManiaController {
 			listER, 
 			inventory, 
 			target.getBuildables(),             
-			target.getGoals()
+			target.getGoals(),
+			this.getAnimations()
 		);
 	}
 	
@@ -331,6 +353,10 @@ public class DungeonManiaController {
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
 
+		int currPlayerHealthS = currentDungeon.getPlayer().getHealth();
+		double doubleHPS = currPlayerHealthS;
+		double healthFracS = doubleHPS/100.0;
+
 		// TODO UNCOMMENT
 		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 	
@@ -440,8 +466,7 @@ public class DungeonManiaController {
 		}		
 		
 		evalGoal(currentDungeon);
-		
-		
+
 		return getDungeonInfo(currentDungeon.getId());
 	}
 

@@ -4,7 +4,6 @@ import java.util.List;
 
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;
-import dungeonmania.MovingEntity;
 import dungeonmania.util.Position;
 
 
