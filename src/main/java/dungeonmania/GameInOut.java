@@ -88,11 +88,11 @@ public class GameInOut {
 			List<Map<String, Object>> parseList = (List<Map<String, Object>>)jsonMap.get("entities"); 
 
 			EntityFactory factory = null;
-			if (playMode.equals("Peaceful")) {
+			if (playMode.equals("peaceful")) {
 				factory = new PeacefulFactory();
-			} else if (playMode.equals("Standard")) {
+			} else if (playMode.equals("standard")) {
 				factory = new StandardFactory();
-			} else if (playMode.equals("Hard")) {
+			} else if (playMode.equals("hard")) {
 				factory = new HardFactory();
 			}
 
@@ -197,7 +197,7 @@ public class GameInOut {
 				} else if (entityType.contains("mercenary")) {
 
 					boolean enemyAttack = true;
-					if (playMode.equals("Peaceful")) {
+					if (playMode.equals("peaceful")) {
 						enemyAttack = false;
 					}
 
@@ -214,7 +214,7 @@ public class GameInOut {
 				} else if (entityType.contains("assassin")) {
 					boolean enemyAttack = true;
 
-					if (playMode.equals("Peaceful")) {
+					if (playMode.equals("peaceful")) {
 						enemyAttack = false;
 					}
 

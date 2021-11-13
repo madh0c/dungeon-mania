@@ -28,23 +28,7 @@ public abstract class UsableEntity extends CollectableEntity {
 	 * </ul>
 	 * @param dungeon	Dungeon of item
 	 */
-	public abstract int use(Dungeon dungeon, List<CollectableEntity> toBeRemoved, int enemyAtk);//{
-	// 	// Sword sword = (Sword) item;
-	// 	// if (sword.getDurability() == 0) {
-	// 	// 	toBeRemoved.add(item);
-	// 	// 	continue;
-	// 	// }
-	// 	// playerAtk += sword.getExtraDamage();
-	// 	// sword.setDurability(sword.getDurability() - 1);
-	// 	if (getDurability() == 0) {
-	// 		return this;
-	// 	}
-
-	// 	Player player = dungeon.getPlayer();
-	// 	player.setAttack(player.getAttack() + );
-
-	// 	return null;
-	// }
+	public abstract int use(Dungeon dungeon, List<CollectableEntity> toBeRemoved, int enemyAtk);
 	
 	public int getDurability() {
         return durability;

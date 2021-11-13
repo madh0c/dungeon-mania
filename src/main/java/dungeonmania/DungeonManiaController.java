@@ -48,7 +48,7 @@ public class DungeonManiaController {
 	}
 
 	public List<String> getGameModes() {
-		return Arrays.asList("Standard", "Peaceful", "Hard");
+		return Arrays.asList("standard", "peaceful", "hard");
 	}
 
 	/**
@@ -93,6 +93,7 @@ public class DungeonManiaController {
 	 * @throws IllegalArgumentException
 	 */
 	public DungeonResponse newGame(String dungeonName, String gameMode) throws IllegalArgumentException {
+		gameMode = gameMode.toLowerCase();
 		checkValidNewGame(dungeonName, gameMode);
 		String fileName = (dungeonName + ".json"); 
 
