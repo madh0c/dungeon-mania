@@ -8,12 +8,14 @@
         {
             "x": 1,
             "y": 0,
-            "type": "key"
+            "type": "key",
+            "key": 1
         },
         {
             "x": 2,
             "y": 0,
-            "type": "door"
+            "type": "door",
+            "key": 1
         }
     ]
 }
