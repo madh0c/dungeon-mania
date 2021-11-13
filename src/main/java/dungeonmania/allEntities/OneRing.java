@@ -14,6 +14,10 @@ public class OneRing extends CollectableEntity {
         super(id, position, "one_ring");
     }
 
+	/**
+	 * 10% chance of spawning
+	 * @return
+	 */
 	public boolean doesSpawn() {
 		random = new Random();
 		int rand = random.nextInt(100);
