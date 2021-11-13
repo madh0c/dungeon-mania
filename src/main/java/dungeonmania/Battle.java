@@ -108,7 +108,6 @@ public class Battle {
 			// Character Health = Character Health - ((Enemy Health * Enemy Attack Damage) / 10)
 			// Enemy Health = Enemy Health - ((Character Health * Character Attack Damage) / 5)
 			dungeon.getPlayer().setHealth(playerHp - ((enemyHp * enemyAtk) / 10));
-
 			// Check if hydra or not
 			// fix
 			if ((enemy instanceof Hydra)) {

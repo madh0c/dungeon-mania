@@ -11,21 +11,16 @@
 			"x": 0,
 			"y": 1,
 			"type": "one_ring"
-		}, 
-		{	
-			"x": 0,
-			"y": 3,
-			"type": "mercenary"
-		}, 
+		},
 		{
 			"x": 0,
-			"y": 5,
-			"type": "mercenary"
-		}, 
+			"y": 1,
+			"type": "armour"
+		},
 		{
 			"x": 0,
-			"y": 7,
-			"type": "mercenary"
-		}
+			"y": 1,
+			"type": "shield"
+		} 
 	]
 }
