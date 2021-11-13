@@ -1,7 +1,6 @@
 package dungeonmania.allEntities;
 
 import java.util.List;
-import java.util.Set;
 
 import dungeonmania.*;
 import dungeonmania.util.Position;
