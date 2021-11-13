@@ -4,6 +4,7 @@ import java.util.List;
 
 import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
+import dungeonmania.MovingEntity;
 import dungeonmania.UsableEntity;
 import dungeonmania.util.Position;
 
@@ -21,23 +22,16 @@ public class Sword extends UsableEntity {
     }
 
 	@Override
-	public void use(Dungeon dungeon, List<CollectableEntity> toBeRemoved) {
-		// Sword sword = (Sword) item;
-		// if (sword.getDurability() == 0) {
-		// 	toBeRemoved.add(item);
-		// 	continue;
-		// }
-		// playerAtk += sword.getExtraDamage();
-		// sword.setDurability(sword.getDurability() - 1);	
-
+	public int use(Dungeon dungeon, List<CollectableEntity> toBeRemoved, int enemyAtk) {
 		if (getDurability() == 0) {
 			toBeRemoved.add(this);
-			return;
+			return enemyAtk;
 		}
 		Player player = dungeon.getPlayer();
 		player.setAttack(player.getAttack() + getExtraDamage());
-		setDurability(getDurability() - 1);
-		
+		useDurability();
+
+		return enemyAtk;
 	}
 
 }

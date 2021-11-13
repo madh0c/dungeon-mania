@@ -4,6 +4,7 @@ import java.util.List;
 
 import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
+import dungeonmania.MovingEntity;
 import dungeonmania.UsableEntity;
 import dungeonmania.util.Position;
 
@@ -35,8 +36,12 @@ public class Shield extends UsableEntity {
 	}
 
 	@Override
-	public void use(Dungeon dungeon, List<CollectableEntity> toBeRemoved) {
-		// TODO Auto-generated method stub
-		return;
+	public int use(Dungeon dungeon, List<CollectableEntity> toBeRemoved, int enemyAtk) {
+		if (getDurability() == 0) {
+			toBeRemoved.add(this);
+			return enemyAtk;
+		}
+		useDurability();
+		return enemyAtk/5;
 	}
 }

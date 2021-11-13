@@ -22,10 +22,13 @@ public abstract class UsableEntity extends CollectableEntity {
 	// }
 
 	/**
-	 * Use an item in battle
+	 * Use an item in battle<ul>
+	 * <li> Adds attack damage to player for certain items
+	 * <li> Reduces attack damage of enemy for certain items
+	 * </ul>
 	 * @param dungeon	Dungeon of item
 	 */
-	public abstract void use(Dungeon dungeon, List<CollectableEntity> toBeRemoved);//{
+	public abstract int use(Dungeon dungeon, List<CollectableEntity> toBeRemoved, int enemyAtk);//{
 	// 	// Sword sword = (Sword) item;
 	// 	// if (sword.getDurability() == 0) {
 	// 	// 	toBeRemoved.add(item);
@@ -50,4 +53,11 @@ public abstract class UsableEntity extends CollectableEntity {
     public void setDurability(int durability) {
         this.durability = durability;
     }
+
+	/**
+	 * Use the UsableEntity once, i.e. reduce the durability by one
+	 */
+	public void useDurability() {
+		this.durability--;
+	}
 }

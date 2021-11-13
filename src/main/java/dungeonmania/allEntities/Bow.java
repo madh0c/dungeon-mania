@@ -2,9 +2,7 @@ package dungeonmania.allEntities;
 
 import java.util.List;
 
-import dungeonmania.CollectableEntity;
-import dungeonmania.Dungeon;
-import dungeonmania.UsableEntity;
+import dungeonmania.*;
 import dungeonmania.util.Position;
 
 
@@ -37,9 +35,14 @@ public class Bow extends UsableEntity {
 		}
 	}
 	@Override
-	public void use(Dungeon dungeon, List<CollectableEntity> toBeRemoved) {
-		// TODO Auto-generated method stub
-		return;
+	public int use(Dungeon dungeon, List<CollectableEntity> toBeRemoved, int enemyAtk) {
+		if (getDurability() == 0) {
+			toBeRemoved.add(this);
+			return enemyAtk;
+		}
+		Player player = dungeon.getPlayer();
+		player.setAttack(player.getAttack() + getExtraDamage()*2);
+		useDurability();
+		return enemyAtk;
 	}
-
 }

@@ -18,16 +18,14 @@ public class Anduril extends UsableEntity {
 	}
 
 	@Override
-	public void use(Dungeon dungeon, List<CollectableEntity> toBeRemoved) {
-				
-
-		// Anduril anduril = (Anduril) item;
-		// if (anduril.getDurability() == 0) {
-		// 	dungeon.getPlayer().setAttack(dungeon.getPlayer().getInitialAttack());		
-		// 	toBeRemoved.add(item);
-		// 	continue;
-		// }
-		// anduril.setDurability(anduril.getDurability() - 1);	
+	public int use(Dungeon dungeon, List<CollectableEntity> toBeRemoved, int enemyAtk) {
+		if (getDurability() == 0) {
+			dungeon.getPlayer().setAttack(dungeon.getPlayer().getInitialAttack());
+			toBeRemoved.add(this);
+			return enemyAtk;
+		}
+		useDurability();
+		return enemyAtk;
 	}
 
 }
