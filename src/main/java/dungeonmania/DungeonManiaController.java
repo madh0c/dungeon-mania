@@ -410,7 +410,6 @@ public class DungeonManiaController {
 			} else {
 				mov.moveScared(currentDungeon);
 			}
-			
 		}
 		
 		// Explode all valid bombs

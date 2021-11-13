@@ -177,7 +177,7 @@ public class Mercenary extends MovingEntity {
 	 * @param dungeon	Current dungeon of mercenary
 	 * @return boolean of whether the mercenary got moved
 	 */
-	public boolean mercMove(Direction direction, Dungeon dungeon) {		
+	public boolean dijkstraMove(Dungeon dungeon) {		
 		Position currPos = getPosition();
 		
 		Position nextPos = null;
@@ -203,9 +203,7 @@ public class Mercenary extends MovingEntity {
 			if (!isAlly) {
 				Battle.battle(this, dungeon);
 			}
-		}
-
-		return true;
+		} return true;
 	}
 	
 	public boolean moveDumb(Direction direction, Dungeon dungeon) {
@@ -217,9 +215,7 @@ public class Mercenary extends MovingEntity {
 		if (ent != null && !collide(ent, dungeon)) {
 			setCurrentDir(prevDir);
 			return false;
-		}
-
-		setPosition(getPosition().translateBy(direction));
+		} setPosition(getPosition().translateBy(direction));
 
 		portalMove(dungeon, pos);
 		return true;
@@ -246,36 +242,15 @@ public class Mercenary extends MovingEntity {
 			return;
 		}
 		
-		// Prioritise up down movement
-		// If not on same y axis
+		// Move towards the player using Dijkstra's algorithm
 		if (player.getPosition().getY() != getPosition().getY()) {
-			// If player is to the up of merc
-			if (player.getPosition().getY() < getPosition().getY()) {
-				if(mercMove(Direction.UP, dungeon)) {
-					return;
-				}
-				
-			} 
-			// If on down side
-			else {
-				if (mercMove(Direction.DOWN, dungeon)) {
-					return;
-				}
-			}
-		}
-
-		// left right movement
-		if (player.getPosition().getX() != getPosition().getX()) {
-			// If player is to the left of merc
-			if (player.getPosition().getX() < getPosition().getX()) {
-				if (mercMove(Direction.LEFT, dungeon)) {
-					return;
-				}
-			} 
-			// If on right side
-			else {
-				if (mercMove(Direction.RIGHT, dungeon)) {
-					return;
+			dijkstraMove(dungeon);
+		} else if (player.getPosition().getX() != getPosition().getX()) {
+			dijkstraMove(dungeon);
+		} else if (player.getPosition() == getPosition()) {
+			if (!isAlly) {
+				if (enemyAttack()) {
+					Battle.battle(this, dungeon);
 				}
 			}
 		}
@@ -294,29 +269,21 @@ public class Mercenary extends MovingEntity {
 		if (player.getPosition().getY() != getPosition().getY()) {
 			// If player is to the up of merc
 			if (player.getPosition().getY() < getPosition().getY()) {
-				if(moveDumb(Direction.DOWN, dungeon)) {
+				if (moveDumb(Direction.DOWN, dungeon)) {
 					return;
 				}
-				
-			} 
-			// If on down side
-			else {
+			} else {
 				if (moveDumb(Direction.UP, dungeon)) {
 					return;
 				}
 			}
-		}
-
-		// left right movement
-		if (player.getPosition().getX() != getPosition().getX()) {
+		} else if (player.getPosition().getX() != getPosition().getX()) {
 			// If player is to the left of merc
 			if (player.getPosition().getX() < getPosition().getX()) {
 				if (moveDumb(Direction.RIGHT, dungeon)) {
 					return;
 				}
-			} 
-			// If on right side
-			else {
+			}  else {
 				if (moveDumb(Direction.LEFT, dungeon)) {
 					return;
 				}
