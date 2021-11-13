@@ -6,8 +6,15 @@ import dungeonmania.util.Position;
 
 public class Key extends CollectableEntity {
 
-    public Key(String id, Position position) {
+    private int key;
+
+    public Key(String id, Position position, int key) {
         super(id, position, "key");
+        this.key = key;
+    }
+
+    public int getKey() {
+        return key;
     }
 
 }

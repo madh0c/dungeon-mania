@@ -25,7 +25,8 @@
         {
             "x": 9,
             "y": 0,
-            "type": "door"
+            "type": "door",
+            "key": 1
         }
     ]
 }
