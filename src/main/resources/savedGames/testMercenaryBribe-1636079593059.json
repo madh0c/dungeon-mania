@@ -1,223 +1,57 @@
 {
   "id": 1,
-  "name": "testMercenaryBribe-1636079593059",
+  "name": "testMercenaryBribe",
   "inventory": [],
   "entities": [
     {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT",
+        "NONE",
+        "NONE",
+        "DOWN",
+        "RIGHT"
+      ],
+      "position": {
+        "x": 3,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
       "isAlly": true,
+      "currentDir": "RIGHT",
       "sceptreTickDuration": 0,
       "health": 30,
       "baseAttack": 5,
       "enemyAttack": true,
       "ticksFrozen": 0,
       "position": {
-        "x": 2,
+        "x": 3,
         "y": 2,
         "layer": 0
       },
       "type": "mercenary",
       "id": "1"
-    },
-    {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
-      "position": {
-        "x": 2,
-        "y": 2,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "5"
-    },
-    {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "6"
-    },
-    {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "7"
-    },
-    {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "8"
-    },
-    {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "9"
-    },
-    {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "10"
-    },
-    {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "11"
-    },
-    {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "12"
-    },
-    {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "13"
-    },
-    {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 20,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "assassin",
-      "id": "14"
-    },
-    {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "15"
-    },
-    {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
-      "id": "16"
-    },
-    {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 20,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "assassin",
-      "id": "17"
     }
   ],
   "gameMode": "standard",
   "goals": "",
-  "historicalEntCount": 18,
-  "tickNumber": 305,
+  "historicalEntCount": 3,
+  "tickNumber": 5,
   "spawnpoint": {
     "x": 1,
     "y": 1,

@@ -68,7 +68,6 @@ public class DungeonManiaController {
 				newAnimation.add(new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0xff0000"), true, -1));
 			}
 		} return newAnimation;
-
 	}
     
         
