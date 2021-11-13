@@ -11,6 +11,7 @@ import dungeonmania.util.Position;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -1116,48 +1117,541 @@ public class StaticEntityTest {
     }
 
     /**
-	 * A mercenary will fail to teleport into the boundary.
+	 * A mercenary will fail to teleport into a bomb.
 	 */
-	// @Test
-    // public void testTeleportMercenaryIntoBoundary() {
-    //     DungeonManiaController controller = new DungeonManiaController();
-	// 	assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryIntoBoundary", "Standard"));
+	@Test
+    public void testTeleportMercenaryIntoBomb() {
+        DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryIntoBomb", "Standard"));
 
-    //     // Assert correct spawn positions
-    //     List<EntityResponse> startList = new ArrayList<EntityResponse>();
+        BombStatic bombS = new BombStatic("4", new Position(9,0));
+        controller.getCurrentDungeon().addEntity(bombS);
 
-    //     EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(5,0), true);
-    //     EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
-    //     EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
-    //     EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), false);
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
-    //     startList.add(startPlayerInfo);
-    //     startList.add(startPortal1Info);
-    //     startList.add(startPortal2Info);
-    //     startList.add(startMercenaryInfo);
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
+        EntityResponse startBombStaticInfo = new EntityResponse("4", "bomb_static", new Position(9,0), false);
 
-    //     DungeonResponse dRStart = controller.getDungeonInfo(0);
-    //     assertEquals(startList, dRStart.getEntities());
+        startList.add(startPlayerInfo);
+        startList.add(startPortal1Info);
+        startList.add(startPortal2Info);
+        startList.add(startMercenaryInfo);
+        startList.add(startBombStaticInfo);
 
-	// 	// Move player away from the mercenary.
-	// 	controller.tick(null, Direction.LEFT);
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
 
-	// 	// Assert the mercenary has not moved from spawn
-    //     List<EntityResponse> endList = new ArrayList<EntityResponse>();
+		// Move player away from the mercenary.
+		controller.tick(null, Direction.RIGHT);
 
-    //     EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(4,0), true);
-    //     EntityResponse expectedPortal1Info = new EntityResponse("1", "wall", new Position(1,0), false); 
-    //     EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
-    //     EntityResponse expectedMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), false);
+		// Assert the mercenary has not moved from spawn
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
-    //     endList.add(expectedPlayerInfo);
-    //     endList.add(expectedPortal1Info);
-    //     endList.add(expectedPortal2Info);
-    //     endList.add(expectedMercenaryInfo);
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(11,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
+        EntityResponse expectedBombInfo = new EntityResponse("4", "bomb_static", new Position(9,0), false);
 
-    //     DungeonResponse dREnd = controller.getDungeonInfo(0);
-    //     assertEquals(endList, dREnd.getEntities());
-    // }
+        endList.add(expectedPlayerInfo);
+        endList.add(expectedPortal1Info);
+        endList.add(expectedPortal2Info);
+        endList.add(expectedMercenaryInfo);
+        endList.add(expectedBombInfo);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertEquals(endList, dREnd.getEntities());
+    }
+
+    /**
+	 * A mercenary will fail to teleport into a bomb.
+	 */
+	@Test
+    public void testTeleportMercenaryIntoClosedDoor() {
+        DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryIntoClosedDoor", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
+        EntityResponse startDoorInfo = new EntityResponse("4", "door", new Position(9,0), false);
+
+        startList.add(startPlayerInfo);
+        startList.add(startPortal1Info);
+        startList.add(startPortal2Info);
+        startList.add(startMercenaryInfo);
+        startList.add(startDoorInfo);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Move player away from the mercenary.
+		controller.tick(null, Direction.RIGHT);
+
+		// Assert the mercenary has not moved from spawn
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(11,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
+        EntityResponse expectedDoorInfo = new EntityResponse("4", "door", new Position(9,0), false);
+
+        endList.add(expectedPlayerInfo);
+        endList.add(expectedPortal1Info);
+        endList.add(expectedPortal2Info);
+        endList.add(expectedMercenaryInfo);
+        endList.add(expectedDoorInfo);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertEquals(endList, dREnd.getEntities());
+    }
+
+    /**
+	 * A mercenary will fail to teleport into a bomb.
+	 */
+	@Test
+    public void testTeleportMercenaryIntoOpenDoor() {
+        DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryIntoClosedDoor", "Standard"));
+
+        List<Entity> allEntities = controller.getCurrentDungeon().getEntities();
+        Door door = (Door) allEntities.get(4);
+        door.setOpen(true);
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
+        EntityResponse startDoorInfo = new EntityResponse("4", "door", new Position(9,0), false);
+
+        startList.add(startPlayerInfo);
+        startList.add(startPortal1Info);
+        startList.add(startPortal2Info);
+        startList.add(startMercenaryInfo);
+        startList.add(startDoorInfo);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Move player away from the mercenary.
+		controller.tick(null, Direction.RIGHT);
+
+		// Assert the mercenary has not moved from spawn
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(11,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("3", "mercenary", new Position(9,0), true);
+        EntityResponse expectedDoorInfo = new EntityResponse("4", "door", new Position(9,0), false);
+
+        endList.add(expectedPlayerInfo);
+        endList.add(expectedPortal1Info);
+        endList.add(expectedPortal2Info);
+        endList.add(expectedMercenaryInfo);
+        endList.add(expectedDoorInfo);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertEquals(endList, dREnd.getEntities());
+    }
+
+    /**
+	 * A mercenary will fail to teleport into a spawner.
+	 */
+	@Test
+    public void testTeleportMercenaryIntoSpawner() {
+        DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryIntoSpawner", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
+        EntityResponse startSpawnerInfo = new EntityResponse("4", "zombie_toast_spawner", new Position(9,0), true);
+
+        startList.add(startPlayerInfo);
+        startList.add(startPortal1Info);
+        startList.add(startPortal2Info);
+        startList.add(startMercenaryInfo);
+        startList.add(startSpawnerInfo);
+
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Move player away from the mercenary.
+		controller.tick(null, Direction.RIGHT);
+
+		// Assert the mercenary has not moved from spawn
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(11,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
+        EntityResponse expectedSpawnerInfo = new EntityResponse("4", "zombie_toast_spawner", new Position(9,0), true);
+
+        endList.add(expectedPlayerInfo);
+        endList.add(expectedPortal1Info);
+        endList.add(expectedPortal2Info);
+        endList.add(expectedMercenaryInfo);
+        endList.add(expectedSpawnerInfo);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertEquals(endList, dREnd.getEntities());
+    }
+
+
+    /**
+	 * A mercenary will fail to teleport into a boulder.
+	 */
+	@Test
+    public void testTeleportMercenaryIntoBoulder() {
+        DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryIntoBoulder", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
+        EntityResponse startBoulderInfo = new EntityResponse("4", "boulder", new Position(9,0), false);
+
+        startList.add(startPlayerInfo);
+        startList.add(startPortal1Info);
+        startList.add(startPortal2Info);
+        startList.add(startMercenaryInfo);
+        startList.add(startBoulderInfo);
+
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Move player away from the mercenary.
+		controller.tick(null, Direction.RIGHT);
+
+		// Assert the mercenary has not moved from spawn
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(11,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
+        EntityResponse expectedBoulderInfo = new EntityResponse("4", "boulder", new Position(9,0), false);
+
+        endList.add(expectedPlayerInfo);
+        endList.add(expectedPortal1Info);
+        endList.add(expectedPortal2Info);
+        endList.add(expectedMercenaryInfo);
+        endList.add(expectedBoulderInfo);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertEquals(endList, dREnd.getEntities());
+    }
+
+    /**
+	 * A mercenary will teleport into a key.
+	 */
+	@Test
+    public void testTeleportMercenaryIntoKey() {
+        DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryIntoKey", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
+        EntityResponse startKeyInfo = new EntityResponse("4", "key", new Position(9,0), false);
+
+        startList.add(startPlayerInfo);
+        startList.add(startPortal1Info);
+        startList.add(startPortal2Info);
+        startList.add(startMercenaryInfo);
+        startList.add(startKeyInfo);
+
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Move player away from the mercenary.
+		controller.tick(null, Direction.RIGHT);
+
+		// Assert the mercenary has not moved from spawn
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(11,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("3", "mercenary", new Position(9,0), true);
+        EntityResponse expectedKeyInfo = new EntityResponse("4", "key", new Position(9,0), false);
+
+        endList.add(expectedPlayerInfo);
+        endList.add(expectedPortal1Info);
+        endList.add(expectedPortal2Info);
+        endList.add(expectedMercenaryInfo);
+        endList.add(expectedKeyInfo);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertEquals(endList, dREnd.getEntities());
+    }
+
+    /**
+	 * A non-ally mercenary teleport into a player and battle.
+	 */
+	@Test
+    public void testTeleportMercenaryIntoBattle() {
+        DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryIntoBattle", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
+
+        startList.add(startPlayerInfo);
+        startList.add(startPortal1Info);
+        startList.add(startPortal2Info);
+        startList.add(startMercenaryInfo);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Move player away from the mercenary.
+		controller.tick(null, Direction.LEFT);
+
+		// Assert the mercenary has not moved from spawn
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(9,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+
+        endList.add(expectedPlayerInfo);
+        endList.add(expectedPortal1Info);
+        endList.add(expectedPortal2Info);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertEquals(endList, dREnd.getEntities());
+    }
+
+    /**
+	 * A mercenary will teleport into a player and survive in Peaceful mode.
+	 */
+	@Test
+    public void testTeleportMercenaryWontBattlePeaceful() {
+        DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryIntoBattle", "Peaceful"));
+
+        List<Entity> allEntities = controller.getCurrentDungeon().getEntities();
+        MovingEntity merc = (MovingEntity) allEntities.get(3);
+        assertFalse(merc.enemyAttack());
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
+
+        startList.add(startPlayerInfo);
+        startList.add(startPortal1Info);
+        startList.add(startPortal2Info);
+        startList.add(startMercenaryInfo);
+
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Move player away from the mercenary.
+		controller.tick(null, Direction.LEFT);
+
+		// Assert the mercenary has not moved from spawn
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(9,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("3", "mercenary", new Position(9,0), true);
+
+        endList.add(expectedPlayerInfo);
+        endList.add(expectedPortal1Info);
+        endList.add(expectedPortal2Info);
+        endList.add(expectedMercenaryInfo);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertEquals(endList, dREnd.getEntities());
+    }
+
+    /**
+	 * An ally mercenary will teleport into a player.
+	 */
+	@Test
+    public void testTeleportAllyWontBattle() {
+        DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testTeleportAllyWontBattle", "Standard"));
+
+        List<Entity> allEntities = controller.getCurrentDungeon().getEntities();
+        Mercenary merc = (Mercenary) allEntities.get(3);
+        merc.setAlly(true);
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
+
+        startList.add(startPlayerInfo);
+        startList.add(startPortal1Info);
+        startList.add(startPortal2Info);
+        startList.add(startMercenaryInfo);
+
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Move player away from the mercenary.
+		controller.tick(null, Direction.LEFT);
+
+		// Assert the mercenary has not moved from spawn
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(9,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("3", "mercenary", new Position(9,0), true);
+
+        endList.add(expectedPlayerInfo);
+        endList.add(expectedPortal1Info);
+        endList.add(expectedPortal2Info);
+        endList.add(expectedMercenaryInfo);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertEquals(endList, dREnd.getEntities());
+    }
+
+    /**
+	 * A mercenary will teleport into another mercenary.
+	 */
+	@Test
+    public void testTeleportMercIntoAnotherMerc() {
+        DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testTeleportMercIntoAnotherMerc", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(5,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse startMercenary1Info = new EntityResponse("3", "mercenary", new Position(0,0), true);
+        EntityResponse startMercenary2Info = new EntityResponse("4", "mercenary", new Position(10,0), true);
+
+        startList.add(startPlayerInfo);
+        startList.add(startPortal1Info);
+        startList.add(startPortal2Info);
+        startList.add(startMercenary1Info);
+        startList.add(startMercenary2Info);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Move player away from the mercenary.
+		controller.tick(null, Direction.LEFT);
+
+		// Assert the mercenary has not moved from spawn
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(4,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse expectedMercenary1Info = new EntityResponse("3", "mercenary", new Position(9,0), true);
+        EntityResponse expectedMercenary2Info = new EntityResponse("4", "mercenary", new Position(9,0), true);
+
+        endList.add(expectedPlayerInfo);
+        endList.add(expectedPortal1Info);
+        endList.add(expectedPortal2Info);
+        endList.add(expectedMercenary1Info);
+        endList.add(expectedMercenary2Info);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertEquals(endList, dREnd.getEntities());
+    }
+
+    /**
+	 * A mercenary will teleport into a key.
+	 */
+	@Test
+    public void testTeleportMercenaryOntoSwitch() {
+        DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryOntoSwitch", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(10,0), true);
+        EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
+        EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
+        EntityResponse startSwitchInfo = new EntityResponse("4", "switch", new Position(9,0, -1), false);
+
+        startList.add(startPlayerInfo);
+        startList.add(startPortal1Info);
+        startList.add(startPortal2Info);
+        startList.add(startMercenaryInfo);
+        startList.add(startSwitchInfo);
+
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+
+		// Move player away from the mercenary.
+		controller.tick(null, Direction.RIGHT);
+
+		// Assert the mercenary has not moved from spawn
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(11,0), true);
+        EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
+        EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
+        EntityResponse expectedMercenaryInfo = new EntityResponse("3", "mercenary", new Position(9,0), true);
+        EntityResponse expectedSwitchInfo = new EntityResponse("4", "switch", new Position(9,0, -1), false);
+
+        endList.add(expectedPlayerInfo);
+        endList.add(expectedPortal1Info);
+        endList.add(expectedPortal2Info);
+        endList.add(expectedMercenaryInfo);
+        endList.add(expectedSwitchInfo);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(0);
+        assertEquals(endList, dREnd.getEntities());
+    }
+
 
     /**
 	 * A spider will be unaffected by a portal.

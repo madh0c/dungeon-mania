@@ -72,29 +72,9 @@ public class Mercenary extends MovingEntity {
 			return false;
 		} else if (entity instanceof Boulder) {
 			return false;		
-		} else if (entity instanceof Portal) {
-			Portal portal1 = (Portal) entity;
-			for (Entity currEnt : dungeon.getEntities()) {
-				if (!currEnt.getId().equals(portal1.getId())) {
-					if (!(currEnt instanceof Portal)) {
-						continue;
-					}
-					Portal portal2 = (Portal) currEnt;
-					if (portal1.getColour().equals((portal2).getColour())) {
-						// Find position of p2
-						// Move in direciton of currDir
-						Entity nextTo = dungeon.getEntity(portal2.getPosition().translateBy(currentDir));
-						return collide(nextTo, dungeon);
-					}
-				}
-			}
-		if (entity instanceof CollectableEntity) {
+		} else if (entity instanceof CollectableEntity) {
 			return true;
-		}
-			return false;
-		}
-		
-		if (entity instanceof Player) {
+		} else if (entity instanceof Player) {
 			// If not ally, battle
 			if (!isAlly) {
 				if (enemyAttack()) {
@@ -104,16 +84,9 @@ public class Mercenary extends MovingEntity {
 			}
 			// If ally
 			return true;
-		}
-
-		// Have to add MovableEntity
-		if (entity instanceof MovingEntity) {
-
-
+		} else if (entity instanceof MovingEntity) {
 			return true;
-		}
-		
-		return true;
+		} return true;
 	}
 
 	/**

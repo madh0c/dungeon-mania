@@ -1,10 +1,13 @@
 package dungeonmania;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -27,13 +30,26 @@ public class MovingEntityTest {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testSpiderSpawn", "Standard"));
 
-		// Check if spider 1 exists
+ 		// Check if spider 1 exists
 		Position spiderPos1 = controller.getDungeon(0).getEntity("0").getPosition();
 		// Should be here
 		Position spiderStart1 = new Position(1,1);
 		// Assert spider spawned in correctly
 		assertTrue(spiderPos1.equals(spiderStart1));
 
+		Spider spid = (Spider) controller.getDungeon(0).getEntity("0");
+		assertEquals(0, spid.getCurrTile());
+		assertEquals(true, spid.getClockwise());
+
+		List<Position> custRange = new ArrayList<>();
+		custRange.add(new Position(0,0));
+		custRange.add(new Position(1,0));
+		custRange.add(new Position(2,0));
+
+		spid.setRange(custRange);
+
+		assertEquals(custRange, spid.getRange());
+		
 		// Check if spider 2 exists
 		Position spiderPos2 = controller.getDungeon(0).getEntity("1").getPosition();
 		// Should be here
