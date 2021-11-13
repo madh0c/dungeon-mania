@@ -286,4 +286,63 @@ public class CollectibleEntitiesTest {
         // both objects should be in the inventory
         assertEquals(Arrays.asList(new ItemResponse("1", "treasure"), new ItemResponse("2", "wood")), dungeonInfo.getInventory());
     }
+
+	@Test
+	public void testUseInvicinbleMercVertical() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() ->controller.newGame("testInvincibleMercVertical", "Standard"));        
+		assertDoesNotThrow(() ->controller.tick(null, Direction.DOWN));
+		Entity ent1 = controller.getDungeon(0).getEntity("2");
+		Mercenary merc1 = (Mercenary) ent1;
+		assertEquals(merc1.getPosition(), new Position(12, 11));
+		Entity ent2 = controller.getDungeon(0).getEntity("3");
+		Mercenary merc2 = (Mercenary) ent2;
+		assertEquals(merc2.getPosition(), new Position(12, 15));
+		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+		assertEquals(Arrays.asList(new ItemResponse("1", "invincibility_potion")), dungeonInfo.getInventory());
+		// uses invincible potion and mercenary runs away from player
+		assertDoesNotThrow(() ->controller.tick("1", Direction.NONE));
+		assertEquals(merc1.getPosition(), new Position(12, 10));
+		assertEquals(merc2.getPosition(), new Position(12, 16));
+		for (int i = 0; i < 6; i++) {
+			assertDoesNotThrow(() ->controller.tick(null, Direction.NONE));
+		}
+		// Invincible potion about to wear off
+		assertEquals(merc1.getPosition(), new Position(12, 4));
+		assertEquals(merc2.getPosition(), new Position(12, 22));
+		controller.tick(null, Direction.NONE);
+		// Invincible wears off, mercenary now wants to fight player
+		assertEquals(merc1.getPosition(), new Position(12, 5));
+		assertEquals(merc2.getPosition(), new Position(12, 21));
+	}
+
+	@Test
+	public void testUseInvicinbleMercHorizon() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() ->controller.newGame("testInvincibleMercHorizon", "Standard"));        
+		assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
+		Entity ent1 = controller.getDungeon(0).getEntity("2");
+		Mercenary merc1 = (Mercenary) ent1;
+		assertEquals(merc1.getPosition(), new Position(11, 12));
+		Entity ent2 = controller.getDungeon(0).getEntity("3");
+		Mercenary merc2 = (Mercenary) ent2;
+		assertEquals(merc2.getPosition(), new Position(15, 12));
+		DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
+		assertEquals(Arrays.asList(new ItemResponse("1", "invincibility_potion")), dungeonInfo.getInventory());
+		// uses invincible potion and mercenary runs away from player
+		assertDoesNotThrow(() ->controller.tick("1", Direction.NONE));
+		assertEquals(merc1.getPosition(), new Position(10, 12));
+		assertEquals(merc2.getPosition(), new Position(16, 12));
+		for (int i = 0; i < 6; i++) {
+			assertDoesNotThrow(() ->controller.tick(null, Direction.NONE));
+		}
+		// Invincible potion about to wear off
+		assertEquals(merc1.getPosition(), new Position(4, 12));
+		assertEquals(merc2.getPosition(), new Position(22, 12));
+		controller.tick(null, Direction.NONE);
+		// Invincible wears off, mercenary now wants to fight player
+		assertEquals(merc1.getPosition(), new Position(5, 12));
+		assertEquals(merc2.getPosition(), new Position(21, 12));
+	}
+
 }
