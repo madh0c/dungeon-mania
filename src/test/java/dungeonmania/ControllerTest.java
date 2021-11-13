@@ -387,6 +387,25 @@ public class ControllerTest {
 	}
 
     @Test
+    public void testLoadDuplicateTimeStamp() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.loadGame("testMercenaryBribe-1636079593059"));
+        assertDoesNotThrow(() -> controller.saveGame("testMercenaryBribe-1636079593059"));
+
+        assertDoesNotThrow(() -> controller.loadGame("testMercenaryBribe-1636079593059"));
+        assertDoesNotThrow(() -> controller.saveGame("testMercenaryBribe-1636079593059"));
+
+        int bribeCount = 0;
+        
+        for (String gameName : controller.allGames()) {
+            if (gameName.equals("testMercenaryBribe-1636079593059")) {
+                bribeCount++;
+            }
+        }
+        assertTrue(bribeCount == 1);
+	}
+
+    @Test
     public void testLoadInventory() {
         DungeonManiaController controller = new DungeonManiaController();
         assertDoesNotThrow(() -> controller.newGame("testLoadInventory", "Standard"));
