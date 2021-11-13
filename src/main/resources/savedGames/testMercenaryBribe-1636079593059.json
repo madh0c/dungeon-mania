@@ -197,12 +197,27 @@
       },
       "type": "mercenary",
       "id": "16"
+    },
+    {
+      "isAlly": false,
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "17"
     }
   ],
   "gameMode": "standard",
   "goals": "",
-  "historicalEntCount": 17,
-  "tickNumber": 285,
+  "historicalEntCount": 18,
+  "tickNumber": 305,
   "spawnpoint": {
     "x": 1,
     "y": 1,

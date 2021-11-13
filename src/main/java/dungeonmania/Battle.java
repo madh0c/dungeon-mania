@@ -8,12 +8,13 @@ import dungeonmania.allEntities.*;
 
 public class Battle {
 	/**
-	 * Battle the enemy<p>
-	 * The player is received from the dungeon<p>
-	 * The player health has the formula:
-	 * 		playerHealth -= (enemyHealth * enemyAttack) / 10
-	 * The enemy health has the formula:
-	 * 		enemyHealth -= (enemyHealth * enemyAttack) / 10
+	 * Battle the enemy<ul>
+	 * <li>The player is received from the dungeon<
+	 * <li>The player health has the formula:<ul>
+	 * 		<li>playerHealth -= (enemyHealth * enemyAttack) / 10</ul>
+	 * <li>The enemy health has the formula:<ul>
+	 * 		<li>enemyHealth -= (enemyHealth * enemyAttack) / 10</ul>
+	 * </ul>
 	 * @param entity - Enemy to be fought
 	 * @param dungeon - Dungeon where battle is taking place
 	 */
