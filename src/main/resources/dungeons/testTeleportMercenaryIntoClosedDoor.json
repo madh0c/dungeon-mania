@@ -1,0 +1,31 @@
+{
+    "entities": [
+        {
+            "x": 10,
+            "y": 0,
+            "type": "player"
+        },
+        {
+            "x": 1,
+            "y": 0,
+            "type": "portal",
+            "colour": "BLUE"
+        },
+        {
+            "x": 8,
+            "y": 0,
+            "type": "portal",
+            "colour": "BLUE"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "type": "mercenary"
+        },
+        {
+            "x": 9,
+            "y": 0,
+            "type": "door"
+        }
+    ]
+}

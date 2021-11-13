@@ -682,6 +682,12 @@ public class ControllerTest {
         DungeonResponse dREnd = controller.getDungeonInfo(1);
         assertEquals(expList, dREnd.getEntities());
 	}
+
+    @Test
+    public void testGenerateNonExistentGameMode() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertThrows(IllegalArgumentException.class, () -> controller.generateDungeon(0, 0, 25, 25, "markgoat"));
+    }
 }
 
 
