@@ -4,27 +4,20 @@ import java.util.List;
 
 import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
+import dungeonmania.UsableEntity;
 import dungeonmania.util.Position;
 
 
-public class Bow extends CollectableEntity {
+public class Bow extends UsableEntity {
 
-	private int durability;
 	private int extraDamage = 3;
    
     public Bow(String id, Position position) {
-        super(id, position, "bow");
-		this.durability = 5;
+        super(id, position, "bow", 5);
     }
 	public int getExtraDamage() {
         return extraDamage;
     }
-	public int getDurability () {
-		return durability;
-	}
-	public void setDurability(int durability) {
-		this.durability = durability;
-	}
 
 	public void build(Dungeon currentDungeon) {
 		List <CollectableEntity> currentInventory = currentDungeon.getInventory();
@@ -42,6 +35,11 @@ public class Bow extends CollectableEntity {
 				i--;
 			}
 		}
+	}
+	@Override
+	public void use(Dungeon dungeon, List<CollectableEntity> toBeRemoved) {
+		// TODO Auto-generated method stub
+		return;
 	}
 
 }

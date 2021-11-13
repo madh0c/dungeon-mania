@@ -1,22 +1,22 @@
 package dungeonmania.allEntities;
 
+import java.util.List;
+
 import dungeonmania.CollectableEntity;
+import dungeonmania.Dungeon;
+import dungeonmania.UsableEntity;
 import dungeonmania.util.Position;
 
-public class Armour extends CollectableEntity {
-    
-    private int durability;
-    
+public class Armour extends UsableEntity {
+        
     public Armour(String id, Position position) {
-        super(id, position, "armour");
-        this.durability = 10;
+        super(id, position, "armour", 10);
     }
 
-    public int getDurability() {
-        return durability;
-    }
+	@Override
+	public void use(Dungeon dungeon, List<CollectableEntity> toBeRemoved) {
+		// TODO Auto-generated method stub
+		return;
+	}
 
-    public void setDurability(int durability) {
-        this.durability = durability;
-    }
 }

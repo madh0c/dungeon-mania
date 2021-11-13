@@ -18,15 +18,15 @@ public class ZombieToastSpawner extends Entity {
     }
 
 	/**
-	 * Spawns in a Zombie in a cardinally-adjacent square to this spawner periodically<p>
-	 * Peaceful Mode - Every 20 ticks<p>
-	 * Standard Mode - Every 20 ticks<p>
-	 * Hard Mode - Every 15 ticks
+	 * Spawns in a Zombie in a cardinally-adjacent square to this spawner periodically<ul>
+	 * <li>Peaceful Mode - Every 20 ticks
+	 * <li>Standard Mode - Every 20 ticks
+	 * <li>Hard Mode - Every 15 ticks</ul>
 	 * @param currentDungeon	Current dungeon of spawner
 	 */
     public void spawnZombie(Dungeon currentDungeon) {
 
-		if (currentDungeon.getTickNumber() % tickrate != 1 || currentDungeon.getTickNumber() <= 1) {
+		if (currentDungeon.getTickNumber() % tickrate != 0 || currentDungeon.getTickNumber() <= 1) {
 			return;
 		}
 

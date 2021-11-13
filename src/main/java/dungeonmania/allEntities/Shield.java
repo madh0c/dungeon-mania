@@ -4,21 +4,14 @@ import java.util.List;
 
 import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
+import dungeonmania.UsableEntity;
 import dungeonmania.util.Position;
 
 
-public class Shield extends CollectableEntity {
-    private int durability = 5;
-    public Shield(String id, Position position) {
-        super(id, position, "shield");
-    }
+public class Shield extends UsableEntity {
 
-    public int getDurability() {
-        return durability;
-    }
-
-    public void setDurability(int durability) {
-        this.durability = durability;
+	public Shield(String id, Position position) {
+        super(id, position, "shield", 5);
     }
     
 	public void build (Dungeon currentDungeon) {
@@ -39,5 +32,11 @@ public class Shield extends CollectableEntity {
 				i--;
 			}
 		}
+	}
+
+	@Override
+	public void use(Dungeon dungeon, List<CollectableEntity> toBeRemoved) {
+		// TODO Auto-generated method stub
+		return;
 	}
 }

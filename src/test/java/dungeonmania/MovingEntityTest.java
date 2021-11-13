@@ -391,7 +391,7 @@ public class MovingEntityTest {
 		Position spawnerPos = controller.getDungeon(0).getEntity("1").getPosition();
 
 		// Check if zombie spawns in after 20 ticks
-		for (int i = 0; i < 21; i++) {
+		for (int i = 0; i < 20; i++) {
 			// Make sure nothing spawns during this time
 			// assertThrows(InvalidActionException.class, () -> controller.getEntity("1"));
 			assertFalse(controller.getDungeon(0).entityExists("zombie_toast"));
