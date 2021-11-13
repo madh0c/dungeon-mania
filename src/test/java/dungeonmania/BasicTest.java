@@ -28,7 +28,7 @@ public class BasicTest {
         
         DungeonResponse expected = new DungeonResponse (
             "0", 
-            "portals.json", 
+            "portals", 
             entityListCheck, 
             new ArrayList<ItemResponse>(),
             new ArrayList<String>(), 
@@ -56,7 +56,7 @@ public class BasicTest {
 
         DungeonResponse expected = new DungeonResponse (
             "0", 
-            "goals.json", 
+            "goals", 
             entityListCheck, 
             new ArrayList<ItemResponse>(),
             new ArrayList<String>(), 
@@ -75,7 +75,7 @@ public class BasicTest {
 
 		DungeonResponse expected1 = new DungeonResponse (
             "1", 
-            "portals.json", 
+            "portals", 
             entityListCheck1, 
             new ArrayList<ItemResponse>(),
             new ArrayList<String>(), 

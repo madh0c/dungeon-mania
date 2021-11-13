@@ -325,7 +325,7 @@ public class GameInOut {
 						Anduril newAnduril = new Anduril(itemId, itemPos);
 						newAnduril.setDurability(durability);
 						returnInv.add(newAnduril);
-					}  else if (itemType.equals("sceptre")){
+					} else if (itemType.equals("sceptre")){
 						Sceptre newSceptre = new Sceptre(itemId, itemPos);
 						returnInv.add(newSceptre);
 					} else if (itemType.equals("midnight_armour")){
@@ -334,7 +334,10 @@ public class GameInOut {
 						MidnightArmour newMidArm = new MidnightArmour(itemId, itemPos);
 						newMidArm.setDurability(durability);
 						returnInv.add(newMidArm);
-					}
+					} else if (itemType.equals("time_turner")){
+						TimeTurner newTurner = new TimeTurner(itemId, itemPos);
+						returnInv.add(newTurner);
+					} 
 				}
 			}
 
