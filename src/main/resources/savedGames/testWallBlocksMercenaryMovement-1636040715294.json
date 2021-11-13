@@ -1,13 +1,13 @@
 {
-  "id": 0,
-  "name": "testWallBlocksMercenaryMovement",
+  "id": 1,
+  "name": "testWallBlocksMercenaryMovement-1636040715294",
   "inventory": [],
   "entities": [
     {
       "health": 100,
       "attack": 2,
       "visible": true,
-      "currentDir": "RIGHT",
+      "currentDir": "UP",
       "haveKey": false,
       "hasSunStone": false,
       "invincibleTickDuration": 0,
@@ -38,7 +38,6 @@
     },
     {
       "isAlly": false,
-      "currentDir": "DOWN",
       "sceptreTickDuration": 0,
       "health": 30,
       "baseAttack": 5,

@@ -119,13 +119,13 @@ public final class DungeonResponse {
             return false;
         }
 
-        if (animations == null) {
-            if (other.animations != null) {
-                return false;
-            }
-        } else if (!animations.equals(other.animations)) {
-            return false;
-        }
+        // if (animations == null) {
+        //     if (other.animations != null) {
+        //         return false;
+        //     }
+        // } else if (!animations.equals(other.animations)) {
+        //     return false;
+        // }
 
         return true;
     }

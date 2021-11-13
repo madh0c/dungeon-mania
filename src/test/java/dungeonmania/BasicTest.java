@@ -46,12 +46,18 @@ public class BasicTest {
             newAnimation.add(new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0xff0000"), true, -1));
         }
         
-        assertEquals("0", controller.getDungeonInfo(0).getDungeonId());
-        assertEquals("portals", controller.getDungeonInfo(0).getDungeonName());
-        assertEquals(entityListCheck, controller.getDungeonInfo(0).getEntities());
-        assertEquals(new ArrayList<ItemResponse>(), controller.getDungeonInfo(0).getInventory());
-        assertEquals(new ArrayList<String>(), controller.getDungeonInfo(0).getBuildables());
-        assertEquals("", controller.getDungeonInfo(0).getGoals());
+
+        DungeonResponse expected = new DungeonResponse (
+            "0", 
+            "portals", 
+            entityListCheck, 
+            new ArrayList<ItemResponse>(),
+            new ArrayList<String>(), 
+            "",
+            newAnimation
+        );
+
+        assertEquals(expected, controller.getDungeonInfo(0));
         
     }
 	@Test
@@ -69,12 +75,17 @@ public class BasicTest {
         entityListCheck.add(new EntityResponse("5", "switch", new Position(3, 3), false));
         entityListCheck.add(new EntityResponse("6", "exit", new Position(9, 9), false));
 
-        assertEquals("0", controller.getDungeonInfo(0).getDungeonId());
-        assertEquals("goals", controller.getDungeonInfo(0).getDungeonName());
-        assertEquals(entityListCheck, controller.getDungeonInfo(0).getEntities());
-        assertEquals(new ArrayList<ItemResponse>(), controller.getDungeonInfo(0).getInventory());
-        assertEquals(new ArrayList<String>(), controller.getDungeonInfo(0).getBuildables());
-        assertEquals("(:enemies AND (:treasure OR (:exit AND (:exit OR :boulders))))", controller.getDungeonInfo(0).getGoals());
+
+        DungeonResponse expected = new DungeonResponse (
+            "0", 
+            "goals", 
+            entityListCheck, 
+            new ArrayList<ItemResponse>(),
+            new ArrayList<String>(), 
+            "(:enemies AND (:treasure OR (:exit AND (:exit OR :boulders))))"
+        );
+
+        assertEquals(expected, controller.getDungeonInfo(0));
 
         assertDoesNotThrow(() -> controller.newGame("portals", "Standard"));
 
@@ -84,12 +95,19 @@ public class BasicTest {
         entityListCheck1.add(new EntityResponse("1", "portal", new Position(1, 0), false));
         entityListCheck1.add(new EntityResponse("2", "portal", new Position(4, 0), false));
 
-        assertEquals("1", controller.getDungeonInfo(1).getDungeonId());
-        assertEquals("portals", controller.getDungeonInfo(1).getDungeonName());
-        assertEquals(entityListCheck1, controller.getDungeonInfo(1).getEntities());
-        assertEquals(new ArrayList<ItemResponse>(), controller.getDungeonInfo(1).getInventory());
-        assertEquals(new ArrayList<String>(), controller.getDungeonInfo(1).getBuildables());
-        assertEquals("", controller.getDungeonInfo(1).getGoals());
+		DungeonResponse expected1 = new DungeonResponse (
+            "1", 
+            "portals", 
+            entityListCheck1, 
+            new ArrayList<ItemResponse>(),
+            new ArrayList<String>(), 
+            ""
+        );
+
+		assertEquals(expected1, controller.getDungeonInfo(1));
+
+        assertEquals(expected, controller.getDungeonInfo(0));
+		assertEquals(expected1, controller.getDungeonInfo(1));
 	}
 
 }

@@ -545,7 +545,6 @@ public class ControllerTest {
         assertEquals(endList, dRLoad.getEntities());
         assertEquals(expInvList, dRLoad.getInventory());
 
-        assertEquals(new ArrayList<AnimationQueue>(), dRLoad.getAnimations());
         assertEquals("testLoadInventory", dRLoad.getDungeonName());
         assertEquals(BuildList, dRLoad.getBuildables());
         assertEquals("", dRLoad.getGoals());
