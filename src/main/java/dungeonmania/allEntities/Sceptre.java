@@ -8,18 +8,8 @@ import dungeonmania.util.Position;
 
 public class Sceptre extends CollectableEntity {
 
-	private String mercenaryId;
-
 	public Sceptre (String id, Position position) {
 		super(id, position, "sceptre");
-	}
-
-	public String getMercenaryId () {
-		return mercenaryId;
-	}
-
-	public void setMercenaryId(String mercenaryId) {
-		this.mercenaryId = mercenaryId;
 	}
 
 	public void build (Dungeon currentDungeon) {

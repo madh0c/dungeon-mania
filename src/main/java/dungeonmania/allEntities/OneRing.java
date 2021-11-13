@@ -17,8 +17,8 @@ public class OneRing extends CollectableEntity {
 	public boolean doesSpawn() {
 		random = new Random();
 		int rand = random.nextInt(100);
-		//Ring spawns 10% chance 
-		if (rand % 10 == 0) {
+		//Ring spawns 5% chance 
+		if (rand % 20 == 0) {
 			return true;
 		} 
 		return false;

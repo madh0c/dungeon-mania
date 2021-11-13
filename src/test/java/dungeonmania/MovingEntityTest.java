@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import dungeonmania.allEntities.*;
 import dungeonmania.exceptions.InvalidActionException;
+import dungeonmania.response.models.DungeonResponse;
+import dungeonmania.response.models.EntityResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
@@ -736,6 +738,38 @@ public class MovingEntityTest {
 		Entity entity = dungeon1.getEntities().get(1);
 		Assassin assass = (Assassin) entity;
 		assertTrue(assass.getIsAlly());
+	}
+	
+	@Test 
+	public void testMercCollide() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryCollide", "Standard"));
+
+	}
+
+	@Test
+	public void testMercDoorOpen() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testMercenaryCollide", "Standard"));
+		EntityResponse midDoorInfo = new EntityResponse("8", "door", new Position(3,2), false);
+		DungeonResponse dungeon = controller.getDungeonInfo(0);
+		dungeon.getEntities().contains(midDoorInfo);
+		controller.tick(null, Direction.DOWN);
+		controller.tick(null, Direction.DOWN);
+		controller.tick(null, Direction.DOWN);
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		controller.tick(null, Direction.RIGHT);
+		//Unlocks door
+		controller.tick(null, Direction.UP);
+		EntityResponse endDoorInfo = new EntityResponse("8", "door_unlocked", new Position(3,2), false);
+		dungeon = controller.getDungeonInfo(0);
+		dungeon.getEntities().contains(endDoorInfo);
+		controller.tick(null, Direction.DOWN);
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", new Position(3,2)));
+		controller.tick(null, Direction.DOWN);
+		assertTrue(controller.getDungeon(0).entityExists("mercenary", new Position(3,3)));
+
 	}
 	
 }

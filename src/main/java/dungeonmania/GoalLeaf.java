@@ -23,12 +23,12 @@ public class GoalLeaf implements GoalNode {
 		return ":" + this.goal;
 	}
 
-	@Override
-	public JSONObject saveGameJSON() {
-		JSONObject compositeLeafJSON = new JSONObject();
-        compositeLeafJSON.put("goal", goal);
-		return compositeLeafJSON;
-	}
+	// @Override
+	// public JSONObject saveGameJSON() {
+	// 	JSONObject compositeLeafJSON = new JSONObject();
+    //     compositeLeafJSON.put("goal", goal);
+	// 	return compositeLeafJSON;
+	// }
 
 	public String getGoal() {
 		return goal;
