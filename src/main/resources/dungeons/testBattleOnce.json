@@ -9,8 +9,21 @@
             "x": 2,
             "y": 1,
             "type": "spider"
+        },
+		{
+            "x": 3,
+            "y": 1,
+            "type": "treasure"
+        },
+		{
+            "x": 4,
+            "y": 1,
+            "type": "treasure"
         }
     ],
     "width": 4,
-    "height": 4
+    "height": 4,
+	"goal-condition": {
+		"goal": "treasure"
+	}
 }
