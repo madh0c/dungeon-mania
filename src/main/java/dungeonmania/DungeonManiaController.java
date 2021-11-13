@@ -138,7 +138,7 @@ public class DungeonManiaController {
 				}
 			}
 		}
-		
+		evalGoal(currentDungeon);
 		DungeonResponse result = new DungeonResponse(
 			String.valueOf(currentDungeon.getId()), 
 			currentDungeon.getName(), 
@@ -176,7 +176,6 @@ public class DungeonManiaController {
 			inventory.add(new ItemResponse(collectableEntity.getId(), collectableEntity.getType()));
 		}
 
-		evalGoal(currentDungeon);
 		
 		return new DungeonResponse(
 			String.valueOf(target.getId()), 
@@ -411,7 +410,6 @@ public class DungeonManiaController {
 			} else {
 				mov.moveScared(currentDungeon);
 			}
-			
 		}
 		
 		// Explode all valid bombs
@@ -571,16 +569,21 @@ public class DungeonManiaController {
 		if (head instanceof GoalAnd) {
 			GoalAnd headAnd = (GoalAnd) head;
 			int success = 0;
+			int and = 0;
 			for (GoalNode subgoal : headAnd.getList()) {
 				if (subgoal.evaluate()) {
 					success++;
+					and++;
 				}
 				if (subgoal instanceof GoalAnd || subgoal instanceof GoalOr) {
 					success = 0;
 					success = evalSubGoals(subgoal, success);
+					if (subgoal instanceof GoalAnd && success != 2) {
+						success = 0;
+					} 
 				}
 			}
-			if (success == headAnd.getList().size()) {
+			if (and == headAnd.getList().size()) {
 				headAnd.setHasCompleted(true);
 			}
 		} else if (head instanceof GoalOr) {
@@ -610,17 +613,23 @@ public class DungeonManiaController {
 		if (head instanceof GoalAnd) {
 			GoalAnd headAnd = (GoalAnd) head;
 			int success = 0;
+			int and = 0;
 			for (GoalNode subgoal : headAnd.getList()) {
 				if (subgoal.evaluate()) {
 					success++;
 					total++;
+					and++;
 				}
 				if (subgoal instanceof GoalAnd || subgoal instanceof GoalOr) {
 					total = evalSubGoals(subgoal, total);
 					success = evalSubGoals(subgoal, success);
+					if (subgoal instanceof GoalAnd && success != 2) {
+						success = 0;
+						total = 0;
+					} 
 				}
 			}
-			if (success == headAnd.getList().size()) {
+			if (and == headAnd.getList().size()) {
 				headAnd.setHasCompleted(true);
 			}
 		} else if (head instanceof GoalOr) {

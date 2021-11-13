@@ -114,19 +114,46 @@ public class Milestone3Test {
         assertTrue(dREnd.getEntitiesOnCell(swampPos).size() == 2);
     }
 
-	@Test
-    public void testGenerateDungeon() {
+    @Test
+    public void testGenerateDungeonI() {
         DungeonManiaController controller = new DungeonManiaController();
-        assertDoesNotThrow(() -> controller.generateDungeon(0, 0, 25, 25, "hard"));
+        assertDoesNotThrow(() -> controller.generateDungeon(0, 0, 25, 25, "Peaceful"));
 
 		assertTrue(controller.getCurrentDungeon().getEntity(new Position(0, 0)) instanceof Player);
 		assertTrue(controller.getCurrentDungeon().getEntity(new Position(25, 25)) instanceof Exit);
     }
 
-	@Test
+    @Test
     public void testGenerateDungeonII() {
         DungeonManiaController controller = new DungeonManiaController();
-        assertDoesNotThrow(() -> controller.generateDungeon(0, 0, 25, 25, "hard"));
+        assertDoesNotThrow(() -> controller.generateDungeon(11, 11, 23, 23, "Standard"));
+
+		String dungeonGoals = controller.getCurrentDungeon().getGoals();
+        assertTrue(dungeonGoals.equals(":exit"));
+    }
+
+
+	@Test
+    public void testGenerateDungeonIII() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.generateDungeon(2, 2, 24, 24, "Hard"));
+
+		assertTrue(controller.getCurrentDungeon().getEntity(new Position(2, 2)) instanceof Player);
+		assertTrue(controller.getCurrentDungeon().getEntity(new Position(24, 24)) instanceof Exit);
+    }
+
+	@Test
+    public void testGenerateDungeonIV() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.generateDungeon(8, 8, 11, 11, "Peaceful"));
+		String dungeonGoals = controller.getCurrentDungeon().getGoals();
+		assertTrue(dungeonGoals.equals(":exit"));
+    }
+
+    @Test
+    public void testGenerateDungeonV() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.generateDungeon(8, 11, 23, 8, "Standard"));
 		String dungeonGoals = controller.getCurrentDungeon().getGoals();
 		assertTrue(dungeonGoals.equals(":exit"));
     }

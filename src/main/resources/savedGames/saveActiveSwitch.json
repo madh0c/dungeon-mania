@@ -4,7 +4,7 @@
   "inventory": [],
   "entities": [
     {
-      "health": 85,
+      "health": 100,
       "attack": 2,
       "visible": true,
       "currentDir": "RIGHT",
@@ -27,6 +27,22 @@
       },
       "type": "player",
       "id": "0"
+    },
+    {
+      "isAlly": false,
+      "currentDir": "RIGHT",
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": false,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "1"
     },
     {
       "position": {
@@ -57,8 +73,8 @@
       "id": "4"
     }
   ],
-  "gameMode": "peaceful",
-  "goals": ":exit",
+  "gameMode": "Peaceful",
+  "goals": "((:exit AND :enemies))",
   "historicalEntCount": 5,
   "tickNumber": 2,
   "spawnpoint": {
@@ -80,7 +96,7 @@
           },
           {
             "goal": "enemies",
-            "hasCompleted": true
+            "hasCompleted": false
           }
         ],
         "operator": "AND",

@@ -20,8 +20,8 @@ public abstract class EntityFactory {
 			return createBoulder(id, position);	
 		else if (type.contains("switch"))
 			return createSwitch(id, position);
-		else if (type.contains("door"))
-			return createDoor(id, position);
+		// else if (type.contains("door"))
+		// 	return createDoor(id, position);
 		else if (type.contains("zombie_toast_spawner"))
 			return createSpawner(id, position);
 		else if (type.contains("spider"))
@@ -32,8 +32,8 @@ public abstract class EntityFactory {
 			return createMercenary(id, position);
 		else if (type.contains("treasure"))
 			return createTreasure(id, position);
-		else if (type.contains("key"))
-			return createKey(id, position);
+		// else if (type.contains("key"))
+		// 	return createKey(id, position);
 		else if (type.contains("health_potion"))
 			return createHealthPotion(id, position);
 		else if (type.contains("invincibility_potion"))
@@ -95,6 +95,30 @@ public abstract class EntityFactory {
 		Portal portal = new Portal(id, position, colour);
 		return portal;
 	}
+
+	/**
+	 * Create and return a new key
+	 * @param id		Id of portal
+	 * @param position	Position of portal
+	 * @param corresponding	Corresponding door String for key
+	 * @return
+	 */
+	public Key createKey(String id, Position position, int keyId) {
+		Key key = new Key(id, position, keyId);
+		return key;
+	}
+
+	/**
+	 * Create and return a new door
+	 * @param id		Id of door
+	 * @param position	Position of door
+	 * @param corresponding	Corresponding key String for door
+	 * @return
+	 */
+	public Door createDoor(String id, Position position, int keyId) {
+		Door door = new Door(id, position, keyId);
+		return door;
+	}
 	
 	/**
 	 * Creates an instance of Wall object
@@ -137,16 +161,6 @@ public abstract class EntityFactory {
 	}
 
 	/**
-	 * Creates an instance of Door object
-	 * @param id		Id of door
-	 * @param position	Position of door
-	 * @return Door
-	 */
-	public Door createDoor(String id, Position position) {
-		return new Door(id, position);
-	}
-
-	/**
 	 * Creates an instance of ZombieToastSpawner object
 	 * @param id		Id of zombie_toast_spawner
 	 * @param position	Position of zombie_toast_spawner
@@ -186,16 +200,6 @@ public abstract class EntityFactory {
 	 */
 	public Treasure createTreasure(String id, Position position) {
 		return new Treasure(id, position);
-	}
-
-	/**
-	 * Creates an instance of Key object
-	 * @param id		Id of key
-	 * @param position	Position of key
-	 * @return Key
-	 */
-	public Key createKey(String id, Position position) {
-		return new Key(id, position);
 	}
 
 	/**

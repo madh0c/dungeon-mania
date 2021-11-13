@@ -8,7 +8,8 @@
         {
             "x": 5,
             "y": 0,
-            "type": "door"
+            "type": "door",
+            "key": 1
         },
         {
             "x": 5,

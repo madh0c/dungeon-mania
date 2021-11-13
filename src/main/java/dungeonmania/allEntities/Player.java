@@ -6,7 +6,6 @@ import java.util.List;
 import dungeonmania.Battle;
 import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
-import dungeonmania.DungeonManiaController;
 import dungeonmania.Entity;
 import dungeonmania.MovingEntity;
 import dungeonmania.util.Direction;
@@ -149,8 +148,14 @@ public class Player extends Entity {
 				CollectableEntity removed = null;
 				for (CollectableEntity item : dungeon.getInventory()) {
 					if (item instanceof Key) {
-						removed = item;
-						break;
+						Key key = (Key) item;
+						if (key.getKey() == door.getKey()) {
+							removed = item;
+							break;
+						} else {
+							return false;
+						}
+						
 					}
 				}
 				dungeon.getInventory().remove(removed);

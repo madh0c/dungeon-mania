@@ -1730,8 +1730,6 @@ public class StaticEntityTest {
 		for (int i = 0; i < 21; i++) {
 			controller.tick(null, Direction.RIGHT);
 		}
-
-        
         assertTrue(controller.getDungeon(0).entityExists("zombie_toast"));
     }
 
