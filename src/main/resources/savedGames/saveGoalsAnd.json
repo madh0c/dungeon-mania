@@ -1,22 +1,7 @@
 {
   "id": 0,
   "name": "testComplicatedGoal",
-  "inventory": [
-    {
-      "random": {
-        "seed": 15445065839552,
-        "nextNextGaussian": 0.0,
-        "haveNextNextGaussian": false
-      },
-      "position": {
-        "x": 0,
-        "y": 0,
-        "layer": 0
-      },
-      "type": "one_ring",
-      "id": "6"
-    }
-  ],
+  "inventory": [],
   "entities": [
     {
       "health": 85,
@@ -82,7 +67,7 @@
   ],
   "gameMode": "standard",
   "goals": "((:exit OR (:treasure AND :boulders)))",
-  "historicalEntCount": 7,
+  "historicalEntCount": 6,
   "tickNumber": 1,
   "spawnpoint": {
     "x": 0,
