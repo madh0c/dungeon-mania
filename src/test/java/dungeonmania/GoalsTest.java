@@ -165,9 +165,26 @@ public class GoalsTest {
 		controller.tick(null, Direction.DOWN);
 		assertEquals(controller.getDungeon(0).getGoals(), "");
 	}
+
+	@Test
+	public void testComplicatedGoalAnd() {
+		DungeonManiaController controller = new DungeonManiaController();
+		controller.newGame("testComplicatedAnd", "Standard");
+		assertEquals(controller.getDungeon(0).getGoals(), "(:enemies AND (:exit AND (:treasure AND :boulders)))");
+		controller.tick(null, Direction.RIGHT);
+		assertDoesNotThrow(() -> controller.interact("2"));
+		controller.tick(null, Direction.RIGHT);
+		assertEquals(controller.getDungeon(0).getGoals(), "((:exit AND (:treasure AND :boulders)))");
+		controller.tick(null, Direction.RIGHT);
+		assertEquals(controller.getDungeon(0).getGoals(), "((:exit AND :treasure))");
+		controller.tick(null, Direction.DOWN);
+		assertEquals(controller.getDungeon(0).getGoals(), ":exit");
+		controller.tick(null, Direction.LEFT);
+		assertEquals(controller.getDungeon(0).getGoals(), "");
+	}
 	
 	@Test
-	public void saveGoalsAnd() {
+	public void saveGoals() {
 		DungeonManiaController controller = new DungeonManiaController();
 		controller.newGame("testComplicatedGoal", "Standard");
 		assertEquals(controller.getDungeon(0).getGoals(), "(:enemies AND (:exit OR (:treasure AND :boulders)))");
