@@ -65,9 +65,9 @@
       "id": "3"
     },
     {
-      "randSeed": 85,
+      "randSeed": 12,
       "random": {
-        "seed": 25214903864,
+        "seed": 25214903905,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
@@ -161,9 +161,9 @@
       "id": "6"
     },
     {
-      "randSeed": 89,
+      "randSeed": 30,
       "random": {
-        "seed": 25214903860,
+        "seed": 25214903923,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
