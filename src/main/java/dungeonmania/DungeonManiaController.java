@@ -353,9 +353,9 @@ public class DungeonManiaController {
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
 
-		int currPlayerHealthS = currentDungeon.getPlayer().getHealth();
-		double doubleHPS = currPlayerHealthS;
-		double healthFracS = doubleHPS/100.0;
+		int currPlayerHealthS;
+		double doubleHPS;
+		double healthFracS;
 
 		// TODO UNCOMMENT
 		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
@@ -381,6 +381,10 @@ public class DungeonManiaController {
 
 		// Player actions
 		if (player != null) {
+			currPlayerHealthS = currentDungeon.getPlayer().getHealth();
+			doubleHPS = currPlayerHealthS;
+			healthFracS = doubleHPS/100.0;
+
 			player.setCurrentDir(movementDirection);
 			// make sure invincibility wears off
 			int invicibleTicksLeft = player.getInvincibleTickDuration();
