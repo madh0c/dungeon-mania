@@ -8,11 +8,21 @@ public abstract class MovingEntity extends Entity {
 	private int health;
 	private int baseAttack;
 	private boolean enemyAttack;
+	private int ticksFrozen;
 
     public MovingEntity(String id, Position position, String type, boolean enemyAttack) {
         super(id, position, type);
 		this.enemyAttack = enemyAttack;
+		this.ticksFrozen = 0;
     }
+
+	public int getTicksFrozen() {
+		return ticksFrozen;
+	}
+
+	public void setTicksFrozen(int ticksFrozen) {
+		this.ticksFrozen = ticksFrozen;
+	}
 
 	public int getBaseAttack() {
 		return baseAttack;
@@ -70,6 +80,12 @@ public abstract class MovingEntity extends Entity {
 		}
 		if (entity instanceof CollectableEntity) {
 			return true;
+		}
+
+		if (entity instanceof SwampTile) {
+			SwampTile swampTile = (SwampTile) entity;
+			setTicksFrozen(swampTile.getMoveFactor());
+			System.out.println(swampTile.getMoveFactor());
 		}
 		
 		return true;

@@ -90,6 +90,11 @@ public class Spider extends MovingEntity {
 
 	@Override
 	public void move(Dungeon dungeon) {
+		// if stuck in swamp
+		if (super.getTicksFrozen() > 0) {
+			super.setTicksFrozen(super.getTicksFrozen() - 1);
+			return;
+		}
 		// Find predetermined position
 		if (clockwise) {
 			// If position 0 move up

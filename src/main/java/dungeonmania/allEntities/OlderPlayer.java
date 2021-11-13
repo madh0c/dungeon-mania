@@ -77,7 +77,11 @@ public class OlderPlayer extends MovingEntity {
     /* Move the older player in the previous path of the player */
     @Override
     public void move(Dungeon dungeon) {
-
+		// if stuck in swamp
+		if (super.getTicksFrozen() > 0) {
+			super.setTicksFrozen(super.getTicksFrozen() - 1);
+			return;
+		}
 
         boolean timePortalExists = false;
         Position portalPos = null;

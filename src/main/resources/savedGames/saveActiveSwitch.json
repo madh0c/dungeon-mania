@@ -66,8 +66,6 @@
     "y": 0,
     "layer": 0
   },
-  "height": 5,
-  "width": 5,
   "foundGoals": {
     "subGoals": [
       {
@@ -94,6 +92,5 @@
   },
   "goalConditions": "{\"subgoals\":[{\"goal\":\"boulders\"},{\"subgoals\":[{\"goal\":\"exit\"},{\"goal\":\"enemies\"}],\"goal\":\"AND\"}],\"goal\":\"AND\"}",
   "factory": {},
-  "mercSpawnrate": 20,
-  "rewindPath": "/rewind/1636726433078/"
+  "mercSpawnrate": 20
 }

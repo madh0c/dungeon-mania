@@ -30,6 +30,7 @@
       "health": 30,
       "baseAttack": 5,
       "enemyAttack": true,
+      "ticksFrozen": 0,
       "position": {
         "x": 1,
         "y": 0,
@@ -44,6 +45,7 @@
       "health": 30,
       "baseAttack": 20,
       "enemyAttack": true,
+      "ticksFrozen": 0,
       "position": {
         "x": 2,
         "y": 0,
@@ -63,15 +65,16 @@
       "id": "3"
     },
     {
-      "randSeed": 46,
+      "randSeed": 67,
       "random": {
-        "seed": 25214903875,
+        "seed": 25214903854,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
       "health": 20,
       "baseAttack": 10,
       "enemyAttack": true,
+      "ticksFrozen": 0,
       "position": {
         "x": 4,
         "y": 0,
@@ -133,6 +136,7 @@
       "health": 10,
       "baseAttack": 5,
       "enemyAttack": true,
+      "ticksFrozen": 0,
       "position": {
         "x": 5,
         "y": 0,
@@ -147,6 +151,7 @@
       "health": 0,
       "baseAttack": 0,
       "enemyAttack": true,
+      "ticksFrozen": 0,
       "position": {
         "x": 6,
         "y": 0,
@@ -156,15 +161,16 @@
       "id": "6"
     },
     {
-      "randSeed": 78,
+      "randSeed": 25,
       "random": {
-        "seed": 25214903843,
+        "seed": 25214903924,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
       "health": 30,
       "baseAttack": 5,
       "enemyAttack": true,
+      "ticksFrozen": 0,
       "position": {
         "x": 7,
         "y": 0,
@@ -184,6 +190,5 @@
   },
   "goalConditions": "",
   "factory": {},
-  "mercSpawnrate": 20,
-  "rewindPath": "/rewind/1636730538310/"
+  "mercSpawnrate": 20
 }
