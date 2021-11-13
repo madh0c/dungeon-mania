@@ -7,12 +7,18 @@ import dungeonmania.util.Position;
 public class Door extends Entity {
 
     private boolean isOpen;
+    private String corresponding;
 
-    public Door(String id, Position position) {
+    public Door(String id, Position position, String corresponding) {
         super(id, position, "door");
         this.isOpen = false;
+        this.corresponding = corresponding;
     }
 
+    public String getCorresponding() {
+        return corresponding;
+    }
+    
     public boolean isOpen() {
         return this.isOpen;
     }

@@ -136,6 +136,16 @@ public class GameInOut {
 					String colour = (String)currentEntity.get("colour");
 					Portal portal = factory.createPortal(entityId, exportPos, colour);
 					entityList.add(portal);
+				} else if (entityType.equals("door")) {
+					Double corrKey = (Double)currentEntity.get("key");
+					String corresponding = corrKey.toString();
+					Door door = factory.createDoor(entityId, exportPos, corresponding);
+					entityList.add(door);
+				} else if (entityType.equals("key")) {
+					Double corrDoor = (Double)currentEntity.get("key");
+					String corresponding = corrDoor.toString();
+					Key key = factory.createKey(entityId, exportPos, corresponding);
+					entityList.add(key);
 				} else if (entityType.equals("player")) {
 					if (expType.equals("load")) { 
 						Player player = factory.createPlayer(entityId, exportPos);
@@ -269,7 +279,9 @@ public class GameInOut {
 						Treasure newTreasure = new Treasure(itemId, itemPos);
 						returnInv.add(newTreasure);
 					} else if (itemType.equals("key")){
-						Key newKey = new Key(itemId, itemPos);
+						Double corrDoor = (Double)currentItem.get("key");
+						String corresponding = corrDoor.toString();
+						Key newKey = new Key(itemId, itemPos, corresponding);
 						returnInv.add(newKey);
 					} else if (itemType.equals("health_potion")){
 						HealthPotion newHP = new HealthPotion(itemId, itemPos);
