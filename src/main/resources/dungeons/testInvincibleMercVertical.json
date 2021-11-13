@@ -1,0 +1,46 @@
+{
+    "entities": [
+        {
+            "x": 12,
+            "y": 12,
+            "type": "player"
+        },
+		{
+			"x": 12,
+			"y": 13,
+			"type": "invincibility_potion"
+		},
+		{
+			"x": 12,
+            "y": 10,
+            "type": "mercenary"
+		},
+        {
+            "x": 12,
+            "y": 16,
+            "type": "mercenary"
+        }, 
+		{
+			"x": 15,
+			"y": 15,
+			"type": "zombie_toast"
+		}, 
+		{
+			"x": 5,
+			"y": 5,
+			"type": "zombie_toast"
+		},
+		{
+			"x": 14,
+			"y": 14,
+			"type": "spider"
+		}, 
+		{
+			"x": 6,
+			"y": 6,
+			"type": "spider"
+		}
+    ],
+    "width": 20,
+    "height": 20
+}
