@@ -169,15 +169,37 @@ public class Mercenary extends MovingEntity {
 			
 		}
 	}
+	
+	public boolean moveDumb(Direction direction, Dungeon dungeon) {
+		// Check if collidable with next entity
+		Position pos = getPosition();
+		Entity ent = dungeon.getEntity(pos.translateBy(direction));
+		Direction prevDir = getCurrentDir();
+		setCurrentDir(direction);
+		if (ent != null && !collide(ent, dungeon)) {
+			setCurrentDir(prevDir);
+			return false;
+		}
+
+		setPosition(getPosition().translateBy(direction));
+
+		portalMove(dungeon, pos);
+		return true;
+	}
+
 
 	/**
-	 * Move the mercenery iff it can move to a cardinally adjacent cell that is closer to the player than
-	 * the current cell.
-	 * @param direction	Desired direction of mercenary
-	 * @param dungeon	Current dungeon of mercenary
-	 * @return boolean of whether the mercenary got moved
+	 * Move the mercenary towards the player using Dijkstra's algorithm <p>
+	 * @param dungeon Current dungeon of mercenary
 	 */
-	public boolean mercMove(Direction direction, Dungeon dungeon) {		
+	@Override
+	public void move(Dungeon dungeon) {
+		// if stuck in swamp
+		if (super.getTicksFrozen() > 0) {
+			super.setTicksFrozen(super.getTicksFrozen() - 1);
+			return;
+		}
+
 		Position currPos = getPosition();
 		
 		Position nextPos = null;
@@ -205,80 +227,6 @@ public class Mercenary extends MovingEntity {
 			}
 		}
 
-		return true;
-	}
-	
-	public boolean moveDumb(Direction direction, Dungeon dungeon) {
-		// Check if collidable with next entity
-		Position pos = getPosition();
-		Entity ent = dungeon.getEntity(pos.translateBy(direction));
-		Direction prevDir = getCurrentDir();
-		setCurrentDir(direction);
-		if (ent != null && !collide(ent, dungeon)) {
-			setCurrentDir(prevDir);
-			return false;
-		}
-
-		setPosition(getPosition().translateBy(direction));
-
-		portalMove(dungeon, pos);
-		return true;
-	}
-
-
-
-	/**
-	 * Move the mercenary towards the player<p>
-	 * Up / Down first priority<p>
-	 * Left / Right second priority
-	 * @param dungeon	Current dungeon of mercenary
-	 */
-	@Override
-	public void move(Dungeon dungeon) {
-		// if stuck in swamp
-		if (super.getTicksFrozen() > 0) {
-			super.setTicksFrozen(super.getTicksFrozen() - 1);
-			return;
-		}
-		// Find player
-		Player player = dungeon.getPlayer();
-		if (player == null) {
-			return;
-		}
-		
-		// Prioritise up down movement
-		// If not on same y axis
-		if (player.getPosition().getY() != getPosition().getY()) {
-			// If player is to the up of merc
-			if (player.getPosition().getY() < getPosition().getY()) {
-				if(mercMove(Direction.UP, dungeon)) {
-					return;
-				}
-				
-			} 
-			// If on down side
-			else {
-				if (mercMove(Direction.DOWN, dungeon)) {
-					return;
-				}
-			}
-		}
-
-		// left right movement
-		if (player.getPosition().getX() != getPosition().getX()) {
-			// If player is to the left of merc
-			if (player.getPosition().getX() < getPosition().getX()) {
-				if (mercMove(Direction.LEFT, dungeon)) {
-					return;
-				}
-			} 
-			// If on right side
-			else {
-				if (mercMove(Direction.RIGHT, dungeon)) {
-					return;
-				}
-			}
-		}
 	}
 	
 	@Override
