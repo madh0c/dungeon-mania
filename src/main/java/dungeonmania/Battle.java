@@ -112,7 +112,7 @@ public class Battle {
 		MovingEntity enemy = (MovingEntity) entity;
 		if (enemy.getHealth() <= 0) {
 			// drop armour 
-			if (enemy instanceof Mercenary || enemy instanceof ZombieToast) {
+			if ((enemy instanceof Mercenary || enemy instanceof ZombieToast) && !(enemy instanceof Hydra)) {
 				Random rand = new Random();
 				if (rand.nextInt(5) == 1) {
 					// Armour armour = new Armour(String.valueOf(dungeon.getHistoricalEntCount()), enemy.getPosition());

@@ -589,61 +589,6 @@ public class MovingEntityTest {
 		mercenary = mercenary.translateBy(Direction.LEFT);
 	}
 
-	// Old Test from pre-Dijkstra: Open space, player moves around, merc follows
-	// @Test
-	// public void testMercenaryMovementMoving() {
-	// 	DungeonManiaController controller = new DungeonManiaController();
-	// 	assertDoesNotThrow(() -> controller.newGame("testMercenaryMovement", "Standard"));
-		
-	// 	Position mercenary = controller.getDungeon(0).getEntity("1").getPosition();
-
-	// 	// Move player down one
-	// 	controller.tick(null, Direction.DOWN);
-
-	// 	// player shouldve moved down, same with merc
-	// 	assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.LEFT)));
-	// 	// mercenary = mercenary.translateBy(Direction.DOWN);
-
-	// 	// Move player right, merc should've moved left
-	// 	controller.tick(null, Direction.RIGHT);
-
-	// 	assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.LEFT)));
-	// 	mercenary = mercenary.translateBy(Direction.LEFT);
-
-	// 	// Move player down
-	// 	controller.tick(null, Direction.DOWN);
-
-	// 	// merc moved down
-	// 	assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.DOWN)));
-
-	// }
-
-	// Old test from pre-Dijkstra: Check mercenary moves straight line towards player before obstruction
-	// After blocked, move player down, make sure merc follows
-	// @Test
-	// public void testMercenaryBlocked() {
-	// 	DungeonManiaController controller = new DungeonManiaController();
-	// 	assertDoesNotThrow(() -> controller.newGame("testMercenaryBlocked", "Standard"));
-
-	// 	Position mercenary = controller.getDungeon(0).getEntity("1").getPosition();
-
-	// 	// Moves closer to player
-	// 	controller.tick(null, Direction.NONE);
-
-	// 	assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.LEFT)));
-	// 	mercenary = mercenary.translateBy(Direction.LEFT);
-		
-	// 	// Check if mercenary is blocked
-	// 	controller.tick(null, Direction.NONE);
-
-	// 	// assertEquals(controller.getDungeon(0).getEntity("1").getPosition().getX(), 0);
-	// 	assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary));
-
-	// 	// Check if player moves down, mercenary moves down 1 too
-	// 	controller.tick(null, Direction.DOWN);
-	// 	assertTrue(controller.getDungeon(0).entityExists("mercenary", mercenary.translateBy(Direction.DOWN)));
-	// }
-
 	@Test
 	public void testMercenaryBlockedFromStart() {
 		DungeonManiaController controller = new DungeonManiaController();
@@ -838,6 +783,43 @@ public class MovingEntityTest {
         assertFalse(merc.enemyAttack());
 		controller.tick(null, Direction.RIGHT);
 		assertTrue(controller.getDungeon(0).entityExists("mercenary", new Position(1,0)));
+	}
+
+	@Test
+	public void testHydraSpawn() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testHydraSpawn", "Standard"));
+		
+		// Move the player right
+		controller.tick(null, Direction.RIGHT);
+
+		for (int i = 0; i < 48; i++) {
+			controller.tick(null, Direction.NONE);
+			assertFalse(controller.getDungeon(0).entityExists("hydra"));
+		}
+		// Check hydra spawns in after 50 ticks
+		controller.tick(null, Direction.NONE);
+		assertTrue(controller.getDungeon(0).entityExists("hydra"));
+	}
+
+	@Test public void testHydraAttack() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testHydraAnduril", "Standard"));
+
+		// Move the player right
+		controller.tick(null, Direction.RIGHT);
+
+		for (int i = 0; i < 48; i++) {
+			controller.tick(null, Direction.NONE);
+			assertFalse(controller.getDungeon(0).entityExists("hydra"));
+		}	
+
+		controller.tick(null, Direction.NONE);
+		assertTrue(controller.getDungeon(0).entityExists("hydra"));
+		
+		controller.tick(null, Direction.LEFT);
+		assertFalse(controller.getDungeon(0).entityExists("hydra"));
+		
 	}
 	
 }
