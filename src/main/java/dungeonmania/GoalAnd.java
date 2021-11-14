@@ -18,7 +18,12 @@ public class GoalAnd implements GoalNode{
 	}
 
 	@Override
-	public Boolean evaluate() {
+	public Boolean evaluate(Dungeon dungeon) {
+		if (subGoals.stream().allMatch(x-> x.evaluate(dungeon).equals(true))) {
+			hasCompleted = true;
+		} else {
+			hasCompleted = false;
+		}
 		return hasCompleted;
 	}
 
@@ -34,20 +39,6 @@ public class GoalAnd implements GoalNode{
 			return notDoneGoals;
 		}
 	}
-
-	// @Override
-    // public JSONObject saveGameJSON() {
-    //     JSONObject compositeAndJSON = new JSONObject();
-    //     compositeAndJSON.put("goal", operator);
-
-    //     JSONArray subGoalsJSON = new JSONArray();
-    //     subGoals.stream().map(GoalNode :: saveGameJSON).forEach(x -> subGoalsJSON.put(x));
-        
-    //     compositeAndJSON.put("subgoals", subGoalsJSON);
-    //     return compositeAndJSON;
-    // }
-
-
 	public boolean add(GoalNode goal) {
 		subGoals.add(goal);
 		return true;
@@ -57,8 +48,4 @@ public class GoalAnd implements GoalNode{
 		return subGoals;
 	}
 
-	public void setHasCompleted(Boolean hasCompleted) {
-		this.hasCompleted = hasCompleted;
-	}
-	
 }

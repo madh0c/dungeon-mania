@@ -77,24 +77,24 @@
   "foundGoals": {
     "subGoals": [
       {
-        "goal": "enemies",
-        "hasCompleted": true
+        "hasCompleted": true,
+        "goal": "enemies"
       },
       {
         "subGoals": [
           {
-            "goal": "exit",
-            "hasCompleted": false
+            "hasCompleted": false,
+            "goal": "exit"
           },
           {
             "subGoals": [
               {
-                "goal": "treasure",
-                "hasCompleted": false
+                "hasCompleted": false,
+                "goal": "treasure"
               },
               {
-                "goal": "boulders",
-                "hasCompleted": false
+                "hasCompleted": false,
+                "goal": "boulders"
               }
             ],
             "operator": "AND",

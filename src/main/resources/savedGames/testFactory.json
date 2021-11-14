@@ -65,9 +65,9 @@
       "id": "3"
     },
     {
-      "randSeed": 32,
+      "randSeed": 19,
       "random": {
-        "seed": 25214903885,
+        "seed": 25214903934,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
@@ -148,8 +148,8 @@
     {
       "trackingList": [],
       "traceUntil": 10,
-      "health": 100,
-      "baseAttack": 2,
+      "health": 0,
+      "baseAttack": 0,
       "enemyAttack": true,
       "ticksFrozen": 0,
       "position": {
@@ -162,13 +162,13 @@
     },
     {
       "rng": {
-        "seed": 195417423056853,
+        "seed": 57285405620641,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
-      "randSeed": 82,
+      "randSeed": 64,
       "random": {
-        "seed": 25214903871,
+        "seed": 25214903853,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
@@ -185,17 +185,15 @@
       "id": "7"
     }
   ],
-  "gameMode": "standard",
+  "gameMode": "Standard",
   "goals": "",
   "historicalEntCount": 8,
   "tickNumber": 0,
   "foundGoals": {
-    "subGoals": [],
-    "operator": "",
-    "hasCompleted": true
+    "goal": "",
+    "hasCompleted": false
   },
   "goalConditions": "",
   "factory": {},
-  "mercSpawnrate": 20,
-  "spiderSpawnrate": 20
+  "mercSpawnrate": 20
 }

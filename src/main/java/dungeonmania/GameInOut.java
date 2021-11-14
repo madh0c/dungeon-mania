@@ -2,6 +2,7 @@ package dungeonmania;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import dungeonmania.allEntities.Player;
 import dungeonmania.allEntities.Portal;
@@ -27,6 +28,7 @@ public class GameInOut {
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create(); 
 			Writer writer = new FileWriter(path);
+			System.out.println(dungeon.getFoundGoals());
 			gson.toJson(dungeon, writer);
 			writer.flush(); 
         	writer.close();
@@ -53,7 +55,7 @@ public class GameInOut {
 		List<CollectableEntity> returnInv = new ArrayList<>();
 		String goals = null;
 		String playMode = null; 
-		GoalNode foundGoals = new GoalLeaf("");
+		GoalNode foundGoals = new GoalAnd("");
 		String goalsConvert = "";
 
 		try {
@@ -358,7 +360,6 @@ public class GameInOut {
 					} 
 				}
 			}
-
 			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, foundGoals, goalsConvert);
 
 			if (expType.equals("load") || expType.equals("rewind")) {

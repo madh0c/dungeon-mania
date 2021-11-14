@@ -4,8 +4,7 @@ import org.json.JSONObject;
 
 public interface GoalNode {
 	
-	public Boolean evaluate();
+	public Boolean evaluate(Dungeon dungeon);
 	public String remainingString();
-	// public abstract JSONObject saveGameJSON();
 }
 
