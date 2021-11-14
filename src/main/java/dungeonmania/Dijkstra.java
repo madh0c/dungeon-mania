@@ -39,11 +39,14 @@ public interface Dijkstra {
 		/*A list of entity types Mercenary/Assasins cannot coincide with. If at least one of these entities exist on a cell,
 		there will be no edges between this cell and its adjacent cells in the weighted graph */
 		List<String> mercIllegal = new ArrayList<>();
+		
 		mercIllegal.add("door");
+		mercIllegal.add("door_1");
+		mercIllegal.add("door_2");
 		mercIllegal.add("wall");
 		mercIllegal.add("boulder");
 		mercIllegal.add("zombie_toast_spawner");
-		mercIllegal.add("bomb_static");
+		mercIllegal.add("bomb");
 
 		/* iterating through the current dungeon to check if each cell should be able traversed by the Merc/Assasin */
 		for (int x = minX; x <= maxX; x++) {

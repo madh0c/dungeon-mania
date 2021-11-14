@@ -135,16 +135,22 @@ public class GameInOut {
 					} exportPos = new Position(xCoord, yCoord, zCoord);
 				}
 
-				if (entityType.contains("portal")) {
+				if (entityType.equals("portal")) {
 					String colour = (String)currentEntity.get("colour");
 					Portal portal = factory.createPortal(entityId, exportPos, colour);
 					entityList.add(portal);
-				} else if (entityType.equals("door")) {
+				} else if (entityType.equals("door_unlocked")) {
+					Double corrKey = (Double)currentEntity.get("key");
+					int keyId = corrKey.intValue();
+					Door door = factory.createDoor("door_unlocked", exportPos, keyId);
+					door.setOpen(true);
+					entityList.add(door);
+				} else if (entityType.contains("door")) {
 					Double corrKey = (Double)currentEntity.get("key");
 					int keyId = corrKey.intValue();
 					Door door = factory.createDoor(entityId, exportPos, keyId);
 					entityList.add(door);
-				} else if (entityType.equals("key")) {
+				} else if (entityType.contains("key")) {
 					Double corrDoor = (Double)currentEntity.get("key");
 					int keyId = corrDoor.intValue();
 					Key key = factory.createKey(entityId, exportPos, keyId);
@@ -201,13 +207,13 @@ public class GameInOut {
 						oP.setTraceUntil(traceUntil);
 						entityList.add(olderPlayer);
 					}
-				} else if (entityType.contains("swamp_tile")) {
+				} else if (entityType.equals("swamp_tile")) {
 					Double moveFD = (Double)currentEntity.get("movement_factor");
 					int moveF = moveFD.intValue();
 					
 					Entity newEntity = factory.createSwampTile(entityId, exportPos, moveF);
 					entityList.add(newEntity);
-				} else if (entityType.contains("mercenary")) {
+				} else if (entityType.equals("mercenary")) {
 
 					boolean enemyAttack = true;
 					if (playMode.equals("peaceful")) {
@@ -224,7 +230,7 @@ public class GameInOut {
 					}
 
 					entityList.add(newMerc);
-				} else if (entityType.contains("assassin")) {
+				} else if (entityType.equals("assassin")) {
 					boolean enemyAttack = true;
 
 					if (playMode.equals("peaceful")) {
@@ -241,7 +247,7 @@ public class GameInOut {
 					}
 
 					entityList.add(newAssassin);
-				}  else if (entityType.contains("time_turner") && expType.equals("rewind")) {
+				}  else if (entityType.equals("time_turner") && expType.equals("rewind")) {
 					continue;
 				} else if (entityType.equals("older_player")) {
 					Entity olderPlayer = factory.createEntity(entityId, entityType, exportPos);
@@ -281,7 +287,7 @@ public class GameInOut {
 					if (itemType.equals("treasure")) {
 						Treasure newTreasure = new Treasure(itemId, itemPos);
 						returnInv.add(newTreasure);
-					} else if (itemType.equals("key")){
+					} else if (itemType.contains("key")){
 						Double corrDoor = (Double)currentItem.get("key");
 						int keyId = corrDoor.intValue();
 						Key newKey = new Key(itemId, itemPos, keyId);
@@ -302,7 +308,7 @@ public class GameInOut {
 						Arrow newArrow = new Arrow(itemId, itemPos);
 						returnInv.add(newArrow);
 					} else if (itemType.equals("bomb")){
-						BombItem newBomb = new BombItem(itemId, itemPos);
+						Bomb newBomb = new Bomb(itemId, itemPos);
 						returnInv.add(newBomb);
 					} else if (itemType.equals("sword")){
 						Double durabilityD = (Double)currentItem.get("durability");

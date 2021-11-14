@@ -35,8 +35,13 @@ public class OlderPlayer extends MovingEntity {
 			return true;
 		}
 		
-		if (entity instanceof Wall || entity instanceof BombStatic || entity instanceof ZombieToastSpawner) {
+		if (entity instanceof Wall || entity instanceof ZombieToastSpawner) {
 			return false;
+		} else if (entity instanceof Bomb) {
+			Bomb bomb = (Bomb) entity;
+			if (bomb.isActive()) {
+				return false;
+			} return true;
 		} else if (entity instanceof Door) {
 			Door door = (Door) entity;
 			if (door.isOpen()) {
@@ -91,6 +96,7 @@ public class OlderPlayer extends MovingEntity {
         for (Entity ent : dungeon.getEntities()) {
             if (ent instanceof TimeTravellingPortal) {
                 timePortalExists = true;
+				portalPos = ent.getPosition();
             }
         }
 
@@ -141,6 +147,7 @@ public class OlderPlayer extends MovingEntity {
 	}
 
     public void findPortal(Position destination, Dungeon dungeon) {
+
         if (destination.getY() != getPosition().getY()) {
 			// If player is to the up of merc
 			if (destination.getY() < getPosition().getY()) {

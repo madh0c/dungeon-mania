@@ -779,7 +779,7 @@ public class StaticEntityTest {
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(3,0), true);
-        EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(1,0), false);
+        EntityResponse expectedDoorInfo = new EntityResponse("1", "door_1", new Position(1,0), false);
         EntityResponse expectedMercenaryInfo = new EntityResponse("2", "mercenary", new Position(0,1), true);
 
         endList.add(expectedPlayerInfo);
@@ -802,7 +802,7 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startDoorInfo = new EntityResponse("1", "door", new Position(5,0), false);
+        EntityResponse startDoorInfo = new EntityResponse("1", "door_1", new Position(5,0), false);
         EntityResponse startSpiderInfo = new EntityResponse("2", "spider", new Position(5,1), false);
 
         startList.add(startPlayerInfo);
@@ -819,7 +819,7 @@ public class StaticEntityTest {
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
         EntityResponse expectedPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
-        EntityResponse expectedDoorInfo = new EntityResponse("1", "door", new Position(5,0), false);
+        EntityResponse expectedDoorInfo = new EntityResponse("1", "door_1", new Position(5,0), false);
         EntityResponse expectedSpiderInfo = new EntityResponse("2", "spider", new Position(5,0), false);
 
         endList.add(expectedPlayerInfo);
@@ -842,8 +842,8 @@ public class StaticEntityTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startKeyInfo = new EntityResponse("1", "key", new Position(1,0), false);
-        EntityResponse startDoorInfo = new EntityResponse("2", "door", new Position(2,0), false);
+        EntityResponse startKeyInfo = new EntityResponse("1", "key_1", new Position(1,0), false);
+        EntityResponse startDoorInfo = new EntityResponse("2", "door_1", new Position(2,0), false);
 
         startList.add(startPlayerInfo);
         startList.add(startKeyInfo);
@@ -859,7 +859,7 @@ public class StaticEntityTest {
         List<EntityResponse> midList = new ArrayList<EntityResponse>();
 
         EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
-        EntityResponse midDoorInfo = new EntityResponse("2", "door", new Position(2,0), false);
+        EntityResponse midDoorInfo = new EntityResponse("2", "door_1", new Position(2,0), false);
 
         midList.add(midPlayerInfo);
         midList.add(midDoorInfo);
@@ -869,7 +869,7 @@ public class StaticEntityTest {
 
         // Assert the key is in the inventory
         List<ItemResponse> expectedInventory1 = new ArrayList<ItemResponse>();
-        ItemResponse keyInfo = new ItemResponse("1", "key");
+        ItemResponse keyInfo = new ItemResponse("1", "key_1");
         expectedInventory1.add(keyInfo);
         
         assertEquals(expectedInventory1, dRMid.getInventory());
@@ -1124,8 +1124,9 @@ public class StaticEntityTest {
         DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testTeleportMercenaryIntoBomb", "Standard"));
 
-        BombStatic bombS = new BombStatic("4", new Position(9,0));
-        controller.getCurrentDungeon().addEntity(bombS);
+        Bomb bomb = new Bomb("4", new Position(9,0));
+        bomb.setActive(true);
+        controller.getCurrentDungeon().addEntity(bomb);
 
         // Assert correct spawn positions
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
@@ -1134,13 +1135,13 @@ public class StaticEntityTest {
         EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
         EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
         EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
-        EntityResponse startBombStaticInfo = new EntityResponse("4", "bomb_static", new Position(9,0), false);
+        EntityResponse startBombInfo = new EntityResponse("4", "bomb", new Position(9,0), false);
 
         startList.add(startPlayerInfo);
         startList.add(startPortal1Info);
         startList.add(startPortal2Info);
         startList.add(startMercenaryInfo);
-        startList.add(startBombStaticInfo);
+        startList.add(startBombInfo);
 
         DungeonResponse dRStart = controller.getDungeonInfo(0);
         assertEquals(startList, dRStart.getEntities());
@@ -1155,7 +1156,7 @@ public class StaticEntityTest {
         EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
         EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
         EntityResponse expectedMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
-        EntityResponse expectedBombInfo = new EntityResponse("4", "bomb_static", new Position(9,0), false);
+        EntityResponse expectedBombInfo = new EntityResponse("4", "bomb", new Position(9,0), false);
 
         endList.add(expectedPlayerInfo);
         endList.add(expectedPortal1Info);
@@ -1182,7 +1183,7 @@ public class StaticEntityTest {
         EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
         EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
         EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
-        EntityResponse startDoorInfo = new EntityResponse("4", "door", new Position(9,0), false);
+        EntityResponse startDoorInfo = new EntityResponse("4", "door_1", new Position(9,0), false);
 
         startList.add(startPlayerInfo);
         startList.add(startPortal1Info);
@@ -1203,7 +1204,7 @@ public class StaticEntityTest {
         EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
         EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
         EntityResponse expectedMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
-        EntityResponse expectedDoorInfo = new EntityResponse("4", "door", new Position(9,0), false);
+        EntityResponse expectedDoorInfo = new EntityResponse("4", "door_1", new Position(9,0), false);
 
         endList.add(expectedPlayerInfo);
         endList.add(expectedPortal1Info);
@@ -1234,7 +1235,7 @@ public class StaticEntityTest {
         EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
         EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
         EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
-        EntityResponse startDoorInfo = new EntityResponse("4", "door", new Position(9,0), false);
+        EntityResponse startDoorInfo = new EntityResponse("4", "door_1", new Position(9,0), false);
 
         startList.add(startPlayerInfo);
         startList.add(startPortal1Info);
@@ -1255,7 +1256,7 @@ public class StaticEntityTest {
         EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
         EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
         EntityResponse expectedMercenaryInfo = new EntityResponse("3", "mercenary", new Position(9,0), true);
-        EntityResponse expectedDoorInfo = new EntityResponse("4", "door", new Position(9,0), false);
+        EntityResponse expectedDoorInfo = new EntityResponse("4", "door_1", new Position(9,0), false);
 
         endList.add(expectedPlayerInfo);
         endList.add(expectedPortal1Info);
@@ -1381,7 +1382,7 @@ public class StaticEntityTest {
         EntityResponse startPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false);
         EntityResponse startPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
         EntityResponse startMercenaryInfo = new EntityResponse("3", "mercenary", new Position(0,0), true);
-        EntityResponse startKeyInfo = new EntityResponse("4", "key", new Position(9,0), false);
+        EntityResponse startKeyInfo = new EntityResponse("4", "key_1", new Position(9,0), false);
 
         startList.add(startPlayerInfo);
         startList.add(startPortal1Info);
@@ -1403,7 +1404,7 @@ public class StaticEntityTest {
         EntityResponse expectedPortal1Info = new EntityResponse("1", "portal", new Position(1,0), false); 
         EntityResponse expectedPortal2Info = new EntityResponse("2", "portal", new Position(8,0), false);
         EntityResponse expectedMercenaryInfo = new EntityResponse("3", "mercenary", new Position(9,0), true);
-        EntityResponse expectedKeyInfo = new EntityResponse("4", "key", new Position(9,0), false);
+        EntityResponse expectedKeyInfo = new EntityResponse("4", "key_1", new Position(9,0), false);
 
         endList.add(expectedPlayerInfo);
         endList.add(expectedPortal1Info);
