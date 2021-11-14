@@ -18,7 +18,12 @@ public class GoalAnd implements GoalNode{
 	}
 
 	@Override
-	public Boolean evaluate() {
+	public Boolean evaluate(Dungeon dungeon) {
+		if (subGoals.stream().allMatch(x-> x.evaluate(dungeon).equals(true))) {
+			hasCompleted = true;
+		} else {
+			hasCompleted = false;
+		}
 		return hasCompleted;
 	}
 

@@ -11,7 +11,7 @@ public class GoalLeaf implements GoalNode {
 	}
 
 	@Override
-	public Boolean evaluate() {
+	public Boolean evaluate(Dungeon dungeon) {
 		return hasCompleted;
 	}
 
