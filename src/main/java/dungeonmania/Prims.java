@@ -9,6 +9,14 @@ import java.util.Random;
 
 public class Prims {
 
+	/**
+	 * Generates a random Dungeon based off a randomised version of Prim's algortihm.
+	 * @param startPos the start position of the game (the spawn position of the player).
+	 * @param endPos the end position of the game (the position of the final exit).
+	 * @param gameMode the desired gameMode the dungeon is to be played at.
+	 * @param lastUsedDungeonId the last used dungeon Id of the controller.
+	 * @return the appropriate Dungeon.
+	 */
 	public static Dungeon generateDungeon(Position startPos, Position endPos, String gameMode, int lastUsedDungeonId) {
 
 		int xStart = startPos.getX();
@@ -89,6 +97,12 @@ public class Prims {
 		return createDungeon(startPos, endPos, maze, gameMode, lastUsedDungeonId);
 	}
 
+	/**
+	 * A helper function that checks if a neighbouring position is valid, and if it is a wall. 
+	 * @param position the position currently being analysed.
+	 * @param maze the boolean maze to manipulate.
+	 * @return true if it satisfies both criteria, false otherwise.
+	 */
 	static boolean isValidWall(Position position, boolean[][] maze) {
 		int x = position.getX();
 		int y = position.getY();
@@ -98,6 +112,12 @@ public class Prims {
 		} return false;
 	}
 
+	/**
+	 * A helper function that checks if a neighbouring position is valid, and if it is not a wall. 
+	 * @param position the position currently being analysed.
+	 * @param maze the boolean maze to manipulate.
+	 * @return true if it satisfies both criteria, false otherwise.
+	 */
 	static boolean isValidNotWall(Position position, boolean[][] maze) {
 		int x = position.getX();
 		int y = position.getY();
@@ -107,6 +127,15 @@ public class Prims {
 		} return false;
 	}
 
+	/**
+	 * Generates the actual Dungeon object.
+	 * @param startPos the start position of the game (the spawn position of the player).
+	 * @param endPos the end position of the game (the position of the final exit).
+	 * @param maze the boolean maze to be turned into the Dungeon object.
+	 * @param gameMode the desired gameMode the dungeon is to be played at.
+	 * @param id the id of the dungeon.
+	 * @return the appropriate Dungeon.
+	 */
 	public static Dungeon createDungeon(Position startPos, Position endPos, boolean[][] maze, String gameMode, int id) {
 		List<Entity> entityList = new ArrayList<>();
 		int historicalEntCount = 0;

@@ -20,8 +20,6 @@ public abstract class EntityFactory {
 			return createBoulder(id, position);	
 		else if (type.contains("switch"))
 			return createSwitch(id, position);
-		// else if (type.contains("door"))
-		// 	return createDoor(id, position);
 		else if (type.contains("zombie_toast_spawner"))
 			return createSpawner(id, position);
 		else if (type.contains("spider"))
@@ -32,8 +30,6 @@ public abstract class EntityFactory {
 			return createMercenary(id, position);
 		else if (type.contains("treasure"))
 			return createTreasure(id, position);
-		// else if (type.contains("key"))
-		// 	return createKey(id, position);
 		else if (type.contains("health_potion"))
 			return createHealthPotion(id, position);
 		else if (type.contains("invincibility_potion"))

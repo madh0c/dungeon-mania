@@ -2,7 +2,6 @@ package dungeonmania;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 
 import dungeonmania.allEntities.Player;
 import dungeonmania.allEntities.Portal;
@@ -23,25 +22,17 @@ import java.io.Writer;
 
 public class GameInOut {
 
+	/**
+	 * Converts a given Dungeon into a .json file.
+	 * @param fileName the name of the file to be produced.
+	 * @param path the path where the file should be stored.
+	 * @param dungeon the Dungeon to be converted into json.
+	 * @throws IOException if the dungeon cannot be stored in json.
+	 */
 	public static void toJSON(String fileName, String path, Dungeon dungeon) throws IOException {
-
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create(); 
 			Writer writer = new FileWriter(path);
-			System.out.println(dungeon.getFoundGoals());
-			gson.toJson(dungeon, writer);
-			writer.flush(); 
-        	writer.close();
-		} catch (Exception e) {
-			System.out.println("Game Doesn't Exist");
-		}
-	}
-
-	public static void saveRewind(String path, Dungeon dungeon) throws IOException {
-
-		try {
-			Gson gson = new GsonBuilder().setPrettyPrinting().create(); 
-			Writer writer = new FileWriter(path, false);
 			gson.toJson(dungeon, writer);
 			writer.flush(); 
         	writer.close();
@@ -50,7 +41,18 @@ public class GameInOut {
 		}
 	}
 	
-	public static Dungeon fromJSON(String expType, String path, String feed, int lastUsedDungeonId, String gameMode, int ticks) throws IOException {
+	/**
+	 * Extracts a Dungeon from a .json file
+	 * @param expType the type of extraction desired, e.g. "new", "load", "rewind".
+	 * @param fileString the .json file as a string
+	 * @param feed the name of the dungeon
+	 * @param lastUsedDungeonId the last used Id for the games in the controller
+	 * @param gameMode the mode the dungeon should be played in. Should be null for load and rewind.
+	 * @param ticks the number of ticks the user is rewinding by, used for loading when rewinding.
+	 * @return the appropriate dungeon.
+	 * @throws IOException if the dungeon cannot be loaded.
+	 */
+	public static Dungeon fromJSON(String expType, String fileString, String feed, int lastUsedDungeonId, String gameMode, int ticks) throws IOException {
         List<Entity> entityList = new ArrayList<>();
 		List<CollectableEntity> returnInv = new ArrayList<>();
 		String goals = null;
@@ -59,7 +61,7 @@ public class GameInOut {
 		String goalsConvert = "";
 
 		try {
-            Map<String, Object> jsonMap = new Gson().fromJson(path, Map.class);
+            Map<String, Object> jsonMap = new Gson().fromJson(fileString, Map.class);
 
 			if (expType.equals("load") || expType.equals("rewind")) {
 				playMode = (String)jsonMap.get("gameMode"); 
@@ -411,8 +413,8 @@ public class GameInOut {
 
 	/**
 	 * Extract the goals from a .json dungeon
-	 * @param goal
-	 * @return
+	 * @param goal the goal as a JSONObject
+	 * @return an appropriate goalNode, to be stored in the dungeon.
 	 */
 	public static GoalNode createGoals (JSONObject goal) {
 		String current = goal.getString("goal");

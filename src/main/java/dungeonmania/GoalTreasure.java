@@ -1,7 +1,5 @@
 package dungeonmania;
 
-import org.json.JSONObject;
-
 import dungeonmania.allEntities.Treasure;
 
 public class GoalTreasure implements GoalNode{

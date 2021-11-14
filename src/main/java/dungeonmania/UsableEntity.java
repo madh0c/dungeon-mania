@@ -6,20 +6,14 @@ import dungeonmania.util.Position;
 
 public abstract class UsableEntity extends CollectableEntity {
 
-	/**
-	 * Amount of uses of the UsableEntity left
-	 */
+	/* Amount of uses of the UsableEntity left */
 	int durability;
 
 	public UsableEntity(String id, Position position, String type, int durability) {
 		super(id, position, type);
 		this.durability = durability;
 	}
-
-	// public UsableEntity(String id, Position position, String type) {
-	// 	super(id, position, type);
-	// }
-
+	
 	/**
 	 * Use an item in battle<ul>
 	 * <li> Adds attack damage to player for certain items

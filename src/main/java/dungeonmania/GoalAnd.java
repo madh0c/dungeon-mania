@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 public class GoalAnd implements GoalNode{
 	private List<GoalNode> subGoals = new ArrayList<>();
 	private String operator;
