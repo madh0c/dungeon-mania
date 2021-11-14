@@ -42,6 +42,11 @@ public abstract class Entity {
 		this.position = position;
 	}
 
+	/**
+	 * Returns a boolean if the entity is interactable or not, ie. can the user click on it and interact with it 
+	 * during the course of the game.
+	 * @return If the entity is interactable.
+	 */
     public boolean isInteractable() {
 		List <String> interactableTypes = new ArrayList<>();
 		interactableTypes.add("player");
@@ -53,7 +58,10 @@ public abstract class Entity {
         return (interactableTypes.contains(type));
     }
 
-
+	/**
+	 * Custom equals method for entities. Compares the current entity with another entity.
+	 * @param obj the entity to compared the current entity with.
+	 */
 	public boolean equals(Object obj) {
 		if (obj == null) {
 			return false;

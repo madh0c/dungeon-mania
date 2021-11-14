@@ -2,13 +2,9 @@ package dungeonmania;
 
 import java.util.List;
 import java.util.Random;
-
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 import dungeonmania.allEntities.*;
-import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.*;
 
 public class Dungeon {
@@ -19,21 +15,15 @@ public class Dungeon {
     private String gameMode;
     private String goals;
 	private int historicalEntCount;
-	/**
-	 * Current tick of the dungeon
-	 */
+	/*  Current tick of the dungeon */
 	private int tickNumber;
 	private Position spawnpoint;
 	private GoalNode foundGoals;
 	private String goalConditions;
 	private EntityFactory factory;
-	/**
-	 * Number of ticks before a Mercenary spawns
-	 */
+	/* Number of ticks before a Mercenary spawns */
 	private int mercSpawnrate;
-	/**
-	 * Number of ticks before a Spider spawns
-	 */
+	/* Number of ticks before a Spider spawns */
 	private int spiderSpawnrate;
 	private String rewindPath;
 
@@ -48,6 +38,7 @@ public class Dungeon {
 		this.historicalEntCount = entities.size();
 		this.foundGoals = foundGoals;
 		this.goalConditions = goalConditions;
+		
 		// Initialise gamemode
 		if (gameMode.equals("peaceful")) {
 			this.factory = new PeacefulFactory();

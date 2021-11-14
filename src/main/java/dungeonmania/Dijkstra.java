@@ -14,6 +14,12 @@ import dungeonmania.util.Position;
  */
 public interface Dijkstra {
 
+	/**
+	 * This method returns the most optimal position for the Mercenary/Assassin to move onto in pursuit of the player.
+	 * @param source the source position (position of the Mercenary/Assassin)
+	 * @param currentDungeon the current Dungeon
+	 * @return the most optimal position for the Mercenary/Assassin to move onto 
+	 */
 	public static Position move(Position source, Dungeon currentDungeon) {
 		int minX = currentDungeon.getMinX() - 1;
 		int maxX = currentDungeon.getMaxX() + 1;
@@ -29,9 +35,13 @@ public interface Dijkstra {
 	 * createGraph creates a weighted graph of the current dungeon. If the Mercenary/Assassin is unable to traverse through
 	 * a cell during the the tick, an edge will not exist between the two cell. Edges only exist between adjacent 
 	 * cell on the physical map. The weight of each edge represents twice the number of ticks required for the 
-	 * Mercenary/Assassin to traverse from one cell to the other.
-	 * @param currentDungeon
-	 * @return
+	 * Mercenary/Assassin to traverse from one cell to the other. The X and Y values are made to be most efficient for time complexity
+	 * @param currentDungeon the current Dungeon
+	 * @param minX the minimum X value to be considered by Dijkstra's algortihm
+	 * @param minY the minimum Y value to be considered by Dijkstra's algortihm
+	 * @param maxX the maximum X value to be considered by Dijkstra's algortihm
+	 * @param maxY the maximum Y value to be considered by Dijkstra's algortihm
+	 * @return a graph of the current grid, represented as a nested map
 	 */
 	public static Map<Position, Map<Position, Integer>> createGraph(Dungeon currentDungeon, int minX, int minY, int maxX, int maxY) {
 		Map<Position, Map<Position, Integer>> dungeonMap = new HashMap<>();
@@ -68,7 +78,7 @@ public interface Dijkstra {
 				/* A helper function returns a map with the key of the entries being positions of the adjacent cells 
 				traversable by the Merc/Assasin during the current tick, and the values being the appropriate weight of the c
 				orresponding edge as the value of each entry */
-				Map<Position, Integer> outPaths = entHelper(currPos, currentDungeon, entOnCell, mercIllegal);
+				Map<Position, Integer> outPaths = entHelper(currPos, currentDungeon, mercIllegal);
 
 				/* If there exist at least one traversable adjacent cell for the current position, the information will be 
 				put inside the dungeonMap */
@@ -84,13 +94,13 @@ public interface Dijkstra {
 	 * A helper function returns a map with the key of the entries being positions of the adjacent cells 
 	 * traversable by the Merc/Assasin during the current tick, and the values being the appropriate weight of the
 	 * corresponding edge as the value of each entry.
-	 * @param currPos
-	 * @param currentDungeon
-	 * @param entOnCell
-	 * @param mercIllegal
-	 * @return
+	 * @param currPos current position of the grid being analysed
+	 * @param currentDungeon the current Dungeon
+	 * @param mercIllegal a list of entity types the Mercenary/Assassin cannot collide with, thus they will avoid colliding with
+	 * cells containg such entities in Dijkstra's algortihm, ie. an edge will not be created.
+	 * @return the nested map for each entity
 	 */
-	public static Map<Position, Integer> entHelper(Position currPos, Dungeon currentDungeon, List<Entity >entOnCell, List<String> mercIllegal) {
+	public static Map<Position, Integer> entHelper(Position currPos, Dungeon currentDungeon, List<String> mercIllegal) {
 		List<Position> adjPos = currPos.getCardinallyAdjPositions();
 		
 		Map<Position, Integer> outPaths = new HashMap<>();
@@ -121,12 +131,14 @@ public interface Dijkstra {
 	 * A Method that traverses through the above created weighted graph and executes Dijkstra's algortithm, returning the next
 	 * position the Merc/Assasin should go to next tot maximise efficiency chasing the player. Pseudocode sourced from the 
 	 * project specification: https://gitlab.cse.unsw.edu.au/COMP2511/21T3/project-specification/-/blob/master/M3.md.
-	 * @param height
-	 * @param width
-	 * @param source
-	 * @param destination
-	 * @param dungeonMap
-	 * @return
+	 * @param source the current position of the Mercenary/Assessin
+	 * @param destination the current position of the player
+	 * @param dungeonMap the graph of the dungeon
+	 * @param minX the minimum X value to be considered by Dijkstra's algortihm
+	 * @param minY the minimum Y value to be considered by Dijkstra's algortihm
+	 * @param maxX the maximum X value to be considered by Dijkstra's algortihm
+	 * @param maxY the maximum Y value to be considered by Dijkstra's algortihm
+	 * @return the next position for the Mercenary/Assassin to move onto
 	 */
 	public static Position traverse(Position source, Position destination, Map<Position, Map<Position, Integer>> dungeonMap, int minX, int minY, int maxX, int maxY) {
 		Map<Position, Double> dist = new HashMap<>();
@@ -178,18 +190,19 @@ public interface Dijkstra {
 		}
 		
 		if (dist.get(destination) != Double.POSITIVE_INFINITY) {
-			return nextPos(destination, source, prev, destination); 		
+			return nextPos(destination, source, prev); 		
 		} return null;
 	}
 	
 	/**
-	 * A recursive helper function that ensures the most optimal next position for the Merc/Assassin is returned.
-	 * @param currPos
-	 * @param source
-	 * @param prev
-	 * @return
+	 * A helper function that ensures the most optimal next position for the Merc/Assassin is returned.
+	 * @param currPos the current position of the player
+	 * @param source the current position of the Mercenary/Assassin
+	 * @param prev the map that holds the shortest path between the Mercenary and Player
+	 * @return the next position for the Mercenary/Assassin to traverse onto
 	*/
-	public static Position nextPos(Position currPos, Position source, Map<Position, Position> prev, Position returnPos) {
+	public static Position nextPos(Position currPos, Position source, Map<Position, Position> prev) {
+		Position returnPos = null;
 		while (!prev.get(currPos).equals(source)) {
 			currPos = prev.get(currPos);
 		} if (prev.get(currPos).equals(source)) {

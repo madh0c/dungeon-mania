@@ -15,7 +15,7 @@ public abstract class DurableEntity extends CollectableEntity {
 		super(id, position, type);
 		this.durability = durability;
 	}
-
+	
 	/**
 	 * Use an item in battle<ul>
 	 * <li> Adds attack damage to player for certain items

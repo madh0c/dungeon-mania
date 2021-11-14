@@ -4,6 +4,7 @@ import dungeonmania.allEntities.*;
 import dungeonmania.util.Position;
 
 public class PeacefulFactory extends EntityFactory {
+	
 	@Override
 	public Player createPlayer(String id, Position position) {
 		Player player = new Player(id, position, 100, false, 8);

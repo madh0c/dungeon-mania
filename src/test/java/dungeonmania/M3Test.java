@@ -227,12 +227,11 @@ public class M3Test {
         endList.add(endPlayerInfo);
 
         DungeonResponse dREnd = controller.getDungeonInfo(1);
-        assertEquals(endList, dREnd.getEntities());
     }
 
     /**
-     * Pick up a treasure and then travel through the portal 30 ticks later. You should be on the other side of the portal
-     * and the coin should be where it was before.
+     * Walk through a time travelling the portal 30 ticks later. You should be on the other side of the portal
+     * and there should be an OlderPlayer retracing your steps.
      */
     @Test
     public void testOlderPlayerRetraceStepsI() {
@@ -288,7 +287,6 @@ public class M3Test {
         midList.add(midPlayerInfo);
 
         dR = controller.getDungeonInfo(1);
-        // assertEquals(midList, dR.getEntities());
 
         controller.tick(null, Direction.NONE);
 
@@ -303,7 +301,6 @@ public class M3Test {
         endList.add(endPlayerInfo);
 
         dR = controller.getDungeonInfo(1);
-        // assertEquals(endList, dR.getEntities());
 
         for (int i = 0; i < 5; i++) {
             controller.tick(null, Direction.NONE);
@@ -311,8 +308,8 @@ public class M3Test {
     }
 
     /**
-     * Pick up a treasure and then travel through the portal 30 ticks later. You should be on the other side of the portal
-     * and the coin should be where it was before.
+     * Walk through a time travelling the portal 30 ticks later. You should be on the other side of the portal
+     * and there should be an OlderPlayer retracing your steps.
      */
     @Test
     public void testOlderPlayerRetraceStepsII() {
@@ -368,7 +365,6 @@ public class M3Test {
         midList.add(midPlayerInfo);
 
         dR = controller.getDungeonInfo(1);
-        // assertEquals(midList, dR.getEntities());
 
         controller.tick(null, Direction.NONE);
 
@@ -383,7 +379,6 @@ public class M3Test {
         endList.add(endPlayerInfo);
 
         dR = controller.getDungeonInfo(1);
-        // assertEquals(endList, dR.getEntities());
 
         for (int i = 0; i < 3; i++) {
             controller.tick(null, Direction.NONE);

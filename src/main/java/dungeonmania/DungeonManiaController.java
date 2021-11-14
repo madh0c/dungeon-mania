@@ -35,7 +35,6 @@ public class DungeonManiaController {
 
 	}
 
-
 	public String getSkin() {
 		return "default";		
 	}
@@ -45,10 +44,18 @@ public class DungeonManiaController {
 	
 	}
 
+	/**
+	 * Getter for supported gameModes.
+	 * @return a list of supported gameModes as strings.
+	 */
 	public List<String> getGameModes() {
 		return Arrays.asList("standard", "peaceful", "hard");
 	}
 
+	/**
+	 * Getter for the frontend animations to be executed during the play experience.
+	 * @return a list of animation queues to be executed.
+	 */
 	public List<AnimationQueue> getAnimations() {
 		List<AnimationQueue> newAnimation = new ArrayList<>();
 		if (currentDungeon.getPlayer() != null) {
@@ -85,6 +92,10 @@ public class DungeonManiaController {
 		}
 	}
 
+	/**
+	 * Custom getter for dungeons; does not interfere with gradle.
+	 * @return a list of dungeons current available, as strings.
+	 */
 	public static List<String> getDungeons() {
 
 		String[] dungeons;
@@ -101,9 +112,7 @@ public class DungeonManiaController {
         // Put every file name into a list
         for (String dungeonFile : dungeons) {
             returnList.add(dungeonFile.replace(".json", ""));
-		}
-
-		return returnList;
+		} return returnList;
 	}
 
 	/**
@@ -119,8 +128,8 @@ public class DungeonManiaController {
 		String fileName = (dungeonName + ".json"); 
 
 		try {
-			String path = FileLoader.loadResourceFile("/dungeons/" + fileName);
-			currentDungeon = GameInOut.fromJSON("new", path, dungeonName, lastUsedDungeonId, gameMode, 0);
+			String fileString = FileLoader.loadResourceFile("/dungeons/" + fileName);
+			currentDungeon = GameInOut.fromJSON("new", fileString, dungeonName, lastUsedDungeonId, gameMode, 0);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -181,6 +190,7 @@ public class DungeonManiaController {
 		for (Dungeon dungeon : games) {
 			if (dungeon.getId() == dungeonId) {
 				target = dungeon;
+				break;
 			}
 		}
 
@@ -196,16 +206,12 @@ public class DungeonManiaController {
 			inventory.add(new ItemResponse(collectableEntity.getId(), collectableEntity.getType()));
 		}
 
-		
-		return new DungeonResponse(
-			String.valueOf(target.getId()), 
-			target.getName(), 
-			listER, 
-			inventory, 
-			target.getBuildables(),             
-			target.getGoals(),
-			this.getAnimations()
-		);
+		String retId = String.valueOf(target.getId());
+		String retName = target.getName();
+		List<String> retBuild = target.getBuildables();
+		String retGoals = target.getGoals();
+
+		return new DungeonResponse(retId, retName, listER, inventory, retBuild, retGoals, this.getAnimations());
 	}
 
 	/**
@@ -216,22 +222,12 @@ public class DungeonManiaController {
 	 * @throws IllegalArgumentException	If not a real file, or not a real gamemode
 	 */
 	public void checkValidNewGame(String dungeonName, String gameMode) throws IllegalArgumentException {
-		boolean gameExists = false;
-		if (getDungeons().contains(dungeonName)) {
-			gameExists = true;
-		}
-		
-		if (gameExists == false) {
-			throw new IllegalArgumentException("Invalid Dungeon Map Passed; Requested Dungeon Does Not Exist");
-		}
 
 		if (!this.getGameModes().contains(gameMode)) {
 			throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard");
+		} else if (!getDungeons().contains(dungeonName)) {
+			throw new IllegalArgumentException("Invalid Dungeon Map Passed; Requested Dungeon Does Not Exist");
 		}
-	}
-	
-	public Dungeon getDungeon(int dungeonId) {
-		return games.get(dungeonId);
 	}
 
 	/**
@@ -270,16 +266,12 @@ public class DungeonManiaController {
 		String feed = name.replaceFirst(".json", "");
 		String fileName = (feed + ".json"); 
 
-		// String path = FileLoader.loadResourceFile(rewindPath);
-		// String path = FileLoader.loadResourceFile("/savedGames/" + fileName);
-
-
 		try {
 			File loadFile = new File("persistence/savedGames/" + fileName);
 			byte[] byteArray = Files.readAllBytes(loadFile.toPath());
-			String path = new String(byteArray);
+			String fileString = new String(byteArray);
 
-			currentDungeon = GameInOut.fromJSON("load", path, feed, lastUsedDungeonId, null, 0);
+			currentDungeon = GameInOut.fromJSON("load", fileString, feed, lastUsedDungeonId, null, 0);
 			setLastUsedDungeonId(getLastUsedDungeonId() + 1);
 			games.add(currentDungeon);
 			
@@ -322,7 +314,10 @@ public class DungeonManiaController {
 		}
 	}
 
-
+	/**
+	 * Returns a list of all the games that can be played by the user.
+	 * @return the list of game names, stored as Strings.
+	 */
 	public List<String> allGames() {
 		String[] games;
 		// Creates a new File instance by converting the given pathname string
@@ -361,7 +356,7 @@ public class DungeonManiaController {
 		checkValidTick(itemUsed);
 
 		// TODO UNCOMMENT
-		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
+		saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 		
 		Player player = currentDungeon.getPlayer();
 
@@ -398,17 +393,19 @@ public class DungeonManiaController {
 	}
 
 	/**
-	 * Checks if the itemUsed is able to be used
-	 * @param itemUsed
+	 * Checks if the itemUsed is able to be used.
+	 * @param itemUsedId the Id of the item the player wants to use.
+	 * @throws IllegalArgumentException if the Id corresponds to an item that does not exist in the player's inventory.
+	 * @throws InvalidActionException if the Id corresponds to an item that is not usable.
 	 */
-	public void checkValidTick(String itemUsed) throws IllegalArgumentException, InvalidActionException {
+	public void checkValidTick(String itemUsedId) throws IllegalArgumentException, InvalidActionException {
 		
 		boolean itemInInventory = false;
 
 		CollectableEntity objectUsed = null; 
-		if (itemUsed != null) {
+		if (itemUsedId != null) {
 			for (CollectableEntity inv : currentDungeon.getInventory()) {
-				if (inv.getId().equals(itemUsed)) {
+				if (inv.getId().equals(itemUsedId)) {
 					objectUsed = inv;
 					itemInInventory = true;
 					break;
@@ -416,7 +413,7 @@ public class DungeonManiaController {
 			}
 		}
 
-		if (itemUsed == null) {
+		if (itemUsedId == null) {
 			itemInInventory = true;
 		}
 
@@ -443,6 +440,11 @@ public class DungeonManiaController {
 		
 	}
 
+	/**
+	 * Dynamically evaluates if the goals of the dungeon have been achieved during this tick, or if goals will return.
+	 * @param currentDungeon the current Dungeon
+	 * @param head the head node of the goals tree
+	 */
 	public void evalGoal(Dungeon currentDungeon, GoalNode head) {
 		if (head instanceof GoalAnd) {
 			GoalAnd headAnd = (GoalAnd) head;
@@ -496,10 +498,10 @@ public class DungeonManiaController {
 
 
 	/**
-	 * Checks if given entity is a valid interaction
-	 * @param entityId
-	 * @throws IllegalArgumentException
-	 * @throws InvalidActionException
+	 * Checks if given entity is a valid interaction.
+	 * @param entityId the id of the enity the player wishes to interact with.
+	 * @throws IllegalArgumentException if there is no entity on the map with matching id.
+	 * @throws InvalidActionException if the player is out of range or lacks the resources to interact with the desired entity.
 	 */
 	public void checkValidInteract(String entityId) throws IllegalArgumentException, InvalidActionException{
 		if (currentDungeon.getEntity(entityId) == null) {
@@ -507,8 +509,7 @@ public class DungeonManiaController {
 		}
 
 		Entity interactEntity = currentDungeon.getEntity(entityId);
-
-		List<CollectableEntity> currentInventory = currentDungeon.getInventory();
+ 		List<CollectableEntity> currentInventory = currentDungeon.getInventory();
 
 		boolean hasGold = false;
 		boolean hasWeapon = false;
@@ -529,7 +530,6 @@ public class DungeonManiaController {
 
 		Position playerPosition = currentDungeon.getPlayerPosition();
 		Position entityPosition = currentDungeon.getEntity(entityId).getPosition();
-
 
 		if (interactEntity.getType().equals("zombie_toast_spawner")) {
 			if (!Position.isCardinallyAdjacent(playerPosition, entityPosition)) {
@@ -555,7 +555,7 @@ public class DungeonManiaController {
 	/**
 	 * Build a given entity
 	 * @param buildable	entity to be built
-	 * @return		DungeonResponse after build
+	 * @return DungeonResponse after build
 	 * @throws IllegalArgumentException	If entity cannot be used in build
 	 * @throws InvalidActionException	If not enough items to build
 	 */
@@ -587,10 +587,15 @@ public class DungeonManiaController {
 			currentInventory.add(midnightArmour);
 			MidnightArmour midnightArmourBuilt = (MidnightArmour) midnightArmour;
 			midnightArmourBuilt.build(currentDungeon);
-		}
-		return getDungeonInfo(currentDungeon.getId());
+		} return getDungeonInfo(currentDungeon.getId());
 	}
 
+	/**
+	 * A helper function that checks if a player can build a specific item.
+	 * @param buildable the item type the player wishes to build.
+	 * @throws IllegalArgumentException if the player wants to build something that can't be crafted.
+	 * @throws InvalidActionException if the player does not have sufficient items to build the item.
+	 */
 	public void checkValidBuild(String buildable) throws IllegalArgumentException, InvalidActionException{
 		List<String> permittedBuild = new ArrayList<String>();
 		permittedBuild.add("bow");
@@ -608,6 +613,12 @@ public class DungeonManiaController {
 		}
 	}
 
+	/**
+	 * Milestone 3 Extension Part I: Allows the player to time travel if they possess a time turner.
+	 * @param ticks the number of ticks to rewind the game by
+	 * @return DungeonResponse
+	 * @throws IllegalArgumentException if ticks <= 0 (you cant travel into the future)
+	 */
 	public DungeonResponse rewind(int ticks) throws IllegalArgumentException {
 		if (ticks <= 0) {
 			throw new IllegalArgumentException("Invalid Ticks Passed; Ticks Strictly <= 0.");
@@ -624,11 +635,9 @@ public class DungeonManiaController {
 
 			File loadFile = new File("persistence" + rewindPath);
 			byte[] byteArray = Files.readAllBytes(loadFile.toPath());
-			String path = new String(byteArray);
+			String fileString = new String(byteArray);
 
-			// String path = FileLoader.loadResourceFile(rewindPath);
-
-			Dungeon rewindDungeon = GameInOut.fromJSON("rewind", path, currentDungeon.getName(), lastUsedDungeonId, null, ticks);
+			Dungeon rewindDungeon = GameInOut.fromJSON("rewind", fileString, currentDungeon.getName(), lastUsedDungeonId, null, ticks);
 			
 			for (Entity ent : rewindDungeon.getEntities()) {
 				if (ent instanceof Switch) {
@@ -642,6 +651,7 @@ public class DungeonManiaController {
 					}
 				}
 			}
+
 			rewindDungeon.setHistoricalEntCount(currentDungeon.getHistoricalEntCount());
 			Player actualPlayer = currentDungeon.getPlayer();
 			String aPId = String.valueOf(currentDungeon.getHistoricalEntCount());
@@ -667,9 +677,9 @@ public class DungeonManiaController {
 	}
 
 	/**
-	 * Save a game into a file in /resources/rewind
+	 * Save a game into a file in /persistence/rewind
 	 * @throws IllegalArgumentException	If the given file name is not a real file
-	 * @return	DungeonResponse
+	 * @return	DungeonResponse of the rewinded state
 	 */
 	public void saveRewind(String rewindPath, int tick, Dungeon currentDundeon) throws IllegalArgumentException {
 		String feed = "tick-" + tick;
@@ -677,15 +687,25 @@ public class DungeonManiaController {
 		String path = (rewindPath + feed + ".json"); 
 
 		try {
-			GameInOut.saveRewind("persistence" + path, currentDungeon);
+			GameInOut.toJSON(feed, "persistence" + path, currentDungeon);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Milestone 3 Extension Part II: Generates a randomised dungeon via Prim's algortihm
+	 * @param xStart the x coordinate of the starting position
+	 * @param yStart the x coordinate of the starting position
+	 * @param xEnd the x coordinate of the destination
+	 * @param yEnd the x coordinate of the destination
+	 * @param gameMode the gameMode (peaceful, standard, hard) the dungeon is to be played
+	 * @return DungeonResponse
+	 * @throws IllegalArgumentException if an invalid gamemode is passed.
+	 */
 	public DungeonResponse generateDungeon(int xStart, int yStart, int xEnd, int yEnd, String gameMode) throws IllegalArgumentException {
 		if (!this.getGameModes().contains(gameMode)) {
-			throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: Standard, Peaceful, Hard.");
+			throw new IllegalArgumentException("Invalid Game Mode Passed; Supported Game Modes: standard, peaceful, hard.");
 		}
 		Position startPos = new Position(xStart, yStart);
 		Position endPos = new Position(xEnd, yEnd);
@@ -697,6 +717,11 @@ public class DungeonManiaController {
 		
 		return getDungeonInfo(currentDungeon.getId());
 	}
+	
+	public Dungeon getDungeon(int dungeonId) {
+		return games.get(dungeonId);
+	}
+
 
 	public int getLastUsedDungeonId() {
 		return lastUsedDungeonId;
