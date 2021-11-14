@@ -475,12 +475,39 @@ public class Dungeon {
 	}
 
 	/**
+	 * Spawns in Mercenary, ZombieToast and Spider
+	 * Mercenary spawnrate:<ul>
+	 * <li> Peaceful: 20 ticks
+	 * <li> Standard: 20 ticks
+	 * <li> Hard: 10 ticks
+	 * </ul>
+	 * ZombieToast spawnrate:<ul>
+	 * <li> Peaceful: 20 ticks
+	 * <li> Standard: 20 ticks
+	 * <li> Hard: 15 ticks
+	 * </ul>
+	 * Spider spawnrate:<ul>
+	 * <li> Peaceful: 20 ticks
+	 * <li> Standard: 20 ticks
+	 * <li> Hard: 15 ticks
+	 * </ul>
+	 */
+	public void spawnEntities() {
+		// Spawn in mercenary if appropriate
+		mercSpawn();
+		// Spawn in Zombie if appropriate
+		zombieSpawn();
+		// Spawn in spider if appropriate
+		spiderSpawn();
+	}
+
+	/**
 	 * Spawn in a mercenary at the spawnpoint at certain intervals depending on gamemode
 	 * <ul><li>Peaceful: Every 20 ticks
 	 * <li>Standard: Every 20 ticks
 	 * <li>Hard: Every 10 ticks</ul>
 	 */
-	public void spawnMerc() {
+	private void mercSpawn() {
 		// Check if correct tick to spawn merc
 		if (getTickNumber() % getMercSpawnrate() != 0 || getTickNumber() == 0) {
 			return;
@@ -513,13 +540,36 @@ public class Dungeon {
 	}
 
 	/**
+	 * Spawn in a zombie_toast<ul>
+	 * <li> Peaceful: 20 ticks
+	 * <li> Standard: 20 ticks
+	 * <li> Hard: 15 ticks
+	 * </ul>
+	 */
+	private void zombieSpawn() {
+		// Spawn in zombies if appropriate
+		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
+
+		for (Entity entity : getEntities()) {
+			if (entity.getType().equals("zombie_toast_spawner")) {
+				ZombieToastSpawner spawner = (ZombieToastSpawner)entity;
+				spawners.add(spawner);
+			}
+		}
+		// Spawn in new zombietoast after 20 ticks (20 ticks checked inside method)
+		for (ZombieToastSpawner spawner : spawners) {
+			spawner.spawnZombie(this);
+		}
+	}
+
+	/**
 	 * Spawn in a spider<ul>
 	 * <li> Peaceful: 20 ticks
 	 * <li> Standard: 20 ticks
-	 * <li> Hard: 20 ticks
+	 * <li> Hard: 15 ticks
 	 * </ul>
 	 */
-	public void spiderSpawn() {
+	private void spiderSpawn() {
 		// Ignore if not the right number of ticks
 		if (getTickNumber() % spiderSpawnrate != 0 || getTickNumber() == 0) return;
 		// If more than four spiders, don't spawn

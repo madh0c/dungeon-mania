@@ -358,6 +358,7 @@ public class DungeonManiaController {
 	 * @throws InvalidActionException
 	 */
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
+		// PREVIOUS TICK ACTIONS
 		checkValidTick(itemUsed);
 
 		// TODO UNCOMMENT
@@ -375,6 +376,8 @@ public class DungeonManiaController {
 			}
 		}
 
+		// NEXT TICK ACTIONS
+		// Tick the dungeon once
 		currentDungeon.tickOne();
 
 		// Player actions
@@ -449,26 +452,9 @@ public class DungeonManiaController {
 		if (toRemove.size() != 0) {
 			currentDungeon.getEntities().removeAll(toRemove);
 		}		
-		
-		// Spawn in mercenary if appropriate
-		currentDungeon.spawnMerc();
 
-		// Spawn in zombies if appropriate
-		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
-
-		for (Entity entity : currentDungeon.getEntities()) {
-			if (entity.getType().equals("zombie_toast_spawner")) {
-				ZombieToastSpawner spawner = (ZombieToastSpawner)entity;
-				spawners.add(spawner);
-			}
-		}
-		// Spawn in new zombietoast after 20 ticks (20 ticks checked inside method)
-		for (ZombieToastSpawner spawner : spawners) {
-			spawner.spawnZombie(currentDungeon);
-		}
-
-		// Spawn in spider if appropriate
-		currentDungeon.spiderSpawn();
+		// Spawn in the entities which need to be spawned in
+		currentDungeon.spawnEntities();
 		
 		evalGoal(currentDungeon);
 		return getDungeonInfo(currentDungeon.getId());

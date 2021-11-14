@@ -68,9 +68,11 @@ public class MiscTest {
             controller.tick(null, Direction.RIGHT);
         }
 		// Add spider to expected list
-		Position spiderPos = controller.getDungeon(0).getEntity("7").getPosition();
-		EntityResponse midSpider = new EntityResponse("7", "spider", spiderPos, false);
-		midList.add(midSpider);
+		if (controller.getDungeon(0).entityExists("spider")) {
+			Position spiderPos = controller.getDungeon(0).getEntity("7").getPosition();
+			EntityResponse midSpider = new EntityResponse("7", "spider", spiderPos, false);
+			midList.add(midSpider);
+		}
 
         List<ItemResponse> expInvList = new ArrayList<ItemResponse>();
 
