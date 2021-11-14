@@ -6,6 +6,7 @@ import java.util.Random;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import dungeonmania.allEntities.*;
 import dungeonmania.exceptions.InvalidActionException;

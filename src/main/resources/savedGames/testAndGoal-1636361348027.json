@@ -3,6 +3,7 @@
   "name": "testAndGoal",
   "inventory": [
     {
+<<<<<<< HEAD
       "durability": 10,
       "position": {
         "x": 1,
@@ -10,6 +11,19 @@
         "layer": 0
       },
       "type": "armour",
+=======
+      "random": {
+        "seed": 271412688381981,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "position": {
+        "x": 0,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "one_ring",
+>>>>>>> master
       "id": "3"
     }
   ],
