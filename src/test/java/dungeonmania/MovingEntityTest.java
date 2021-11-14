@@ -811,6 +811,7 @@ public class MovingEntityTest {
 		assertTrue(controller.getDungeon(0).entityExists("hydra"));
 		
 		controller.tick(null, Direction.LEFT);
+		assertTrue(controller.getDungeon(0).entityExists("player"));
 		assertFalse(controller.getDungeon(0).entityExists("hydra"));
 		
 	}
