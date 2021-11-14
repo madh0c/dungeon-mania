@@ -40,18 +40,6 @@ public class GoalOr implements GoalNode{
 		}	
 	}
 
-	@Override
-    public JSONObject saveGameJSON() {
-        JSONObject compositeOrJSON = new JSONObject();
-        compositeOrJSON.put("goal", operator);
-
-        JSONArray subGoalsJSON = new JSONArray();
-        subGoals.stream().map(GoalNode :: saveGameJSON).forEach(x -> subGoalsJSON.put(x));
-        
-        compositeOrJSON.put("subgoals", subGoalsJSON);
-        return compositeOrJSON;
-    }
-
 	public boolean add(GoalNode goal) {
 		subGoals.add(goal);
 		return true;
@@ -59,10 +47,6 @@ public class GoalOr implements GoalNode{
 
 	public List<GoalNode> getList() {
 		return subGoals;
-	}
-
-	public void setHasCompleted(Boolean hasCompleted) {
-		this.hasCompleted = hasCompleted;
 	}
 
 }

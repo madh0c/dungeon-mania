@@ -32,7 +32,6 @@ public class GameInOut {
 			gson.toJson(dungeon, writer);
 			writer.flush(); 
         	writer.close();
-			System.out.println("hey");
 		} catch (Exception e) {
 			System.out.println("Game Doesn't Exist");
 		}
@@ -395,7 +394,6 @@ public class GameInOut {
 				returnDungeon.setTickNumber(tickNumber);
 				returnDungeon.setSpawnpoint(spawnpoint); 
 				returnDungeon.setFoundGoals(foundGoals);
-				returnDungeon.setGoalConditions(goalsConvert);
 			}
 
 			if (expType.equals("rewind") || expType.equals("load")) {

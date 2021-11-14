@@ -34,12 +34,4 @@ public class GoalBoulders implements GoalNode{
 		}
 		return ":" + this.goal;
 	}
-
-	@Override
-	public JSONObject saveGameJSON() {
-		JSONObject compositeLeafJSON = new JSONObject();
-        compositeLeafJSON.put("goal", goal);
-		return compositeLeafJSON;
-	}
-	
 }

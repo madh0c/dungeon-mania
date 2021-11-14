@@ -1135,12 +1135,12 @@
   "foundGoals": {
     "subGoals": [
       {
-        "goal": "enemies",
-        "hasCompleted": false
+        "hasCompleted": false,
+        "goal": "enemies"
       },
       {
-        "goal": "treasure",
-        "hasCompleted": false
+        "hasCompleted": false,
+        "goal": "treasure"
       }
     ],
     "operator": "AND",

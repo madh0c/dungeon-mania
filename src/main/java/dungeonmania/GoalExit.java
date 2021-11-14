@@ -38,11 +38,4 @@ public class GoalExit implements GoalNode{
 		}
 		return ":" + goal;
 	}
-
-	@Override
-	public JSONObject saveGameJSON() {
-		JSONObject compositeLeafJSON = new JSONObject();
-        compositeLeafJSON.put("goal", goal);
-		return compositeLeafJSON;
-	}
 }
