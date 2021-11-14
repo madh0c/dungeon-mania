@@ -65,9 +65,15 @@
       "id": "3"
     },
     {
+<<<<<<< HEAD
+      "randSeed": 8,
+      "random": {
+        "seed": 25214903909,
+=======
       "randSeed": 56,
       "random": {
         "seed": 25214903893,
+>>>>>>> master
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },

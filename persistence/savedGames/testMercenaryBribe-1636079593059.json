@@ -1,7 +1,17 @@
 {
   "id": 1,
   "name": "testMercenaryBribe-1636079593059",
-  "inventory": [],
+  "inventory": [
+    {
+      "position": {
+        "x": 3,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "one_ring",
+      "id": "5"
+    }
+  ],
   "entities": [
     {
       "isAlly": true,
@@ -84,7 +94,7 @@
   ],
   "gameMode": "standard",
   "goals": "",
-  "historicalEntCount": 7,
+  "historicalEntCount": 8,
   "tickNumber": 45,
   "spawnpoint": {
     "x": 1,
