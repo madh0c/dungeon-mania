@@ -15,15 +15,21 @@ public class Dungeon {
     private String gameMode;
     private String goals;
 	private int historicalEntCount;
-	/*  Current tick of the dungeon */
+	/**
+	 * Current tick of the dungeon 
+	 */
 	private int tickNumber;
 	private Position spawnpoint;
 	private GoalNode foundGoals;
 	private String goalConditions;
 	private EntityFactory factory;
-	/* Number of ticks before a Mercenary spawns */
+	/**
+	 * Number of ticks before a Mercenary spawns
+	 */
 	private int mercSpawnrate;
-	/* Number of ticks before a Spider spawns */
+	/**
+	 * Number of ticks before a Spider spawns 
+	 */
 	private int spiderSpawnrate;
 	private String rewindPath;
 
@@ -59,15 +65,6 @@ public class Dungeon {
         return entities;
     }
 
-	/**
-	 * Add an entity to this dungeon, with id automatically calculated
-	 * @param newEntity	Entity to be added
-	 */
-    public void addEntity(Entity newEntity) {
-        this.entities.add(newEntity);
-		historicalEntCount++;
-    }
-
 	public int getId() {
 		return id;
 	}
@@ -88,17 +85,99 @@ public class Dungeon {
 		return foundGoals;
 	}
 
-	public void setFoundGoals(GoalNode foundGoals) {
-		this.foundGoals = foundGoals;
+	public int getMercSpawnrate() {
+		return mercSpawnrate;
+	}
+
+	public String getRewindPath() {
+		return rewindPath;
+	}
+
+	/**
+	 * Get the x-coordinate of the closest to 0 Entity
+	 * @return
+	 */
+	public int getMinX() {
+		int retInt = 1000;
+		for (Entity ent : getEntities()) {
+			if (ent.getPosition().getX() < retInt) {
+				retInt = ent.getPosition().getX();
+			}
+		} return retInt;
+	}
+
+	/**
+	 * Get the x-coordinate of the furthest away Entity
+	 * @return
+	 */
+	public int getMaxX() {
+		int retInt = -1000;
+		for (Entity ent : getEntities()) {
+			if (ent.getPosition().getX() > retInt) {
+				retInt = ent.getPosition().getX();
+			}
+		} return retInt;
+	}
+
+	/**
+	 * Get the y-coordinate of the closest to 0 Entity
+	 * @return
+	 */
+	public int getMinY() {
+		int retInt = 1000;
+		for (Entity ent : getEntities()) {
+			if (ent.getPosition().getY() < retInt) {
+				retInt = ent.getPosition().getY();
+			}
+		} return retInt;
+	}
+
+	/**
+	 * Get the y-coordinate of the furthest away Entity
+	 * @return
+	 */
+	public int getMaxY() {
+		int retInt = -1000;
+		for (Entity ent : getEntities()) {
+			if (ent.getPosition().getY() > retInt) {
+				retInt = ent.getPosition().getY();
+			}
+		} return retInt;
+	}
+
+	/**
+	 * Returns the current tick of the dungeon
+	 * @return	tickNumber
+	 */
+	public int getTickNumber() {
+		return tickNumber;
+	}
+
+	public Position getSpawnpoint() {
+		return spawnpoint;
+	}
+
+	public int getHistoricalEntCount() {
+		return this.historicalEntCount;
 	}
 
 	public EntityFactory getFactory() {
 		return factory;
 	}
 
-	public void setInventory(List<CollectableEntity> inventory) {
-		this.inventory = inventory;
+	/**
+	 * @return the player entity of a dungeon
+	 */
+	public Player getPlayer() {
+		for (Entity entity : getEntities()) {
+			if (entity instanceof Player) {
+				return (Player)entity;
+			}	
+		}
+		return null;
 	}
+
+
 
 	/**
 	 * Return Entity of same id
@@ -164,155 +243,6 @@ public class Dungeon {
 	}
 
 	/**
-	 * Returns the current tick of the dungeon
-	 * @return	tickNumber
-	 */
-	public int getTickNumber() {
-		return tickNumber;
-	}
-
-	public int getMercSpawnrate() {
-		return mercSpawnrate;
-	}
-
-	public String getRewindPath() {
-		return rewindPath;
-	}
-
-	public void setRewindPath(String rewindPath) {
-		this.rewindPath = rewindPath;
-	}
-
-	public Position getSpawnpoint() {
-		return spawnpoint;
-	}
-
-	public int getMinX() {
-		int retInt = 1000;
-		for (Entity ent : getEntities()) {
-			if (ent.getPosition().getX() < retInt) {
-				retInt = ent.getPosition().getX();
-			}
-		} return retInt;
-	}
-
-	public int getMaxX() {
-		int retInt = -1000;
-		for (Entity ent : getEntities()) {
-			if (ent.getPosition().getX() > retInt) {
-				retInt = ent.getPosition().getX();
-			}
-		} return retInt;
-	}
-
-	public int getMinY() {
-		int retInt = 1000;
-		for (Entity ent : getEntities()) {
-			if (ent.getPosition().getY() < retInt) {
-				retInt = ent.getPosition().getY();
-			}
-		} return retInt;
-	}
-
-	public int getMaxY() {
-		int retInt = -1000;
-		for (Entity ent : getEntities()) {
-			if (ent.getPosition().getY() > retInt) {
-				retInt = ent.getPosition().getY();
-			}
-		} return retInt;
-	}
-
-	public void setSpawnpoint(Position spawnpoint) {
-		this.spawnpoint = spawnpoint;
-	}
-
-	/**
-	 * Add 1 to the dungeon's current tick
-	 */
-	public void tickOne() {
-		tickNumber++;
-	}
-
-	/**
-	 * Remove an item from the inventory
-	 * @param entity	Entity to be removed
-	 */
-	public void removeEntity(Entity entity) {
-		getEntities().remove(entity);
-	}
-
-	/**
-	 * Add an item to the inventory
-	 * @param entity	CollectableEntity to be added
-	 */
-	public void addItemToInventory(CollectableEntity entity) {
-		inventory.add(entity);
-	}
-
-	/**
-	 * Check if the given type exists
-	 * @param type Type of entity
-	 * @return true if the entity exists in the dungeon
-	 * 			<li> false if otherwise
-	 */
-	public boolean entityExists(String type) {
-		for (Entity ent : getEntities()) {
-			if (ent.getType().equals(type)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Check if given position contains an entity
-	 * @param position	Position of entity
-	 * @return	true if the position contains an entity
-	 * 			<li> false if otherwise
-	 */
-	public boolean entityExists(Position position) {
-		for (Entity ent : getEntities()) {
-			if (ent.getPosition().equals(position)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Check if given type exists in given position
-	 * @param type		Type of entity
-	 * @param position	Position of entity
-	 * @return	true if the type of entity exists on the position
-	 * 			<li> false if otherwise
-	 */
-	public boolean entityExists(String type, Position position) {		
-		for (Entity ent : getEntities()) {
-			if (ent.getPosition().equals(position) && ent.getType().equals(type)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Counts the number of given type entities in the dungeon
-	 * @param type	Type of entity
-	 * @return	the number of entities of same type in the dungeon
-	 */
-	public int numOfEntities(String type) {
-		int counter = 0;
-		for (Entity ent : getEntities()) {
-			if (ent.getType().equals(type)) {
-				counter++;
-			}
-		}
-		return counter;
-	}
-
-
-	/**
 	 * @return player's curr position in the dungeon
 	 */
 	public Position getPlayerPosition() {
@@ -324,18 +254,18 @@ public class Dungeon {
 		return null;
 	}
 
-	/**
-	 * @return the player entity of a dungeon
-	 */
-	public Player getPlayer() {
-		for (Entity entity : getEntities()) {
-			if (entity instanceof Player) {
-				return (Player)entity;
-			}	
-		}
-		return null;
+	public boolean getMidnightStatus() {
+		for (Entity ent : getInventory()) {
+			if (ent instanceof MidnightArmour) {
+				return true;
+			}
+		} return false;
 	}
 
+	/**
+	 * Returns a list of Buildable Entities
+	 * @return	List<String> of BuldableEntities
+	 */
 	public List<String> getBuildables() {
 		List<String> result = new ArrayList<String>();
 
@@ -396,16 +326,21 @@ public class Dungeon {
 		return result;
 	}
 
-	public int getHistoricalEntCount() {
-		return this.historicalEntCount;
+	public void setFoundGoals(GoalNode foundGoals) {
+		this.foundGoals = foundGoals;
 	}
 
-	public boolean getMidnightStatus() {
-		for (Entity ent : getInventory()) {
-			if (ent instanceof MidnightArmour) {
-				return true;
-			}
-		} return false;
+	public void setInventory(List<CollectableEntity> inventory) {
+		this.inventory = inventory;
+	}
+
+
+	public void setRewindPath(String rewindPath) {
+		this.rewindPath = rewindPath;
+	}
+
+	public void setSpawnpoint(Position spawnpoint) {
+		this.spawnpoint = spawnpoint;
 	}
 
 	public void setHistoricalEntCount(int historicalEntCount) {
@@ -430,6 +365,174 @@ public class Dungeon {
 
 	public void setEntities(List<Entity> entities) {
 		this.entities = entities;
+	}
+
+	/**
+	 * Check if the given type exists
+	 * @param type Type of entity
+	 * @return true if the entity exists in the dungeon
+	 * 			<li> false if otherwise
+	 */
+	public boolean entityExists(String type) {
+		for (Entity ent : getEntities()) {
+			if (ent.getType().equals(type)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check if given position contains an entity
+	 * @param position	Position of entity
+	 * @return	true if the position contains an entity
+	 * 			<li> false if otherwise
+	 */
+	public boolean entityExists(Position position) {
+		for (Entity ent : getEntities()) {
+			if (ent.getPosition().equals(position)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check if given type exists in given position
+	 * @param type		Type of entity
+	 * @param position	Position of entity
+	 * @return	true if the type of entity exists on the position
+	 * 			<li> false if otherwise
+	 */
+	public boolean entityExists(String type, Position position) {		
+		for (Entity ent : getEntities()) {
+			if (ent.getPosition().equals(position) && ent.getType().equals(type)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Add an entity to this dungeon, with id automatically calculated
+	 * @param newEntity	Entity to be added
+	 */
+    public void addEntity(Entity newEntity) {
+        this.entities.add(newEntity);
+		historicalEntCount++;
+    }
+
+	/**
+	 * Remove an item from the inventory
+	 * @param entity	Entity to be removed
+	 */
+	public void removeEntity(Entity entity) {
+		getEntities().remove(entity);
+	}
+
+	/**
+	 * Counts the number of given type entities in the dungeon
+	 * @param type	Type of entity
+	 * @return	the number of entities of same type in the dungeon
+	 */
+	public int numOfEntities(String type) {
+		int counter = 0;
+		for (Entity ent : getEntities()) {
+			if (ent.getType().equals(type)) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+
+	/**
+	 * Add 1 to the dungeon's current tick
+	 */
+	public void tickOne() {
+		tickNumber++;
+	}
+
+	/**
+	 * Add an item to the inventory
+	 * @param entity	CollectableEntity to be added
+	 */
+	public void addItemToInventory(CollectableEntity entity) {
+		inventory.add(entity);
+	}
+
+	/**
+	 * Use the given item
+	 * @param itemUsed	item to be used
+	 */
+	public void useItem(String itemUsed) {
+		if (getPlayer() == null) {
+			return;
+		}
+
+		// Use item
+		CollectableEntity item = null;
+		for (CollectableEntity colllectable : this.getInventory()) {
+			if (colllectable.getId().equals(itemUsed)) {
+				item = colllectable;
+				UtilityEntity util = (UtilityEntity) item;
+				util.use(getPlayer());
+				
+				if (item instanceof Bomb) {
+					this.getEntities().add(item);
+				}
+			}
+		}
+
+		this.getInventory().remove(item);
+	}
+
+	/**
+	 * Move enemies and boulder
+	 */
+	public void moveEnemiesAndBoulder() {
+		// Create a list of temp MovingEntities, to avoid Concurrent modifier exception
+		List<MovingEntity> tempEnts = new ArrayList<>();
+
+		for (Entity entity : this.getEntities()) {
+			if (entity instanceof MovingEntity) {
+				MovingEntity mov = (MovingEntity) entity;
+				tempEnts.add(mov);
+			} else if (entity instanceof Boulder) {
+				Boulder boulder = (Boulder) entity;
+				boulder.move(this);
+			}
+		}
+
+		// Move all Movable Entities
+		for (MovingEntity mov : tempEnts) {
+			Player player = getPlayer();
+			if (player == null) break;			
+			if (player.getInvincibleTickDuration() == 0) {
+				mov.move(this);
+			} else {
+				mov.moveScared(this);
+			}
+		}
+	}
+
+	/**
+	 * Detonate bombs
+	 */
+	public void detonateBombs() {
+		// Explode all valid bombs
+		List<Entity> toRemove = new ArrayList<>();
+		for (Entity entity : this.getEntities()) {
+			if (entity instanceof Bomb) {
+				Bomb bomb = (Bomb)entity;
+				if (bomb.isActive()) {
+					toRemove.addAll(bomb.explode(this));
+				}
+			}
+		}
+
+		if (toRemove.size() != 0) {
+			this.getEntities().removeAll(toRemove);
+		}	
 	}
 
 	/**
@@ -608,71 +711,6 @@ public class Dungeon {
 		}
 
 		addEntity(newHydra);
-	}
-
-	public void moveEnemiesAndBoulder() {
-		// Create a list of temp MovingEntities, to avoid Concurrent modifier exception
-		List<MovingEntity> tempEnts = new ArrayList<>();
-
-		for (Entity entity : this.getEntities()) {
-			if (entity instanceof MovingEntity) {
-				MovingEntity mov = (MovingEntity) entity;
-				tempEnts.add(mov);
-			} else if (entity instanceof Boulder) {
-				Boulder boulder = (Boulder) entity;
-				boulder.move(this);
-			}
-		}
-
-		// Move all Movable Entities
-		for (MovingEntity mov : tempEnts) {
-			Player player = getPlayer();
-			if (player == null) break;			
-			if (player.getInvincibleTickDuration() == 0) {
-				mov.move(this);
-			} else {
-				mov.moveScared(this);
-			}
-		}
-	}
-
-	public void detonateBombs() {
-		// Explode all valid bombs
-		List<Entity> toRemove = new ArrayList<>();
-		for (Entity entity : this.getEntities()) {
-			if (entity instanceof Bomb) {
-				Bomb bomb = (Bomb)entity;
-				if (bomb.isActive()) {
-					toRemove.addAll(bomb.explode(this));
-				}
-			}
-		}
-
-		if (toRemove.size() != 0) {
-			this.getEntities().removeAll(toRemove);
-		}	
-	}
-
-	public void useItem(String itemUsed) {
-		if (getPlayer() == null) {
-			return;
-		}
-
-		// Use item
-		CollectableEntity item = null;
-		for (CollectableEntity colllectable : this.getInventory()) {
-			if (colllectable.getId().equals(itemUsed)) {
-				item = colllectable;
-				UtilityEntity util = (UtilityEntity) item;
-				util.use(getPlayer());
-				
-				if (item instanceof Bomb) {
-					this.getEntities().add(item);
-				}
-			}
-		}
-
-		this.getInventory().remove(item);
 	}
 
 }

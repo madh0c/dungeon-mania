@@ -3,17 +3,13 @@
   "name": "testAndGoal",
   "inventory": [
     {
-      "random": {
-        "seed": 148939845211387,
-        "nextNextGaussian": 0.0,
-        "haveNextNextGaussian": false
-      },
+      "durability": 10,
       "position": {
-        "x": 0,
+        "x": 1,
         "y": 0,
         "layer": 0
       },
-      "type": "one_ring",
+      "type": "armour",
       "id": "3"
     }
   ],

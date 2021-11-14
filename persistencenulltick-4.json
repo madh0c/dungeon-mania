@@ -1,0 +1,246 @@
+{
+  "id": 0,
+  "name": "testInvincibleMercVertical",
+  "inventory": [],
+  "entities": [
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "NONE",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 5,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "DOWN",
+        "NONE",
+        "NONE",
+        "NONE"
+      ],
+      "position": {
+        "x": 12,
+        "y": 13,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "isAlly": false,
+      "currentDir": "UP",
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 12,
+        "y": 8,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "2"
+    },
+    {
+      "isAlly": false,
+      "currentDir": "DOWN",
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 12,
+        "y": 18,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "3"
+    },
+    {
+      "randSeed": 29,
+      "random": {
+        "seed": 205824784252347,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 17,
+        "y": 15,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "4"
+    },
+    {
+      "randSeed": 93,
+      "random": {
+        "seed": 204211030401659,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 1,
+        "y": 5,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "5"
+    },
+    {
+      "range": [
+        {
+          "x": 14,
+          "y": 14,
+          "layer": 0
+        },
+        {
+          "x": 14,
+          "y": 13,
+          "layer": 0
+        },
+        {
+          "x": 15,
+          "y": 13,
+          "layer": 0
+        },
+        {
+          "x": 15,
+          "y": 14,
+          "layer": 0
+        },
+        {
+          "x": 15,
+          "y": 15,
+          "layer": 0
+        },
+        {
+          "x": 14,
+          "y": 15,
+          "layer": 0
+        },
+        {
+          "x": 13,
+          "y": 15,
+          "layer": 0
+        },
+        {
+          "x": 13,
+          "y": 14,
+          "layer": 0
+        },
+        {
+          "x": 13,
+          "y": 13,
+          "layer": 0
+        }
+      ],
+      "currTile": 1,
+      "clockwise": true,
+      "health": 10,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 17,
+        "y": 13,
+        "layer": 0
+      },
+      "type": "spider",
+      "id": "6"
+    },
+    {
+      "range": [
+        {
+          "x": 6,
+          "y": 6,
+          "layer": 0
+        },
+        {
+          "x": 6,
+          "y": 5,
+          "layer": 0
+        },
+        {
+          "x": 7,
+          "y": 5,
+          "layer": 0
+        },
+        {
+          "x": 7,
+          "y": 6,
+          "layer": 0
+        },
+        {
+          "x": 7,
+          "y": 7,
+          "layer": 0
+        },
+        {
+          "x": 6,
+          "y": 7,
+          "layer": 0
+        },
+        {
+          "x": 5,
+          "y": 7,
+          "layer": 0
+        },
+        {
+          "x": 5,
+          "y": 6,
+          "layer": 0
+        },
+        {
+          "x": 5,
+          "y": 5,
+          "layer": 0
+        }
+      ],
+      "currTile": 1,
+      "clockwise": true,
+      "health": 10,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 3,
+        "y": 5,
+        "layer": 0
+      },
+      "type": "spider",
+      "id": "7"
+    }
+  ],
+  "gameMode": "standard",
+  "goals": "",
+  "historicalEntCount": 8,
+  "tickNumber": 4,
+  "spawnpoint": {
+    "x": 12,
+    "y": 12,
+    "layer": 0
+  },
+  "foundGoals": {
+    "subGoals": [],
+    "operator": "",
+    "hasCompleted": true
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "spiderSpawnrate": 20
+}
