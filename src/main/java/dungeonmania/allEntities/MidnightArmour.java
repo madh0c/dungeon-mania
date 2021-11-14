@@ -5,7 +5,7 @@ import java.util.List;
 import dungeonmania.*;
 import dungeonmania.util.Position;
 
-public class MidnightArmour extends UsableEntity {
+public class MidnightArmour extends DurableEntity {
 
 	private int extraDamage = 2;
 

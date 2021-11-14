@@ -4,11 +4,11 @@ import java.util.List;
 
 import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
-import dungeonmania.UsableEntity;
+import dungeonmania.DurableEntity;
 import dungeonmania.util.Position;
 
 
-public class Sword extends UsableEntity {
+public class Sword extends DurableEntity {
 
     private int extraDamage = 2;
     

@@ -4,6 +4,7 @@ import java.util.Random;
 
 import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
+import dungeonmania.DurableEntity;
 import dungeonmania.util.Position;
 
 public class Hydra extends ZombieToast {
@@ -41,7 +42,9 @@ public class Hydra extends ZombieToast {
 	private boolean haveAnduril(Dungeon dungeon) {
 		for (CollectableEntity item : dungeon.getInventory()) {
 			if (item.getType().equals("anduril")) {
-				return true;
+				DurableEntity dur = (DurableEntity) item;
+				if (dur.getDurability() > 0)
+					return true;
 			}
 		}
 		return false;

@@ -4,11 +4,11 @@ import java.util.List;
 
 import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
-import dungeonmania.UsableEntity;
+import dungeonmania.DurableEntity;
 import dungeonmania.util.Position;
 
 
-public class Shield extends UsableEntity {
+public class Shield extends DurableEntity {
 
 	public Shield(String id, Position position) {
         super(id, position, "shield", 5);

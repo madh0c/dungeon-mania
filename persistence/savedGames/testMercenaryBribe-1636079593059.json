@@ -15,7 +15,7 @@
   ],
   "entities": [
     {
-      "health": 63,
+      "health": 60,
       "attack": 2,
       "visible": true,
       "currentDir": "RIGHT",
