@@ -755,13 +755,6 @@ public class MovingEntityTest {
 		Assassin assass = (Assassin) entity;
 		assertTrue(assass.getIsAlly());
 	}
-	
-	@Test 
-	public void testMercCollide() {
-		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testMercenaryCollide", "Standard"));
-
-	}
 
 	@Test
 	public void testMercDoorOpen() {
