@@ -35,8 +35,13 @@ public class OlderPlayer extends MovingEntity {
 			return true;
 		}
 		
-		if (entity instanceof Wall || entity instanceof BombStatic || entity instanceof ZombieToastSpawner) {
+		if (entity instanceof Wall || entity instanceof ZombieToastSpawner) {
 			return false;
+		} else if (entity instanceof Bomb) {
+			Bomb bomb = (Bomb) entity;
+			if (bomb.isActive()) {
+				return false;
+			} return true;
 		} else if (entity instanceof Door) {
 			Door door = (Door) entity;
 			if (door.isOpen()) {
@@ -79,11 +84,6 @@ public class OlderPlayer extends MovingEntity {
     /* Move the older player in the previous path of the player */
     @Override
     public void move(Dungeon dungeon) {
-
-		if (this == null) {
-			return;
-		}
-
 		// if stuck in swamp
 		if (super.getTicksFrozen() > 0) {
 			super.setTicksFrozen(super.getTicksFrozen() - 1);
