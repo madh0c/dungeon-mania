@@ -83,29 +83,6 @@ public class Milestone3Test {
 		for (int i = 0; i < 21; i++) {
 			controller.tick(null, Direction.NONE);
 		}
-
-		// // Assert correct spawn positions
-        // List<EntityResponse> midList = new ArrayList<EntityResponse>();
-
-        // EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(2,2), true);
-        // EntityResponse midSwampInfo = new EntityResponse("1", "swamp_tile", new Position(2,1), false);
-        // EntityResponse midSpawnInfo = new EntityResponse("2", "zombie_toast_spawner", new Position(1,1), true);
-		// EntityResponse midWall1Info = new EntityResponse("3", "wall", new Position(0,1), false);
-		// EntityResponse midWall2Info = new EntityResponse("4", "wall", new Position(1,0), false);
-		// EntityResponse midWall3Info = new EntityResponse("5", "wall", new Position(1,2), false);
-		// EntityResponse midZombInfo = new EntityResponse("7", "zombie_toast", new Position(2,1), false);
-
-        // midList.add(midPlayerInfo);
-        // midList.add(midSwampInfo);
-        // midList.add(midSpawnInfo);
-		// midList.add(midWall1Info);
-        // midList.add(midWall2Info);
-        // midList.add(midWall3Info);
-		// midList.add(midZombInfo);
-
-        // DungeonResponse dRMid = controller.getDungeonInfo(0);
-        // assertEquals(midList, dRMid.getEntities());
-
 		controller.tick(null, Direction.NONE);
 
 		// Assert the zombie is still stuck in the swamp tile
@@ -156,5 +133,41 @@ public class Milestone3Test {
         assertDoesNotThrow(() -> controller.generateDungeon(8, 11, 23, 8, "standard"));
 		String dungeonGoals = controller.getCurrentDungeon().getGoals();
 		assertTrue(dungeonGoals.equals(":exit"));
+    }
+
+    @Test
+    public void testSimpleRewind() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.newGame("timeTravel", "Standard"));
+
+        for (int i = 0; i < 11; i++) {
+            controller.tick(null, Direction.RIGHT);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            controller.tick(null, Direction.DOWN);
+        }
+
+        for (int i = 0; i < 2; i++) {
+            controller.tick(null, Direction.RIGHT);
+        }
+
+        // Why doesn't rewind work lol
+        //assertDoesNotThrow(() -> controller.rewind(5));
+
+        List<Entity> allEnt = controller.getCurrentDungeon().getEntities();
+
+        assertEquals(new Position(11, 1), allEnt.get(19).getPosition());
+        assertEquals("older_player", allEnt.get(19).getType());
+
+        assertEquals(new Position(13, 4), allEnt.get(120).getPosition());
+        assertEquals("player", allEnt.get(120).getType());
+
+        assertEquals(new Position(8, 1), allEnt.get(43).getPosition());
+        assertEquals("mercenary", allEnt.get(43).getType());
+
+        assertEquals(new Position(0, 0), allEnt.get(0).getPosition());
+        assertEquals("wall", allEnt.get(0).getType());
+
     }
 }

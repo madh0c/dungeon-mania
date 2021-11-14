@@ -15,6 +15,8 @@ public class OlderPlayer extends MovingEntity {
     
     public OlderPlayer (String id, Position position, boolean enemyAttack) {
         super(id, position, "older_player", enemyAttack);
+		this.setBaseAttack(2);
+		this.setHealth(100);
     }
 
     /**
