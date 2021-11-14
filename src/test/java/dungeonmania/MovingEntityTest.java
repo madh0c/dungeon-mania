@@ -795,7 +795,8 @@ public class MovingEntityTest {
 		assertTrue(controller.getDungeon(0).entityExists("hydra"));
 	}
 
-	@Test public void testHydraAttack() {
+	@Test
+	public void testHydraAnduril() {
 		DungeonManiaController controller = new DungeonManiaController();
 		assertDoesNotThrow(() -> controller.newGame("testHydraAnduril", "Standard"));
 
@@ -814,6 +815,24 @@ public class MovingEntityTest {
 		assertTrue(controller.getDungeon(0).entityExists("player"));
 		assertFalse(controller.getDungeon(0).entityExists("hydra"));
 		
+	}
+
+	@Test
+	public void testHydraAttack() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testHydraSpawn", "Standard"));
+		
+		// Move the player right
+		controller.tick(null, Direction.RIGHT);
+
+		for (int i = 0; i < 48; i++) {
+			controller.tick(null, Direction.NONE);
+			assertFalse(controller.getDungeon(0).entityExists("hydra"));
+		}
+		// Check hydra spawns in after 50 ticks
+		controller.tick(null, Direction.NONE);
+		assertTrue(controller.getDungeon(0).entityExists("hydra"));
+		controller.tick(null, Direction.LEFT);
 	}
 	
 }

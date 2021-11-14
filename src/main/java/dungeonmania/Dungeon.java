@@ -80,10 +80,6 @@ public class Dungeon {
 		return inventory;
 	}
 
-    public String getGameMode() {
-        return gameMode;
-    }
-
     public String getGoals() {
         return foundGoals.remainingString();
     }
@@ -426,10 +422,6 @@ public class Dungeon {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public void setGameMode(String gameMode) {
-		this.gameMode = gameMode;
 	}
 
 	public void setName(String name) {
