@@ -128,18 +128,18 @@ public class DungeonManiaController {
 
 		Date date = new Date();
 		// TODO UNCOMMENT
-		// long currTime = date.getTime();
-		// String rewindTime = Long.toString(currTime);
-		// String rewindPath = "/rewind/" + rewindTime + "/";
-		// currentDungeon.setRewindPath(rewindPath);
+		long currTime = date.getTime();
+		String rewindTime = Long.toString(currTime);
+		String rewindPath = "/rewind/" + rewindTime + "/";
+		currentDungeon.setRewindPath(rewindPath);
 
-		// try {
-		// 	Path path = Paths.get("src/main/resources" + rewindPath);
-		// 	Files.createDirectories(path);
+		try {
+			Path path = Paths.get("src/main/resources" + rewindPath);
+			Files.createDirectories(path);
 		
-		// } catch (IOException e) {
-		// 	System.err.println("Failed to create directory!" + e.getMessage());
-		// }
+		} catch (IOException e) {
+			System.err.println("Failed to create directory!" + e.getMessage());
+		}
 
 		int currentId = currentDungeon.getId();
 		lastUsedDungeonId++;
@@ -358,7 +358,7 @@ public class DungeonManiaController {
 		double healthFracS;
 
 		// TODO UNCOMMENT
-		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
+		saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 	
 		// Use item
 		currentDungeon.useItem(itemUsed);
@@ -851,6 +851,7 @@ public class DungeonManiaController {
 					}
 				}
 			}
+			rewindDungeon.setHistoricalEntCount(currentDungeon.getHistoricalEntCount());
 			Player actualPlayer = currentDungeon.getPlayer();
 			String aPId = String.valueOf(currentDungeon.getHistoricalEntCount());
 			actualPlayer.setId(aPId);

@@ -92,10 +92,6 @@ public class OlderPlayer extends MovingEntity {
             }
         }
 
-        System.out.println(dungeon.getTickNumber());
-        System.out.println(traceUntil);
-
-
         if (dungeon.getTickNumber() - 1 < traceUntil) {
             Direction currentDir = trackingList.get(dungeon.getTickNumber() - 1);
 
