@@ -15,10 +15,8 @@ public abstract class DurableEntity extends CollectableEntity {
 		super(id, position, type);
 		this.durability = durability;
 	}
-<<<<<<< HEAD:src/main/java/dungeonmania/UsableEntity.java
 	
-=======
-
+	/** 
 	 * <li> Adds attack damage to player for certain items
 	 * </ul>
 	 * @param dungeon	Dungeon of item
