@@ -132,7 +132,7 @@ public class GameInOut {
 					} exportPos = new Position(xCoord, yCoord, zCoord);
 				}
 
-				if (entityType.contains("portal")) {
+				if (entityType.equals("portal")) {
 					String colour = (String)currentEntity.get("colour");
 					Portal portal = factory.createPortal(entityId, exportPos, colour);
 					entityList.add(portal);
@@ -198,13 +198,13 @@ public class GameInOut {
 						oP.setTraceUntil(traceUntil);
 						entityList.add(olderPlayer);
 					}
-				} else if (entityType.contains("swamp_tile")) {
+				} else if (entityType.equals("swamp_tile")) {
 					Double moveFD = (Double)currentEntity.get("movement_factor");
 					int moveF = moveFD.intValue();
 					
 					Entity newEntity = factory.createSwampTile(entityId, exportPos, moveF);
 					entityList.add(newEntity);
-				} else if (entityType.contains("mercenary")) {
+				} else if (entityType.equals("mercenary")) {
 
 					boolean enemyAttack = true;
 					if (playMode.equals("peaceful")) {
@@ -221,7 +221,7 @@ public class GameInOut {
 					}
 
 					entityList.add(newMerc);
-				} else if (entityType.contains("assassin")) {
+				} else if (entityType.equals("assassin")) {
 					boolean enemyAttack = true;
 
 					if (playMode.equals("peaceful")) {
@@ -238,7 +238,7 @@ public class GameInOut {
 					}
 
 					entityList.add(newAssassin);
-				}  else if (entityType.contains("time_turner") && expType.equals("rewind")) {
+				}  else if (entityType.equals("time_turner") && expType.equals("rewind")) {
 					continue;
 				} else if (entityType.equals("older_player")) {
 					Entity olderPlayer = factory.createEntity(entityId, entityType, exportPos);

@@ -184,4 +184,213 @@ public class M3Test {
         
         assertEquals(dR, controller.getDungeonInfo(controller.getCurrentDungeon().getId()));
     }
+
+    /**
+     * Travel through a time travelling portal after 30 ticks. The player should be on the other side of the portal
+     * and an older player should spawn where the player used to be.
+     */
+    @Test
+    public void testTimeTravellingPortal() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.newGame("testTimeTravellingPortal", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse startTreasureInfo = new EntityResponse("1", "treasure", new Position(1,0), false);
+        EntityResponse startTimePortalInfo = new EntityResponse("2", "time_travelling_portal", new Position(2,0), false);
+
+        startList.add(startPlayerInfo);
+        startList.add(startTreasureInfo);
+        startList.add(startTimePortalInfo);
+
+        DungeonResponse dRStart = controller.getDungeonInfo(0);
+        assertEquals(startList, dRStart.getEntities());
+        
+        controller.tick(null, Direction.RIGHT);
+
+        for (int i = 0; i < 30; i++) {
+            controller.tick(null, Direction.NONE);
+        }
+
+        controller.tick(null, Direction.RIGHT);
+
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse endOlderPlayerInfo = new EntityResponse("0", "older_player", new Position(1,0), false);
+        EntityResponse endTimePortalInfo = new EntityResponse("2", "time_travelling_portal", new Position(2,0), false);
+        EntityResponse endPlayerInfo = new EntityResponse("4", "player", new Position(3,0), true);
+
+        endList.add(endOlderPlayerInfo);
+        endList.add(endTimePortalInfo);
+        endList.add(endPlayerInfo);
+
+        DungeonResponse dREnd = controller.getDungeonInfo(1);
+        assertEquals(endList, dREnd.getEntities());
+    }
+
+    /**
+     * Pick up a treasure and then travel through the portal 30 ticks later. You should be on the other side of the portal
+     * and the coin should be where it was before.
+     */
+    @Test
+    public void testOlderPlayerRetraceStepsI() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.newGame("testTimeTravellingPortal", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse startTreasureInfo = new EntityResponse("1", "treasure", new Position(1,0), false);
+        EntityResponse startTimePortalInfo = new EntityResponse("2", "time_travelling_portal", new Position(2,0), false);
+
+        startList.add(startPlayerInfo);
+        startList.add(startTreasureInfo);
+        startList.add(startTimePortalInfo);
+
+        DungeonResponse dR = controller.getDungeonInfo(0);
+        assertEquals(startList, dR.getEntities());
+        
+        controller.tick(null, Direction.RIGHT);
+        
+        for (int i = 0; i < 6; i++) {
+            controller.tick(null, Direction.UP);
+            controller.tick(null, Direction.DOWN);
+            controller.tick(null, Direction.LEFT);
+            controller.tick(null, Direction.RIGHT);
+        }
+
+        controller.tick(null, Direction.UP);
+        controller.tick(null, Direction.UP);
+        controller.tick(null, Direction.UP);
+        controller.tick(null, Direction.DOWN);
+        controller.tick(null, Direction.DOWN);
+        controller.tick(null, Direction.DOWN);
+
+
+        controller.tick(null, Direction.RIGHT);
+        controller.tick(null, Direction.RIGHT);
+
+        for (int i = 0; i < 25; i++) {
+            controller.tick(null, Direction.NONE);
+        }
+
+        List<EntityResponse> midList = new ArrayList<EntityResponse>();
+
+        EntityResponse midOlderPlayerInfo = new EntityResponse("0", "older_player", new Position(0,-1), false);
+        EntityResponse midTimePortalInfo = new EntityResponse("2", "time_travelling_portal", new Position(2,0), false);
+        EntityResponse midPlayerInfo = new EntityResponse("4", "player", new Position(4,0), true);
+        
+        midList.add(midOlderPlayerInfo);
+        midList.add(midTimePortalInfo);
+        midList.add(midPlayerInfo);
+
+        dR = controller.getDungeonInfo(1);
+        // assertEquals(midList, dR.getEntities());
+
+        controller.tick(null, Direction.NONE);
+
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse endOlderPlayerInfo = new EntityResponse("0", "older_player", new Position(1,-1), false);
+        EntityResponse endTimePortalInfo = new EntityResponse("2", "time_travelling_portal", new Position(2,0), false);
+        EntityResponse endPlayerInfo = new EntityResponse("4", "player", new Position(4,0), true);
+        
+        endList.add(endOlderPlayerInfo);
+        endList.add(endTimePortalInfo);
+        endList.add(endPlayerInfo);
+
+        dR = controller.getDungeonInfo(1);
+        // assertEquals(endList, dR.getEntities());
+
+        for (int i = 0; i < 5; i++) {
+            controller.tick(null, Direction.NONE);
+        }
+    }
+
+    /**
+     * Pick up a treasure and then travel through the portal 30 ticks later. You should be on the other side of the portal
+     * and the coin should be where it was before.
+     */
+    @Test
+    public void testOlderPlayerRetraceStepsII() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.newGame("testTimeTravellingPortal", "Standard"));
+
+        // Assert correct spawn positions
+        List<EntityResponse> startList = new ArrayList<EntityResponse>();
+
+        EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
+        EntityResponse startTreasureInfo = new EntityResponse("1", "treasure", new Position(1,0), false);
+        EntityResponse startTimePortalInfo = new EntityResponse("2", "time_travelling_portal", new Position(2,0), false);
+
+        startList.add(startPlayerInfo);
+        startList.add(startTreasureInfo);
+        startList.add(startTimePortalInfo);
+
+        DungeonResponse dR = controller.getDungeonInfo(0);
+        assertEquals(startList, dR.getEntities());
+        
+        controller.tick(null, Direction.RIGHT);
+        
+        for (int i = 0; i < 6; i++) {
+            controller.tick(null, Direction.UP);
+            controller.tick(null, Direction.DOWN);
+            controller.tick(null, Direction.LEFT);
+            controller.tick(null, Direction.RIGHT);
+        }
+
+        controller.tick(null, Direction.UP);
+        controller.tick(null, Direction.LEFT);
+        controller.tick(null, Direction.LEFT);
+        controller.tick(null, Direction.RIGHT);
+        controller.tick(null, Direction.RIGHT);
+        controller.tick(null, Direction.DOWN);
+
+
+        controller.tick(null, Direction.RIGHT);
+        controller.tick(null, Direction.RIGHT);
+
+        for (int i = 0; i < 25; i++) {
+            controller.tick(null, Direction.NONE);
+        }
+
+        List<EntityResponse> midList = new ArrayList<EntityResponse>();
+
+        EntityResponse midOlderPlayerInfo = new EntityResponse("0", "older_player", new Position(0,-1), false);
+        EntityResponse midTimePortalInfo = new EntityResponse("2", "time_travelling_portal", new Position(2,0), false);
+        EntityResponse midPlayerInfo = new EntityResponse("4", "player", new Position(4,0), true);
+        
+        midList.add(midOlderPlayerInfo);
+        midList.add(midTimePortalInfo);
+        midList.add(midPlayerInfo);
+
+        dR = controller.getDungeonInfo(1);
+        // assertEquals(midList, dR.getEntities());
+
+        controller.tick(null, Direction.NONE);
+
+        List<EntityResponse> endList = new ArrayList<EntityResponse>();
+
+        EntityResponse endOlderPlayerInfo = new EntityResponse("0", "older_player", new Position(1,-1), false);
+        EntityResponse endTimePortalInfo = new EntityResponse("2", "time_travelling_portal", new Position(2,0), false);
+        EntityResponse endPlayerInfo = new EntityResponse("4", "player", new Position(4,0), true);
+        
+        endList.add(endOlderPlayerInfo);
+        endList.add(endTimePortalInfo);
+        endList.add(endPlayerInfo);
+
+        dR = controller.getDungeonInfo(1);
+        // assertEquals(endList, dR.getEntities());
+
+        for (int i = 0; i < 3; i++) {
+            controller.tick(null, Direction.NONE);
+        }
+
+        for (int i = 0; i < 2; i++) {
+            controller.tick(null, Direction.NONE);
+        }
+    }
 }
