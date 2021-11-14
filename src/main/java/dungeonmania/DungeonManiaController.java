@@ -365,21 +365,7 @@ public class DungeonManiaController {
 		
 		Player player = currentDungeon.getPlayer();
 
-		// Use item
-		CollectableEntity item = null;
-		for (CollectableEntity colllectable : currentDungeon.getInventory()) {
-			if (colllectable.getId().equals(itemUsed)) {
-				item = colllectable;
-				UtilityEntity util = (UtilityEntity) item;
-				util.use(player);
-				
-				if (item instanceof Bomb) {
-					currentDungeon.getEntities().add(item);
-				}
-			}
-		}
-
-		currentDungeon.getInventory().remove(item);
+		currentDungeon.useItem(itemUsed);
 		
 		// First tick of game, some actions to do
 		if (currentDungeon.getTickNumber() == 0) {
@@ -395,80 +381,16 @@ public class DungeonManiaController {
 
 		// Player actions
 		if (player != null) {
-
-			player.setCurrentDir(movementDirection);
-			// make sure invincibility wears off
-			int invicibleTicksLeft = player.getInvincibleTickDuration();
-			player.setInvincibleTickDuration(invicibleTicksLeft - 1);
-			// sceptre tick wearing off
-			List<String> controlledIds = player.getControlled();
-			// If there are mercs being controlled
-			if (!controlledIds.isEmpty()) {
-				for (Entity ent : currentDungeon.getEntities()) {
-					if (ent instanceof Mercenary) {
-						Mercenary merc = (Mercenary) ent;
-						merc.sceptreTick(currentDungeon);
-					}
-				}
-			}
-			// Move player
-			player.move(currentDungeon, movementDirection);
-
-			// trace the player's path, so that olderPlayer can follow
-			player.addTrace(player.getCurrentDir());
-
-			// time travel through portal
-			Position currPlayerPos = player.getPosition();
-			List<Entity> entOnPlayerCell = currentDungeon.getEntitiesOnCell(currPlayerPos);
-
-			for (Entity ent: entOnPlayerCell) {
-				if (ent instanceof TimeTravellingPortal) {
-					Direction currDir = player.getCurrentDir();
-					player.setPosition(currPlayerPos.translateBy(currDir));
-					this.rewind(30);
-				}
+			player.act(movementDirection, currentDungeon);
+			if (player.shouldTimeTravel(currentDungeon)) {
+				this.rewind(30);
 			}
 		}
 
-		// Create a list of temp MovingEntities, to avoid Concurrent modifier exception
-		List<MovingEntity> tempEnts = new ArrayList<>();
+		currentDungeon.moveEnemiesAndBoulder();
 
-		for (Entity entity : currentDungeon.getEntities()) {
-			if (entity instanceof MovingEntity) {
-				MovingEntity mov = (MovingEntity) entity;
-				tempEnts.add(mov);
-			} else if (entity instanceof Boulder) {
-				Boulder boulder = (Boulder) entity;
-				boulder.move(currentDungeon);
-			}
-		}
+		currentDungeon.detonateBombs();;
 
-		// Move all Movable Entities
-		for (MovingEntity mov : tempEnts) {
-			if (player == null) break;			
-			if (player.getInvincibleTickDuration() == 0) {
-				mov.move(currentDungeon);
-			} else {
-				mov.moveScared(currentDungeon);
-			}
-		}
-		
-		// Explode all valid bombs
-		List<Entity> toRemove = new ArrayList<>();
-		for (Entity entity : currentDungeon.getEntities()) {
-			if (entity instanceof Bomb) {
-				Bomb bomb = (Bomb)entity;
-				if (bomb.isActive()) {
-					toRemove.addAll(bomb.explode(currentDungeon));
-				}
-			}
-		}
-
-		if (toRemove.size() != 0) {
-			currentDungeon.getEntities().removeAll(toRemove);
-		}		
-
-		// Spawn in the entities which need to be spawned in
 		currentDungeon.spawnEntities();
 		
 		evalGoal(currentDungeon, currentDungeon.getFoundGoals());
