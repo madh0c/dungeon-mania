@@ -64,7 +64,7 @@ public class CollectibleEntitiesTest {
 
         // grab the info of dungeon
         DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
-        assertEquals(Arrays.asList(new ItemResponse("1", "key")), dungeonInfo.getInventory());
+        assertEquals(Arrays.asList(new ItemResponse("1", "key_1")), dungeonInfo.getInventory());
 
         // move player right again, should encounter another key
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
@@ -73,7 +73,7 @@ public class CollectibleEntitiesTest {
         dungeonInfo = controller.getDungeonInfo(0);
 
         // only first key should be in inventory
-        assertEquals(Arrays.asList(new ItemResponse("1", "key")), dungeonInfo.getInventory());
+        assertEquals(Arrays.asList(new ItemResponse("1", "key_1")), dungeonInfo.getInventory());
 
         // move player right again, should encounter door
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
@@ -96,7 +96,7 @@ public class CollectibleEntitiesTest {
 
         // grab the info of dungeon
         DungeonResponse dungeonInfo = controller.getDungeonInfo(0);
-        assertEquals(Arrays.asList(new ItemResponse("1", "key")), dungeonInfo.getInventory());
+        assertEquals(Arrays.asList(new ItemResponse("1", "key_1")), dungeonInfo.getInventory());
 
         // move player right again, should encounter sun stone
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
@@ -104,7 +104,7 @@ public class CollectibleEntitiesTest {
         // update dungeon response
         dungeonInfo = controller.getDungeonInfo(0);
 
-        assertEquals(Arrays.asList(new ItemResponse("1", "key"), new ItemResponse("2", "sun_stone")), dungeonInfo.getInventory());
+        assertEquals(Arrays.asList(new ItemResponse("1", "key_1"), new ItemResponse("2", "sun_stone")), dungeonInfo.getInventory());
 
         // move player right again, should encounter door
         assertDoesNotThrow(() ->controller.tick(null, Direction.RIGHT));
@@ -116,7 +116,7 @@ public class CollectibleEntitiesTest {
         assertEquals(controller.getDungeon(0).getPlayerPosition(), new Position(3, 0));  
         
         // check that sun stone is used to open door ie both items are still in inv
-        assertEquals(Arrays.asList(new ItemResponse("1", "key"), new ItemResponse("2", "sun_stone")), dungeonInfo.getInventory());
+        assertEquals(Arrays.asList(new ItemResponse("1", "key_1"), new ItemResponse("2", "sun_stone")), dungeonInfo.getInventory());
 
     }
 

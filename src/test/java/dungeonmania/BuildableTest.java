@@ -100,7 +100,7 @@ public class BuildableTest {
         controller.tick(null, Direction.DOWN);
         assertDoesNotThrow(() -> controller.build("shield"));
 		dungeonInfo = controller.getDungeonInfo(0);
-        assertEquals(Arrays.asList(new ItemResponse("10", "key"), new ItemResponse("12", "shield")), dungeonInfo.getInventory());
+        assertEquals(Arrays.asList(new ItemResponse("10", "key_1"), new ItemResponse("12", "shield")), dungeonInfo.getInventory());
     }
     //Builds a shield with key.
     @Test
@@ -115,7 +115,7 @@ public class BuildableTest {
         controller.tick(null, Direction.DOWN);
         controller.tick(null, Direction.DOWN);
 		dungeonInfo = controller.getDungeonInfo(0);
-        assertEquals(Arrays.asList(new ItemResponse("1", "arrow"), new ItemResponse("2", "wood"), new ItemResponse("8", "wood"), new ItemResponse("9", "wood"), new ItemResponse("10", "key")), dungeonInfo.getInventory());
+        assertEquals(Arrays.asList(new ItemResponse("1", "arrow"), new ItemResponse("2", "wood"), new ItemResponse("8", "wood"), new ItemResponse("9", "wood"), new ItemResponse("10", "key_1")), dungeonInfo.getInventory());
         assertDoesNotThrow(() -> controller.build("shield"));
 		dungeonInfo = controller.getDungeonInfo(0);
         assertEquals(Arrays.asList(new ItemResponse("1", "arrow"), new ItemResponse("9", "wood"), new ItemResponse("12", "shield")), dungeonInfo.getInventory());

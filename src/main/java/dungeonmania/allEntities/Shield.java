@@ -25,7 +25,7 @@ public class Shield extends UsableEntity {
 				counterWood++;
 				currentInventory.remove(i);
 				i--;
-			} else if ((found.getType().equals("treasure") && counterTreasure < 1) || (found.getType().equals("key") && counterKey < 1)) {
+			} else if ((found.getType().equals("treasure") && counterTreasure < 1) || (found.getType().contains("key") && counterKey < 1)) {
 				counterTreasure++;
 				counterKey++;
 				currentInventory.remove(i);

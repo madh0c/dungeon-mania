@@ -113,8 +113,8 @@ public class ControllerTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startKeyInfo = new EntityResponse("1", "key", new Position(1,0), false);
-        EntityResponse startDoorInfo = new EntityResponse("2", "door", new Position(2,0), false);
+        EntityResponse startKeyInfo = new EntityResponse("1", "key_1", new Position(1,0), false);
+        EntityResponse startDoorInfo = new EntityResponse("2", "door_1", new Position(2,0), false);
 
         startList.add(startPlayerInfo);
         startList.add(startKeyInfo);
@@ -130,7 +130,7 @@ public class ControllerTest {
         List<EntityResponse> midList = new ArrayList<EntityResponse>();
 
         EntityResponse midPlayerInfo = new EntityResponse("0", "player", new Position(1,0), true);
-        EntityResponse midDoorInfo = new EntityResponse("2", "door", new Position(2,0), false);
+        EntityResponse midDoorInfo = new EntityResponse("2", "door_1", new Position(2,0), false);
 
         midList.add(midPlayerInfo);
         midList.add(midDoorInfo);
@@ -140,7 +140,7 @@ public class ControllerTest {
 
         // Assert the key is in the inventory
         List<ItemResponse> expectedInventory1 = new ArrayList<ItemResponse>();
-        ItemResponse keyInfo = new ItemResponse("1", "key");
+        ItemResponse keyInfo = new ItemResponse("1", "key_1");
         expectedInventory1.add(keyInfo);
         
         assertEquals(expectedInventory1, dRMid.getInventory());
@@ -197,7 +197,7 @@ public class ControllerTest {
         List<EntityResponse> startList = new ArrayList<EntityResponse>();
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
-        EntityResponse startKeyInfo = new EntityResponse("1", "key", new Position(1,0), false);
+        EntityResponse startKeyInfo = new EntityResponse("1", "key_1", new Position(1,0), false);
         EntityResponse startSpawnerInfo = new EntityResponse("2", "zombie_toast_spawner", new Position(2,0), true);
 
         startList.add(startPlayerInfo);
@@ -226,7 +226,7 @@ public class ControllerTest {
 
         // Assert the sword is in the inventory
         List<ItemResponse> expectedInventory1 = new ArrayList<ItemResponse>();
-        ItemResponse keyInfo = new ItemResponse("1", "key");
+        ItemResponse keyInfo = new ItemResponse("1", "key_1");
         expectedInventory1.add(keyInfo);
 
         assertEquals(expectedInventory1, dRMid.getInventory());
@@ -414,7 +414,7 @@ public class ControllerTest {
 
         EntityResponse startPlayerInfo = new EntityResponse("0", "player", new Position(0,0), true);
         EntityResponse startE1 = new EntityResponse("1", "treasure", new Position(1,0), false);
-        EntityResponse startE2 = new EntityResponse("2", "key", new Position(2,0), false);
+        EntityResponse startE2 = new EntityResponse("2", "key_1", new Position(2,0), false);
         EntityResponse startE3 = new EntityResponse("3", "health_potion", new Position(3,0), false);
         EntityResponse startE4 = new EntityResponse("4", "invincibility_potion", new Position(4,0), false);
         EntityResponse startE5 = new EntityResponse("5", "invisibility_potion", new Position(5,0), false);
@@ -491,7 +491,7 @@ public class ControllerTest {
         List<ItemResponse> expInvList = new ArrayList<ItemResponse>();
 
         ItemResponse i1 = new ItemResponse("1", "treasure");
-        ItemResponse i2 = new ItemResponse("2", "key");
+        ItemResponse i2 = new ItemResponse("2", "key_1");
         ItemResponse i3 = new ItemResponse("3", "health_potion");
         ItemResponse i4 = new ItemResponse("4", "invincibility_potion");
         ItemResponse i5 = new ItemResponse("5", "invisibility_potion");
