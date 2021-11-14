@@ -56,7 +56,7 @@ public class GameInOut {
 		List<CollectableEntity> returnInv = new ArrayList<>();
 		String goals = null;
 		String playMode = null; 
-		GoalNode foundGoals = new GoalLeaf("");
+		GoalNode foundGoals = new GoalAnd("");
 		String goalsConvert = "";
 
 		try {

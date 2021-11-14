@@ -65,9 +65,9 @@
       "id": "3"
     },
     {
-      "randSeed": 42,
+      "randSeed": 68,
       "random": {
-        "seed": 25214903879,
+        "seed": 25214903849,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
@@ -162,13 +162,13 @@
     },
     {
       "rng": {
-        "seed": 57337343612181,
+        "seed": 58033345729177,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
-      "randSeed": 87,
+      "randSeed": 59,
       "random": {
-        "seed": 25214903866,
+        "seed": 25214903894,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
@@ -190,8 +190,9 @@
   "historicalEntCount": 8,
   "tickNumber": 0,
   "foundGoals": {
-    "goal": "",
-    "hasCompleted": false
+    "subGoals": [],
+    "operator": "",
+    "hasCompleted": true
   },
   "goalConditions": "",
   "factory": {},

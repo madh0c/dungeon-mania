@@ -1,18 +1,7 @@
 {
   "id": 1,
   "name": "testMercenaryBribe-1636079593059",
-  "inventory": [
-    {
-      "durability": 10,
-      "position": {
-        "x": 2,
-        "y": 2,
-        "layer": 0
-      },
-      "type": "armour",
-      "id": "5"
-    }
-  ],
+  "inventory": [],
   "entities": [
     {
       "health": 70,
@@ -101,7 +90,7 @@
   ],
   "gameMode": "standard",
   "goals": "",
-  "historicalEntCount": 6,
+  "historicalEntCount": 5,
   "tickNumber": 45,
   "spawnpoint": {
     "x": 1,
@@ -109,8 +98,9 @@
     "layer": 0
   },
   "foundGoals": {
-    "goal": "",
-    "hasCompleted": false
+    "subGoals": [],
+    "operator": "",
+    "hasCompleted": true
   },
   "goalConditions": "",
   "factory": {},
