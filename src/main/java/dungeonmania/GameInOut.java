@@ -429,7 +429,7 @@ public class GameInOut {
 			JSONArray subGoals = goal.getJSONArray("subgoals");
 			for (int i = 0; i < subGoals.length(); i++) {
 				GoalNode subGoal = createGoals(subGoals.getJSONObject(i));
-				andGoal.add(subGoal);
+				andGoal.addAndList(subGoal);
 			}
 			return andGoal;
 		} else if (current.equals("OR")) {
@@ -437,7 +437,7 @@ public class GameInOut {
 			JSONArray subGoals = goal.getJSONArray("subgoals");
 			for (int i = 0; i < subGoals.length(); i++) {
 				GoalNode subGoal = createGoals(subGoals.getJSONObject(i));
-				orGoal.add(subGoal);
+				orGoal.addOrList(subGoal);
 			}
 			return orGoal;
 		} return null;

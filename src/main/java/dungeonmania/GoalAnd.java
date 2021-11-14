@@ -39,9 +39,8 @@ public class GoalAnd implements GoalNode{
 			return notDoneGoals;
 		}
 	}
-	public boolean add(GoalNode goal) {
+	public void addAndList(GoalNode goal) {
 		subGoals.add(goal);
-		return true;
 	}
 
 	public List<GoalNode> getList() {
