@@ -191,8 +191,8 @@ public class GoalsTest {
 		controller.tick(null, Direction.RIGHT);
 		assertEquals(controller.getDungeon(0).getGoals(), "((:exit OR (:treasure AND :boulders)))");
 		assertDoesNotThrow(() -> controller.saveGame("saveGoalsAnd-1636079593059"));
-		//assertDoesNotThrow(() -> controller.loadGame("saveGoalsAnd-1636079593059"));
-		//assertEquals(controller.getDungeon(0).getGoals(), "((:exit OR (:treasure AND :boulders)))");
+		assertDoesNotThrow(() -> controller.loadGame("saveGoalsAnd-1636079593059"));
+		assertEquals(controller.getDungeon(0).getGoals(), "((:exit OR (:treasure AND :boulders)))");
 	}
 	
 }

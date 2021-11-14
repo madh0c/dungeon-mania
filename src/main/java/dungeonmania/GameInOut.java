@@ -28,6 +28,7 @@ public class GameInOut {
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create(); 
 			Writer writer = new FileWriter(path);
+			System.out.println(dungeon.getFoundGoals());
 			gson.toJson(dungeon, writer);
 			writer.flush(); 
         	writer.close();

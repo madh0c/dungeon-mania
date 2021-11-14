@@ -531,9 +531,18 @@ public class DungeonManiaController {
 				evalGoal(currentDungeon, subgoal);
 			}
 			headOr.evaluate(currentDungeon);
-		} else {
-			GoalLeaf leaf = (GoalLeaf) head;
-			leaf.evaluate(currentDungeon);
+		} else if (head instanceof GoalEnemies) {
+			GoalEnemies enemies = (GoalEnemies) head;
+			enemies.evaluate(currentDungeon);
+		} else if (head instanceof GoalExit) {
+			GoalExit exit = (GoalExit) head;
+			exit.evaluate(currentDungeon);
+		} else if (head instanceof GoalTreasure) {
+			GoalTreasure treasure = (GoalTreasure) head;
+			treasure.evaluate(currentDungeon);
+		} else if (head instanceof GoalBoulders) {
+			GoalBoulders boulder = (GoalBoulders) head;
+			boulder.evaluate(currentDungeon);
 		} 
 		currentDungeon.setGoals(currentDungeon.getFoundGoals().remainingString());
 	}

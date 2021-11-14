@@ -1,12 +1,15 @@
 package dungeonmania;
 
+import org.json.JSONObject;
+
 import dungeonmania.allEntities.ZombieToastSpawner;
 
-public class GoalEnemies extends GoalLeaf{
+public class GoalEnemies implements GoalNode{
 
 	private Boolean hasCompleted = false;
+	private String goal;
 	public GoalEnemies(String goal) {
-		super(goal);
+		this.goal = goal;
 	}
 
 	@Override
@@ -23,10 +26,17 @@ public class GoalEnemies extends GoalLeaf{
 
 	@Override 
 	public String remainingString() {
-		if (hasCompleted || getGoal().equals("")) {
+		if (hasCompleted || goal.equals("")) {
 			return "";
 		}
-		return ":" + this.getGoal();
+		return ":" + goal;
+	}
+
+	@Override
+	public JSONObject saveGameJSON() {
+		JSONObject compositeLeafJSON = new JSONObject();
+        compositeLeafJSON.put("goal", goal);
+		return compositeLeafJSON;
 	}
 	
 }

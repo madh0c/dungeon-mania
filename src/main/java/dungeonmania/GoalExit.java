@@ -1,13 +1,16 @@
 package dungeonmania;
 
+import org.json.JSONObject;
+
 import dungeonmania.allEntities.Exit;
 import dungeonmania.util.Position;
 
-public class GoalExit extends GoalLeaf{
+public class GoalExit implements GoalNode{
 
 	private Boolean hasCompleted = false;
+	private String goal;
 	public GoalExit(String goal) {
-		super(goal);
+		this.goal = goal;
 	}
 	
 	@Override
@@ -30,9 +33,16 @@ public class GoalExit extends GoalLeaf{
 
 	@Override 
 	public String remainingString() {
-		if (hasCompleted || getGoal().equals("")) {
+		if (hasCompleted || goal.equals("")) {
 			return "";
 		}
-		return ":" + this.getGoal();
+		return ":" + goal;
+	}
+
+	@Override
+	public JSONObject saveGameJSON() {
+		JSONObject compositeLeafJSON = new JSONObject();
+        compositeLeafJSON.put("goal", goal);
+		return compositeLeafJSON;
 	}
 }

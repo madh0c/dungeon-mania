@@ -1,12 +1,15 @@
 package dungeonmania;
 
+import org.json.JSONObject;
+
 import dungeonmania.allEntities.Switch;
 
-public class GoalBoulders extends GoalLeaf{
+public class GoalBoulders implements GoalNode{
 
 	private Boolean hasCompleted = false;
+	private String goal;
 	public GoalBoulders(String goal) {
-		super(goal);
+		this.goal = goal;
 	}
 
 	@Override
@@ -26,10 +29,17 @@ public class GoalBoulders extends GoalLeaf{
 
 	@Override 
 	public String remainingString() {
-		if (hasCompleted || getGoal().equals("")) {
+		if (hasCompleted || goal.equals("")) {
 			return "";
 		}
-		return ":" + this.getGoal();
+		return ":" + this.goal;
+	}
+
+	@Override
+	public JSONObject saveGameJSON() {
+		JSONObject compositeLeafJSON = new JSONObject();
+        compositeLeafJSON.put("goal", goal);
+		return compositeLeafJSON;
 	}
 	
 }
