@@ -300,7 +300,7 @@ public class Dungeon {
 				treasure++;
 			}
 
-			if (item.getType().equals("key")) {
+			if (item.getType().contains("key")) {
 				key++;
 			}
 
