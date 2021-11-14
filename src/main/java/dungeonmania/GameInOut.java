@@ -299,7 +299,7 @@ public class GameInOut {
 						Arrow newArrow = new Arrow(itemId, itemPos);
 						returnInv.add(newArrow);
 					} else if (itemType.equals("bomb")){
-						BombItem newBomb = new BombItem(itemId, itemPos);
+						Bomb newBomb = new Bomb(itemId, itemPos);
 						returnInv.add(newBomb);
 					} else if (itemType.equals("sword")){
 						Double durabilityD = (Double)currentItem.get("durability");

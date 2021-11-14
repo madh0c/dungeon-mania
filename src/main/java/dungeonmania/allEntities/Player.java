@@ -134,11 +134,17 @@ public class Player extends Entity {
 			return true;
 		}
 		
-		if (entity instanceof Wall || 
-			entity instanceof BombStatic || 
-			entity instanceof ZombieToastSpawner) 
-		{
+		if (entity instanceof Wall || entity instanceof ZombieToastSpawner) {
 			return false;
+		} if (entity instanceof Bomb) {
+			Bomb bomb = (Bomb) entity;
+			if (bomb.isActive()) {
+				return false;
+			} else {
+				dungeon.removeEntity(entity);
+				dungeon.addItemToInventory((CollectableEntity)entity);
+			return true;
+			}
 		} else if (entity instanceof Door) {
 			Door door = (Door) entity;
 			if (door.isOpen() || hasSunStone) {

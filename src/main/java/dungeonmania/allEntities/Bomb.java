@@ -5,17 +5,26 @@ import java.util.List;
 
 import dungeonmania.Dungeon;
 import dungeonmania.Entity;
+import dungeonmania.UtilityEntity;
 import dungeonmania.util.Position;
 
 
-public class BombStatic extends Entity {
+public class Bomb extends UtilityEntity {
+
+	boolean isActive;
 
 	/**
-	 * This bomb has been placed and will be exploded, thus cannot be moved or moved into
+	 * This bomb is a Collectible, as can be picked up
 	 * @param position	where the bomb is located
 	 */
-    public BombStatic(String id, Position position) {
-        super(id, position, "bomb_static");
+    public Bomb(String id, Position position) {
+        super(id, position, "bomb");
+		this.isActive = false;
+	}
+
+	public void use(Player player) {
+		this.setPosition(player.getPosition());
+		this.isActive = true;
     }
 
 	/**
@@ -55,6 +64,14 @@ public class BombStatic extends Entity {
 				result.add(cellEnt);
 			}
 		} return result; 
+	}
+
+	public boolean isActive() {
+		return this.isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

@@ -1,13 +1,17 @@
 package dungeonmania.allEntities;
 
-import dungeonmania.CollectableEntity;
+import dungeonmania.UtilityEntity;
 import dungeonmania.util.Position;
 
 
-public class HealthPotion extends CollectableEntity {
+public class HealthPotion extends UtilityEntity {
 
     public HealthPotion(String id, Position position) {
         super(id, position, "health_potion");
+    }
+
+    public void use(Player player) {
+        player.setHealth(player.getInitialHealth());
     }
 
 }

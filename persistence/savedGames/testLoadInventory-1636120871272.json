@@ -67,6 +67,7 @@
       "id": "7"
     },
     {
+      "isActive": false,
       "position": {
         "x": 8,
         "y": 0,
@@ -288,5 +289,5 @@
   "factory": {},
   "mercSpawnrate": 20,
   "spiderSpawnrate": 20,
-  "rewindPath": "/rewind/1636861943361/"
+  "rewindPath": "/rewind/1636866201633/"
 }

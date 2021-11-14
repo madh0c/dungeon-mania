@@ -4,7 +4,7 @@
   "inventory": [],
   "entities": [
     {
-      "health": 16,
+      "health": 70,
       "attack": 2,
       "visible": true,
       "currentDir": "RIGHT",
@@ -105,5 +105,5 @@
   "factory": {},
   "mercSpawnrate": 20,
   "spiderSpawnrate": 20,
-  "rewindPath": "/rewind/1636861943489/"
+  "rewindPath": "/rewind/1636866202037/"
 }
