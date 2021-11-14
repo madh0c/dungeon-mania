@@ -90,7 +90,8 @@ Initialise 60 health
 One ring gives 60 health
 Invincibility pot last 0 secs
 
-Assumptions Milestone 3
+
+**Assumptions Milestone 3**
 
 Bosses - Assassin bribe requires treasure AND one ring
 
