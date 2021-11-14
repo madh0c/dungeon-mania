@@ -126,18 +126,19 @@ public class DungeonManiaController {
 		}
 
 		Date date = new Date();
-		long currTime = date.getTime();
-		String rewindTime = Long.toString(currTime);
-		String rewindPath = "/rewind/" + rewindTime + "/";
-		currentDungeon.setRewindPath(rewindPath);
+		// TODO UNCOMMENT
+		// long currTime = date.getTime();
+		// String rewindTime = Long.toString(currTime);
+		// String rewindPath = "/rewind/" + rewindTime + "/";
+		// currentDungeon.setRewindPath(rewindPath);
 
-		try {
-			Path path = Paths.get("persistence" + rewindPath);
-			Files.createDirectories(path);
+		// try {
+		// 	Path path = Paths.get("persistence" + rewindPath);
+		// 	Files.createDirectories(path);
 		
-		} catch (IOException e) {
-			System.err.println("Failed to create directory!" + e.getMessage());
-		}
+		// } catch (IOException e) {
+		// 	System.err.println("Failed to create directory!" + e.getMessage());
+		// }
 
 		int currentId = currentDungeon.getId();
 		lastUsedDungeonId++;
@@ -356,9 +357,11 @@ public class DungeonManiaController {
 	 * @throws InvalidActionException
 	 */
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
+		// PREVIOUS TICK ACTIONS
 		checkValidTick(itemUsed);
 
-		saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
+		// TODO UNCOMMENT
+		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 		
 		Player player = currentDungeon.getPlayer();
 
@@ -386,8 +389,8 @@ public class DungeonManiaController {
 			}
 		}
 
-
-
+		// NEXT TICK ACTIONS
+		// Tick the dungeon once
 		currentDungeon.tickOne();
 
 		// Player actions
@@ -464,25 +467,9 @@ public class DungeonManiaController {
 		if (toRemove.size() != 0) {
 			currentDungeon.getEntities().removeAll(toRemove);
 		}		
-		
-		// Spawn in mercenary if appropriate
-		currentDungeon.spawnMerc();
 
-		// Spawn in zombies if appropriate
-		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
-
-		for (Entity entity : currentDungeon.getEntities()) {
-			if (entity.getType().equals("zombie_toast_spawner")) {
-				ZombieToastSpawner spawner = (ZombieToastSpawner)entity;
-				spawners.add(spawner);
-			}
-		}
-		// Spawn in new zombietoast after 20 ticks (20 ticks checked inside method)
-		for (ZombieToastSpawner spawner : spawners) {
-			spawner.spawnZombie(currentDungeon);
-		}
-
-		// currentDungeon.spiderSpawn();
+		// Spawn in the entities which need to be spawned in
+		currentDungeon.spawnEntities();
 		
 		evalGoal(currentDungeon, currentDungeon.getFoundGoals());
 		return getDungeonInfo(currentDungeon.getId());

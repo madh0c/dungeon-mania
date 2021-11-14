@@ -19,12 +19,21 @@ public class Dungeon {
     private String gameMode;
     private String goals;
 	private int historicalEntCount;
+	/**
+	 * Current tick of the dungeon
+	 */
 	private int tickNumber;
 	private Position spawnpoint;
 	private GoalNode foundGoals;
 	private String goalConditions;
 	private EntityFactory factory;
+	/**
+	 * Number of ticks before a Mercenary spawns
+	 */
 	private int mercSpawnrate;
+	/**
+	 * Number of ticks before a Spider spawns
+	 */
 	private int spiderSpawnrate;
 	private String rewindPath;
 
@@ -59,6 +68,10 @@ public class Dungeon {
         return entities;
     }
 
+	/**
+	 * Add an entity to this dungeon, with id automatically calculated
+	 * @param newEntity	Entity to be added
+	 */
     public void addEntity(Entity newEntity) {
         this.entities.add(newEntity);
 		historicalEntCount++;
@@ -104,6 +117,16 @@ public class Dungeon {
 		return factory;
 	}
 
+	public void setInventory(List<CollectableEntity> inventory) {
+		this.inventory = inventory;
+	}
+
+	/**
+	 * Return Entity of same id
+	 * @param id	id of Entity
+	 * @return		Entity of id
+	 * 				<li> null, if it doesn't exist
+	 */
 	public Entity getEntity(String id) {
 		int entId = 0;
 		for (Entity entity : getEntities()) {
@@ -115,10 +138,12 @@ public class Dungeon {
 		return null;
 	}
 
-	public void setInventory(List<CollectableEntity> inventory) {
-		this.inventory = inventory;
-	}
-
+	/**
+	 * Return Entity of same position
+	 * @param position	Position of Entity
+	 * @return			Entity of position
+	 * 					<li> null, if it doesn't exist
+	 */
 	public Entity getEntity(Position position) {
 		for (Entity entity : getEntities()) {
 			if (entity.getPosition().equals(position) && entity.getPosition().getLayer() == position.getLayer()) {
@@ -128,6 +153,13 @@ public class Dungeon {
 		return null;
 	}
 
+	/**
+	 * Return Entity of same type and position
+	 * @param type		type of Entity
+	 * @param position	position of Entity
+	 * @return		Entity of position and type
+	 * 				<li> null, if it doesn't exist
+	 */
 	public Entity getEntity(String type, Position position) {
 		for (Entity entity : getEntities()) {
 			if (entity.getPosition().equals(position) && entity.getType().equals(type)) {
@@ -223,15 +255,28 @@ public class Dungeon {
 		tickNumber++;
 	}
 
+	/**
+	 * Remove an item from the inventory
+	 * @param entity	Entity to be removed
+	 */
 	public void removeEntity(Entity entity) {
 		getEntities().remove(entity);
 	}
 
+	/**
+	 * Add an item to the inventory
+	 * @param entity	CollectableEntity to be added
+	 */
 	public void addItemToInventory(CollectableEntity entity) {
 		inventory.add(entity);
 	}
 
-	// Check if type exists regardless of position
+	/**
+	 * Check if the given type exists
+	 * @param type Type of entity
+	 * @return true if the entity exists in the dungeon
+	 * 			<li> false if otherwise
+	 */
 	public boolean entityExists(String type) {
 		for (Entity ent : getEntities()) {
 			if (ent.getType().equals(type)) {
@@ -241,7 +286,12 @@ public class Dungeon {
 		return false;
 	}
 
-	// Check if something exists in position
+	/**
+	 * Check if given position contains an entity
+	 * @param position	Position of entity
+	 * @return	true if the position contains an entity
+	 * 			<li> false if otherwise
+	 */
 	public boolean entityExists(Position position) {
 		for (Entity ent : getEntities()) {
 			if (ent.getPosition().equals(position)) {
@@ -251,7 +301,13 @@ public class Dungeon {
 		return false;
 	}
 
-	// Check if type exists in position
+	/**
+	 * Check if given type exists in given position
+	 * @param type		Type of entity
+	 * @param position	Position of entity
+	 * @return	true if the type of entity exists on the position
+	 * 			<li> false if otherwise
+	 */
 	public boolean entityExists(String type, Position position) {		
 		for (Entity ent : getEntities()) {
 			if (ent.getPosition().equals(position) && ent.getType().equals(type)) {
@@ -260,6 +316,22 @@ public class Dungeon {
 		}
 		return false;
 	}
+
+	/**
+	 * Counts the number of given type entities in the dungeon
+	 * @param type	Type of entity
+	 * @return	the number of entities of same type in the dungeon
+	 */
+	public int numOfEntities(String type) {
+		int counter = 0;
+		for (Entity ent : getEntities()) {
+			if (ent.getType().equals(type)) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+
 
 	/**
 	 * @return player's curr position in the dungeon
@@ -386,59 +458,119 @@ public class Dungeon {
 	}
 
 	/**
+	 * Spawns in Mercenary, ZombieToast and Spider
+	 * Mercenary spawnrate:<ul>
+	 * <li> Peaceful: 20 ticks
+	 * <li> Standard: 20 ticks
+	 * <li> Hard: 10 ticks
+	 * </ul>
+	 * ZombieToast spawnrate:<ul>
+	 * <li> Peaceful: 20 ticks
+	 * <li> Standard: 20 ticks
+	 * <li> Hard: 15 ticks
+	 * </ul>
+	 * Spider spawnrate:<ul>
+	 * <li> Peaceful: 20 ticks
+	 * <li> Standard: 20 ticks
+	 * <li> Hard: 15 ticks
+	 * </ul>
+	 */
+	public void spawnEntities() {
+		// Spawn in Mercenary if appropriate
+		mercSpawn();
+		// Spawn in ZombieToast if appropriate
+		zombieSpawn();
+		// Spawn in Spider if appropriate
+		spiderSpawn();
+		// Spawn in Hydra if appropriate
+		hydraSpawn();
+	}
+
+	/**
 	 * Spawn in a mercenary at the spawnpoint at certain intervals depending on gamemode
 	 * <ul><li>Peaceful: Every 20 ticks
 	 * <li>Standard: Every 20 ticks
 	 * <li>Hard: Every 10 ticks</ul>
 	 */
-	public void spawnMerc() {
+	private void mercSpawn() {
 		// Check if correct tick to spawn merc
-		if (getTickNumber() % getMercSpawnrate() != 0 || getTickNumber() == 0) {
-			return;
-		}
+		if (getTickNumber() % getMercSpawnrate() != 0 || getTickNumber() == 0) return;
+		// If there is no spawnpoint
+		if (getSpawnpoint() == null) return;
 
-		// If there is a spawnpoint
-		if (getSpawnpoint() != null) {
-			// Merc spawn every 10/20 ticks
-			int newId = getHistoricalEntCount();
-			Mercenary newMerc = (Mercenary)getFactory().createEntity(String.valueOf(newId), "mercenary", getSpawnpoint());
-			
-			for (Entity entity : getEntitiesOnCell(getSpawnpoint())) {
-				if (!newMerc.collide(entity, this)) {
-					return;
-				}
-			}
-			
-			Random rand = new Random();
-			int random = rand.nextInt(10);
-			
-			if (random < 2) {
-				Entity newAssassin = getFactory().createEntity(String.valueOf(newId), "assassin", getSpawnpoint());
-				addEntity(newAssassin);
-			} else {
-				addEntity(newMerc);
-			}			
-			return;				
+		// Merc spawn every 10/20 ticks
+		int newId = getHistoricalEntCount();
+		Mercenary newMerc = factory.createMercenary(String.valueOf(newId), spawnpoint);
+
+		for (Entity entity : getEntitiesOnCell(getSpawnpoint())) {
+			if (!newMerc.collide(entity, this)) return;
 		}
-		return;
+		
+		Random rand = new Random();
+		int random = rand.nextInt(10);
+		
+		if (random < 2) {
+			Assassin newAssassin = factory.createAssassin(String.valueOf(newId), spawnpoint);
+			addEntity(newAssassin);
+		} else {
+			addEntity(newMerc);
+		}			
+		return;				
+	}
+
+	/**
+	 * Spawn in a zombie_toast<ul>
+	 * <li> Peaceful: 20 ticks
+	 * <li> Standard: 20 ticks
+	 * <li> Hard: 15 ticks
+	 * </ul>
+	 */
+	private void zombieSpawn() {
+		// Spawn in zombies if appropriate
+		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
+
+		for (Entity entity : getEntities()) {
+			if (entity.getType().equals("zombie_toast_spawner")) {
+				ZombieToastSpawner spawner = (ZombieToastSpawner)entity;
+				spawners.add(spawner);
+			}
+		}
+		// Spawn in new zombietoast after 20 ticks (20 ticks checked inside method)
+		for (ZombieToastSpawner spawner : spawners) {
+			spawner.spawnZombie(this);
+		}
 	}
 
 	/**
 	 * Spawn in a spider<ul>
 	 * <li> Peaceful: 20 ticks
 	 * <li> Standard: 20 ticks
-	 * <li> Hard: 20 ticks
+	 * <li> Hard: 15 ticks
 	 * </ul>
 	 */
-	public void spiderSpawn() {
+	private void spiderSpawn() {
 		// Ignore if not the right number of ticks
-		if (getTickNumber() % spiderSpawnrate != 0) return;
+		if (getTickNumber() % spiderSpawnrate != 0 || getTickNumber() == 0) return;
+		// If more than four spiders, don't spawn
+		if (maxSpiders()) return;
 
+		int newId = getHistoricalEntCount();
 		// Random spawnpoint
 		Position rngSpawn;
 		boolean flag = false;
-		// Generate random spawnpoint until it is a valid one
+		// Checker for infinite loop
+		int infLoop = 0;
+
+		// Keep generating random spawnpoints, until there is one where the spider
+		// is collideable with all entities on the spawnpoint, then spawn spider
 		do {
+			// Infinite loop protection
+			if (infLoop > 50) {
+				// Spawn on player if can't find anywhere else
+				addEntity(factory.createSpider(String.valueOf(newId), getSpawnpoint()));
+				return;
+			}
+
 			rngSpawn = randomSpawnpoint();
 			for (Entity ent : getEntitiesOnCell(rngSpawn)) {
 				if (!Spider.spawnCollide(ent)) {
@@ -446,12 +578,22 @@ public class Dungeon {
 					break;
 				}
 			}
+			infLoop++;
+
 		} while (flag);
 
-		factory.createSpider(gameMode, rngSpawn);
+		addEntity(factory.createSpider(String.valueOf(newId), rngSpawn));
 
 	}
 	
+	/**
+	 * Checks if there are more than 4 spiders currently in the dungeon
+	 * @return	true if there are more than 4 spiders
+	 * 			<li> false if otherwise
+	 */
+	private boolean maxSpiders() {
+		return (numOfEntities("spider") >= 4);
+	}
 
 	/**
 	 * Returns a random spawnpoint on the dungeon
@@ -459,88 +601,37 @@ public class Dungeon {
 	 */
 	private Position randomSpawnpoint() {
 		Random rng = new Random();
-		// max: getMaxX()
-		// min: getMinX()
-		int randX = rng.nextInt(getMaxX() - getMinX()) + getMinX();
 
-		// max: getMaxY()
-		// min: getMaxX()
-		int randY = rng.nextInt(getMaxY() - getMinY()) + getMinY();
+		int minX  = getMinX() > 0 ? getMinX() : 0;
+		int maxX = getMaxX() > minX ? getMaxX() : minX + 1;
+		int randX = rng.nextInt(maxX - minX) + minX;
+
+		int minY  = getMinY() > 0 ? getMinY() : 0;
+		int maxY = getMaxY() > minY ? getMaxY() : minY + 1;
+		int randY = rng.nextInt(maxY - minY) + minY;
 
 		Position ret = new Position(randX, randY);
 
 		return ret;
 	}
 
-	// private boolean validSpiderSpawnpoint(Position pos) {
-	// 	Spider temp = new Spider(gameMode, pos, false);
-	// 	for (Entity ent : getEntitiesOnCell(pos)) {
-	// 		if (!Spider.spawnCollide(ent)) {
-	// 			return false;
-	// 		}
-	// 	}
-	// 	return 
-	// }
+	/**
+	 * Spawn in a Hydra every 50 ticks, at the spawnpoint of the dungeon
+	 */
+	private void hydraSpawn() {
+		// Check if correct tick
+		if (getTickNumber() % 50 != 0 || getTickNumber() == 0) return;
+		// If no spawnpoint
+		if (getSpawnpoint() == null) return;
 
+		int newId = getHistoricalEntCount();
+		Hydra newHydra = factory.createHydra(String.valueOf(newId), spawnpoint);
 
-	// public boolean equals(Object obj) {
-	// 	if (this == null || obj == null) {
-	// 		return false;
-	// 	}
+		// Check if can collide with everything on spawnpoint
+		for (Entity entity : getEntitiesOnCell(spawnpoint)) {
+			if (!newHydra.collide(entity, this)) return;
+		}
 
-	// 	if (this == obj) {
-	// 		return true;
-	// 	} 
-
-	// 	if (getClass() != obj.getClass()) {
-	// 		return false;
-	// 	}
-
-	// 	Dungeon other = (Dungeon) obj;
-
-	// 	if (id != other.getId()) {
-	// 		return false;
-	// 	}
-		
-	// 	if (name == null) {
-	// 		if (other.getName() != null) {
-	// 			return false;
-	// 		}
-	// 	} else if (!name.equals(other.getName())) {
-	// 		return false;
-	// 	}
-
-	// 	if (inventory == null) {
-	// 		if (other.getInventory() != null) {
-	// 			return false;
-	// 		}
-	// 	} else if (!inventory.equals(other.getInventory())) {
-	// 		return false;
-	// 	}
-
-	// 	if (entities == null) {
-	// 		if (other.getEntities() != null) {
-	// 			return false;
-	// 		}
-	// 	} else if (!entities.equals(other.getEntities())) {
-	// 		return false;
-	// 	}
-
-	// 	if (gameMode == null) {
-	// 		if (other.getGameMode() != null) {
-	// 			return false;
-	// 		}
-	// 	} else if (!gameMode.equals(other.getGameMode())) {
-	// 		return false;
-	// 	}
-
-	// 	if (goals == null) {
-	// 		if (other.getGoals() != null) {
-	// 			return false;
-	// 		}
-	// 	} else if (!goals.equals(other.getGoals())) {
-	// 		return false;
-	// 	}
-	// 	return true;
-	// }
+		addEntity(newHydra);
+	}
 }
