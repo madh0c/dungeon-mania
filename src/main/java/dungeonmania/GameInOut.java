@@ -25,6 +25,7 @@ public class GameInOut {
 	public static void toJSON(String fileName, String path, Dungeon dungeon) throws IOException {
 
 		try {
+			System.out.println(dungeon.getGoalConditions() + "hey");
 			Gson gson = new GsonBuilder().setPrettyPrinting().create(); 
 			Writer writer = new FileWriter(path);
 			gson.toJson(dungeon, writer);
@@ -82,6 +83,7 @@ public class GameInOut {
 					foundGoals = createGoals(goalCon);
 					goals = foundGoals.remainingString();
 					goalsConvert = goalCon.toString();
+					System.out.println(goalsConvert);
 				}
 			}
 
@@ -352,7 +354,6 @@ public class GameInOut {
 					} 
 				}
 			}
-
 			Dungeon returnDungeon = new Dungeon(lastUsedDungeonId, feed, entityList, playMode, goals, foundGoals, goalsConvert);
 
 			if (expType.equals("load") || expType.equals("rewind")) {

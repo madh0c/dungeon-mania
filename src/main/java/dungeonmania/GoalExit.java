@@ -5,13 +5,14 @@ import dungeonmania.util.Position;
 
 public class GoalExit extends GoalLeaf{
 
+	private Boolean hasCompleted = false;
 	public GoalExit(String goal) {
 		super(goal);
 	}
 	
 	@Override
 	public Boolean evaluate(Dungeon currentDungeon) {
-		boolean exit = false;
+		hasCompleted = false;
 		for (Entity ent: currentDungeon.getEntities()) {
 			if (ent instanceof Exit) {
 				Position playerPos = currentDungeon.getPlayerPosition();
@@ -19,12 +20,19 @@ public class GoalExit extends GoalLeaf{
 				if (playerPos == null ) {
 					continue;
 				} else if (playerPos.equals(exitPos)) {
-					exit = true;
+					hasCompleted = true;
 					continue;
 				} 
 			}
 		}
-		return exit;
+		return hasCompleted;
 	}
 
+	@Override 
+	public String remainingString() {
+		if (hasCompleted || getGoal().equals("")) {
+			return "";
+		}
+		return ":" + this.getGoal();
+	}
 }

@@ -294,7 +294,6 @@ public class DungeonManiaController {
 					}
 				}
 			}
-
 			for (Entity ent : currentDungeon.getEntities()) {
 				if (ent instanceof OlderPlayer) {
 					OlderPlayer oP = (OlderPlayer) ent;
@@ -524,18 +523,20 @@ public class DungeonManiaController {
 			GoalAnd headAnd = (GoalAnd) head;
 			for (GoalNode subgoal : headAnd.getList()) {
 				subgoal.evaluate(currentDungeon);
+				evalGoal(currentDungeon, subgoal);
 			}
+			headAnd.evaluate(currentDungeon);
 		} else if (head instanceof GoalOr) {
 			GoalOr headOr = (GoalOr) head;
 			for (GoalNode subgoal : headOr.getList()) {
 				subgoal.evaluate(currentDungeon);
+				evalGoal(currentDungeon, subgoal);
 			}
+			headOr.evaluate(currentDungeon);
 		} else {
 			GoalLeaf leaf = (GoalLeaf) head;
 			leaf.evaluate(currentDungeon);
-			System.out.println(leaf.evaluate(currentDungeon));
 		} 
-		
 		currentDungeon.setGoals(currentDungeon.getFoundGoals().remainingString());
 	}
 

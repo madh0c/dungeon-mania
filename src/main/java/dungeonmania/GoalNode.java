@@ -6,6 +6,6 @@ public interface GoalNode {
 	
 	public Boolean evaluate(Dungeon dungeon);
 	public String remainingString();
-	// public abstract JSONObject saveGameJSON();
+	public abstract JSONObject saveGameJSON();
 }
 

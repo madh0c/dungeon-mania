@@ -10,12 +10,12 @@ public class GoalLeaf implements GoalNode {
 		this.goal = goal;
 	}
 
-	@Override
+	
 	public Boolean evaluate(Dungeon dungeon) {
 		return hasCompleted;
 	}
 
-	@Override 
+	 
 	public String remainingString() {
 		if (hasCompleted || goal.equals("")) {
 			return "";
@@ -23,12 +23,12 @@ public class GoalLeaf implements GoalNode {
 		return ":" + this.goal;
 	}
 
-	// @Override
-	// public JSONObject saveGameJSON() {
-	// 	JSONObject compositeLeafJSON = new JSONObject();
-    //     compositeLeafJSON.put("goal", goal);
-	// 	return compositeLeafJSON;
-	// }
+	@Override
+	public JSONObject saveGameJSON() {
+		JSONObject compositeLeafJSON = new JSONObject();
+        compositeLeafJSON.put("goal", goal);
+		return compositeLeafJSON;
+	}
 
 	public String getGoal() {
 		return goal;

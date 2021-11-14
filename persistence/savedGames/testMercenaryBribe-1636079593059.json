@@ -3,19 +3,18 @@
   "name": "testMercenaryBribe-1636079593059",
   "inventory": [
     {
-      "durability": 9,
       "position": {
         "x": 3,
         "y": 1,
         "layer": 0
       },
-      "type": "armour",
+      "type": "one_ring",
       "id": "4"
     }
   ],
   "entities": [
     {
-      "health": 79,
+      "health": 16,
       "attack": 2,
       "visible": true,
       "currentDir": "RIGHT",
@@ -116,5 +115,5 @@
   "factory": {},
   "mercSpawnrate": 20,
   "spiderSpawnrate": 20,
-  "rewindPath": "/rewind/1636857313012/"
+  "rewindPath": "/rewind/1636884176422/"
 }
