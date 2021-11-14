@@ -1,0 +1,382 @@
+{
+  "id": 2,
+  "name": "testMercenaryCollide",
+  "inventory": [
+    {
+      "durability": 0,
+      "position": {
+        "x": 5,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "16"
+    },
+    {
+      "durability": 7,
+      "position": {
+        "x": 3,
+        "y": 4,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "22"
+    }
+  ],
+  "entities": [
+    {
+      "health": 55,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "UP",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT",
+        "RIGHT",
+        "LEFT",
+        "UP",
+        "UP",
+        "RIGHT",
+        "RIGHT",
+        "DOWN",
+        "UP",
+        "LEFT",
+        "DOWN",
+        "LEFT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "DOWN",
+        "DOWN",
+        "RIGHT",
+        "DOWN",
+        "LEFT",
+        "DOWN",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "UP",
+        "UP",
+        "UP",
+        "UP",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "DOWN",
+        "DOWN",
+        "DOWN",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "DOWN",
+        "DOWN",
+        "LEFT",
+        "UP",
+        "UP",
+        "UP",
+        "DOWN",
+        "RIGHT",
+        "UP",
+        "UP",
+        "UP",
+        "UP",
+        "DOWN",
+        "DOWN",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "UP",
+        "UP"
+      ],
+      "position": {
+        "x": 0,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "tickrate": 20,
+      "position": {
+        "x": 4,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "zombie_toast_spawner",
+      "id": "3"
+    },
+    {
+      "tickrate": 20,
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "zombie_toast_spawner",
+      "id": "4"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "boulder",
+      "id": "5"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "boulder",
+      "id": "6"
+    },
+    {
+      "isOpen": false,
+      "key": 1,
+      "position": {
+        "x": 2,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "door_1",
+      "id": "7"
+    },
+    {
+      "isOpen": true,
+      "key": 2,
+      "position": {
+        "x": 3,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "door_unlocked",
+      "id": "8"
+    },
+    {
+      "randSeed": 32,
+      "random": {
+        "seed": 186637822951894,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 2,
+        "y": -4,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "10"
+    },
+    {
+      "randSeed": 47,
+      "random": {
+        "seed": 45321701039279,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": -1,
+        "y": -5,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "14"
+    },
+    {
+      "randSeed": 89,
+      "random": {
+        "seed": 166151268357349,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 0,
+        "y": -2,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "18"
+    },
+    {
+      "randSeed": 26,
+      "random": {
+        "seed": 265343153404148,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 3,
+        "y": -3,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "19"
+    },
+    {
+      "randSeed": 96,
+      "random": {
+        "seed": 32792565407842,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 0,
+        "y": -7,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "21"
+    },
+    {
+      "randSeed": 88,
+      "random": {
+        "seed": 206890472550582,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 4,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "24"
+    },
+    {
+      "randSeed": 96,
+      "random": {
+        "seed": 145465835320430,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 5,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "25"
+    },
+    {
+      "randSeed": 17,
+      "random": {
+        "seed": 196292338532073,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 3,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "26"
+    },
+    {
+      "randSeed": 33,
+      "random": {
+        "seed": 235172764540153,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 3,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "27"
+    },
+    {
+      "randSeed": 51,
+      "random": {
+        "seed": 220592604787123,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 4,
+        "y": -1,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "28"
+    }
+  ],
+  "gameMode": "standard",
+  "goals": "",
+  "historicalEntCount": 29,
+  "tickNumber": 63,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "spiderSpawnrate": 20,
+  "rewindPath": "/rewind/1636874167372/"
+}
