@@ -1,22 +1,7 @@
 {
   "id": 0,
   "name": "testAndGoal",
-  "inventory": [
-    {
-      "random": {
-        "seed": 271412688381981,
-        "nextNextGaussian": 0.0,
-        "haveNextNextGaussian": false
-      },
-      "position": {
-        "x": 0,
-        "y": 0,
-        "layer": 0
-      },
-      "type": "one_ring",
-      "id": "3"
-    }
-  ],
+  "inventory": [],
   "entities": [
     {
       "health": 85,
@@ -54,7 +39,7 @@
   ],
   "gameMode": "standard",
   "goals": ":treasure",
-  "historicalEntCount": 4,
+  "historicalEntCount": 3,
   "tickNumber": 1,
   "spawnpoint": {
     "x": 0,
@@ -78,5 +63,6 @@
   "goalConditions": "{\"subgoals\":[{\"goal\":\"enemies\"},{\"goal\":\"treasure\"}],\"goal\":\"AND\"}",
   "factory": {},
   "mercSpawnrate": 20,
-  "spiderSpawnrate": 20
+  "spiderSpawnrate": 20,
+  "rewindPath": "/rewind/1636857312748/"
 }

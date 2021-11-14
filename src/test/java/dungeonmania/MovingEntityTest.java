@@ -748,8 +748,8 @@ public class MovingEntityTest {
 		Entity ent = dungeon.getEntities().get(1);
 		Assassin ass = (Assassin) ent;
 		assertTrue(ass.getIsAlly());
-		assertDoesNotThrow(() -> controller.saveGame("saveAssassinBribed"));
-		assertDoesNotThrow(() -> controller.loadGame("saveAssassinBribed"));
+		assertDoesNotThrow(() -> controller.saveGame("saveAssassinBribed-1636079593059"));
+		assertDoesNotThrow(() -> controller.loadGame("saveAssassinBribed-1636079593059"));
 		Dungeon dungeon1 = controller.getDungeon(0);
 		Entity entity = dungeon1.getEntities().get(1);
 		Assassin assass = (Assassin) entity;
