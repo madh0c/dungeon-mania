@@ -136,13 +136,13 @@ public class GameInOut {
 					String colour = (String)currentEntity.get("colour");
 					Portal portal = factory.createPortal(entityId, exportPos, colour);
 					entityList.add(portal);
-				}  else if (entityType.equals("door_unlocked")) {
+				} else if (entityType.equals("door_unlocked")) {
 					Double corrKey = (Double)currentEntity.get("key");
 					int keyId = corrKey.intValue();
 					Door door = factory.createDoor("door_unlocked", exportPos, keyId);
 					door.setOpen(true);
 					entityList.add(door);
-				}else if (entityType.contains("door")) {
+				} else if (entityType.contains("door")) {
 					Double corrKey = (Double)currentEntity.get("key");
 					int keyId = corrKey.intValue();
 					Door door = factory.createDoor(entityId, exportPos, keyId);
