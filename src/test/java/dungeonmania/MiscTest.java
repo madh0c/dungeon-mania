@@ -64,7 +64,7 @@ public class MiscTest {
         midList.add(midE1);
 
         // Move player away from the mercenary.
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 24; i++) {
             controller.tick(null, Direction.RIGHT);
         }
         List<ItemResponse> expInvList = new ArrayList<ItemResponse>();

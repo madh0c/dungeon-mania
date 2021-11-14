@@ -346,10 +346,7 @@ public class DungeonManiaController {
 			}
 		}
 
-		// Spawn in new mercenary after amount of ticks, dependent on gamemode
-		if (currentDungeon.getTickNumber() % currentDungeon.getMercSpawnrate() == 0 && currentDungeon.getTickNumber() > 0) {	
-			currentDungeon.spawnMerc();
-		}
+
 
 		currentDungeon.tickOne();
 
@@ -425,13 +422,18 @@ public class DungeonManiaController {
 			currentDungeon.getEntities().removeAll(toRemove);
 		}		
 		
+		// Spawn in new mercenary after amount of ticks, dependent on gamemode
+		if (currentDungeon.getTickNumber() % currentDungeon.getMercSpawnrate() == 0 && currentDungeon.getTickNumber() > 0) {	
+			currentDungeon.spawnMerc();
+		}
+
 		// Spawn in zombies if appropriate
 		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
 
 		for (Entity entity : currentDungeon.getEntities()) {
 			if (entity.getType().equals("zombie_toast_spawner")) {
-				ZombieToastSpawner foundSpawner = (ZombieToastSpawner)entity;
-				spawners.add(foundSpawner);
+				ZombieToastSpawner spawner = (ZombieToastSpawner)entity;
+				spawners.add(spawner);
 			}
 		}
 		// Spawn in new zombietoast after 20 ticks (20 ticks checked inside method)
@@ -439,7 +441,7 @@ public class DungeonManiaController {
 			spawner.spawnZombie(currentDungeon);
 		}
 
-		currentDungeon.spiderSpawn();
+		// currentDungeon.spiderSpawn();
 		
 		evalGoal(currentDungeon);
 		

@@ -65,9 +65,9 @@
       "id": "3"
     },
     {
-      "randSeed": 2,
+      "randSeed": 63,
       "random": {
-        "seed": 25214903919,
+        "seed": 25214903890,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
@@ -162,13 +162,13 @@
     },
     {
       "rng": {
-        "seed": 210291841134935,
+        "seed": 107388313715247,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
-      "randSeed": 54,
+      "randSeed": 87,
       "random": {
-        "seed": 25214903899,
+        "seed": 25214903866,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
@@ -195,5 +195,6 @@
   },
   "goalConditions": "",
   "factory": {},
-  "mercSpawnrate": 20
+  "mercSpawnrate": 20,
+  "spiderSpawnrate": 20
 }

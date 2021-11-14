@@ -67,5 +67,6 @@
   },
   "goalConditions": "",
   "factory": {},
-  "mercSpawnrate": 20
+  "mercSpawnrate": 20,
+  "spiderSpawnrate": 20
 }

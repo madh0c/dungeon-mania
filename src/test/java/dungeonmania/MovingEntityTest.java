@@ -478,7 +478,7 @@ public class MovingEntityTest {
 		controller.tick(null, Direction.RIGHT);
 
 		// For all 10 ticks, the mercenary will not be spawned in yet
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 9; i++) {
 			// assertThrows(InvalidActionException.class, () -> controller.getEntity("1"));
 			assertFalse(controller.getDungeon(0).entityExists("mercenary"));
 			controller.tick(null, Direction.LEFT);
