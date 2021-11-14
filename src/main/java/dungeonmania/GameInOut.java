@@ -2,6 +2,7 @@ package dungeonmania;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import dungeonmania.allEntities.Player;
 import dungeonmania.allEntities.Portal;
@@ -25,12 +26,12 @@ public class GameInOut {
 	public static void toJSON(String fileName, String path, Dungeon dungeon) throws IOException {
 
 		try {
-			System.out.println(dungeon.getGoalConditions() + "hey");
 			Gson gson = new GsonBuilder().setPrettyPrinting().create(); 
 			Writer writer = new FileWriter(path);
 			gson.toJson(dungeon, writer);
 			writer.flush(); 
         	writer.close();
+			System.out.println("hey");
 		} catch (Exception e) {
 			System.out.println("Game Doesn't Exist");
 		}
@@ -83,7 +84,6 @@ public class GameInOut {
 					foundGoals = createGoals(goalCon);
 					goals = foundGoals.remainingString();
 					goalsConvert = goalCon.toString();
-					System.out.println(goalsConvert);
 				}
 			}
 
@@ -388,6 +388,7 @@ public class GameInOut {
 				returnDungeon.setTickNumber(tickNumber);
 				returnDungeon.setSpawnpoint(spawnpoint); 
 				returnDungeon.setFoundGoals(foundGoals);
+				returnDungeon.setGoalConditions(goalsConvert);
 			}
 
 			if (expType.equals("rewind") || expType.equals("load")) {

@@ -125,19 +125,19 @@ public class DungeonManiaController {
 			e.printStackTrace();
 		}
 
-		Date date = new Date();
-		long currTime = date.getTime();
-		String rewindTime = Long.toString(currTime);
-		String rewindPath = "/rewind/" + rewindTime + "/";
-		currentDungeon.setRewindPath(rewindPath);
+		// Date date = new Date();
+		// long currTime = date.getTime();
+		// String rewindTime = Long.toString(currTime);
+		// String rewindPath = "/rewind/" + rewindTime + "/";
+		// currentDungeon.setRewindPath(rewindPath);
 
-		try {
-			Path path = Paths.get("persistence" + rewindPath);
-			Files.createDirectories(path);
+		// try {
+		// 	Path path = Paths.get("persistence" + rewindPath);
+		// 	Files.createDirectories(path);
 		
-		} catch (IOException e) {
-			System.err.println("Failed to create directory!" + e.getMessage());
-		}
+		// } catch (IOException e) {
+		// 	System.err.println("Failed to create directory!" + e.getMessage());
+		// }
 
 		int currentId = currentDungeon.getId();
 		lastUsedDungeonId++;
@@ -358,7 +358,7 @@ public class DungeonManiaController {
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
 
-		saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
+		//saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 	
 		// Use item
 		currentDungeon.useItem(itemUsed);
@@ -522,14 +522,12 @@ public class DungeonManiaController {
 		if (head instanceof GoalAnd) {
 			GoalAnd headAnd = (GoalAnd) head;
 			for (GoalNode subgoal : headAnd.getList()) {
-				subgoal.evaluate(currentDungeon);
 				evalGoal(currentDungeon, subgoal);
 			}
 			headAnd.evaluate(currentDungeon);
 		} else if (head instanceof GoalOr) {
 			GoalOr headOr = (GoalOr) head;
 			for (GoalNode subgoal : headOr.getList()) {
-				subgoal.evaluate(currentDungeon);
 				evalGoal(currentDungeon, subgoal);
 			}
 			headOr.evaluate(currentDungeon);

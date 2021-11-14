@@ -136,6 +136,10 @@ public class Dungeon {
 		return foundGoals.saveGameJSON().toString();
 	}
 
+	public void setGoalConditions(String goalConditions) {
+		this.goalConditions = goalConditions;
+	}
+
 	public void setFoundGoals(GoalNode foundGoals) {
 		this.foundGoals = foundGoals;
 	}
