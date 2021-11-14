@@ -65,9 +65,9 @@
       "id": "3"
     },
     {
-      "randSeed": 60,
+      "randSeed": 6,
       "random": {
-        "seed": 25214903889,
+        "seed": 25214903915,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
@@ -148,8 +148,8 @@
     {
       "trackingList": [],
       "traceUntil": 10,
-      "health": 0,
-      "baseAttack": 0,
+      "health": 100,
+      "baseAttack": 2,
       "enemyAttack": true,
       "ticksFrozen": 0,
       "position": {
@@ -162,13 +162,13 @@
     },
     {
       "rng": {
-        "seed": 253824221227969,
+        "seed": 167726267916314,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
-      "randSeed": 23,
+      "randSeed": 60,
       "random": {
-        "seed": 25214903930,
+        "seed": 25214903889,
         "nextNextGaussian": 0.0,
         "haveNextNextGaussian": false
       },
@@ -195,5 +195,6 @@
   },
   "goalConditions": "",
   "factory": {},
-  "mercSpawnrate": 20
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636853928768/"
 }

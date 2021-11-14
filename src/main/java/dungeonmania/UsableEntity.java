@@ -2,7 +2,6 @@ package dungeonmania;
 
 import java.util.List;
 
-import dungeonmania.allEntities.Player;
 import dungeonmania.util.Position;
 
 public abstract class UsableEntity extends CollectableEntity {

@@ -1,0 +1,71 @@
+{
+  "id": 0,
+  "name": "testZombieMovement",
+  "inventory": [],
+  "entities": [
+    {
+      "randSeed": 31,
+      "random": {
+        "seed": 221219720219625,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 9,
+        "y": 12,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "0"
+    },
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "NONE",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+      ],
+      "position": {
+        "x": 19,
+        "y": 19,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "1"
+    }
+  ],
+  "gameMode": "standard",
+  "goals": "",
+  "historicalEntCount": 2,
+  "tickNumber": 5,
+  "spawnpoint": {
+    "x": 19,
+    "y": 19,
+    "layer": 0
+  },
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636853931899/"
+}

@@ -15,7 +15,6 @@ import dungeonmania.allEntities.Bow;
 import dungeonmania.allEntities.Mercenary;
 import dungeonmania.allEntities.MidnightArmour;
 import dungeonmania.allEntities.Player;
-import dungeonmania.allEntities.Sceptre;
 import dungeonmania.allEntities.Shield;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.DungeonResponse;

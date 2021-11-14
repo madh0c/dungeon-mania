@@ -1,0 +1,188 @@
+{
+  "id": 0,
+  "name": "testBuildMidnightMap",
+  "inventory": [
+    {
+      "durability": 8,
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "1"
+    },
+    {
+      "durability": 10,
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "6"
+    }
+  ],
+  "entities": [
+    {
+      "health": 53,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "NONE",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 60,
+      "invincibleAmount": 0,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+      ],
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "sun_stone",
+      "id": "2"
+    },
+    {
+      "durability": 10,
+      "position": {
+        "x": 0,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "3"
+    },
+    {
+      "tickrate": 15,
+      "position": {
+        "x": 5,
+        "y": 5,
+        "layer": 0
+      },
+      "type": "zombie_toast_spawner",
+      "id": "4"
+    },
+    {
+      "randSeed": 32,
+      "random": {
+        "seed": 25214903885,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 5,
+        "y": 4,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "7"
+    },
+    {
+      "randSeed": 30,
+      "random": {
+        "seed": 25214903923,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 6,
+        "y": 5,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "8"
+    },
+    {
+      "randSeed": 52,
+      "random": {
+        "seed": 25214903897,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 5,
+        "y": 6,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "9"
+    },
+    {
+      "randSeed": 42,
+      "random": {
+        "seed": 25214903879,
+        "nextNextGaussian": 0.0,
+        "haveNextNextGaussian": false
+      },
+      "health": 20,
+      "baseAttack": 10,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 4,
+        "y": 5,
+        "layer": 0
+      },
+      "type": "zombie_toast",
+      "id": "10"
+    }
+  ],
+  "gameMode": "hard",
+  "goals": "",
+  "historicalEntCount": 11,
+  "tickNumber": 15,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 10,
+  "rewindPath": "/rewind/1636853940119/"
+}

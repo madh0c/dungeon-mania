@@ -1,0 +1,81 @@
+{
+  "id": 0,
+  "name": "testCollectiblesKey",
+  "inventory": [
+    {
+      "key": 1,
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "key",
+      "id": "1"
+    }
+  ],
+  "entities": [
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": true,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": false,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT",
+        "RIGHT"
+      ],
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "key": 2,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "key",
+      "id": "2"
+    },
+    {
+      "isOpen": false,
+      "key": 1,
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "door",
+      "id": "3"
+    }
+  ],
+  "gameMode": "peaceful",
+  "goals": "",
+  "historicalEntCount": 4,
+  "tickNumber": 2,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636853930247/"
+}

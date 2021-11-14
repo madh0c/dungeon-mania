@@ -19,7 +19,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.Date;
 
 
@@ -127,7 +126,6 @@ public class DungeonManiaController {
 		}
 
 		Date date = new Date();
-		// TODO UNCOMMENT
 		long currTime = date.getTime();
 		String rewindTime = Long.toString(currTime);
 		String rewindPath = "/rewind/" + rewindTime + "/";
@@ -353,7 +351,6 @@ public class DungeonManiaController {
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
 
-		// TODO UNCOMMENT
 		saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 	
 		// Use item

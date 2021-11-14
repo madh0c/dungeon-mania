@@ -1,0 +1,91 @@
+{
+  "id": 0,
+  "name": "testMultipleSceptreDuration",
+  "inventory": [],
+  "entities": [
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "LEFT",
+      "haveKey": true,
+      "hasSunStone": true,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [
+        "4",
+        "8"
+      ],
+      "traceList": [
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "DOWN",
+        "DOWN",
+        "DOWN",
+        "LEFT",
+        "LEFT",
+        "LEFT"
+      ],
+      "position": {
+        "x": 0,
+        "y": 3,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "isAlly": true,
+      "currentDir": "LEFT",
+      "sceptreTickDuration": 4,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 1,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "4"
+    },
+    {
+      "isAlly": true,
+      "currentDir": "LEFT",
+      "sceptreTickDuration": 7,
+      "health": 30,
+      "baseAttack": 20,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 0,
+        "y": 4,
+        "layer": 0
+      },
+      "type": "assassin",
+      "id": "8"
+    }
+  ],
+  "gameMode": "standard",
+  "goals": "",
+  "historicalEntCount": 11,
+  "tickNumber": 9,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636853940801/"
+}
