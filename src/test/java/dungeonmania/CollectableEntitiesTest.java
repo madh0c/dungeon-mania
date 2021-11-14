@@ -21,7 +21,7 @@ import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
-public class CollectibleEntitiesTest {
+public class CollectableEntitiesTest {
     @Test
     public void testCanPickUp() {
         DungeonManiaController controller = new DungeonManiaController();
