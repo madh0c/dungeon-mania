@@ -6,7 +6,7 @@ import dungeonmania.*;
 import dungeonmania.util.Position;
 
 
-public class Bow extends UsableEntity {
+public class Bow extends DurableEntity {
 
 	private int extraDamage = 3;
    

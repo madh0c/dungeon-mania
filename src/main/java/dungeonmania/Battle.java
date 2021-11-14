@@ -39,8 +39,8 @@ public class Battle {
 
 			// Reduce the durability of the items in the player's inventory
 			for (CollectableEntity item : dungeon.getInventory()) {
-				if (item instanceof UsableEntity) {
-					UsableEntity usable = (UsableEntity) item;
+				if (item instanceof DurableEntity) {
+					DurableEntity usable = (DurableEntity) item;
 					enemyAtk = usable.use(dungeon, toBeRemoved, enemyAtk);
 				}
 			}
