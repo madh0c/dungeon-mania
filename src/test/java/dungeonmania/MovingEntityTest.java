@@ -781,7 +781,7 @@ public class MovingEntityTest {
 	@Test
 	public void testHydraSpawn() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testHydraSpawn", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testHydraSpawn", "hard"));
 		
 		// Move the player right
 		controller.tick(null, Direction.RIGHT);
@@ -796,9 +796,26 @@ public class MovingEntityTest {
 	}
 
 	@Test
+	public void testHydraNoSpawn() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testHydraSpawn", "standard"));
+		
+		// Move the player right
+		controller.tick(null, Direction.RIGHT);
+
+		for (int i = 0; i < 48; i++) {
+			controller.tick(null, Direction.NONE);
+			assertFalse(controller.getDungeon(0).entityExists("hydra"));
+		}
+		// Check hydra spawns in after 50 ticks
+		controller.tick(null, Direction.NONE);
+		assertFalse(controller.getDungeon(0).entityExists("hydra"));
+	}
+
+	@Test
 	public void testHydraAnduril() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testHydraAnduril", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testHydraAnduril", "Hard"));
 
 		// Move the player right
 		controller.tick(null, Direction.RIGHT);
@@ -812,7 +829,6 @@ public class MovingEntityTest {
 		assertTrue(controller.getDungeon(0).entityExists("hydra"));
 		
 		controller.tick(null, Direction.LEFT);
-		assertTrue(controller.getDungeon(0).entityExists("player"));
 		assertFalse(controller.getDungeon(0).entityExists("hydra"));
 		
 	}
@@ -820,7 +836,7 @@ public class MovingEntityTest {
 	@Test
 	public void testHydraAttack() {
 		DungeonManiaController controller = new DungeonManiaController();
-		assertDoesNotThrow(() -> controller.newGame("testHydraSpawn", "Standard"));
+		assertDoesNotThrow(() -> controller.newGame("testHydraSpawn", "Hard"));
 		
 		// Move the player right
 		controller.tick(null, Direction.RIGHT);

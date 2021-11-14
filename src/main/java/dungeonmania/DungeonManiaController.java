@@ -75,9 +75,6 @@ public class DungeonManiaController {
 			}
 		} return newAnimation;
 	}
-    
-        
-
 
 	/**
 	 * /dungeons

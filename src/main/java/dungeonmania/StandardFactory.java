@@ -37,7 +37,7 @@ public class StandardFactory extends EntityFactory {
 
 	@Override
 	public Hydra createHydra(String id, Position position) {
-		return new Hydra(id, position, true);
+		return new Hydra(id, position, true, false);
 	}
 
 	@Override

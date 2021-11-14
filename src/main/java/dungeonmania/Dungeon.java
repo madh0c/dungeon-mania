@@ -554,14 +554,37 @@ public class Dungeon {
 	 * </ul>
 	 */
 	public void spawnEntities() {
+		// Spawn in Hydra if appropriate
+		hydraSpawn();
 		// Spawn in Mercenary if appropriate
 		mercSpawn();
 		// Spawn in ZombieToast if appropriate
 		zombieSpawn();
 		// Spawn in Spider if appropriate
 		spiderSpawn();
-		// Spawn in Hydra if appropriate
-		hydraSpawn();
+	}
+
+	/**
+	 * Spawn in a Hydra every 50 ticks in hard mode, at the spawnpoint of the dungeon
+	 */
+	private void hydraSpawn() {
+		// Check if correct tick
+		if (getTickNumber() % 50 != 0 || getTickNumber() == 0) return;
+		// If no spawnpoint
+		if (getSpawnpoint() == null) return;
+
+		int newId = getHistoricalEntCount();
+		Hydra newHydra = factory.createHydra(String.valueOf(newId), spawnpoint);
+
+		// Check if hard mode
+		if (!newHydra.spawns()) return;
+
+		// Check if can collide with everything on spawnpoint
+		for (Entity entity : getEntitiesOnCell(spawnpoint)) {
+			if (!newHydra.collide(entity, this)) return;
+		}
+
+		addEntity(newHydra);
 	}
 
 	/**
@@ -692,25 +715,4 @@ public class Dungeon {
 
 		return ret;
 	}
-
-	/**
-	 * Spawn in a Hydra every 50 ticks, at the spawnpoint of the dungeon
-	 */
-	private void hydraSpawn() {
-		// Check if correct tick
-		if (getTickNumber() % 50 != 0 || getTickNumber() == 0) return;
-		// If no spawnpoint
-		if (getSpawnpoint() == null) return;
-
-		int newId = getHistoricalEntCount();
-		Hydra newHydra = factory.createHydra(String.valueOf(newId), spawnpoint);
-
-		// Check if can collide with everything on spawnpoint
-		for (Entity entity : getEntitiesOnCell(spawnpoint)) {
-			if (!newHydra.collide(entity, this)) return;
-		}
-
-		addEntity(newHydra);
-	}
-
 }
