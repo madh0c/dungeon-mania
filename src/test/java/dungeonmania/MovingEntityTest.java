@@ -478,7 +478,7 @@ public class MovingEntityTest {
 		controller.tick(null, Direction.RIGHT);
 
 		// For all 10 ticks, the mercenary will not be spawned in yet
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 9; i++) {
 			// assertThrows(InvalidActionException.class, () -> controller.getEntity("1"));
 			assertFalse(controller.getDungeon(0).entityExists("mercenary"));
 			controller.tick(null, Direction.LEFT);
@@ -748,8 +748,8 @@ public class MovingEntityTest {
 		Entity ent = dungeon.getEntities().get(1);
 		Assassin ass = (Assassin) ent;
 		assertTrue(ass.getIsAlly());
-		assertDoesNotThrow(() -> controller.saveGame("saveAssassinBribed"));
-		assertDoesNotThrow(() -> controller.loadGame("saveAssassinBribed"));
+		assertDoesNotThrow(() -> controller.saveGame("saveAssassinBribed-1636079593059"));
+		assertDoesNotThrow(() -> controller.loadGame("saveAssassinBribed-1636079593059"));
 		Dungeon dungeon1 = controller.getDungeon(0);
 		Entity entity = dungeon1.getEntities().get(1);
 		Assassin assass = (Assassin) entity;

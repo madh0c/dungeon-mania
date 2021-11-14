@@ -10,7 +10,6 @@ import java.util.List;
 
 import dungeonmania.allEntities.Mercenary;
 import dungeonmania.exceptions.InvalidActionException;
-import dungeonmania.response.models.AnimationQueue;
 import dungeonmania.response.models.DungeonResponse;
 import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ItemResponse;
@@ -398,7 +397,7 @@ public class ControllerTest {
         int bribeCount = 0;
         
         for (String gameName : controller.allGames()) {
-            if (gameName.equals("testMercenaryBribe-1636079593059")) {
+            if (gameName.contains("testMercenaryBribe-1636079593059")) {
                 bribeCount++;
             }
         }
@@ -545,7 +544,6 @@ public class ControllerTest {
         assertEquals(endList, dRLoad.getEntities());
         assertEquals(expInvList, dRLoad.getInventory());
 
-        assertEquals(new ArrayList<AnimationQueue>(), dRLoad.getAnimations());
         assertEquals("testLoadInventory", dRLoad.getDungeonName());
         assertEquals(BuildList, dRLoad.getBuildables());
         assertEquals("", dRLoad.getGoals());
@@ -583,8 +581,8 @@ public class ControllerTest {
 		controller.newGame("testAndAndGoal", "Peaceful");
 		controller.tick(null, Direction.RIGHT);
 		controller.tick(null, Direction.RIGHT);
-		assertDoesNotThrow(() -> controller.saveGame("saveActiveSwitch"));
-		assertDoesNotThrow(() -> controller.loadGame("saveActiveSwitch"));
+		assertDoesNotThrow(() -> controller.saveGame("saveActiveSwitch-1636079593059"));
+		assertDoesNotThrow(() -> controller.loadGame("saveActiveSwitch-1636079593059"));
 	}
 
 	@Test
@@ -592,8 +590,8 @@ public class ControllerTest {
 		DungeonManiaController controller = new DungeonManiaController();
 		controller.newGame("testAssassinFar", "Peaceful");
 		controller.tick(null, Direction.NONE);
-		assertDoesNotThrow(() -> controller.saveGame("saveEnemyPeaceful"));
-		assertDoesNotThrow(() -> controller.loadGame("saveEnemyPeaceful"));
+		assertDoesNotThrow(() -> controller.saveGame("saveEnemyPeaceful-1636079593059"));
+		assertDoesNotThrow(() -> controller.loadGame("saveEnemyPeaceful-1636079593059"));
 	}
 
 	
@@ -625,8 +623,8 @@ public class ControllerTest {
         DungeonResponse dRStart = controller.getDungeonInfo(0);
         assertEquals(expList, dRStart.getEntities());
 
-        assertDoesNotThrow(() -> controller.saveGame("testFactory"));
-        assertDoesNotThrow(() -> controller.loadGame("testFactory"));
+        assertDoesNotThrow(() -> controller.saveGame("testFactory-1636079593059"));
+        assertDoesNotThrow(() -> controller.loadGame("testFactory-1636079593059"));
 
         DungeonResponse dREnd = controller.getDungeonInfo(1);
         assertEquals(expList, dREnd.getEntities());
@@ -660,8 +658,8 @@ public class ControllerTest {
         DungeonResponse dRStart = controller.getDungeonInfo(0);
         assertEquals(expList, dRStart.getEntities());
 
-        assertDoesNotThrow(() -> controller.saveGame("testFactory"));
-        assertDoesNotThrow(() -> controller.loadGame("testFactory"));
+        assertDoesNotThrow(() -> controller.saveGame("testFactory-1636079593059"));
+        assertDoesNotThrow(() -> controller.loadGame("testFactory-1636079593059"));
 
         DungeonResponse dREnd = controller.getDungeonInfo(1);
         assertEquals(expList, dREnd.getEntities());
@@ -695,8 +693,8 @@ public class ControllerTest {
         DungeonResponse dRStart = controller.getDungeonInfo(0);
         assertEquals(expList, dRStart.getEntities());
 
-        assertDoesNotThrow(() -> controller.saveGame("testFactory"));
-        assertDoesNotThrow(() -> controller.loadGame("testFactory"));
+        assertDoesNotThrow(() -> controller.saveGame("testFactory-1636079593059"));
+        assertDoesNotThrow(() -> controller.loadGame("testFactory-1636079593059"));
 
         DungeonResponse dREnd = controller.getDungeonInfo(1);
         assertEquals(expList, dREnd.getEntities());
@@ -706,6 +704,12 @@ public class ControllerTest {
     public void testGenerateNonExistentGameMode() {
         DungeonManiaController controller = new DungeonManiaController();
         assertThrows(IllegalArgumentException.class, () -> controller.generateDungeon(0, 0, 25, 25, "markgoat"));
+    }
+
+    @Test
+    public void testIllegalRewind() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertThrows(IllegalArgumentException.class, () -> controller.rewind(-2));
     }
 }
 

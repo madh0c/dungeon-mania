@@ -1,6 +1,7 @@
 package dungeonmania;
 
 import dungeonmania.exceptions.InvalidActionException;
+import dungeonmania.response.models.AnimationQueue;
 import dungeonmania.response.models.DungeonResponse;
 import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ItemResponse;
@@ -18,7 +19,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.Date;
 
 
@@ -28,9 +28,7 @@ public class DungeonManiaController {
 	 * ArrayList games: each game is stored as a map of existing entities, with their unique id as the key (stored as an int).
 	 */
 	private List<Dungeon> games =  new ArrayList<>();
-	private List<List<Dungeon>> gameStates = new ArrayList<>();
 	private int lastUsedDungeonId = 0;
-
 	private Dungeon currentDungeon;
 
     public DungeonManiaController() {
@@ -50,6 +48,29 @@ public class DungeonManiaController {
 	public List<String> getGameModes() {
 		return Arrays.asList("standard", "peaceful", "hard");
 	}
+
+	public List<AnimationQueue> getAnimations() {
+		List<AnimationQueue> newAnimation = new ArrayList<>();
+		if (currentDungeon.getPlayer() != null) {
+			int currPlayerHealth = currentDungeon.getPlayer().getHealth();
+			double doubleHP = currPlayerHealth;
+			double healthFrac = doubleHP/100.0;
+			String healthString = Double.toString(healthFrac);
+
+			if (healthFrac > 0.75) {
+				newAnimation.add(new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0x00ff00"), true, -1));
+			} else if (healthFrac > 0.5) {
+				newAnimation.add(new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0xffff00"), true, -1));
+			} else if (healthFrac > 0.2) {
+				newAnimation.add(new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0xffa500"), true, -1));
+			} else {
+				newAnimation.add(new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0xff0000"), true, -1));
+			}
+		} return newAnimation;
+	}
+    
+        
+
 
 	/**
 	 * /dungeons
@@ -105,25 +126,22 @@ public class DungeonManiaController {
 		}
 
 		Date date = new Date();
-		// TODO UNCOMMENT
-		// long currTime = date.getTime();
-		// String rewindTime = Long.toString(currTime);
-		// String rewindPath = "/rewind/" + rewindTime + "/";
-		// currentDungeon.setRewindPath(rewindPath);
+		long currTime = date.getTime();
+		String rewindTime = Long.toString(currTime);
+		String rewindPath = "/rewind/" + rewindTime + "/";
+		currentDungeon.setRewindPath(rewindPath);
 
-		// try {
-		// 	Path path = Paths.get("src/main/resources" + rewindPath);
-		// 	Files.createDirectories(path);
+		try {
+			Path path = Paths.get("persistence" + rewindPath);
+			Files.createDirectories(path);
 		
-		// } catch (IOException e) {
-		// 	System.err.println("Failed to create directory!" + e.getMessage());
-		// }
+		} catch (IOException e) {
+			System.err.println("Failed to create directory!" + e.getMessage());
+		}
 
 		int currentId = currentDungeon.getId();
 		lastUsedDungeonId++;
 		games.add(currentDungeon);
-		gameStates.add(new ArrayList<Dungeon>());
-
 				
 		List<EntityResponse> entitiyResponses = getDungeonInfo(currentId).getEntities();
 
@@ -145,7 +163,8 @@ public class DungeonManiaController {
 			entitiyResponses, 
 			new ArrayList<ItemResponse>(), 
 			currentDungeon.getBuildables(),             
-			currentDungeon.getGoals() 
+			currentDungeon.getGoals(),
+			this.getAnimations() 
 		);
 
 		return result;
@@ -183,7 +202,8 @@ public class DungeonManiaController {
 			listER, 
 			inventory, 
 			target.getBuildables(),             
-			target.getGoals()
+			target.getGoals(),
+			this.getAnimations()
 		);
 	}
 	
@@ -221,7 +241,7 @@ public class DungeonManiaController {
 	public DungeonResponse saveGame(String name) throws IllegalArgumentException {
 		String feed = name.replaceFirst(".json", "");
 
-		String path = ("src/main/resources/savedGames/" + feed + ".json"); 
+		String path = ("persistence/savedGames/" + feed + ".json"); 
 
 		int count = 0;
 		for (int i = 0; i < feed.length( ); i++) {
@@ -233,7 +253,7 @@ public class DungeonManiaController {
 		// If you are loading a gave that has previously been saved, the old timestamp must be removed.
 		if (count > 1) {
 			String reFeed = feed.replaceAll("-.*-", "-");
-			path = ("src/main/resources/savedGames/" + reFeed + ".json");
+			path = ("persistence/savedGames/" + reFeed + ".json");
 		}
 
 		try {
@@ -249,8 +269,15 @@ public class DungeonManiaController {
 		String feed = name.replaceFirst(".json", "");
 		String fileName = (feed + ".json"); 
 
+		// String path = FileLoader.loadResourceFile(rewindPath);
+		// String path = FileLoader.loadResourceFile("/savedGames/" + fileName);
+
+
 		try {
-			String path = FileLoader.loadResourceFile("/savedGames/" + fileName);
+			File loadFile = new File("persistence/savedGames/" + fileName);
+			byte[] byteArray = Files.readAllBytes(loadFile.toPath());
+			String path = new String(byteArray);
+
 			currentDungeon = GameInOut.fromJSON("load", path, feed, lastUsedDungeonId, null, 0);
 			setLastUsedDungeonId(getLastUsedDungeonId() + 1);
 			games.add(currentDungeon);
@@ -267,6 +294,7 @@ public class DungeonManiaController {
 					}
 				}
 			}
+
 			for (Entity ent : currentDungeon.getEntities()) {
 				if (ent instanceof OlderPlayer) {
 					OlderPlayer oP = (OlderPlayer) ent;
@@ -299,7 +327,7 @@ public class DungeonManiaController {
 		String[] games;
 		// Creates a new File instance by converting the given pathname string
 		// into an abstract pathname
-		File f = new File("src/main/resources/savedGames");
+		File f = new File("persistence/savedGames");
 
 		// Populates the array with names of files and directories
 		games = f.list();
@@ -331,8 +359,7 @@ public class DungeonManiaController {
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
 
-		// TODO UNCOMMENT
-		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
+		saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 	
 		// Use item
 		currentDungeon.useItem(itemUsed);
@@ -346,15 +373,13 @@ public class DungeonManiaController {
 			}
 		}
 
-		// Spawn in new mercenary after amount of ticks, dependent on gamemode
-		if (currentDungeon.getTickNumber() % currentDungeon.getMercSpawnrate() == 0 && currentDungeon.getTickNumber() > 0) {	
-			currentDungeon.spawnMerc();
-		}
+
 
 		currentDungeon.tickOne();
 
 		// Player actions
 		if (player != null) {
+
 			player.setCurrentDir(movementDirection);
 			// make sure invincibility wears off
 			int invicibleTicksLeft = player.getInvincibleTickDuration();
@@ -425,23 +450,26 @@ public class DungeonManiaController {
 			currentDungeon.getEntities().removeAll(toRemove);
 		}		
 		
+		// Spawn in mercenary if appropriate
+		currentDungeon.spawnMerc();
+
 		// Spawn in zombies if appropriate
 		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
 
 		for (Entity entity : currentDungeon.getEntities()) {
 			if (entity.getType().equals("zombie_toast_spawner")) {
-				ZombieToastSpawner foundSpawner = (ZombieToastSpawner)entity;
-				spawners.add(foundSpawner);
+				ZombieToastSpawner spawner = (ZombieToastSpawner)entity;
+				spawners.add(spawner);
 			}
 		}
 		// Spawn in new zombietoast after 20 ticks (20 ticks checked inside method)
 		for (ZombieToastSpawner spawner : spawners) {
 			spawner.spawnZombie(currentDungeon);
-		}		
+		}
+
+		// currentDungeon.spiderSpawn();
 		
 		evalGoal(currentDungeon);
-		
-		
 		return getDungeonInfo(currentDungeon.getId());
 	}
 
@@ -806,7 +834,12 @@ public class DungeonManiaController {
 
 		try {
 			String rewindPath = currentDungeon.getRewindPath() + "tick-" + tickNo + ".json";
-			String path = FileLoader.loadResourceFile(rewindPath);
+
+			File loadFile = new File("persistence" + rewindPath);
+			byte[] byteArray = Files.readAllBytes(loadFile.toPath());
+			String path = new String(byteArray);
+
+			// String path = FileLoader.loadResourceFile(rewindPath);
 
 			Dungeon rewindDungeon = GameInOut.fromJSON("rewind", path, currentDungeon.getName(), lastUsedDungeonId, null, ticks);
 			
@@ -822,6 +855,7 @@ public class DungeonManiaController {
 					}
 				}
 			}
+			rewindDungeon.setHistoricalEntCount(currentDungeon.getHistoricalEntCount());
 			Player actualPlayer = currentDungeon.getPlayer();
 			String aPId = String.valueOf(currentDungeon.getHistoricalEntCount());
 			actualPlayer.setId(aPId);
@@ -856,7 +890,7 @@ public class DungeonManiaController {
 		String path = (rewindPath + feed + ".json"); 
 
 		try {
-			GameInOut.saveRewind("src/main/resources" + path, currentDungeon);
+			GameInOut.saveRewind("persistence" + path, currentDungeon);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

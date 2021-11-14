@@ -1,0 +1,126 @@
+{
+  "id": 0,
+  "name": "testDurability",
+  "inventory": [
+    {
+      "extraDamage": 2,
+      "durability": 8,
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "sword",
+      "id": "1"
+    },
+    {
+      "durability": 8,
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "2"
+    },
+    {
+      "extraDamage": 3,
+      "durability": 3,
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "bow",
+      "id": "3"
+    },
+    {
+      "durability": 3,
+      "position": {
+        "x": 4,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "shield",
+      "id": "4"
+    }
+  ],
+  "entities": [
+    {
+      "health": 60,
+      "attack": 10,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 60,
+      "invincibleAmount": 0,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT"
+      ],
+      "position": {
+        "x": 4,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "wall",
+      "id": "5"
+    }
+  ],
+  "gameMode": "hard",
+  "goals": "",
+  "historicalEntCount": 8,
+  "tickNumber": 26,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 10,
+  "spiderSpawnrate": 15,
+  "rewindPath": "/rewind/1636858416582/"
+}

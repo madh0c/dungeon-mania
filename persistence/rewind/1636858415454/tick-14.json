@@ -1,0 +1,59 @@
+{
+  "id": 0,
+  "name": "testGamemode",
+  "inventory": [],
+  "entities": [
+    {
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "invincibility_potion",
+      "id": "1"
+    },
+    {
+      "tickrate": 15,
+      "position": {
+        "x": 2,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "zombie_toast_spawner",
+      "id": "2"
+    },
+    {
+      "isAlly": false,
+      "sceptreTickDuration": 0,
+      "health": 14,
+      "baseAttack": 20,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "assassin",
+      "id": "3"
+    }
+  ],
+  "gameMode": "hard",
+  "goals": "",
+  "historicalEntCount": 4,
+  "tickNumber": 14,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 10,
+  "spiderSpawnrate": 15,
+  "rewindPath": "/rewind/1636858415454/"
+}

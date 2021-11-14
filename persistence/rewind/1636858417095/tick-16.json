@@ -1,0 +1,80 @@
+{
+  "id": 0,
+  "name": "testMercenaryBribe-1636079593059",
+  "inventory": [],
+  "entities": [
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "UP",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT",
+        "NONE",
+        "NONE",
+        "DOWN",
+        "RIGHT",
+        "UP",
+        "DOWN",
+        "UP",
+        "DOWN",
+        "UP",
+        "DOWN",
+        "UP",
+        "DOWN",
+        "UP",
+        "DOWN",
+        "UP"
+      ],
+      "position": {
+        "x": 3,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "isAlly": true,
+      "currentDir": "UP",
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 3,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "1"
+    }
+  ],
+  "gameMode": "standard",
+  "goals": "",
+  "historicalEntCount": 3,
+  "tickNumber": 16,
+  "spawnpoint": {
+    "x": 1,
+    "y": 1,
+    "layer": 0
+  },
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "spiderSpawnrate": 20,
+  "rewindPath": "/rewind/1636858417095/"
+}

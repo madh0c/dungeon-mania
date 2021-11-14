@@ -1,0 +1,414 @@
+{
+  "id": 0,
+  "name": "testItemsLoseDurability",
+  "inventory": [
+    {
+      "dmgMultiplier": 3,
+      "durability": 8,
+      "position": {
+        "x": 0,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "anduril",
+      "id": "1"
+    },
+    {
+      "extraDamage": 2,
+      "durability": 3,
+      "position": {
+        "x": 0,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "sword",
+      "id": "2"
+    },
+    {
+      "durability": 3,
+      "position": {
+        "x": 0,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "5"
+    },
+    {
+      "durability": 0,
+      "position": {
+        "x": 0,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "shield",
+      "id": "6"
+    },
+    {
+      "durability": 5,
+      "position": {
+        "x": 0,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "7"
+    },
+    {
+      "extraDamage": 2,
+      "durability": 0,
+      "position": {
+        "x": 0,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "midnight_armour",
+      "id": "8"
+    },
+    {
+      "durability": 3,
+      "position": {
+        "x": 0,
+        "y": 3,
+        "layer": 0
+      },
+      "type": "shield",
+      "id": "9"
+    },
+    {
+      "durability": 8,
+      "position": {
+        "x": 0,
+        "y": 3,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "10"
+    },
+    {
+      "extraDamage": 2,
+      "durability": 3,
+      "position": {
+        "x": 0,
+        "y": 3,
+        "layer": 0
+      },
+      "type": "midnight_armour",
+      "id": "11"
+    },
+    {
+      "durability": 8,
+      "position": {
+        "x": 0,
+        "y": 3,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "13"
+    }
+  ],
+  "entities": [
+    {
+      "health": 100,
+      "attack": 8,
+      "visible": true,
+      "currentDir": "NONE",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "DOWN",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "DOWN",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "DOWN",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+      ],
+      "position": {
+        "x": 0,
+        "y": 3,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "durability": 5,
+      "position": {
+        "x": 0,
+        "y": 4,
+        "layer": 0
+      },
+      "type": "shield",
+      "id": "12"
+    },
+    {
+      "extraDamage": 2,
+      "durability": 5,
+      "position": {
+        "x": 0,
+        "y": 4,
+        "layer": 0
+      },
+      "type": "midnight_armour",
+      "id": "14"
+    },
+    {
+      "durability": 5,
+      "position": {
+        "x": 0,
+        "y": 5,
+        "layer": 0
+      },
+      "type": "shield",
+      "id": "15"
+    },
+    {
+      "durability": 10,
+      "position": {
+        "x": 0,
+        "y": 5,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "16"
+    },
+    {
+      "extraDamage": 2,
+      "durability": 5,
+      "position": {
+        "x": 0,
+        "y": 5,
+        "layer": 0
+      },
+      "type": "midnight_armour",
+      "id": "17"
+    },
+    {
+      "durability": 5,
+      "position": {
+        "x": 0,
+        "y": 6,
+        "layer": 0
+      },
+      "type": "shield",
+      "id": "18"
+    },
+    {
+      "durability": 10,
+      "position": {
+        "x": 0,
+        "y": 6,
+        "layer": 0
+      },
+      "type": "armour",
+      "id": "19"
+    },
+    {
+      "extraDamage": 2,
+      "durability": 5,
+      "position": {
+        "x": 0,
+        "y": 6,
+        "layer": 0
+      },
+      "type": "midnight_armour",
+      "id": "20"
+    },
+    {
+      "isAlly": false,
+      "currentDir": "DOWN",
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 0,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "28"
+    }
+  ],
+  "gameMode": "standard",
+  "goals": "",
+  "historicalEntCount": 29,
+  "tickNumber": 162,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "spiderSpawnrate": 20,
+  "rewindPath": "/rewind/1636858414147/"
+}

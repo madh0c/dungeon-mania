@@ -15,6 +15,8 @@ public class OlderPlayer extends MovingEntity {
     
     public OlderPlayer (String id, Position position, boolean enemyAttack) {
         super(id, position, "older_player", enemyAttack);
+		this.setBaseAttack(2);
+		this.setHealth(100);
     }
 
     /**
@@ -91,10 +93,6 @@ public class OlderPlayer extends MovingEntity {
                 timePortalExists = true;
             }
         }
-
-        System.out.println(dungeon.getTickNumber());
-        System.out.println(traceUntil);
-
 
         if (dungeon.getTickNumber() - 1 < traceUntil) {
             Direction currentDir = trackingList.get(dungeon.getTickNumber() - 1);

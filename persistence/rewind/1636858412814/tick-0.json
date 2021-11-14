@@ -1,0 +1,59 @@
+{
+  "id": 0,
+  "name": "testCollectiblesStack",
+  "inventory": [],
+  "entities": [
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": false,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [],
+      "position": {
+        "x": 0,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "treasure",
+      "id": "1"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "wood",
+      "id": "2"
+    }
+  ],
+  "gameMode": "peaceful",
+  "goals": "",
+  "historicalEntCount": 3,
+  "tickNumber": 0,
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "spiderSpawnrate": 20,
+  "rewindPath": "/rewind/1636858412814/"
+}

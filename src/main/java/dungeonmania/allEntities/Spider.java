@@ -20,6 +20,9 @@ public class Spider extends MovingEntity {
 	//	6 5 4 v DOWN
 	private int currTile;
 
+	/**
+	 * Moving in a clockwise direction or not
+	 */
 	private boolean clockwise;
 
     public Spider(String id, Position position, boolean enemyAttack) {
@@ -79,12 +82,26 @@ public class Spider extends MovingEntity {
 			if (enemyAttack()) {
 				Battle.battle(this, dungeon);
 			}
-		}
-		
-		else if (entity instanceof MovingEntity) {
+		} else if (entity instanceof MovingEntity) {
 			return false;
 		}
 		
+		return true;
+	}
+
+	/**
+	 * Checks the given entity and checks if the spider can spawn there
+	 * @param entity	Entity spider is spawning on
+	 * @return		true if can spawn on this entity
+	 * 				<li> false if otherwise
+	 */
+	public static boolean spawnCollide(Entity entity) {
+		if (entity == null) return true;
+
+		if (entity instanceof Boulder) return false;
+		else if (entity instanceof Player) return false;
+		else if (entity instanceof MovingEntity) return false;
+
 		return true;
 	}
 
@@ -208,4 +225,5 @@ public class Spider extends MovingEntity {
 		// If yes, then set pos
 		setPosition(newPos);
 	}
+
 }
