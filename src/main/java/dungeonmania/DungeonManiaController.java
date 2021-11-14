@@ -56,16 +56,31 @@ public class DungeonManiaController {
 			double doubleHP = currPlayerHealth;
 			double healthFrac = doubleHP/100.0;
 			String healthString = Double.toString(healthFrac);
+			
+			List<String> queueString = new ArrayList<>();
+			queueString.add("healthbar set " + healthString);
 
 			if (healthFrac > 0.75) {
-				newAnimation.add(new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0x00ff00"), true, -1));
+				queueString.add("healthbar tint 0x00ff00");
 			} else if (healthFrac > 0.5) {
-				newAnimation.add(new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0xffff00"), true, -1));
+				queueString.add("healthbar tint 0xffff00");
 			} else if (healthFrac > 0.2) {
-				newAnimation.add(new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0xffa500"), true, -1));
+				queueString.add("healthbar tint 0xffa500");
 			} else {
-				newAnimation.add(new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0xff0000"), true, -1));
+				queueString.add("healthbar tint 0xff0000");
 			}
+
+			if (!currentDungeon.getPlayer().isVisible()) {
+				queueString.add("sprite player tint 0xd8d8d8");
+			}
+
+			if (currentDungeon.getPlayer().getInvincibleTickDuration() > 0) {
+				queueString.add("sprite player scale 1.5");
+			}
+
+			AnimationQueue schoolboyQ = new AnimationQueue("PostTick", currentDungeon.getPlayer().getId(), Arrays.asList("healthbar set " + healthString, "healthbar tint 0x00ff00"), true, -1);
+
+			newAnimation.add(schoolboyQ);
 		} return newAnimation;
 	}
     
