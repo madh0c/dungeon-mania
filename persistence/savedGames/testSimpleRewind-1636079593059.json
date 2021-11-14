@@ -1179,5 +1179,5 @@
   "goalConditions": "{\"goal\":\"AND\",\"subgoals\":[{\"goal\":\"enemies\"},{\"goal\":\"treasure\"}]}",
   "factory": {},
   "mercSpawnrate": 20,
-  "rewindPath": "/rewind/1636853942230/"
+  "rewindPath": "/rewind/1636856918528/"
 }

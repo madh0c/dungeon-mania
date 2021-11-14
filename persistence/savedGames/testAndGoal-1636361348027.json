@@ -1,13 +1,13 @@
 {
-  "id": 1,
-  "name": "testWallBlocksMercenaryMovement-1636040715294",
+  "id": 0,
+  "name": "testAndGoal",
   "inventory": [],
   "entities": [
     {
-      "health": 100,
+      "health": 85,
       "attack": 2,
       "visible": true,
-      "currentDir": "UP",
+      "currentDir": "RIGHT",
       "haveKey": false,
       "hasSunStone": false,
       "invincibleTickDuration": 0,
@@ -20,7 +20,7 @@
         "RIGHT"
       ],
       "position": {
-        "x": 3,
+        "x": 1,
         "y": 0,
         "layer": 0
       },
@@ -29,43 +29,39 @@
     },
     {
       "position": {
-        "x": 1,
+        "x": 2,
         "y": 0,
         "layer": 0
       },
-      "type": "wall",
-      "id": "1"
-    },
-    {
-      "isAlly": false,
-      "sceptreTickDuration": 0,
-      "health": 30,
-      "baseAttack": 5,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
-      "position": {
-        "x": 0,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "mercenary",
+      "type": "treasure",
       "id": "2"
     }
   ],
   "gameMode": "standard",
-  "goals": "",
+  "goals": ":treasure",
   "historicalEntCount": 3,
   "tickNumber": 1,
   "spawnpoint": {
-    "x": 2,
+    "x": 0,
     "y": 0,
     "layer": 0
   },
   "foundGoals": {
-    "goal": "",
+    "subGoals": [
+      {
+        "goal": "enemies",
+        "hasCompleted": true
+      },
+      {
+        "goal": "treasure",
+        "hasCompleted": false
+      }
+    ],
+    "operator": "AND",
     "hasCompleted": false
   },
-  "goalConditions": "",
+  "goalConditions": "{\"subgoals\":[{\"goal\":\"enemies\"},{\"goal\":\"treasure\"}],\"goal\":\"AND\"}",
   "factory": {},
-  "mercSpawnrate": 20
+  "mercSpawnrate": 20,
+  "rewindPath": "/rewind/1636856917376/"
 }

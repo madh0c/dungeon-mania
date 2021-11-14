@@ -153,7 +153,7 @@ public class M3Test {
         }
 
         assertDoesNotThrow(() -> controller.rewind(5));
-        assertDoesNotThrow(() -> controller.saveGame("timetraveltest"));
+        assertDoesNotThrow(() -> controller.saveGame("testSimpleRewind-1636079593059"));
 
         List<Entity> allEnt = controller.getCurrentDungeon().getEntities();
 
@@ -169,5 +169,19 @@ public class M3Test {
         assertEquals(new Position(0, 0), allEnt.get(0).getPosition());
         assertEquals("wall", allEnt.get(0).getType());
 
+    }
+
+    @Test
+    public void testCantRewindLessThanZero() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.newGame("timeTravel", "Standard"));
+        
+        controller.tick(null, Direction.RIGHT);
+
+        DungeonResponse dR = controller.getDungeonInfo(controller.getCurrentDungeon().getId());
+        
+        assertDoesNotThrow(() -> controller.rewind(5));
+        
+        assertEquals(dR, controller.getDungeonInfo(controller.getCurrentDungeon().getId()));
     }
 }

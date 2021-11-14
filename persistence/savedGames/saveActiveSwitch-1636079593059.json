@@ -109,5 +109,5 @@
   "goalConditions": "{\"subgoals\":[{\"goal\":\"boulders\"},{\"subgoals\":[{\"goal\":\"exit\"},{\"goal\":\"enemies\"}],\"goal\":\"AND\"}],\"goal\":\"AND\"}",
   "factory": {},
   "mercSpawnrate": 20,
-  "rewindPath": "/rewind/1636853928729/"
+  "rewindPath": "/rewind/1636856917209/"
 }

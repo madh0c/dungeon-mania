@@ -581,8 +581,8 @@ public class ControllerTest {
 		controller.newGame("testAndAndGoal", "Peaceful");
 		controller.tick(null, Direction.RIGHT);
 		controller.tick(null, Direction.RIGHT);
-		assertDoesNotThrow(() -> controller.saveGame("saveActiveSwitch"));
-		assertDoesNotThrow(() -> controller.loadGame("saveActiveSwitch"));
+		assertDoesNotThrow(() -> controller.saveGame("saveActiveSwitch-1636079593059"));
+		assertDoesNotThrow(() -> controller.loadGame("saveActiveSwitch-1636079593059"));
 	}
 
 	@Test
@@ -590,8 +590,8 @@ public class ControllerTest {
 		DungeonManiaController controller = new DungeonManiaController();
 		controller.newGame("testAssassinFar", "Peaceful");
 		controller.tick(null, Direction.NONE);
-		assertDoesNotThrow(() -> controller.saveGame("saveEnemyPeaceful"));
-		assertDoesNotThrow(() -> controller.loadGame("saveEnemyPeaceful"));
+		assertDoesNotThrow(() -> controller.saveGame("saveEnemyPeaceful-1636079593059"));
+		assertDoesNotThrow(() -> controller.loadGame("saveEnemyPeaceful-1636079593059"));
 	}
 
 	
@@ -623,8 +623,8 @@ public class ControllerTest {
         DungeonResponse dRStart = controller.getDungeonInfo(0);
         assertEquals(expList, dRStart.getEntities());
 
-        assertDoesNotThrow(() -> controller.saveGame("testFactory"));
-        assertDoesNotThrow(() -> controller.loadGame("testFactory"));
+        assertDoesNotThrow(() -> controller.saveGame("testFactory-1636079593059"));
+        assertDoesNotThrow(() -> controller.loadGame("testFactory-1636079593059"));
 
         DungeonResponse dREnd = controller.getDungeonInfo(1);
         assertEquals(expList, dREnd.getEntities());
@@ -658,8 +658,8 @@ public class ControllerTest {
         DungeonResponse dRStart = controller.getDungeonInfo(0);
         assertEquals(expList, dRStart.getEntities());
 
-        assertDoesNotThrow(() -> controller.saveGame("testFactory"));
-        assertDoesNotThrow(() -> controller.loadGame("testFactory"));
+        assertDoesNotThrow(() -> controller.saveGame("testFactory-1636079593059"));
+        assertDoesNotThrow(() -> controller.loadGame("testFactory-1636079593059"));
 
         DungeonResponse dREnd = controller.getDungeonInfo(1);
         assertEquals(expList, dREnd.getEntities());
@@ -693,8 +693,8 @@ public class ControllerTest {
         DungeonResponse dRStart = controller.getDungeonInfo(0);
         assertEquals(expList, dRStart.getEntities());
 
-        assertDoesNotThrow(() -> controller.saveGame("testFactory"));
-        assertDoesNotThrow(() -> controller.loadGame("testFactory"));
+        assertDoesNotThrow(() -> controller.saveGame("testFactory-1636079593059"));
+        assertDoesNotThrow(() -> controller.loadGame("testFactory-1636079593059"));
 
         DungeonResponse dREnd = controller.getDungeonInfo(1);
         assertEquals(expList, dREnd.getEntities());
