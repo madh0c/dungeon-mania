@@ -1,26 +1,27 @@
 {
   "id": 0,
-  "name": "testComplicatedGoal",
+  "name": "testAndAndGoal",
   "inventory": [],
   "entities": [
     {
-      "health": 85,
+      "health": 100,
       "attack": 2,
       "visible": true,
       "currentDir": "RIGHT",
       "haveKey": false,
       "hasSunStone": false,
       "invincibleTickDuration": 0,
-      "enemyAttack": true,
+      "enemyAttack": false,
       "initialHealth": 100,
       "invincibleAmount": 8,
       "initialAttack": 2,
       "controlled": [],
       "traceList": [
+        "RIGHT",
         "RIGHT"
       ],
       "position": {
-        "x": 1,
+        "x": 2,
         "y": 0,
         "layer": 0
       },
@@ -28,8 +29,24 @@
       "id": "0"
     },
     {
+      "isAlly": false,
+      "currentDir": "RIGHT",
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": false,
+      "ticksFrozen": 0,
       "position": {
         "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "1"
+    },
+    {
+      "position": {
+        "x": 3,
         "y": 0,
         "layer": 0
       },
@@ -37,7 +54,7 @@
       "id": "2"
     },
     {
-      "isActivated": false,
+      "isActivated": true,
       "position": {
         "x": 3,
         "y": 0,
@@ -52,23 +69,14 @@
         "y": 1,
         "layer": 0
       },
-      "type": "treasure",
-      "id": "4"
-    },
-    {
-      "position": {
-        "x": 1,
-        "y": 1,
-        "layer": 0
-      },
       "type": "exit",
-      "id": "5"
+      "id": "4"
     }
   ],
-  "gameMode": "standard",
-  "goals": "((:exit OR (:treasure AND :boulders)))",
-  "historicalEntCount": 6,
-  "tickNumber": 1,
+  "gameMode": "peaceful",
+  "goals": "((:exit AND :enemies))",
+  "historicalEntCount": 5,
+  "tickNumber": 2,
   "spawnpoint": {
     "x": 0,
     "y": 0,
@@ -78,7 +86,7 @@
     "subGoals": [
       {
         "hasCompleted": true,
-        "goal": "enemies"
+        "goal": "boulders"
       },
       {
         "subGoals": [
@@ -87,30 +95,20 @@
             "goal": "exit"
           },
           {
-            "subGoals": [
-              {
-                "hasCompleted": false,
-                "goal": "treasure"
-              },
-              {
-                "hasCompleted": false,
-                "goal": "boulders"
-              }
-            ],
-            "operator": "AND",
-            "hasCompleted": false
+            "hasCompleted": false,
+            "goal": "enemies"
           }
         ],
-        "hasCompleted": false,
-        "operator": "OR"
+        "operator": "AND",
+        "hasCompleted": false
       }
     ],
     "operator": "AND",
     "hasCompleted": false
   },
-  "goalConditions": "{\"subgoals\":[{\"goal\":\"enemies\"},{\"subgoals\":[{\"goal\":\"exit\"},{\"subgoals\":[{\"goal\":\"treasure\"},{\"goal\":\"boulders\"}],\"goal\":\"AND\"}],\"goal\":\"OR\"}],\"goal\":\"AND\"}",
+  "goalConditions": "{\"subgoals\":[{\"goal\":\"boulders\"},{\"subgoals\":[{\"goal\":\"exit\"},{\"goal\":\"enemies\"}],\"goal\":\"AND\"}],\"goal\":\"AND\"}",
   "factory": {},
   "mercSpawnrate": 20,
   "spiderSpawnrate": 20,
-  "rewindPath": "/rewind/1636902720971/"
+  "rewindPath": "/rewind/1636902724218/"
 }
