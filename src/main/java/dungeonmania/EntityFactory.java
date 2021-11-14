@@ -72,6 +72,8 @@ public abstract class EntityFactory {
 			return createOlderPlayer(id, position);
 		else if (type.contains("time_turner"))
 			return createTimeTurner(id, position);
+		else if (type.contains("time_travelling_portal"))
+			return createTimeTravellingPortal(id, position);
 
 		return null;
 	}
@@ -394,5 +396,15 @@ public abstract class EntityFactory {
 	 */
 	public SwampTile createSwampTile(String id, Position position, int movementFactor) {
 		return new SwampTile(id, position, movementFactor);
+	}
+
+	/**
+	 * Creates an instance of TimeTravellingPortal object
+	 * @param id		Id of time_travelling_portal
+	 * @param position	Position of time_travelling_portal
+	 * @return TimeTravellingPortal
+	 */
+	public TimeTravellingPortal createTimeTravellingPortal(String id, Position position) {
+		return new TimeTravellingPortal(id, position);
 	}
 }
