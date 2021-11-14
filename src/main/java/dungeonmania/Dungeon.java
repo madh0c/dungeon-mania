@@ -421,8 +421,6 @@ public class Dungeon {
 		this.entities = entities;
 	}
 
-<<<<<<< HEAD
-=======
 	/**
 	 * Spawn in a mercenary at the spawnpoint at certain intervals depending on gamemode
 	 * <ul><li>Peaceful: Every 20 ticks
@@ -520,7 +518,6 @@ public class Dungeon {
 	// 	return 
 	// }
 
->>>>>>> master
 
 	// public boolean equals(Object obj) {
 	// 	if (this == null || obj == null) {
