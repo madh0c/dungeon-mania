@@ -118,6 +118,41 @@ public class Player extends Entity {
 		this.traceList = traceList;
 	}
 
+	public void act(Direction moveDir, Dungeon dungeon) {
+		setCurrentDir(moveDir);
+		
+		// make sure invincibility wears off
+		setInvincibleTickDuration(invincibleTickDuration - 1);
+
+		// If there are mercs being controlled
+		if (!controlled.isEmpty()) {
+			for (Entity ent : dungeon.getEntities()) {
+				if (ent instanceof Mercenary) {
+					Mercenary merc = (Mercenary) ent;
+					merc.sceptreTick(dungeon);
+				}
+			}
+		}
+
+		// move player
+		move(dungeon, moveDir);
+	
+		// store the player's step
+		addTrace(moveDir);		
+	}
+
+	public boolean shouldTimeTravel(Dungeon dungeon) {
+		Position currPlayerPos = super.getPosition();
+		List<Entity> entOnPlayerCell = dungeon.getEntitiesOnCell(currPlayerPos);
+		for (Entity ent: entOnPlayerCell) {
+			if (ent instanceof TimeTravellingPortal) {
+				move(dungeon, currentDir);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Check if the player is able to collide with entity<p>
 	 * Collide means if they are able to be on the same square<p>

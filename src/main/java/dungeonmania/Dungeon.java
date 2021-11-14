@@ -617,4 +617,70 @@ public class Dungeon {
 
 		addEntity(newHydra);
 	}
+
+	public void moveEnemiesAndBoulder() {
+		// Create a list of temp MovingEntities, to avoid Concurrent modifier exception
+		List<MovingEntity> tempEnts = new ArrayList<>();
+
+		for (Entity entity : this.getEntities()) {
+			if (entity instanceof MovingEntity) {
+				MovingEntity mov = (MovingEntity) entity;
+				tempEnts.add(mov);
+			} else if (entity instanceof Boulder) {
+				Boulder boulder = (Boulder) entity;
+				boulder.move(this);
+			}
+		}
+
+		// Move all Movable Entities
+		for (MovingEntity mov : tempEnts) {
+			Player player = getPlayer();
+			if (player == null) break;			
+			if (player.getInvincibleTickDuration() == 0) {
+				mov.move(this);
+			} else {
+				mov.moveScared(this);
+			}
+		}
+	}
+
+	public void detonateBombs() {
+		// Explode all valid bombs
+		List<Entity> toRemove = new ArrayList<>();
+		for (Entity entity : this.getEntities()) {
+			if (entity instanceof Bomb) {
+				Bomb bomb = (Bomb)entity;
+				if (bomb.isActive()) {
+					toRemove.addAll(bomb.explode(this));
+				}
+			}
+		}
+
+		if (toRemove.size() != 0) {
+			this.getEntities().removeAll(toRemove);
+		}	
+	}
+
+	public void useItem(String itemUsed) {
+		if (getPlayer() == null) {
+			return;
+		}
+
+		// Use item
+		CollectableEntity item = null;
+		for (CollectableEntity colllectable : this.getInventory()) {
+			if (colllectable.getId().equals(itemUsed)) {
+				item = colllectable;
+				UtilityEntity util = (UtilityEntity) item;
+				util.use(getPlayer());
+				
+				if (item instanceof Bomb) {
+					this.getEntities().add(item);
+				}
+			}
+		}
+
+		this.getInventory().remove(item);
+	}
+
 }

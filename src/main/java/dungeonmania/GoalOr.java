@@ -36,9 +36,8 @@ public class GoalOr implements GoalNode{
 		}	
 	}
 
-	public boolean add(GoalNode goal) {
+	public void addOrList(GoalNode goal) {
 		subGoals.add(goal);
-		return true;
 	}
 
 	public List<GoalNode> getList() {

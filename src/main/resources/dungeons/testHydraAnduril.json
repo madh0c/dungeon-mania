@@ -9,6 +9,11 @@
 			"x": 2,
 			"y": 1,
 			"type": "anduril"
+		},
+		{
+			"x": 2,
+			"y": 1,
+			"type": "midnight_armour"
 		}
     ]
 }
