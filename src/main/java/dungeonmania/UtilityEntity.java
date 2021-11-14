@@ -10,10 +10,7 @@ public abstract class UtilityEntity extends CollectableEntity {
 	}
 
 /**
-	 * Use an item <ul>
-	 * <li> Adds attack damage to player for certain items
-	 * <li> Reduces attack damage of enemy for certain items
-	 * </ul>
+	 * Use an item irrespective of subclass.
 	 * @param dungeon	Dungeon of item
 	 */
 	public abstract void use(Player player);	
