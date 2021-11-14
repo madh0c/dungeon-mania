@@ -11,20 +11,6 @@
       },
       "type": "armour",
       "id": "7"
-    },
-    {
-      "random": {
-        "seed": 213044067061324,
-        "nextNextGaussian": 0.0,
-        "haveNextNextGaussian": false
-      },
-      "position": {
-        "x": 2,
-        "y": 2,
-        "layer": 0
-      },
-      "type": "one_ring",
-      "id": "8"
     }
   ],
   "entities": [
@@ -115,7 +101,7 @@
   ],
   "gameMode": "standard",
   "goals": "",
-  "historicalEntCount": 9,
+  "historicalEntCount": 8,
   "tickNumber": 45,
   "spawnpoint": {
     "x": 1,
