@@ -46,7 +46,7 @@ public interface Dijkstra {
 		mercIllegal.add("wall");
 		mercIllegal.add("boulder");
 		mercIllegal.add("zombie_toast_spawner");
-		mercIllegal.add("bomb_static");
+		mercIllegal.add("bomb");
 
 		/* iterating through the current dungeon to check if each cell should be able traversed by the Merc/Assasin */
 		for (int x = minX; x <= maxX; x++) {
