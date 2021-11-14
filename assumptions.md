@@ -90,3 +90,47 @@ Initialise 60 health
 One ring gives 60 health
 Invincibility pot last 0 secs
 
+
+**Assumptions Milestone 3**
+
+Bosses - Assassin bribe requires treasure AND one ring
+
+Bosses - Hydra will spawn in the spawnpoint, every 50 ticks
+
+Bosses - Hydra will not spawn on the 50th if the spawn point is currently taken by a collideable entity, needs to wait another 50ticks before trying again
+
+Pathfinding - Dijkstra, if the player can’t collide into the particular square at that tick, no edge will be formed
+
+Collectable Entity - Sun stone can be used as a key or treasure but has infinite uses
+
+Rare Collectable Entity - Anduril has a durability of 15, and triples the player’s initial BASE attack damage
+
+Buildable Entity - Sceptre can only be triggered through interact not through use
+
+Buildable Entity - Sceptres only have a durability of 1, when it controls either a mercenary or assassin, it gets removed after interaction 
+
+SaveLoad Game - If you load a game and don't save it, the game will be lost, even if it was previously saved
+
+Moving Entity - Spider will spawn randomly throughout the dungeon every 20 ticks
+On hard mode, spiders will spawn every 15 ticks
+
+Moving Entity - Spawn points for all moving entities (mercenary, spider and zombie toast) depending on the gamemode, they will not spawn if it it’s spawn point is taken by a collideable entity.
+
+Dijkstra - If the current grid contains an entity that the mercenary cannot collide into during the current tick, an edge will not be formed in the graphical representation of the dungeon.
+
+Anduril - Has a durability of 15, and triples the player’s initial BASE attack damage
+
+Sun Stone -  Can be used as a key or treasure but has infinite uses
+
+Assassin - Bribe requires treasure AND one ring
+
+Hydra - Will spawn in the spawnpoint, every 50 ticks
+Hydra - Doesn’t spawn if cannot at the 50th tick at spawnpoint
+Same with ZombieToast (15/20th tick) and Mercenary (10/20th tick)
+
+Sceptre - Can only be triggered through interact not through use
+Sceptre - Only has a durability of 1, when it controls either a mercenary or assassin, it gets removed after interaction 
+
+Dijkstra - If the player can’t collide into the particular square at that tick, no edge will be formed
+
+Spider - will spawn randomly throughout the dungeon every 20 ticks; on hard mode, every 15

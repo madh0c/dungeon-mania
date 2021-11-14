@@ -135,7 +135,6 @@ public class DungeonManiaController {
 		}
 
 		Date date = new Date();
-
 		long currTime = date.getTime();
 		String rewindTime = Long.toString(currTime);
 		String rewindPath = "/rewind/" + rewindTime + "/";
