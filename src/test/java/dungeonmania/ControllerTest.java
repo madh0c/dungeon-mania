@@ -398,7 +398,7 @@ public class ControllerTest {
         int bribeCount = 0;
         
         for (String gameName : controller.allGames()) {
-            if (gameName.equals("testMercenaryBribe-1636079593059")) {
+            if (gameName.contains("testMercenaryBribe-1636079593059")) {
                 bribeCount++;
             }
         }
@@ -705,6 +705,12 @@ public class ControllerTest {
     public void testGenerateNonExistentGameMode() {
         DungeonManiaController controller = new DungeonManiaController();
         assertThrows(IllegalArgumentException.class, () -> controller.generateDungeon(0, 0, 25, 25, "markgoat"));
+    }
+
+    @Test
+    public void testIllegalRewind() {
+        DungeonManiaController controller = new DungeonManiaController();
+        assertThrows(IllegalArgumentException.class, () -> controller.rewind(-2));
     }
 }
 
