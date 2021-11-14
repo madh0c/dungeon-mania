@@ -136,12 +136,18 @@ public class GameInOut {
 					String colour = (String)currentEntity.get("colour");
 					Portal portal = factory.createPortal(entityId, exportPos, colour);
 					entityList.add(portal);
-				} else if (entityType.equals("door")) {
+				} else if (entityType.equals("door_unlocked")) {
+					Double corrKey = (Double)currentEntity.get("key");
+					int keyId = corrKey.intValue();
+					Door door = factory.createDoor("door_unlocked", exportPos, keyId);
+					door.setOpen(true);
+					entityList.add(door);
+				} else if (entityType.contains("door")) {
 					Double corrKey = (Double)currentEntity.get("key");
 					int keyId = corrKey.intValue();
 					Door door = factory.createDoor(entityId, exportPos, keyId);
 					entityList.add(door);
-				} else if (entityType.equals("key")) {
+				} else if (entityType.contains("key")) {
 					Double corrDoor = (Double)currentEntity.get("key");
 					int keyId = corrDoor.intValue();
 					Key key = factory.createKey(entityId, exportPos, keyId);
@@ -278,7 +284,7 @@ public class GameInOut {
 					if (itemType.equals("treasure")) {
 						Treasure newTreasure = new Treasure(itemId, itemPos);
 						returnInv.add(newTreasure);
-					} else if (itemType.equals("key")){
+					} else if (itemType.contains("key")){
 						Double corrDoor = (Double)currentItem.get("key");
 						int keyId = corrDoor.intValue();
 						Key newKey = new Key(itemId, itemPos, keyId);
