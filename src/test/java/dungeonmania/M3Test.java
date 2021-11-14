@@ -15,7 +15,7 @@ import dungeonmania.util.Position;
 import dungeonmania.response.models.*;
 
 
-public class Milestone3Test {
+public class M3Test {
 
 	@Test
     public void testMercenaryAvoidsSwamp() {
@@ -152,8 +152,9 @@ public class Milestone3Test {
             controller.tick(null, Direction.RIGHT);
         }
 
+        // controller.rewind(5);
         // Why doesn't rewind work lol
-        //assertDoesNotThrow(() -> controller.rewind(5));
+        // assertDoesNotThrow(() -> controller.rewind(5));
 
         List<Entity> allEnt = controller.getCurrentDungeon().getEntities();
 
