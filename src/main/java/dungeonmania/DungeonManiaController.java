@@ -128,18 +128,18 @@ public class DungeonManiaController {
 
 		Date date = new Date();
 		// TODO UNCOMMENT
-		// long currTime = date.getTime();
-		// String rewindTime = Long.toString(currTime);
-		// String rewindPath = "/rewind/" + rewindTime + "/";
-		// currentDungeon.setRewindPath(rewindPath);
+		long currTime = date.getTime();
+		String rewindTime = Long.toString(currTime);
+		String rewindPath = "/rewind/" + rewindTime + "/";
+		currentDungeon.setRewindPath(rewindPath);
 
-		// try {
-		// 	Path path = Paths.get("src/main/resources" + rewindPath);
-		// 	Files.createDirectories(path);
+		try {
+			Path path = Paths.get("src/main/resources" + rewindPath);
+			Files.createDirectories(path);
 		
-		// } catch (IOException e) {
-		// 	System.err.println("Failed to create directory!" + e.getMessage());
-		// }
+		} catch (IOException e) {
+			System.err.println("Failed to create directory!" + e.getMessage());
+		}
 
 		int currentId = currentDungeon.getId();
 		lastUsedDungeonId++;
@@ -353,12 +353,8 @@ public class DungeonManiaController {
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
 
-		int currPlayerHealthS;
-		double doubleHPS;
-		double healthFracS;
-
 		// TODO UNCOMMENT
-		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
+		saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 	
 		// Use item
 		currentDungeon.useItem(itemUsed);
@@ -381,9 +377,6 @@ public class DungeonManiaController {
 
 		// Player actions
 		if (player != null) {
-			currPlayerHealthS = currentDungeon.getPlayer().getHealth();
-			doubleHPS = currPlayerHealthS;
-			healthFracS = doubleHPS/100.0;
 
 			player.setCurrentDir(movementDirection);
 			// make sure invincibility wears off
@@ -835,7 +828,12 @@ public class DungeonManiaController {
 
 		try {
 			String rewindPath = currentDungeon.getRewindPath() + "tick-" + tickNo + ".json";
-			String path = FileLoader.loadResourceFile(rewindPath);
+
+			File loadFile = new File("src/main/resources" + rewindPath);
+			byte[] byteArray = Files.readAllBytes(loadFile.toPath());
+			String path = new String(byteArray);
+
+			// String path = FileLoader.loadResourceFile(rewindPath);
 
 			Dungeon rewindDungeon = GameInOut.fromJSON("rewind", path, currentDungeon.getName(), lastUsedDungeonId, null, ticks);
 			

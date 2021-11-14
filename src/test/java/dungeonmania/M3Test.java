@@ -140,7 +140,7 @@ public class M3Test {
         DungeonManiaController controller = new DungeonManiaController();
         assertDoesNotThrow(() -> controller.newGame("timeTravel", "Standard"));
 
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 10; i++) {
             controller.tick(null, Direction.RIGHT);
         }
 
@@ -152,20 +152,19 @@ public class M3Test {
             controller.tick(null, Direction.RIGHT);
         }
 
-        // controller.rewind(5);
-        // Why doesn't rewind work lol
-        // assertDoesNotThrow(() -> controller.rewind(5));
+        assertDoesNotThrow(() -> controller.rewind(5));
+        assertDoesNotThrow(() -> controller.saveGame("timetraveltest"));
 
         List<Entity> allEnt = controller.getCurrentDungeon().getEntities();
 
         assertEquals(new Position(11, 1), allEnt.get(19).getPosition());
         assertEquals("older_player", allEnt.get(19).getType());
 
-        assertEquals(new Position(13, 4), allEnt.get(120).getPosition());
-        assertEquals("player", allEnt.get(120).getType());
+        assertEquals(new Position(13, 4), allEnt.get(118).getPosition());
+        assertEquals("player", allEnt.get(118).getType());
 
-        assertEquals(new Position(8, 1), allEnt.get(43).getPosition());
-        assertEquals("mercenary", allEnt.get(43).getType());
+        assertEquals(new Position(7, 1), allEnt.get(41).getPosition());
+        assertEquals("mercenary", allEnt.get(41).getType());
 
         assertEquals(new Position(0, 0), allEnt.get(0).getPosition());
         assertEquals("wall", allEnt.get(0).getType());
