@@ -126,18 +126,19 @@ public class DungeonManiaController {
 		}
 
 		Date date = new Date();
-		long currTime = date.getTime();
-		String rewindTime = Long.toString(currTime);
-		String rewindPath = "/rewind/" + rewindTime + "/";
-		currentDungeon.setRewindPath(rewindPath);
+		// TODO UNCOMMENT
+		// long currTime = date.getTime();
+		// String rewindTime = Long.toString(currTime);
+		// String rewindPath = "/rewind/" + rewindTime + "/";
+		// currentDungeon.setRewindPath(rewindPath);
 
-		try {
-			Path path = Paths.get("persistence" + rewindPath);
-			Files.createDirectories(path);
+		// try {
+		// 	Path path = Paths.get("persistence" + rewindPath);
+		// 	Files.createDirectories(path);
 		
-		} catch (IOException e) {
-			System.err.println("Failed to create directory!" + e.getMessage());
-		}
+		// } catch (IOException e) {
+		// 	System.err.println("Failed to create directory!" + e.getMessage());
+		// }
 
 		int currentId = currentDungeon.getId();
 		lastUsedDungeonId++;
@@ -359,7 +360,8 @@ public class DungeonManiaController {
 	public DungeonResponse tick(String itemUsed, Direction movementDirection) throws IllegalArgumentException, InvalidActionException {
 		checkValidTick(itemUsed);
 
-		saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
+		// TODO UNCOMMENT
+		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 	
 		// Use item
 		currentDungeon.useItem(itemUsed);
@@ -372,8 +374,6 @@ public class DungeonManiaController {
 				currentDungeon.setSpawnpoint(currentDungeon.getPlayerPosition());
 			}
 		}
-
-
 
 		currentDungeon.tickOne();
 
@@ -467,7 +467,8 @@ public class DungeonManiaController {
 			spawner.spawnZombie(currentDungeon);
 		}
 
-		// currentDungeon.spiderSpawn();
+		// Spawn in spider if appropriate
+		currentDungeon.spiderSpawn();
 		
 		evalGoal(currentDungeon);
 		return getDungeonInfo(currentDungeon.getId());

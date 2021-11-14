@@ -1,21 +1,10 @@
 {
   "id": 1,
   "name": "testMercenaryBribe-1636079593059",
-  "inventory": [
-    {
-      "durability": 9,
-      "position": {
-        "x": 3,
-        "y": 1,
-        "layer": 0
-      },
-      "type": "armour",
-      "id": "4"
-    }
-  ],
+  "inventory": [],
   "entities": [
     {
-      "health": 79,
+      "health": 60,
       "attack": 2,
       "visible": true,
       "currentDir": "RIGHT",
@@ -101,7 +90,7 @@
   ],
   "gameMode": "standard",
   "goals": "",
-  "historicalEntCount": 6,
+  "historicalEntCount": 7,
   "tickNumber": 45,
   "spawnpoint": {
     "x": 1,
@@ -115,6 +104,5 @@
   "goalConditions": "",
   "factory": {},
   "mercSpawnrate": 20,
-  "spiderSpawnrate": 20,
-  "rewindPath": "/rewind/1636857313012/"
+  "spiderSpawnrate": 20
 }

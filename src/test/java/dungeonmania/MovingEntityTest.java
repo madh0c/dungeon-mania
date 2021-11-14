@@ -58,14 +58,55 @@ public class MovingEntityTest {
 		assertTrue(spiderPos2.equals(spiderStart2));	
 	}
 
-	// // Test a maximum of 4 spiders can spawn int
-	// @Test
-	// public void testMaxSpiders() {
-	// 	DungeonManiaController controller = new DungeonManiaController();
-	// 	assertDoesNotThrow(() -> controller.newGame("testSpiderFour.json", "Standard"));
-	// 	// Too many spiders (5)
-	// 	assertThrows(IllegalArgumentException.class, () -> controller.newGame("testSpiderMax.json", "Standard"));
-	// }
+	// Test a maximum of 4 spiders can spawn int
+	@Test
+	public void testMaxSpiders() {
+		DungeonManiaController controller = new DungeonManiaController();
+		assertDoesNotThrow(() -> controller.newGame("testSpiderFour", "Hard"));
+
+		// First spider
+		for (int i = 0; i < 14; i++) {
+			controller.tick(null, Direction.NONE);
+			assertFalse(controller.getDungeon(0).entityExists("spider"));
+		}
+		// 15th tick, spider spawns randomly
+		controller.tick(null, Direction.NONE);
+		assertTrue(controller.getDungeon(0).entityExists("spider"));
+
+		// Second spider
+		for (int i = 0; i < 14; i++) {
+			controller.tick(null, Direction.NONE);
+			assertEquals(1, controller.getDungeon(0).numOfEntities("spider"));
+		}
+		// 15th tick, spider spawns randomly
+		controller.tick(null, Direction.NONE);
+		assertEquals(2, controller.getDungeon(0).numOfEntities("spider"));
+
+		// Third spider
+		for (int i = 0; i < 14; i++) {
+			controller.tick(null, Direction.NONE);
+			assertEquals(2, controller.getDungeon(0).numOfEntities("spider"));
+		}
+		// 15th tick, spider spawns randomly
+		controller.tick(null, Direction.NONE);
+		assertEquals(3, controller.getDungeon(0).numOfEntities("spider"));
+
+		// Fourth spider
+		for (int i = 0; i < 14; i++) {
+			controller.tick(null, Direction.NONE);
+			assertEquals(3, controller.getDungeon(0).numOfEntities("spider"));
+		}
+		// 15th tick, spider spawns randomly
+		controller.tick(null, Direction.NONE);
+		assertEquals(4, controller.getDungeon(0).numOfEntities("spider"));
+
+		// Check no more spiders spawn
+		for (int i = 0; i < 25; i++) {
+			controller.tick(null, Direction.NONE);
+			assertEquals(4, controller.getDungeon(0).numOfEntities("spider"));
+		}
+	}
+
 	
 	// Test movement of spider is correct
 	@Test

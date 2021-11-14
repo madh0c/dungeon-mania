@@ -19,12 +19,21 @@ public class Dungeon {
     private String gameMode;
     private String goals;
 	private int historicalEntCount;
+	/**
+	 * Current tick of the dungeon
+	 */
 	private int tickNumber;
 	private Position spawnpoint;
 	private GoalNode foundGoals;
 	private String goalConditions;
 	private EntityFactory factory;
+	/**
+	 * Number of ticks before a Mercenary spawns
+	 */
 	private int mercSpawnrate;
+	/**
+	 * Number of ticks before a Spider spawns
+	 */
 	private int spiderSpawnrate;
 	private String rewindPath;
 
@@ -103,6 +112,10 @@ public class Dungeon {
         return entities;
     }
 
+	/**
+	 * Add an entity to this dungeon, with id automatically calculated
+	 * @param newEntity	Entity to be added
+	 */
     public void addEntity(Entity newEntity) {
         this.entities.add(newEntity);
 		historicalEntCount++;
@@ -259,15 +272,28 @@ public class Dungeon {
 		tickNumber++;
 	}
 
+	/**
+	 * Remove an item from the inventory
+	 * @param entity	Entity to be removed
+	 */
 	public void removeEntity(Entity entity) {
 		getEntities().remove(entity);
 	}
 
+	/**
+	 * Add an item to the inventory
+	 * @param entity	CollectableEntity to be added
+	 */
 	public void addItemToInventory(CollectableEntity entity) {
 		inventory.add(entity);
 	}
 
-	// Check if type exists regardless of position
+	/**
+	 * Check if the given type exists
+	 * @param type Type of entity
+	 * @return true if the entity exists in the dungeon
+	 * 			<li> false if otherwise
+	 */
 	public boolean entityExists(String type) {
 		for (Entity ent : getEntities()) {
 			if (ent.getType().equals(type)) {
@@ -277,7 +303,12 @@ public class Dungeon {
 		return false;
 	}
 
-	// Check if something exists in position
+	/**
+	 * Check if given position contains an entity
+	 * @param position	Position of entity
+	 * @return	true if the position contains an entity
+	 * 			<li> false if otherwise
+	 */
 	public boolean entityExists(Position position) {
 		for (Entity ent : getEntities()) {
 			if (ent.getPosition().equals(position)) {
@@ -287,7 +318,13 @@ public class Dungeon {
 		return false;
 	}
 
-	// Check if type exists in position
+	/**
+	 * Check if given type exists in given position
+	 * @param type		Type of entity
+	 * @param position	Position of entity
+	 * @return	true if the type of entity exists on the position
+	 * 			<li> false if otherwise
+	 */
 	public boolean entityExists(String type, Position position) {		
 		for (Entity ent : getEntities()) {
 			if (ent.getPosition().equals(position) && ent.getType().equals(type)) {
@@ -296,6 +333,22 @@ public class Dungeon {
 		}
 		return false;
 	}
+
+	/**
+	 * Counts the number of given type entities in the dungeon
+	 * @param type	Type of entity
+	 * @return	the number of entities of same type in the dungeon
+	 */
+	public int numOfEntities(String type) {
+		int counter = 0;
+		for (Entity ent : getEntities()) {
+			if (ent.getType().equals(type)) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+
 
 	/**
 	 * @return player's curr position in the dungeon
@@ -468,8 +521,11 @@ public class Dungeon {
 	 */
 	public void spiderSpawn() {
 		// Ignore if not the right number of ticks
-		if (getTickNumber() % spiderSpawnrate != 0) return;
+		if (getTickNumber() % spiderSpawnrate != 0 || getTickNumber() == 0) return;
+		// If more than four spiders, don't spawn
+		if (maxSpiders()) return;
 
+		int newId = getHistoricalEntCount();
 		// Random spawnpoint
 		Position rngSpawn;
 		boolean flag = false;
@@ -478,16 +534,24 @@ public class Dungeon {
 			rngSpawn = randomSpawnpoint();
 			for (Entity ent : getEntitiesOnCell(rngSpawn)) {
 				if (!Spider.spawnCollide(ent)) {
-					flag = true;
-					break;
+					continue;
 				}
 			}
 		} while (flag);
 
-		factory.createSpider(gameMode, rngSpawn);
+		// addEntity(factory.createSpider(historicalEntCount++, rngSpawn));
+		addEntity(factory.createSpider(String.valueOf(newId), rngSpawn));
 
 	}
 	
+	/**
+	 * Checks if there are more than 4 spiders currently in the dungeon
+	 * @return	true if there are more than 4 spiders
+	 * 			<li> false if otherwise
+	 */
+	private boolean maxSpiders() {
+		return (numOfEntities("spider") >= 4);
+	}
 
 	/**
 	 * Returns a random spawnpoint on the dungeon
@@ -497,11 +561,24 @@ public class Dungeon {
 		Random rng = new Random();
 		// max: getMaxX()
 		// min: getMinX()
-		int randX = rng.nextInt(getMaxX() - getMinX()) + getMinX();
+		int minX  = getMinX() > 0 ? getMinX() : 0;
+		int maxX = getMaxX() > minX ? getMaxX() : minX + 1;
+		int randX = rng.nextInt(maxX - minX) + minX;
+
+		// int randX = rng.nextInt(getMaxX() - getMinX()) + getMinX() > 0 ? 
+		// 	rng.nextInt(getMaxX() - getMinX()) + getMinX() : 0;
+		// int randX = x > 0 ? x : 0;
+
+		int minY  = getMinY() > 0 ? getMinY() : 0;
+		int maxY = getMaxY() > minY ? getMaxY() : minY + 1;
+		int randY = rng.nextInt(maxY - minY) + minY;
 
 		// max: getMaxY()
 		// min: getMaxX()
-		int randY = rng.nextInt(getMaxY() - getMinY()) + getMinY();
+		// int randY = rng.nextInt(getMaxY() - getMinY()) + getMinY();
+		// int randY = rng.nextInt(getMaxY() - getMinY()) + getMinY() > 0 ? 
+		// 	rng.nextInt(getMaxY() - getMinY()) + getMinY() : 0;
+		// int randY = y > 0 ? y : 0;
 
 		Position ret = new Position(randX, randY);
 

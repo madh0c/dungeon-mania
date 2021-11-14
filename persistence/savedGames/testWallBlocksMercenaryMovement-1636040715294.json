@@ -68,6 +68,5 @@
   "goalConditions": "",
   "factory": {},
   "mercSpawnrate": 20,
-  "spiderSpawnrate": 20,
-  "rewindPath": "/rewind/1636857312385/"
+  "spiderSpawnrate": 20
 }

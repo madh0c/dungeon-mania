@@ -121,13 +121,13 @@ public class StaticEntityTest {
 			controller.tick(null, Direction.DOWN);
 		}
         // Tick player 21 times
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 8; i++) {
 			controller.tick(null, Direction.UP);
 		}
 
         List<EntityResponse> endList = new ArrayList<EntityResponse>();
 
-        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(6,1), true);
+        EntityResponse endPlayerInfo = new EntityResponse("0", "player", new Position(6,3), true);
         EntityResponse endSpawnerInfo = new EntityResponse("1", "zombie_toast_spawner", new Position(1,1), true);
         EntityResponse endWall1Info = new EntityResponse("2", "wall", new Position(0,1), false);
         EntityResponse endWall2Info = new EntityResponse("3", "wall", new Position(1,0), false);
@@ -142,7 +142,6 @@ public class StaticEntityTest {
         endList.add(endBoulder1Info);
         endList.add(endBoulder2Info);
         endList.add(endWall3Info);
-
 
         // There should be no change from the start after 22 ticks apart from two mercenaries spawning as the player 
         // should be at its starting position and a zombie toast should not spawn.
