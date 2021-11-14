@@ -122,6 +122,5 @@
   "goalConditions": "{\"subgoals\":[{\"goal\":\"enemies\"},{\"subgoals\":[{\"goal\":\"exit\"},{\"subgoals\":[{\"goal\":\"treasure\"},{\"goal\":\"boulders\"}],\"goal\":\"AND\"}],\"goal\":\"OR\"}],\"goal\":\"AND\"}",
   "factory": {},
   "mercSpawnrate": 20,
-  "spiderSpawnrate": 20,
-  "rewindPath": "/rewind/1636902720971/"
+  "spiderSpawnrate": 20
 }

@@ -10,13 +10,19 @@ import dungeonmania.util.Position;
 public class Hydra extends ZombieToast {
 
 	private Random rng;
+	private boolean spawns;
 
-	public Hydra (String id, Position position, boolean enemyAttack) {
+	public Hydra (String id, Position position, boolean enemyAttack, boolean spawns) {
 		super(id, position, enemyAttack);
 		super.setType("hydra");
 		super.setHealth(30);
 		super.setBaseAttack(5);
+		this.spawns = spawns;
 		rng  = new Random();
+	}
+
+	public boolean spawns() {
+		return spawns;
 	}
 
 	@Override

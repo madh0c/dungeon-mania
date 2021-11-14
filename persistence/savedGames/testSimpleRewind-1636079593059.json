@@ -1,5 +1,5 @@
 {
-  "id": 1,
+  "id": 0,
   "name": "timeTravel",
   "inventory": [
     {
@@ -196,7 +196,19 @@
       "id": "18"
     },
     {
-      "trackingList": [
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
         "RIGHT",
         "RIGHT",
         "RIGHT",
@@ -213,17 +225,12 @@
         "RIGHT",
         "RIGHT"
       ],
-      "traceUntil": 15,
-      "health": 100,
-      "baseAttack": 2,
-      "enemyAttack": true,
-      "ticksFrozen": 0,
       "position": {
-        "x": 11,
-        "y": 1,
+        "x": 13,
+        "y": 4,
         "layer": 0
       },
-      "type": "older_player",
+      "type": "player",
       "id": "19"
     },
     {
@@ -417,14 +424,15 @@
     },
     {
       "isAlly": false,
+      "currentDir": "DOWN",
       "sceptreTickDuration": 0,
       "health": 30,
       "baseAttack": 5,
       "enemyAttack": true,
       "ticksFrozen": 0,
       "position": {
-        "x": 7,
-        "y": 1,
+        "x": 10,
+        "y": 3,
         "layer": 0
       },
       "type": "mercenary",
@@ -1113,50 +1121,12 @@
       },
       "type": "wall",
       "id": "119"
-    },
-    {
-      "health": 100,
-      "attack": 2,
-      "visible": true,
-      "currentDir": "RIGHT",
-      "haveKey": false,
-      "hasSunStone": false,
-      "invincibleTickDuration": 0,
-      "enemyAttack": true,
-      "initialHealth": 100,
-      "invincibleAmount": 8,
-      "initialAttack": 2,
-      "controlled": [],
-      "traceList": [
-        "RIGHT",
-        "RIGHT",
-        "RIGHT",
-        "RIGHT",
-        "RIGHT",
-        "RIGHT",
-        "RIGHT",
-        "RIGHT",
-        "RIGHT",
-        "RIGHT",
-        "DOWN",
-        "DOWN",
-        "DOWN",
-        "RIGHT",
-        "RIGHT"
-      ],
-      "position": {
-        "x": 13,
-        "y": 4,
-        "layer": 0
-      },
-      "type": "player",
-      "id": "120"
     }
   ],
   "gameMode": "standard",
   "goals": "(:enemies AND :treasure)",
-  "historicalEntCount": 121,
-  "tickNumber": 10,
+  "historicalEntCount": 120,
+  "tickNumber": 15,
   "spawnpoint": {
     "x": 1,
     "y": 1,
@@ -1176,9 +1146,8 @@
     "operator": "AND",
     "hasCompleted": false
   },
-  "goalConditions": "{\"goal\":\"AND\",\"subgoals\":[{\"goal\":\"enemies\"},{\"goal\":\"treasure\"}]}",
+  "goalConditions": "{\"subgoals\":[{\"goal\":\"enemies\"},{\"goal\":\"treasure\"}],\"goal\":\"AND\"}",
   "factory": {},
   "mercSpawnrate": 20,
-  "spiderSpawnrate": 20,
-  "rewindPath": "/rewind/1636902723298/"
+  "spiderSpawnrate": 20
 }

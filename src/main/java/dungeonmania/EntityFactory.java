@@ -362,6 +362,7 @@ public abstract class EntityFactory {
 	 * Creates an instance of Hydra object
 	 * @param id		Id of hydra
 	 * @param position	Position of hydra
+	 * @param spawn	If the hydra will spawn orn ot
 	 * @return Hydra
 	 */
 	public abstract Hydra createHydra(String id, Position position);

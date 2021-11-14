@@ -75,9 +75,6 @@ public class DungeonManiaController {
 			}
 		} return newAnimation;
 	}
-    
-        
-
 
 	/**
 	 * /dungeons
@@ -134,19 +131,19 @@ public class DungeonManiaController {
 			e.printStackTrace();
 		}
 
-		Date date = new Date();
-		long currTime = date.getTime();
-		String rewindTime = Long.toString(currTime);
-		String rewindPath = "/rewind/" + rewindTime + "/";
-		currentDungeon.setRewindPath(rewindPath);
+		// Date date = new Date();
+		// long currTime = date.getTime();
+		// String rewindTime = Long.toString(currTime);
+		// String rewindPath = "/rewind/" + rewindTime + "/";
+		// currentDungeon.setRewindPath(rewindPath);
 
-		try {
-			Path path = Paths.get("persistence" + rewindPath);
-			Files.createDirectories(path);
+		// try {
+		// 	Path path = Paths.get("persistence" + rewindPath);
+		// 	Files.createDirectories(path);
 		
-		} catch (IOException e) {
-			System.err.println("Failed to create directory!" + e.getMessage());
-		}
+		// } catch (IOException e) {
+		// 	System.err.println("Failed to create directory!" + e.getMessage());
+		// }
 
 		int currentId = currentDungeon.getId();
 		lastUsedDungeonId++;
@@ -354,7 +351,7 @@ public class DungeonManiaController {
 		// PREVIOUS TICK ACTIONS
 		checkValidTick(itemUsed);
 
-		saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
+		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 		
 		Player player = currentDungeon.getPlayer();
 

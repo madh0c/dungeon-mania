@@ -38,7 +38,7 @@ public class PeacefulFactory extends EntityFactory {
 
 	@Override
 	public Hydra createHydra(String id, Position position) {
-		return new Hydra(id, position, false);
+		return new Hydra(id, position, false, false);
 	}
 
 	@Override

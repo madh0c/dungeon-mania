@@ -87,6 +87,8 @@ public class Mercenary extends MovingEntity {
 			}
 			// If ally
 			return true;
+		} else if (entity instanceof Hydra) {
+			return false;
 		} else if (entity instanceof MovingEntity) {
 			return true;
 		} return true;
