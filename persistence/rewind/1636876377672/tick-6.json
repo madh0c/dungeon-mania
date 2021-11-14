@@ -1,0 +1,140 @@
+{
+  "id": 0,
+  "name": "testMercenaryCollide",
+  "inventory": [],
+  "entities": [
+    {
+      "health": 100,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "RIGHT",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "UP",
+        "UP",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT"
+      ],
+      "position": {
+        "x": 4,
+        "y": -2,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "0"
+    },
+    {
+      "key": 2,
+      "position": {
+        "x": 0,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "key_2",
+      "id": "1"
+    },
+    {
+      "isAlly": false,
+      "currentDir": "NONE",
+      "sceptreTickDuration": 0,
+      "health": 30,
+      "baseAttack": 5,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 2,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "mercenary",
+      "id": "2"
+    },
+    {
+      "tickrate": 20,
+      "position": {
+        "x": 4,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "zombie_toast_spawner",
+      "id": "3"
+    },
+    {
+      "tickrate": 20,
+      "position": {
+        "x": 3,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "zombie_toast_spawner",
+      "id": "4"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 1,
+        "layer": 0
+      },
+      "type": "boulder",
+      "id": "5"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "boulder",
+      "id": "6"
+    },
+    {
+      "isOpen": false,
+      "key": 1,
+      "position": {
+        "x": 2,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "door_1",
+      "id": "7"
+    },
+    {
+      "isOpen": false,
+      "key": 2,
+      "position": {
+        "x": 3,
+        "y": 2,
+        "layer": 0
+      },
+      "type": "door_2",
+      "id": "8"
+    }
+  ],
+  "gameMode": "standard",
+  "goals": "",
+  "historicalEntCount": 9,
+  "tickNumber": 6,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "spiderSpawnrate": 20,
+  "rewindPath": "/rewind/1636876377672/"
+}
