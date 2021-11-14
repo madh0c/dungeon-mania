@@ -437,7 +437,9 @@ public class DungeonManiaController {
 		// Spawn in new zombietoast after 20 ticks (20 ticks checked inside method)
 		for (ZombieToastSpawner spawner : spawners) {
 			spawner.spawnZombie(currentDungeon);
-		}		
+		}
+
+		currentDungeon.spiderSpawn();
 		
 		evalGoal(currentDungeon);
 		

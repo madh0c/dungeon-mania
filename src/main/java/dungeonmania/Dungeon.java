@@ -25,6 +25,7 @@ public class Dungeon {
 	private String goalConditions;
 	private EntityFactory factory;
 	private int mercSpawnrate;
+	private int spiderSpawnrate;
 	private String rewindPath;
 
 
@@ -42,12 +43,15 @@ public class Dungeon {
 		if (gameMode.equals("peaceful")) {
 			this.factory = new PeacefulFactory();
 			this.mercSpawnrate = 20;
+			this.spiderSpawnrate = 20;
 		} else if (gameMode.equals("standard")) {
 			this.factory = new StandardFactory();
 			this.mercSpawnrate = 20;
+			this.spiderSpawnrate = 20;
 		} else if (gameMode.equals("hard")) {
 			this.factory = new HardFactory();
 			this.mercSpawnrate = 10;
+			this.spiderSpawnrate = 15;
 		}
     }
 
@@ -195,9 +199,9 @@ public class Dungeon {
 	}
 	
 	/**
-	 * get all the entities on a 
-	 * @param cell
-	 * @return
+	 * Get all the entities on a cell, regardless of the layer of the Entity
+	 * @param cell	Position of cell
+	 * @return	List<Entity> of entities on cell
 	 */
 	public List<Entity> getEntitiesOnCell(Position cell) {
 		List<Entity> result = new ArrayList<>();
@@ -209,6 +213,10 @@ public class Dungeon {
 		return result;
 	}
 
+	/**
+	 * Returns the current tick of the dungeon
+	 * @return	tickNumber
+	 */
 	public int getTickNumber() {
 		return tickNumber;
 	}
@@ -437,6 +445,65 @@ public class Dungeon {
 	public void setEntities(List<Entity> entities) {
 		this.entities = entities;
 	}
+
+	/**
+	 * Spawn in a spider<ul>
+	 * <li> Peaceful: 20 ticks
+	 * <li> Standard: 20 ticks
+	 * <li> Hard: 20 ticks
+	 * </ul>
+	 */
+	public void spiderSpawn() {
+		// Ignore if not the right number of ticks
+		if (getTickNumber() % spiderSpawnrate != 0) return;
+
+		// Random spawnpoint
+		Position rngSpawn;
+		boolean flag = false;
+		// Generate random spawnpoint until it is a valid one
+		do {
+			rngSpawn = randomSpawnpoint();
+			for (Entity ent : getEntitiesOnCell(rngSpawn)) {
+				if (!Spider.spawnCollide(ent)) {
+					flag = true;
+					break;
+				}
+			}
+		} while (flag);
+
+		factory.createSpider(gameMode, rngSpawn);
+
+	}
+	
+
+	/**
+	 * Returns a random spawnpoint on the dungeon
+	 * @return	Position of random spawnpoint
+	 */
+	private Position randomSpawnpoint() {
+		Random rng = new Random();
+		// max: getMaxX()
+		// min: getMinX()
+		int randX = rng.nextInt(getMaxX() - getMinX()) + getMinX();
+
+		// max: getMaxY()
+		// min: getMaxX()
+		int randY = rng.nextInt(getMaxY() - getMinY()) + getMinY();
+
+		Position ret = new Position(randX, randY);
+
+		return ret;
+	}
+
+	// private boolean validSpiderSpawnpoint(Position pos) {
+	// 	Spider temp = new Spider(gameMode, pos, false);
+	// 	for (Entity ent : getEntitiesOnCell(pos)) {
+	// 		if (!Spider.spawnCollide(ent)) {
+	// 			return false;
+	// 		}
+	// 	}
+	// 	return 
+	// }
 
 
 	// public boolean equals(Object obj) {
