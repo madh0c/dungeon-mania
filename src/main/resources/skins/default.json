@@ -49,7 +49,7 @@
         "bow": "images/tileset/items/bow_0.png",
         "shield": "images/tileset/items/shield.png",
         "player": "images/tileset/entities/entity.png",
-        "older_player": "images/tileset/entities/lebron.png",
+        "older_player": "images/tileset/entities/older_player.png",
         "assassin": "images/tileset/entities/assassin.png",
         "hydra": "images/tileset/entities/hydra.png",
         "swamp_tile": "images/tileset/entities/swamp_tile.png",
