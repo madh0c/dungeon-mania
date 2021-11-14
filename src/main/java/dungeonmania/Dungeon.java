@@ -63,50 +63,6 @@ public class Dungeon {
 			this.spiderSpawnrate = 15;
 		}
     }
-
-
-
-	/**
-	 * @param itemString
-	 * @return whether the item was used successfully
-	 * @throws InvalidActionException
-	 */
-	public boolean useItem(String itemString) throws InvalidActionException {
-		CollectableEntity itemUsed = null;
-		for (CollectableEntity colllectable : inventory) {
-			if (colllectable.getId().equals(itemString)) {
-				itemUsed = colllectable;
-			}
-		}
-		
-		if (itemUsed instanceof HealthPotion) {
-			getPlayer().setHealth(getPlayer().getInitialHealth());
-			inventory.remove(itemUsed);
-			return true;
-		}
-		if (itemUsed instanceof InvisibilityPotion) {
-			getPlayer().setVisibility(false);
-			inventory.remove(itemUsed);
-			return true;
-		}
-
-		if (itemUsed instanceof InvincibilityPotion) {
-			getPlayer().setInvincibleTickDuration(getPlayer().getInvincibleAmount());
-			inventory.remove(itemUsed);
-			return true;
-		}
-
-		if (itemUsed instanceof BombItem) {
-			BombStatic bomb = new BombStatic(String.valueOf(historicalEntCount), getPlayerPosition());
-
-			entities.add(bomb);
-			setHistoricalEntCount(historicalEntCount + 1);
-
-			inventory.remove(itemUsed);
-			return true;
-		}	
-		return false;
-	}
 	
     public List<Entity> getEntities() {
         return entities;
@@ -416,7 +372,7 @@ public class Dungeon {
 				treasure++;
 			}
 
-			if (item.getType().equals("key")) {
+			if (item.getType().contains("key")) {
 				key++;
 			}
 

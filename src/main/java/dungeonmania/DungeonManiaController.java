@@ -207,7 +207,7 @@ public class DungeonManiaController {
 			this.getAnimations()
 		);
 	}
-	
+
 	/**
 	 * Checks if dungeonName is a real file
 	 * Checks if gameMode is Peaceful, Standard or Hard
@@ -361,13 +361,26 @@ public class DungeonManiaController {
 		// PREVIOUS TICK ACTIONS
 		checkValidTick(itemUsed);
 
-		// TODO UNCOMMENT
-		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
-	
-		// Use item
-		currentDungeon.useItem(itemUsed);
+		saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 		
 		Player player = currentDungeon.getPlayer();
+
+		// Use item
+		CollectableEntity item = null;
+		for (CollectableEntity colllectable : currentDungeon.getInventory()) {
+			if (colllectable.getId().equals(itemUsed)) {
+				item = colllectable;
+				UtilityEntity util = (UtilityEntity) item;
+				util.use(player);
+				
+				if (item instanceof Bomb) {
+					currentDungeon.getEntities().add(item);
+				}
+			}
+		}
+
+		currentDungeon.getInventory().remove(item);
+		
 		// First tick of game, some actions to do
 		if (currentDungeon.getTickNumber() == 0) {
 			// If player exists
@@ -443,9 +456,11 @@ public class DungeonManiaController {
 		// Explode all valid bombs
 		List<Entity> toRemove = new ArrayList<>();
 		for (Entity entity : currentDungeon.getEntities()) {
-			if (entity instanceof BombStatic) {
-				BombStatic bomb = (BombStatic)entity;
-				toRemove.addAll(bomb.explode(currentDungeon));
+			if (entity instanceof Bomb) {
+				Bomb bomb = (Bomb)entity;
+				if (bomb.isActive()) {
+					toRemove.addAll(bomb.explode(currentDungeon));
+				}
 			}
 		}
 

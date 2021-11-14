@@ -62,9 +62,12 @@ public abstract class MovingEntity extends Entity {
 		
 		if (entity instanceof Boulder) {
 			return false;
-		} else if (entity instanceof BombStatic) {
-			return false;
-		} else if (entity instanceof Wall) {
+		}else if (entity instanceof Bomb) {
+			Bomb bomb = (Bomb) entity;
+			if (bomb.isActive()) {
+				return false;
+			} return true;
+		}  else if (entity instanceof Wall) {
 			return false;
 		} else if (entity instanceof ZombieToastSpawner) {
 			return false;

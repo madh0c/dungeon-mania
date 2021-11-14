@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -269,9 +270,20 @@ public class MiscTest {
 	@Test
     public void testMisc() {
 		DungeonManiaController controller = new DungeonManiaController();
+        assertDoesNotThrow(() -> controller.newGame("portals", "Standard"));
 
         assertEquals("default", controller.getSkin());
         assertEquals("en_US", controller.getLocalisation());
 
+        DungeonResponse dR = controller.getDungeonInfo(0);
+        List<AnimationQueue> animationQueue = dR.getAnimations();
+
+        AnimationQueue firstQueue = animationQueue.get(0);
+
+        assertEquals("PostTick", firstQueue.getWhen());
+        assertEquals(controller.getCurrentDungeon().getPlayer().getId(), firstQueue.getEntityId());
+        assertEquals(Arrays.asList("healthbar set 1.0", "healthbar tint 0x00ff00"), firstQueue.getQueue());
+        assertEquals(true, firstQueue.isLoop());
+        assertEquals(-1, firstQueue.getDuration());
     }
 }

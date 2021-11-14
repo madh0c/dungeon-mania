@@ -1,0 +1,163 @@
+{
+  "id": 1,
+  "name": "testTimeTravellingPortal",
+  "inventory": [
+    {
+      "position": {
+        "x": 1,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "treasure",
+      "id": "1"
+    }
+  ],
+  "entities": [
+    {
+      "trackingList": [
+        "RIGHT",
+        "UP",
+        "DOWN",
+        "LEFT",
+        "RIGHT",
+        "UP",
+        "DOWN",
+        "LEFT",
+        "RIGHT",
+        "UP",
+        "DOWN",
+        "LEFT",
+        "RIGHT",
+        "UP",
+        "DOWN",
+        "LEFT",
+        "RIGHT",
+        "UP",
+        "DOWN",
+        "LEFT",
+        "RIGHT",
+        "UP",
+        "DOWN",
+        "LEFT",
+        "RIGHT",
+        "UP",
+        "LEFT",
+        "LEFT",
+        "RIGHT",
+        "RIGHT",
+        "DOWN",
+        "RIGHT",
+        "RIGHT",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+      ],
+      "traceUntil": 32,
+      "health": 100,
+      "baseAttack": 2,
+      "enemyAttack": true,
+      "ticksFrozen": 0,
+      "position": {
+        "x": 1,
+        "y": -2,
+        "layer": 0
+      },
+      "type": "older_player",
+      "id": "0"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "time_travelling_portal",
+      "id": "2"
+    },
+    {
+      "health": 85,
+      "attack": 2,
+      "visible": true,
+      "currentDir": "NONE",
+      "haveKey": false,
+      "hasSunStone": false,
+      "invincibleTickDuration": 0,
+      "enemyAttack": true,
+      "initialHealth": 100,
+      "invincibleAmount": 8,
+      "initialAttack": 2,
+      "controlled": [],
+      "traceList": [
+        "RIGHT",
+        "UP",
+        "DOWN",
+        "LEFT",
+        "RIGHT",
+        "UP",
+        "DOWN",
+        "LEFT",
+        "RIGHT",
+        "UP",
+        "DOWN",
+        "LEFT",
+        "RIGHT",
+        "UP",
+        "DOWN",
+        "LEFT",
+        "RIGHT",
+        "UP",
+        "DOWN",
+        "LEFT",
+        "RIGHT",
+        "UP",
+        "DOWN",
+        "LEFT",
+        "RIGHT",
+        "UP",
+        "LEFT",
+        "LEFT",
+        "RIGHT",
+        "RIGHT",
+        "DOWN",
+        "RIGHT",
+        "RIGHT",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+      ],
+      "position": {
+        "x": 4,
+        "y": 0,
+        "layer": 0
+      },
+      "type": "player",
+      "id": "4"
+    }
+  ],
+  "gameMode": "standard",
+  "goals": "",
+  "historicalEntCount": 5,
+  "tickNumber": 10,
+  "spawnpoint": {
+    "x": 0,
+    "y": 0,
+    "layer": 0
+  },
+  "foundGoals": {
+    "goal": "",
+    "hasCompleted": false
+  },
+  "goalConditions": "",
+  "factory": {},
+  "mercSpawnrate": 20,
+  "spiderSpawnrate": 20,
+  "rewindPath": "/rewind/1636891945147/"
+}

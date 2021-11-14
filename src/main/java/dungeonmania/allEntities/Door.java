@@ -13,6 +13,12 @@ public class Door extends Entity {
         super(id, position, "door");
         this.isOpen = false;
         this.key = key;
+
+        if (key == 1) {
+            super.setType("door_1");
+        } else if (key == 2) {
+            super.setType("door_2");
+        }
     }
 
     public int getKey() {
