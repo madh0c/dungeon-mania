@@ -5,7 +5,7 @@ import java.util.List;
 import dungeonmania.*;
 import dungeonmania.util.Position;
 
-public class Anduril extends UsableEntity {
+public class Anduril extends DurableEntity {
 
 	private final int dmgMultiplier = 3;
 

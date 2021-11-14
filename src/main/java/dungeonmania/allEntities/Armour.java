@@ -4,10 +4,10 @@ import java.util.List;
 
 import dungeonmania.CollectableEntity;
 import dungeonmania.Dungeon;
-import dungeonmania.UsableEntity;
+import dungeonmania.DurableEntity;
 import dungeonmania.util.Position;
 
-public class Armour extends UsableEntity {
+public class Armour extends DurableEntity {
         
     public Armour(String id, Position position) {
         super(id, position, "armour", 10);
