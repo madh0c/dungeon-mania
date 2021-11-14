@@ -422,10 +422,8 @@ public class DungeonManiaController {
 			currentDungeon.getEntities().removeAll(toRemove);
 		}		
 		
-		// Spawn in new mercenary after amount of ticks, dependent on gamemode
-		if (currentDungeon.getTickNumber() % currentDungeon.getMercSpawnrate() == 0 && currentDungeon.getTickNumber() > 0) {	
-			currentDungeon.spawnMerc();
-		}
+		// Spawn in mercenary if appropriate
+		currentDungeon.spawnMerc();
 
 		// Spawn in zombies if appropriate
 		List<ZombieToastSpawner> spawners = new ArrayList<ZombieToastSpawner>();
@@ -444,7 +442,6 @@ public class DungeonManiaController {
 		// currentDungeon.spiderSpawn();
 		
 		evalGoal(currentDungeon);
-		
 		
 		return getDungeonInfo(currentDungeon.getId());
 	}

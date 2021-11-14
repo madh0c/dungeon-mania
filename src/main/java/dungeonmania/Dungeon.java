@@ -422,9 +422,17 @@ public class Dungeon {
 	}
 
 	/**
-	 * Spawn in a mercenary at the spawnpoint
+	 * Spawn in a mercenary at the spawnpoint at certain intervals depending on gamemode
+	 * <ul><li>Peaceful: Every 20 ticks
+	 * <li>Standard: Every 20 ticks
+	 * <li>Hard: Every 10 ticks</ul>
 	 */
-	public boolean spawnMerc() {
+	public void spawnMerc() {
+		// Check if correct tick to spawn merc
+		if (getTickNumber() % getMercSpawnrate() != 0 || getTickNumber() == 0) {
+			return;
+		}
+
 		// If there is a spawnpoint
 		if (getSpawnpoint() != null) {
 			// Merc spawn every 10/20 ticks
@@ -433,7 +441,7 @@ public class Dungeon {
 			
 			for (Entity entity : getEntitiesOnCell(getSpawnpoint())) {
 				if (!newMerc.collide(entity, this)) {
-					return false;
+					return;
 				}
 			}
 			
@@ -446,9 +454,9 @@ public class Dungeon {
 			} else {
 				addEntity(newMerc);
 			}			
-			return true;				
+			return;				
 		}
-		return false;
+		return;
 	}
 
 	/**
