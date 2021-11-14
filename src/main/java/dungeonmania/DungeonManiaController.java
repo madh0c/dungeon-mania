@@ -361,7 +361,8 @@ public class DungeonManiaController {
 		// PREVIOUS TICK ACTIONS
 		checkValidTick(itemUsed);
 
-		saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
+		// TODO UNCOMMENT
+		// saveRewind(currentDungeon.getRewindPath(), currentDungeon.getTickNumber(), currentDungeon);
 		
 		Player player = currentDungeon.getPlayer();
 
